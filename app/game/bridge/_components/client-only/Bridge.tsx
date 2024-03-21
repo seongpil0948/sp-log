@@ -3,7 +3,7 @@
 import { cm1, cm2 } from '../../_logic/common'
 import * as THREE from 'three'
 import * as CANNON from 'cannon-es'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import gsap from 'gsap'
 import { Floor } from '../../_logic/Floor'
 import { Pillar } from '../../_logic/Pillar'

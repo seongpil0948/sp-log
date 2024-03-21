@@ -1,12 +1,13 @@
 'use client'
 import { RefObject } from "react"
 import { AmbientLight, AxesHelper, Camera, DirectionalLight, DirectionalLightHelper, Mesh, MeshBasicMaterial, MeshStandardMaterial, OrthographicCamera, PerspectiveCamera, PlaneGeometry, RepeatWrapping, Scene, TextureLoader, Vector2, Vector3 } from "three"
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader"
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js"
 import House from "./House"
 import Player from "./Player"
 import CONFIG from "../config"
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
-import CONFIG_GAME from "../../_utils/config"
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js"
+import { commonColors } from "@nextui-org/theme"
+import commonConfig from "@/config"
 
 
 type CameraMode = 'perspective' | 'orthographic'
@@ -64,7 +65,7 @@ export default class StateVillage {
       scene: this.scene,
       meshes: this.meshes,
       gltfLoader: this.gltfLoader,
-      modelSrc: CONFIG_GAME.playerSrc,
+      modelSrc: commonConfig.game.character.default,
     })
     this.camera = {
       perspective: getCamera.perspective(this.cameraPosition.perspective),

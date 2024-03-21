@@ -6,9 +6,9 @@ import {
 	AnimationAction,
 } from 'three';
 import { Stuff, StuffChildParams } from './Stuff';
-import CONFIG_GAME from "../../_utils/config"
+import commonConfig from '@/config';
 
-const SUFFIX= "-player"
+const SUFFIX = "-player"
 export class Player extends Stuff {
 	modelMesh: Object3D | undefined;
 	actions: AnimationAction[] = [];
@@ -24,7 +24,7 @@ export class Player extends Stuff {
 
 		cm1.gltfLoader.load(
 			// CONFIG_GAME.playerSrc,
-			"/glb/ilbuni-bridge.glb",
+			commonConfig.game.character.default,
 			glb => {
 				// shadow
 				glb.scene.traverse(child => {

@@ -1,9 +1,13 @@
+import { Suspense } from "react";
 import OneMin from "../_components/client-only/OneMin";
 
 export default async function SSGPage() {
   return (
     <div>
-      <OneMin />
+      <Suspense fallback={"Loading"}>
+        <OneMin />
+        {/* <>hi</> */}
+      </Suspense>
     </div>
   );
 }

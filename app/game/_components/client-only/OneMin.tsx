@@ -1,87 +1,48 @@
-'use client'
+"use client";
+import React, { useEffect, useRef, useState } from "react";
+import { OrbitControls, useAnimations, useGLTF } from "@react-three/drei";
+import { Canvas, PrimitiveProps, useLoader } from "@react-three/fiber";
+import { type AnimationAction, AnimationMixer } from "three";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import commonConfig from "@/config";
 
-import { useEffect, useRef } from 'react';
-import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+const Computers = ({ isMobile = false }) => {
+  const gltf = useLoader(GLTFLoader, commonConfig.game.character.default);
+  const { ref, actions, names } = useAnimations(gltf.animations);
+  const [index, setIndex] = useState(0);
+  // Change animation when the index changes
+  useEffect((): any => {
+    // Reset and fade in animation after an index has been changed
+    actions[names[index]]?.reset().fadeIn(0.5).play();
+    // In the clean-up phase, fade it out
+    return () => actions[names[index]]?.fadeOut(0.5);
+  }, [index, actions, names]);
 
-export default function OneMin() {
-	// Renderer
-	const canvasRef = useRef<HTMLCanvasElement>(null);
-	useEffect(() => {
-		if (!canvasRef.current) return;
-		const renderer = new THREE.WebGLRenderer({
-			canvas: canvasRef.current,
-			antialias: true
-		});
-		renderer.setSize(window.innerWidth, window.innerHeight);
-		renderer.setPixelRatio(window.devicePixelRatio > 1 ? 2 : 1);
+  return (
+    <group>
+      <primitive
+        scale={isMobile ? 0.7 : 0.75}
+        position={[0, 0, 3]}
+        // rotation={[-0.01, -0.2, -0.1]}
+        object={gltf.scene}
+      />
+    </group>
+  );
+};
 
-	// Scene
-	const scene = new THREE.Scene();
-	// Camera
-	const camera = new THREE.PerspectiveCamera(
-		75,
-		window.innerWidth / window.innerHeight,
-		0.1,
-		1000
-	);
-	camera.position.y = 1.5;
-	camera.position.z = 4;
-	scene.add(camera);
+const ComputersCanvas = () => {
+  return (
+    <Canvas>
+      <ambientLight />
+      <Computers />
+      <gridHelper args={[10, 10]} />
+      <axesHelper args={[5]} />
+      <OrbitControls />
+      <orthographicCamera position={[0, 5, 5]} zoom={5} />
+    </Canvas>
+  );
+};
 
-	// Light
-	const ambientLight = new THREE.AmbientLight('white', 0.5);
-	scene.add(ambientLight);
+export default ComputersCanvas;
 
-	const directionalLight = new THREE.DirectionalLight('white', 1);
-	directionalLight.position.x = 1;
-	directionalLight.position.z = 2;
-	scene.add(directionalLight);
-
-	// Controls
-	const controls = new OrbitControls(camera, renderer.domElement);
-
-	// gltf loader
-	const gltfLoader = new GLTFLoader();
-	gltfLoader.load(
-		'/glb/1min.glb',
-		gltf => {
-			// console.log(gltf.scene.children[0]);
-			const ilbuniMesh = gltf.scene.children[0];
-			scene.add(ilbuniMesh);
-		}
-	);
-
-	// 그리기
-	const clock = new THREE.Clock();
-
-	function draw() {
-		const delta = clock.getDelta();
-
-		renderer.render(scene, camera);
-		renderer.setAnimationLoop(draw);
-	}
-
-	function setSize() {
-		camera.aspect = window.innerWidth / window.innerHeight;
-		camera.updateProjectionMatrix();
-		renderer.setSize(window.innerWidth, window.innerHeight);
-		renderer.render(scene, camera);
-	}
-
-	// 이벤트
-	window.addEventListener('resize', setSize);		
-	draw();
-
-	})
-
-
-
-
-
-	return <canvas ref={canvasRef}></canvas>
-}
-
-
-
+useGLTF.preload(commonConfig.game.character.default);

@@ -6,7 +6,7 @@ import {
 	MeshPhongMaterial,
 	AnimationMixer
 } from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 import {
 	World,
@@ -15,6 +15,7 @@ import {
 
 export const cm1 = {
 	scene: new Scene(),
+	// TODO: use every one
 	gltfLoader: new GLTFLoader(),
 	mixer: undefined as AnimationMixer | undefined,
 
