@@ -5,10 +5,11 @@ import * as THREE from "three";
 import gsap from "gsap";
 import StateVillage from "../../_logic/Village";
 import BridgeEnterModal from "./BridgeEnterModal";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import GuestBookModal from "./GuestBookModal";
 export default function World() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const bridgeEnterRef = useRef<any>(null);
+  const guestBookRef = useRef<any>(null);
 
   useEffect(() => {
     if (!canvasRef.current) return;
@@ -34,6 +35,9 @@ export default function World() {
           s.camera.perspective.lookAt(s.player.modelMesh.position);
           if (s.player.isCloseTo(s.destinationPoint)) {
             s.player.moving = false;
+          }
+          if (s.guestBook.isCloseTo(s.player.modelMesh.position)) {
+            guestBookRef.current.open();
           }
 
           if (s.player.isOnTheSpot(s.spotMesh.position)) {
@@ -214,6 +218,7 @@ export default function World() {
         }}
       />
       <BridgeEnterModal ref={bridgeEnterRef} />
+      <GuestBookModal ref={guestBookRef} />
     </>
   );
 }

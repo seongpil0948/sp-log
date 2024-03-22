@@ -94,20 +94,20 @@ export default class StateVillage {
     )
     this.meshes.push(this.floorMesh)
 
-    if (this._isdebug) {
-      this.scene.add(
-        new AxesHelper(3),
-        new DirectionalLightHelper(this.light.directional),
-      )
-    }
+    // if (this._isdebug) {
+    //   this.scene.add(
+    //     new AxesHelper(3),
+    //     new DirectionalLightHelper(this.light.directional),
+    //   )
+    // }
   }
   async initialize() {
     if (this._isdebug && !this._isInitialized && this.guestBook.modelMesh) {
       this._isInitialized = true
-      const dat = await import('dat.gui')
-      const gui = new dat.GUI();
-      gui.add(this.guestBook.modelMesh.position, 'y', -5, 5, 0.1).name('guestBook trans Y');
-      gui.add(this.camera.perspective.rotation, 'x', -Math.PI, Math.PI, 0.1).name('카메라 rot X');
+      // const dat = await import('dat.gui')
+      // const gui = new dat.GUI();
+      // gui.add(this.guestBook.modelMesh.position, 'y', -5, 5, 0.1).name('guestBook trans Y');
+      // gui.add(this.camera.perspective.rotation, 'x', -Math.PI, Math.PI, 0.1).name('카메라 rot X');
     }
   }
 

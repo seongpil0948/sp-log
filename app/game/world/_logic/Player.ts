@@ -9,6 +9,7 @@ import {
 } from 'three';
 import type { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import CONFIG from '../config';
+import { isCloseTo } from './common';
 
 
 interface ConstructorParams {
@@ -91,9 +92,9 @@ export default class Player {
 	}
 
 	isCloseTo(dest: { x: number, z: number }) {
-		// FIXME: 이거 왜 0.03이지?
-		return Math.abs(dest.x - this.modelMesh.position.x) < 0.03 &&
-			Math.abs(dest.z - this.modelMesh.position.z) < 0.03
+		return isCloseTo(this.modelMesh.position, dest, 0.03)
+		// return Math.abs(dest.x - this.modelMesh.position.x) < 0.03 &&
+		// 	Math.abs(dest.z - this.modelMesh.position.z) < 0.03
 	}
 	isOnTheSpot(dest: Vector3) {
 		return Math.abs(dest.x - this.modelMesh.position.x) < 1.5 &&
