@@ -15,19 +15,13 @@ body,
   padding: 0;
   user-select: none;
   overflow: hidden;
-}
-
-#root {
-  overflow: auto;
-}
-
-body {
-  position: fixed;
-  overflow: hidden;
-  overscroll-behavior-y: none;
-  background: white;
+  /* box-sizing:; */
 }
 
 .dg.ac {
   top: 20% !important;
+}
+
+figure code {
+  background-color: transparent !important;
 }

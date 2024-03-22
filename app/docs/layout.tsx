@@ -3,5 +3,14 @@ export default function DocsLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <section>{children}</section>;
+  return (
+    <section
+      style={{
+        maxHeight: "100vh",
+        overflow: "auto",
+      }}
+    >
+      {children}
+    </section>
+  );
 }

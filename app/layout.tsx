@@ -12,7 +12,7 @@ export const viewport: Viewport = {
     { media: "(prefers-color-scheme: light)", color: "white" },
     { media: "(prefers-color-scheme: dark)", color: "black" },
   ],
-}
+};
 
 export const metadata: Metadata = {
   title: {
@@ -50,9 +50,7 @@ export default function RootLayout({
         >
           <div className="relative flex flex-col h-screen">
             <Navbar />
-            <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
-              {children}
-            </main>
+            <main>{children}</main>
             {/* <footer className="w-full flex items-center justify-center py-3">
               <Link
                 isExternal

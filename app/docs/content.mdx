@@ -14,6 +14,43 @@
 
 ## User 추가 / 삭제 / 삭제 / 수정
 
+### 2. 페이지 컴포넌트 작성
+
+아래 코드를 붙여넣습니다.
+<CodeHeader text="TestComponent.tsx" /> 
+
+```tsx
+import CmTitle from '@/app/_components/server-only/title'
+import { AVAIL_LOCALES, TAvailLocale } from '@/config/system'
+import { getDictionary } from '@/app/[lang]/dictionaries'
+import CmButton from '@/app/_components/server-only/button'
+import clsx from 'clsx'
+
+export async function generateStaticParams() {
+  return AVAIL_LOCALES.map((lang) => ({ lang }))
+}
+
+interface Param {
+  params: { lang: TAvailLocale }
+}
+
+export default async function SSGPage({ params: { lang } }: Param) {
+  const dict = await getDictionary(lang)
+  return (
+    <section className="flex flex-col items-center justify-center gap-4 py-8">
+      <div className="inline-block max-w-lg justify-center text-center">
+        <CmTitle>Welcome to &nbsp;</CmTitle>
+        <CmTitle>Hi?</CmTitle>
+        <h3>by Seongpil</h3>
+        <p className={clsx('text-primary-700')}>Bye?</p>
+      </div>
+      <CmButton className=" bg-purple-200">purple</CmButton>
+      <CmButton color="primary">primary</CmButton>
+    </section>
+  )
+}
+```
+
 ### 사용자 추가
 * 사용자를 추가하는 방법은 useradd 명령을 사용한다.
 * useradd 명령은 사용자를 추가할 때 필요한 파일을 생성하고, 사용자의 홈 디렉토리를 생성한다.(기본적으로 /home/사용자이름)

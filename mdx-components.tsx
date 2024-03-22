@@ -12,20 +12,20 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     ...components,
     a: (props: React.HTMLAttributes<HTMLAnchorElement>) => <Link {...props} />,
-    blockquote: (props) => (
-      <blockquote
-        className="my-6 rounded-xl border border-default-200 bg-default-200/20 px-4 py-3 italic dark:border-default-100 [&>p]:m-0"
-        {...props}
-      />
-    ),
-    code: (props) => (
-      <code
-        className="inline-block h-fit rounded-small  bg-transparent px-0 py-0 font-mono text-xs font-normal text-sky-400 md:text-small"
-        // className="inline-block h-fit whitespace-nowrap rounded-small bg-transparent px-0 py-0 font-mono text-small font-normal text-sky-400 before:content-['`'] after:content-['`']"
-        // className="inline-block h-fit whitespace-nowrap rounded-small bg-transparent "
-        {...props}
-      />
-    ),
+    // blockquote: (props) => (
+    //   <blockquote
+    //     className="my-6 rounded-xl border border-default-200 bg-default-200/20 px-4 py-3 italic dark:border-default-100 [&>p]:m-0"
+    //     {...props}
+    //   />
+    // ),
+    // code: (props) => (
+    //   <code
+    //     className="inline-block h-fit rounded-small  bg-transparent px-0 py-0 font-mono text-xs font-normal text-sky-400 md:text-small"
+    //     // className="inline-block h-fit whitespace-nowrap rounded-small bg-transparent px-0 py-0 font-mono text-small font-normal text-sky-400 before:content-['`'] after:content-['`']"
+    //     // className="inline-block h-fit whitespace-nowrap rounded-small bg-transparent "
+    //     {...props}
+    //   />
+    // ),
     h1: (props) => {
       return (
         <HeaderWithLink
@@ -126,7 +126,18 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         >
           {/* <span className="flex whitespace-pre-wrap p-7 text-sm leading-6"> */}
           <span className="flex whitespace-pre-wrap text-sm leading-6">
-            {props.children}
+            <pre
+              tabIndex={0}
+              data-language="tsx"
+              className="flex"
+              data-theme="github-dark-dimmed"
+              style={{
+                backgroundColor: "transparent",
+                color: "rgb(173, 186, 199)",
+              }}
+            >
+              {props.children}
+            </pre>
           </span>
         </Snippet>
       );
