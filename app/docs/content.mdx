@@ -1,0 +1,332 @@
+# Intro
+* 리눅스에서는 사용자와 그룹을 구분하여 관리한다.  
+* 사용자는 파일이나 디렉토리에 대한 접근 권한을 가지고 있으며, 그룹은 사용자를 묶어서 관리하는 역할을 한다.  
+* 사용자와 그룹은 각각 고유한 식별 번호를 가지고 있으며, 이를 UID와 GID라고 한다. 
+* 
+### 관련 파일
+
+* /etc/group 파일에 기록되어 있으며, 그룹에 속한 사용자는 /etc/group 파일에서 확인할 수 있다. 
+* /etc/shadow 파일에 기록되어 있는 암호화된 비밀번호를 가지고 있다. 
+* /etc/gshadow 파일에 기록되어 있는 암호화된 그룹 비밀번호를 가지고 있다. 
+* 사용자와 그룹은 /etc/login.defs 파일에 기록되어 있는 암호화된 비밀번호를 가지고 있다. 
+* 사용자와 그룹은 /etc/default/useradd 파일에 기록되어 있는 암호화된 비밀번호를 가지고 있다. 
+
+
+## User 추가 / 삭제 / 삭제 / 수정
+
+### 사용자 추가
+* 사용자를 추가하는 방법은 useradd 명령을 사용한다.
+* useradd 명령은 사용자를 추가할 때 필요한 파일을 생성하고, 사용자의 홈 디렉토리를 생성한다.(기본적으로 /home/사용자이름)
+* 유저를 생성하면 해당 이름의 그룹도 생성된다.
+
+```bash
+$ sudo useradd [옵션] 사용자이름
+# specify the user's uid, gid
+$ sudo useradd -u 1001 -g 1002 사용자이름
+```
+
+`/etc/skel` 디렉토리는 유저가 생성된후, 홈 디렉토리가 생성될 때 기본적으로 복사되는 파일들이 저장되어 있는 디렉토리이다.  
+`/etc/default/useradd` 파일에 기록되어 있는 암호화된 비밀번호를 가지고 있다.
+이처럼 유저의 기본 설정을 보고싶다면 아래 명령어를 실행해보자.  
+```bash
+$ useradd --defaults 
+GROUP=100
+HOME=/home
+INACTIVE=-1
+EXPIRE=
+SHELL=/bin/sh
+SKEL=/etc/skel
+CREATE_MAIL_SPOOL=no
+$ cat /etc/login.defs
+```
+
+만약 홈 디렉토리와 쉘을 지정하고 싶다면 아래와 같이 옵션을 추가한다.
+```bash
+$ sudo useradd --home-dir /home/사용자이름 -s /bin/bash 사용자이름
+```
+생성한 유저의 상세 정보는 /etc/passwd(사용자 이름, UID, GID, 홈 디렉토리, 쉘 정보) 파일에 기록되어 있다.  
+```bash
+$ cat /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+testuser:x:1001:1002:testuser must be delete after test is finished:/home/abacus:/bin/bash
+dhjoe:x:1002:998::/home/abacus:/bin/bash
+```
+* delimeter는 콜론(:)이다.
+* 1번째는 사용자 이름, 2번째는 암호화된 비밀번호, 3번째는 UID, 4번째는 GID, 5번째는  user description or comment field., 6번째는 홈 디렉토리, 7번째는 쉘 정보이다.
+
+```bash
+$ sudo passwd 사용자이름
+```
+
+#### 사용자 삭제
+* 사용자를 삭제하는 방법은 userdel 명령을 사용한다.
+
+```bash
+$ sudo userdel 사용자이름
+```
+사용자가 삭제되더라도 홈 디렉토리는 삭제되지 않는다.
+홈 디렉토리까지 삭제하려면 -r 옵션을 사용한다.
+
+```bash
+$ sudo userdel -r 사용자이름
+```
+우린 이제 각 디렉토리가 누구의 소유인지 UID, GID를 확인 할 수있다
+```bash
+$ ls -ln /home
+total 0
+drwx------ 2 1001 1002 40  9월  9 16:26 testuser
+drwx------ 2 1002 998  40  9월  9 16:26 dhjoe
+```
+로그인한 사용자는 내가 누구인지 확인할 수 있다.
+```bash
+$ whoami
+dhjoe
+$ id
+uid=1002(dhjoe) gid=998 groups=998 ...
+```
+그 밖에 우리는 다른 타입의 사용자를 정의 할 수있다 GCP의 서비스 어카운트, Habor의 robot account 등 과같이
+리눅스에서도 시스템 사용자를 정의 할 수 있다.
+```bash
+$ sudo useradd --system /bin/false 사용자이름
+```
+> 보통 system user 의 uid, gid는 1000 이하로 정의한다.
+
+### 유저 수정
+* 유저를 수정하는 방법은 기본적으로 usermod 명령을 사용한다.
+
+```bash
+$ sudo usermod [옵션] 사용자이름
+
+# 사용자의 홈 디렉토리를 변경하고 싶다면 -d 옵션을 사용한다.
+$ sudo usermod -d /home/사용자이름 사용자이름
+
+$ sudo usermod --home /home/other --move-home 사용자이름
+
+# 잠금 처리
+$ sudo usermod -L 사용자이름
+# 잠금 해제
+$ sudo usermod -U 사용자이름
+
+# 유저가 2021년 9월 9일에 만료되도록 설정
+$ sudo usermod -e 2021-09-09 사용자이름
+
+# 유저의 비밀번호를 만료되도록 설정
+$ sudo chage -d 0 사용자이름
+
+# 2021년 9월 9일에 유저의 비밀번호를 만료되도록 설정
+# change age
+$ sudo chage -E 2021-09-09 사용자이름
+
+```
+
+#### 패스워드 변경
+* 패스워드를 변경하는 방법은 passwd 명령을 사용한다.
+
+```bash
+$ sudo passwd 사용자이름
+```
+
+
+좋다 이제 그룹의 세계로 넘어가보자
+
+
+
+## Group 추가 / 삭제 / 수정
+그룹으로 뭘 할 수 있을까?
+* 그룹은 사용자를 묶어서 관리하는 역할을 한다.
+*  시스템에서 거의 모든 작업을 수행할 수 있는 휠 또는 의사 그룹이다.
+  * 가장 강력한 사용자 계정인 루트를 사용하여 루트 권한으로 모든 프로그램을 실행할 수 있습니다.
+  * 또 다른 하나는 Docker 컨테이너를 관리할 수 있는 Docker 그룹의 사용자입니다.
+사용자는 여러 그룹에 속할 수 있지만 이러한 그룹 중 하나는 특별합니다(Primary). 그 중 하나는 기본 그룹이고 나머지는 모두 보조 또는 보충 그룹입니다. 기본 그룹을 로그인 그룹이라고도 합니다. 사용자가 로그인하자마자 이 그룹이 자신의 메인 그룹이 되기 때문입니다. 하지만 이론만으로는 이해하기 어렵습니다. 그럼 이 기본 그룹의 특별한 점을 살펴보겠습니다.
+---
+사용자가 프로그램을 실행하면 해당 사용자 계정과 그룹에서 실행됩니다.
+그렇지 않으면 사용자 계정과 기본 그룹이 가지고 있는 것과 동일한 권한으로 프로그램이 실행됩니다.  
+
+다른 예로는 사용자가 파일을 만들 때 이 파일은 사용자 계정과 기본 또는 로그인 그룹에 의해 자동으로 소유됩니다.
+
+### 그룹 조회
+* 그룹을 조회하는 방법은 `groups` 명령을 사용한다.
+
+```bash
+$ groups
+abacus adm cdrom sudo dip plugdev lxd docker
+# list of users 
+$ users
+abacus 
+
+```
+
+
+
+### 그룹 추가
+* 그룹을 추가하는 방법은 groupadd 명령을 사용한다.
+
+```bash
+$ sudo groupadd 그룹이름
+sudo groupadd testGroup
+
+# add user to group
+$ sudo usermod -aG testGroup abacus
+
+# check group
+$ groups abacus
+abacus : abacus testGroup
+
+```
+first group is primary group, second group is secondary group
+
+### 그룹 삭제
+* 그룹을 삭제하는 방법은 `gpasswd` 명령을 사용한다.
+
+```bash
+$ sudo gpasswd -d 사용자이름 그룹이름
+$ sudo groupdel 그룹이름
+```
+
+### 그룹 수정
+* 그룹을 수정하는 방법은 `groupmod` 명령을 사용한다.
+
+```bash
+$ sudo groupmod [옵션] 그룹이름
+
+# 그룹의 이름을 변경하고 싶다면 -n 옵션을 사용한다.
+$ sudo groupmod -n 새로운그룹이름 기존그룹이름
+$ sudo groupmod --new-name programmers testGroup
+
+# change primary group
+$ sudo usermod --gid 그룹이름 사용자이름
+$ sudo suermod -g testGroup abacus
+```
+만약 삭제하려는 그룹이 누군가의 기본 그룹이라면 삭제할 수 없다.
+```bash
+$ sudo groupdel testGroup
+groupdel: cannot remove the primary group of user 'abacus'
+
+$ sudo usermod -g abacus abacus
+$ sudo groupdel testGroup
+done
+```
+
+## 사용자 및 그룹 디스크 할당
+`100TB`의 저장 공간을 갖춘 서버를 상상해 보세요. 그 정도면 충분합니다.   
+하지만 100명의 사용자가 이 서버를 공유한다면 어떨까요? 그리고 한 사용자가 `80TB`의 데이터를 저장한다면 어떻게 될까요?   
+단 한 사람이 사용 가능한 리소스의 `80%`를 사용하기 때문에 이는 불공평합니다.  
+
+이 문제를 해결하기 위해 리눅스는 사용자와 그룹에 대한 디스크 할당(disk quotas)을 제공한다.
+우린 사용자/그룹에 대한 inode(파일 개수), block(파일 크기)에 대한 제한을 설정할 수 있다.
+100명의 사용자에게 공평히 1테라바이트의 저장 공간을 할당하고 싶다면 어떻게 해야 할까요?  
+Let's 기릿~!  
+
+## setup
+```bash
+$ sudo dnf install quota
+```
+So let's say we want quotas on the file system where backups are stored.
+백업이 저장되는 파일 시스템에 대한 할당량을 원한다고 가정해 보겠습니다.  
+storage 관련 궁금한 점이 있다면 [storage-management](/doc/linux/storage-management)를 참고하자
+```bash
+$ sudo vim /etc/fstab
+# User quota enables setting storage quotas for users, and group quota enables quotas for groups.
+/dev/vdb1 /mnt/backup xfs defaults,usrquota,grpquota 0 2
+
+$ sudo mount -o remount /mnt/backup
+or
+$ sudo systemctl reboot
+```
+이시점에서 각 유저와 그룹에 대한 xfs파일 시스템이 활성화된다.   
+시스템은 그룹의 각 사용자가 사용하는 공간의 양을 추적하고 우리가 설정한 제한을 적용합니다.  
+
+--- 
+`/dev/vdb2`와 같은 파티션에 위치한 파일 시스템에 할당량을 적용하려면 다음을 수행합니다.  
+```bash
+# $ sudo quotacheck --create-files --user --group --verbose /dev/vdb1
+$ sudo quotacheck --create-files --user --group --verbose /mnt/backup
+`--create-files` 옵션은 파일 시스템에 대한 할당량을 생성하는 데 사용됩니다.  
+`--user` 옵션은 사용자에 대한 할당량을 생성하는 데 사용됩니다.  
+`--group` 옵션은 그룹에 대한 할당량을 생성하는 데 사용됩니다.  
+`--verbose` 옵션은 명령이 실행되는 동안 자세한 정보를 표시하는 데 사용됩니다.  
+
+# $ sudo xfs_quota -x -c 'limit bsoft=1t bhard=1.1t abacus' /mnt/backup
+```
+파일 시스템에 할당량 그룹과 할당량 사용자라는 두 개의 파일이 생성됩니다.
+- /mnt/backup/aquota.user
+- /mnt/backup/aquota.group
+위 파일들은 사용자 및 그룹에 대한 할당량, 사용량 정보를 저장합니다.
+
+```bash
+# 활성화
+$ sudo quotaon -v /mnt/backup
+```
+그럼 이제 확인해보자
+
+```bash
+# $ sudo repquota /mnt/backup
+$ sudo mkdir /mnt/backup/sp
+$ sudo chown abacus:sp /mnt/backup/sp
+$ sudo chmod 700 /mnt/backup/sp
+$ fallocate -l 100M /mnt/backup/sp/100M-file
+$ sudo edquota --user sp
+Disk quotas for user sp (uid 1001):
+  Filesystem                   blocks       soft       hard     inodes     soft     hard
+  /dev/vdb1                    102400          0          0          0        0        0
+```
+- blocks: 사용자가 사용중인 수 있는 블록(보통 kb) 수입니다.
+- soft: 값이 0이면 이 사용자에게 제한이 적용되지 않음을 의미합니다.
+- hard: 사용자가 사용할 수 있는 최대 블록 수입니다.
+소프트 제한을 150MB로 설정하고 하드 제한을 200MB로 설정할 수 있습니다.
+
+- edquota -p john ban ( john에 적용한 쿼터 값을 그대로 ban에게 적용)
+- requota /userHome (userHome 디렉토리에 적용되어있는 쿼터값을 확인)
+
+# Practice
+
+### Whenever we add a new user to the system, some files are copied, from a template directory to the user's home directory.
+Manually copy those files into `/home/bob/default_data` directory.
+유저가 생성될 때 어떤 파일들이 복사되는지는 `$ useradd --defaults | grep SKEL` 명령어를 통해 확인할 수 있다.
+```bash
+$ useradd --defaults | grep SKEL
+SKEL=/etc/skel
+```
+그럼 이제 `/etc/skel` 디렉토리에 있는 파일들을 `/home/bob/default_data` 디렉토리로 복사하자.
+```bash
+$ sudo cp -r /etc/skel /home/bob/default_data
+```
+
+### Make sure that this command gets executed for any user that logs in to the system:
+` echo "Welcome to our server!"`
+유저가 콘솔에 로그인하면, `/etc/profile` 파일이 실행된다. 그리고 파일 내부는 다음과 같이 `etc/profile.d` 디렉토리에 있는 파일들을 실행한다.
+```bash
+for i in /etc/profile.d/*.sh /etc/profile.d/sh.local ; do
+    if [ -r "$i" ]; then
+        if [ "${-#*i}" != "$-" ]; then 
+            . "$i"
+        else
+            . "$i" >/dev/null
+        fi
+    fi
+done
+
+unset i
+unset -f pathmunge
+
+if [ -n "${BASH_VERSION-}" ] ; then
+        if [ -f /etc/bashrc ] ; then
+                # Bash login shells run only /etc/profile
+                # Bash non-login shells run only /etc/bashrc
+                # Check for double sourcing is done in /etc/bashrc.
+                . /etc/bashrc
+       fi
+fi
+```
+사용자에게 환영 메시지를 보여주기 위해 `/etc/profile.d` 디렉토리에 `welcome.sh` 파일을 생성하고 아래와 같이 작성한다.
+```bash
+$ sudo vim /etc/profile.d/welcome.sh
+echo "Welcome to our server!"
+```
+
+
+## Reference
+- https://blog.naver.com/lunarispars/221462616529
+- https://kyumoonhan.tistory.com/32

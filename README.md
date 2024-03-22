@@ -1,40 +1,24 @@
-# Next.js & NextUI Template
+# Reference
 
-This is a template for creating applications using Next.js 13 (app directory) and NextUI (v2).
+- https://github.com/vercel/platforms/blob/main/app/sitemap.ts
 
-## Technologies Used
+### blog
+- https://github.com/timlrx/tailwind-nextjs-starter-blog/blob/main/contentlayer.config.ts
+- https://tailwind-nextjs-starter-blog.vercel.app/blog/new-features-in-v1#analytics
 
-- [Next.js 13](https://nextjs.org/docs/getting-started)
-- [NextUI v2](https://nextui.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Tailwind Variants](https://tailwind-variants.org)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Framer Motion](https://www.framer.com/motion/)
-- [next-themes](https://github.com/pacocoursey/next-themes)
-
-## How to Use
+### about
+- https://www.enricodeiana.design/about
+- https://www.alexnaraghi.com/contact
+- https://www.lauren-waller.com/about
 
 
-### Use the template with create-next-app
+### Projects
+- https://www.enricodeiana.design/works
+- https://www.alexnaraghi.com/armajet
+- https://devonstank.com/my-work/elementary-coffee-co
+- https://www.codewonders.dev/projects
 
-To create a new project based on this template using `create-next-app`, run the following command:
-
-```bash
-npx create-next-app -e https://github.com/nextui-org/next-app-template
-```
-
-### Install dependencies
-
-```bash
-npm install
-```
-
-### Run the development server
-
-```bash
-npm run dev
-```
-
-## License
-
-Licensed under the [MIT license](https://github.com/nextui-org/next-app-template/blob/main/LICENSE).
+### Dashboard
+- https://dribbble.com/shots/22004279-Business-Landing-page-design
+- https://itssharl.ee/fr
+- 
