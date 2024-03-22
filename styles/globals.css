@@ -27,3 +27,7 @@ body {
   overscroll-behavior-y: none;
   background: white;
 }
+
+.dg.ac {
+  top: 20% !important;
+}

@@ -8,6 +8,7 @@ import CONFIG from "../config"
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js"
 import { commonColors } from "@nextui-org/theme"
 import commonConfig from "@/config"
+import GuestBook from "./GuestBook"
 
 
 type CameraMode = 'perspective' | 'orthographic'
@@ -28,6 +29,7 @@ export default class StateVillage {
   private _isdebug = true
   private _isInitialized = false
 
+  public guestBook: GuestBook
   public house: House
   public player: Player
   public meshes: Mesh[] = []
@@ -53,6 +55,14 @@ export default class StateVillage {
     this._cameraMode = p.cameraMode
     this.scene = new Scene()
     this.gltfLoader = new GLTFLoader()
+    this.guestBook = new GuestBook({
+      gltfLoader: this.gltfLoader,
+      scene: this.scene,
+      modelSrc: '/glb/guest-book.glb',
+      x: -5,
+      y: 0.4,
+      z: 2,
+    })
     this.house = new House({
       gltfLoader: this.gltfLoader,
       scene: this.scene,
@@ -92,15 +102,12 @@ export default class StateVillage {
     }
   }
   async initialize() {
-    if (this._isdebug && !this._isInitialized) {
+    if (this._isdebug && !this._isInitialized && this.guestBook.modelMesh) {
       this._isInitialized = true
       const dat = await import('dat.gui')
       const gui = new dat.GUI();
-      gui.add(this.camera.perspective.position, 'x', -5, 5, 0.1).name('카메라 trans X');
-      gui.add(this.camera.perspective.position, 'y', -5, 5, 0.1).name('카메라 trans Y');
-      gui.add(this.camera.perspective.position, 'z', -10, 10, 0.1).name('카메라 trans Z');
+      gui.add(this.guestBook.modelMesh.position, 'y', -5, 5, 0.1).name('guestBook trans Y');
       gui.add(this.camera.perspective.rotation, 'x', -Math.PI, Math.PI, 0.1).name('카메라 rot X');
-      gui.add(this.camera.perspective.rotation, 'y', -Math.PI, Math.PI, 0.1).name('카메라 rot Y');
     }
   }
 
@@ -116,7 +123,7 @@ export default class StateVillage {
     // this.camera.perspective.rotation.copy(this.player.modelMesh.rotation);
     // this.camera.perspective.position.copy(this.player.modelMesh.position);
     this.player.actDefault.stop()
-    this.player.actWork.play()
+    this.player.actWork.setDuration(0.5).play()
   }
 
   public get destinationPoint() {

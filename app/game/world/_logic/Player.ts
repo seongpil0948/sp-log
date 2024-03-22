@@ -7,7 +7,7 @@ import {
 	type Camera,
 	Vector3
 } from 'three';
-import type { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import type { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import CONFIG from '../config';
 
 
@@ -23,7 +23,7 @@ export default class Player {
 	private _modelMesh?: Object3D
 	private _mixer?: AnimationMixer
 	private _actions?: AnimationAction[]
-	static initialPosition = new Vector3(0, 0.3, 0)
+	static initialPosition = new Vector3(0, 0.6, 0)
 
 
 	constructor(info: ConstructorParams) {
@@ -51,7 +51,7 @@ export default class Player {
 
 				this._mixer = new AnimationMixer(this._modelMesh);
 				this.actions[0] = this._mixer.clipAction(glb.animations[0]);
-				this.actions[1] = this._mixer.clipAction(glb.animations[1]);
+				this.actions[1] = this._mixer.clipAction(glb.animations[2]);
 				this.actions[0].play();
 			}
 		);

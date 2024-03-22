@@ -51,6 +51,24 @@ export default function Home() {
           <GithubIcon size={20} />
           GitHub
         </Link>
+        <Link
+          className={buttonStyles({ variant: "bordered", radius: "full" })}
+          href="/game/world"
+        >
+          World
+        </Link>
+        <Link
+          className={buttonStyles({ variant: "bordered", radius: "full" })}
+          href="/game/onemin"
+        >
+          onemin
+        </Link>
+        <Link
+          className={buttonStyles({ variant: "bordered", radius: "full" })}
+          href="/game/domino"
+        >
+          domino
+        </Link>
       </div>
 
       <div className="mt-8">
