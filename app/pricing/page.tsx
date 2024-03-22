@@ -1,12 +1,12 @@
 import { title } from "@/components/primitives";
-import { Textarea } from "@nextui-org/input";
-import FormGuestBook from "../game/_guestbook/components/FormGuestBook";
+import ViewGuestBook from "../game/_guestbook/components/ViewGuestBook";
+import clsx from "clsx";
 
 export default function PricingPage() {
   return (
     <div>
-      <h1 className={title()}>Pricing</h1>
-      <FormGuestBook />
+      <h1 className={clsx(title(), "block")}>Pricing</h1>
+      <ViewGuestBook />
     </div>
   );
 }

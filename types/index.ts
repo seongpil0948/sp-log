@@ -46,18 +46,19 @@ export type AvailDb = Firestore | OtherDB | AdminFirestore;
 
 export interface ICrudDB<DB extends AvailDb, T> {
   create(db: DB, arg: T): Promise<void>;
-  get(db: DB, id: string): Promise<T | undefined>;
+  get(db: DB, id: string, uid?: string): Promise<T | undefined>;
   list(
     db: DB,
-    d: PaginateParam<T>
+    d: PaginateParam<T>,
+    uid?: string
   ): Promise<{
     data: T[];
     noMore: boolean;
     lastDoc?: QueryDocumentSnapshot<T | null, DocumentData>;
   }>;
-  listByIds(db: DB, ids: string[]): Promise<T[]>;
+  listByIds(db: DB, ids: string[], uid?: string): Promise<T[]>;
   update(db: DB, arg: T): Promise<void>;
-  delete(db: DB, id: string): Promise<void>;
+  delete(db: DB, id: string, uid?: string): Promise<void>;
 }
 
 export interface CrudBatchDB<DB extends AvailDb, T> extends ICrudDB<DB, T> {

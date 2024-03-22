@@ -30,15 +30,15 @@ export const GuestBookFireStore: TGuestBookDB<Firestore> = {
     );
     return setDoc(doc(c, post.id), post);
   },
-  get: async function (db: Firestore, id: string) {
-    const c = getPCollection(db, { c: "guestbook" }).withConverter(
+  get: async function (db: Firestore, id: string, uid: string) {
+    const c = getPCollection(db, { c: "guestbook", uid }).withConverter(
       guestBookFireConverter
     );
     return getDoc(doc(c, id)).then((snap) => snap.data() ?? undefined);
   },
-  list: async function (db: Firestore, d: PaginateParam<TGuestBook>) {
+  list: async function (db: Firestore, d: PaginateParam<TGuestBook>, uid: string) {
     console.info("===> get guestbook list : ", d);
-    const c = getPCollection(db, { c: "guestbook" }).withConverter(
+    const c = getPCollection(db, { c: "guestbook", uid }).withConverter(
       guestBookFireConverter
     );
     const constraints: QueryConstraint[] = [];
@@ -57,12 +57,16 @@ export const GuestBookFireStore: TGuestBookDB<Firestore> = {
     const docs = docSnapshots.docs;
     const lastDoc = docs[docs.length - 1];
     const data = docSnapshots.docs.map((doc) => doc.data()) as TGuestBook[];
-    return { data, noMore: docs.length < pageSize, lastDoc };
+    let noMore = false;
+    if (docs.length < pageSize || data.some(d => d.id === lastDoc.id)) {
+      noMore = true;
+    }
+    return { data, noMore, lastDoc };
   },
-  listByIds: async function (db: Firestore, ids: string[]) {
+  listByIds: async function (db: Firestore, ids: string[], uid: string) {
     const snapshots = await batchInQuery<TGuestBook>(
       ids,
-      getPCollection(db, { c: ECollection.guestbook }).withConverter(
+      getPCollection(db, { c: ECollection.guestbook, uid }).withConverter(
         guestBookFireConverter
       ),
       "id"
@@ -73,8 +77,8 @@ export const GuestBookFireStore: TGuestBookDB<Firestore> = {
   update: function (db: Firestore, arg: TGuestBook): Promise<void> {
     throw new Error("Function not implemented.");
   },
-  delete: function (db: Firestore, id: string): Promise<void> {
-    const c = getPCollection(db, { c: "guestbook" });
+  delete: function (db: Firestore, id: string, uid: string): Promise<void> {
+    const c = getPCollection(db, { c: "guestbook", uid });
     return deleteDoc(doc(c, id));
   },
   favorite: async function (db, p) {
