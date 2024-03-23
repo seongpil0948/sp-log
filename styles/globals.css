@@ -19,7 +19,8 @@ body,
 }
 
 .dg.ac {
-  top: 20% !important;
+  top: 10% !important;
+  z-index: 10000 !important;
 }
 
 figure code {

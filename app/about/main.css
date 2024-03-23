@@ -1,0 +1,21 @@
+#about-root {
+	overflow-y: auto;
+	max-height: 100vh;
+}
+#about-root .sections {
+	position: relative;
+	z-index: 1;
+}
+#about-root .sections .section {
+	box-sizing: border-box;
+	padding: 5rem;
+	height: 100vh;
+	/* background-color: aliceblue; */
+}
+#about-root .sections .section h2 {
+	margin: 0;
+	font-size: 10vmin;
+}
+#about-root .sections .section:nth-child(odd) {
+	text-align: right;
+}
