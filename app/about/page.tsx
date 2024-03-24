@@ -4,8 +4,17 @@ import About from "./_components/About";
 import clsx from "clsx";
 import { motion } from "framer-motion";
 import { HeaderAbout } from "./_components/Header";
+import { getOnlyFiles } from "../_utils/server/dir-tree";
+import CertSection from "./_components/Cert";
 
 export default function AboutPage() {
+  const certificates = getOnlyFiles("public/cert", { extensions: /\.png$/ });
+  const certData = [
+    ...certificates,
+    ...certificates,
+    ...certificates,
+    ...certificates,
+  ];
   return (
     <div id="about-root" className={clsx(styles.about, paragraph())}>
       <div className={styles.sections}>
@@ -51,7 +60,9 @@ export default function AboutPage() {
           </p>
         </section>
         <section className={styles.section}>
-          <h2>Certificates</h2>
+          {/* when larger then md max width is 50% */}
+          <HeaderAbout title="Certifications" />
+          <CertSection certData={certData} scrollContainer="#about-root" />
         </section>
         <section className={styles.section}>
           <h2>projects</h2>
