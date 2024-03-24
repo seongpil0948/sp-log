@@ -59,7 +59,7 @@ export default class StateVillage {
       gltfLoader: this.gltfLoader,
       scene: this.scene,
       modelSrc: '/glb/guest-book.glb',
-      x: -5,
+      x: -1.8,
       y: 0.4,
       z: 2,
     })
