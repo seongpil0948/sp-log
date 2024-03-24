@@ -67,3 +67,29 @@ export const siteConfig = {
 		sponsor: "https://patreon.com/jrgarciadev"
 	},
 };
+
+export const links = Object.freeze({
+	external: {
+		github: "https://github.com/seongpil0948",
+		twitter: "https://twitter.com/getnextui",
+		docs: "https://www.peachhub.love/en/doc/linux/EssentialCommands",
+		discord: "https://discord.gg/9b6yyZKmH4",
+		sponsor: "https://patreon.com/jrgarciadev"
+	},
+	internal: {
+		home: "/",
+		docs: "/docs",
+		pricing: "/pricing",
+		blog: "/blog",
+		about: "/about",
+		profile: "/profile",
+		dashboard: "/dashboard",
+		projects: "/projects",
+		team: "/team",
+		calendar: "/calendar",
+		settings: "/settings",
+		helpFeedback: "/help-feedback",
+		logout: "/logout",
+		project: "/project",
+	}
+})
