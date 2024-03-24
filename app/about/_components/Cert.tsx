@@ -11,8 +11,8 @@ export default function CertSection(props: {
   const cards = useMemo(() => {
     return certData.map((c, i) => {
       const defaultComp = (
-        <div>
-          <ImageCard key={i + c} src={c} />
+        <div key={i + c}>
+          <ImageCard key={c} src={c} />
         </div>
       );
       // if (i % 3 === 0) {
@@ -27,7 +27,7 @@ export default function CertSection(props: {
   }, [certData]);
 
   return (
-    <div className="grid gap-4 max-h-full overflow-y-hidden max-w-3/4 grid-flow-col grid-rows-3 md:grid-rows-4 pr-3  border border-gray-200 rounded-lg shadow dark:border-gray-700">
+    <div className=" mt-12 grid gap-4 max-h-full overflow-y-hidden max-w-3/4 grid-flow-col grid-rows-3 pr-3  border border-gray-200 rounded-lg shadow dark:border-gray-700">
       {cards}
     </div>
   );

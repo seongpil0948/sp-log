@@ -1,4 +1,8 @@
-import { paragraph, title } from "@/components/server-only/primitives";
+import {
+  paragraph,
+  subtitle,
+  title,
+} from "@/components/server-only/primitives";
 import styles from "./styles.module.css";
 import About from "./_components/About";
 import clsx from "clsx";
@@ -53,11 +57,17 @@ export default function AboutPage() {
           <p className={paragraph({ size: "md", font: "gothic" })}>
             Although I can build a service on my own from infrastructure to
             front <br />I was always with my colleagues when I created the best
-            service.
+            service. <br />I always struggle to be the best colleague
           </p>
-          <p className={paragraph({ size: "md", font: "gothic" })}>
-            I always struggle to be the best colleague.
-          </p>
+
+          <div className="w-full flex flex-row">
+            <div className="flex-1 justify-start">
+              <div className={clsx(subtitle(), "text-left")}>Company</div>
+            </div>
+            <div className="flex-1  justify-end">
+              <div className={clsx(subtitle(), "text-end")}>Skill</div>
+            </div>
+          </div>
         </section>
         <section className={styles.section}>
           {/* when larger then md max width is 50% */}
