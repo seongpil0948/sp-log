@@ -1,29 +1,36 @@
-import { title } from "@/components/primitives";
+import { paragraph, title } from "@/components/server-only/primitives";
 import styles from "./styles.module.css";
 import About from "./_components/About";
+import clsx from "clsx";
+import { motion } from "framer-motion";
+import { HeaderAbout } from "./_components/Header";
+
 export default function AboutPage() {
   return (
-    <div id="about-root" className={styles.about}>
+    <div id="about-root" className={clsx(styles.about, paragraph())}>
       <div className={styles.sections}>
         <section className={styles.section}>
-          <h2 className={styles.h2}>About</h2>
-          <h3 className={title({ size: "md" })}>I am Seongpil. A Developer</h3>
-          <p>
-            cusp of developing has always fascinated me and i have never been
-            afraid to just jump to in and give it a go whether it is
+          <HeaderAbout />
+          <h3 className={title({ size: "md", fullWidth: true })}>
+            I am SeongPilChoi.
+          </h3>
+          <p className={paragraph({ size: "lg", font: "script" })}>
+            cusp of developing has always fascinated me and <br />i have never
+            been afraid to just jump to in and give it a go whether it is
           </p>
-          <ol>
+          <ol className={paragraph({ size: "md", font: "gothic" })}>
             <li>Cloud knowledge such as GCP</li>
             <li>Server such as (Django, Nextjs, Linux)</li>
             <li>Frontend such as NextJs, Vue or Nuxtjs, Flutter(Mobile)</li>
           </ol>
-          <p>
-            I enjoy making miscellaneous product in my free time When I lacked
-            server knowledge, I studied Linux and obtained related certificates.
+          <p className={paragraph({ size: "md", font: "gothic" })}>
+            I enjoy making miscellaneous product in my free time <br></br>
+            When I lacked server knowledge, I studied Linux and obtained related
+            certificates. <br></br>
             When I was working on the <i>익시 도우미 관리도구</i> Tool project
             with <i>LG</i>, I studied Kubernetes and obtained related
-            certificates. I recently started to have interest in WebGL and
-            3D(Three.js and Blender)
+            certificates. <br></br>I recently started to have interest in WebGL
+            and <b>3D(Three.js and Blender)</b>
             <b>Udemy</b>, <b>Inflearn</b> and Youtube are my best friends.
           </p>
         </section>

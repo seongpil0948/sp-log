@@ -1,7 +1,12 @@
 # Reference
 
 - https://github.com/vercel/platforms/blob/main/app/sitemap.ts
-
+### Three
+- https://codepen.io/jakedowns/pen/ExoqYRm?editors=0010
+- https://threejs.org/docs/index.html?q=rayca#api/en/core/Raycaster
+- https://www.framer.com/motion/three-introduction/
+- https://sbcode.net/react-three-fiber/use-gltf/
+- https://docs.pmnd.rs/react-three-fiber/tutorials/typescript
 ### blog
 - https://github.com/timlrx/tailwind-nextjs-starter-blog/blob/main/contentlayer.config.ts
 - https://tailwind-nextjs-starter-blog.vercel.app/blog/new-features-in-v1#analytics

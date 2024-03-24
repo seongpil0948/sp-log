@@ -1,4 +1,4 @@
-import { title } from "@/components/primitives";
+import { title } from "@/components/server-only/primitives";
 import ViewGuestBook from "../game/_guestbook/components/ViewGuestBook";
 import clsx from "clsx";
 

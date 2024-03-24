@@ -1,7 +1,16 @@
+import { fontMono, fontNanumGothic, fontNanumPenScript, fontRoboto, fontSans } from "@/config/fonts";
 import { tv } from "tailwind-variants";
 
+
+const fontModule = {
+	mono: fontMono.className,
+	sans: fontSans.className,
+	roboto: fontRoboto.className,
+	gothic: fontNanumGothic.className,
+	script: fontNanumPenScript.className
+}
 export const title = tv({
-	base: "tracking-tight inline font-semibold",
+	base: "tracking-tight inline font-semibold mt-3 mb-7",
 	variants: {
 		color: {
 			violet: "from-[#FF1CF7] to-[#b249f8]",
@@ -20,9 +29,11 @@ export const title = tv({
 		fullWidth: {
 			true: "w-full block",
 		},
+		font: fontModule,
 	},
 	defaultVariants: {
 		size: "md",
+		font: 'sans'
 	},
 	compoundVariants: [
 		{
@@ -46,8 +57,27 @@ export const subtitle = tv({
 		fullWidth: {
 			true: "!w-full",
 		},
+		font: fontModule,
 	},
-  defaultVariants:{
-    fullWidth: true
-  }
+	defaultVariants: {
+		fullWidth: true,
+		font: "mono"
+	}
 });
+
+
+export const paragraph = tv({
+	base: " my-5 font-normal leading-7 ",
+	variants: {
+		size: {
+			sm: "text-xs sm:text-sm md:text-base lg:text-lg",
+			md: "text-sm sm:text-md md:text-lg lg:text-xl",
+			lg: "text-md sm:text-lg md:text-xl lg:text-2xl",
+		},
+		font: fontModule,
+	},
+	defaultVariants: {
+		size: "md",
+		font: "sans"
+	},
+})

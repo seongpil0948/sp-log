@@ -12,10 +12,6 @@
 	height: 100vh;
 	/* background-color: aliceblue; */
 }
-.about .sections .section h2 {
-	margin: 0;
-	font-size: 10vmin;
-}
 .about .sections .section:nth-child(even) {
 	text-align: right;
 }

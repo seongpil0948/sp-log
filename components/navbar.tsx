@@ -25,9 +25,9 @@ import {
   DiscordIcon,
   HeartFilledIcon,
   SearchIcon,
-} from "@/components/icons";
+} from "@/components/server-only/icons";
 
-import { Logo } from "@/components/icons";
+import { Logo } from "@/components/server-only/icons";
 
 export const Navbar = () => {
   const searchInput = (
