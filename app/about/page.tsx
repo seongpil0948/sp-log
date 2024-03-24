@@ -75,7 +75,7 @@ export default function AboutPage() {
           <CertSection certData={certData} scrollContainer="#about-root" />
         </section>
         <section className={styles.section}>
-          <h2>projects</h2>
+          <HeaderAbout title="Projects" />
           <p>
             Fast forward to 2024, I have been working as a developer for 5 years
             and have worked on a variety of projects. Everything I have done,
