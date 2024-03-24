@@ -26,7 +26,7 @@ export default function World() {
         if (s.cameraMode === "perspective") {
           s.controls.update();
         } else {
-          if (s.isPressed) {
+          if (s.isPressed && !guestBookRef.current.isOpen()) {
             raycasting();
           }
         }

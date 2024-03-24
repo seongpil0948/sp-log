@@ -13,12 +13,7 @@ import CertSection from "./_components/Cert";
 
 export default function AboutPage() {
   const certificates = getOnlyFiles("public/cert", { extensions: /\.png$/ });
-  const certData = [
-    ...certificates,
-    ...certificates,
-    ...certificates,
-    ...certificates,
-  ];
+  const certData = [...certificates];
   return (
     <div id="about-root" className={clsx(styles.about, paragraph())}>
       <div className={styles.sections}>

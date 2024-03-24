@@ -1,6 +1,6 @@
 import { Modal, ModalContent, useDisclosure } from "@nextui-org/modal";
 import { ElementRef, forwardRef, useImperativeHandle, useState } from "react";
-import FormGuestBook from "@/app/game/_guestbook/components/FormGuestBook";
+import ViewGuestBook from "@/app/game/_guestbook/components/ViewGuestBook";
 
 const BridgeEnterModal = forwardRef<
   ElementRef<typeof Modal>,
@@ -24,6 +24,9 @@ const BridgeEnterModal = forwardRef<
         open() {
           open();
         },
+        isOpen() {
+          return isOpen;
+        },
       } as any)
   );
 
@@ -31,9 +34,14 @@ const BridgeEnterModal = forwardRef<
     if (!isOpen && openAble) onOpen();
   };
   return (
-    <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="auto">
+    <Modal
+      size="4xl"
+      isOpen={isOpen}
+      onOpenChange={onOpenChange}
+      placement="auto"
+    >
       <ModalContent>
-        <FormGuestBook />
+        <ViewGuestBook />
       </ModalContent>
     </Modal>
   );

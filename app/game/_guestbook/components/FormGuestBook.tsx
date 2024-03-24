@@ -7,28 +7,44 @@ import { GUEST_DB } from "../db";
 import { getFBClientStore } from "@/config/firebase/clientApp";
 import { TGuestBook } from "../types";
 import { v4 } from "uuid";
-
+import { mdiCheckBold } from "@mdi/js";
+import Icon from "@mdi/react";
 interface Props {
   onCreate?: (data: TGuestBook) => void;
 }
 function FormGuestBook(p: Props) {
   const [message, setMessage] = useState("");
   const [nameAlias, setNameAlias] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
 
   const onSubmit = () => {
-    const firestore = getFBClientStore();
-    const date = new Date();
-    const book: TGuestBook = {
-      id: v4(),
-      uid: "-1",
-      nameAlias,
-      message,
-      createdAt: date,
-      updatedAt: date,
-    };
-    GUEST_DB.create(firestore, book).then(() => {
-      p.onCreate && p.onCreate(book);
-    });
+    setIsLoading(true);
+    try {
+      const firestore = getFBClientStore();
+      const date = new Date();
+      const book: TGuestBook = {
+        id: v4(),
+        uid: "-1",
+        nameAlias,
+        message,
+        createdAt: date,
+        updatedAt: date,
+      };
+      GUEST_DB.create(firestore, book).then(() => {
+        p.onCreate && p.onCreate(book);
+        setMessage("");
+        setNameAlias("");
+        setIsChecked(true);
+        setTimeout(() => {
+          setIsChecked(false);
+        }, 2000);
+      });
+    } catch (e) {
+      console.error("Error::GuestBook::", e);
+    } finally {
+      setIsLoading(false);
+    }
   };
   return (
     <Card>
@@ -51,10 +67,18 @@ function FormGuestBook(p: Props) {
           placeholder={"당신의 이야기를 들려주세요."}
           value={message}
           onValueChange={setMessage}
+          minRows={7}
         />
       </CardBody>
       <CardFooter className="flex justify-end">
-        <Button onClick={onSubmit}>남기기</Button>
+        <Button
+          color="primary"
+          isLoading={isLoading}
+          onClick={onSubmit}
+          startContent={isChecked && <Icon path={mdiCheckBold} size={1} />}
+        >
+          남기기
+        </Button>
       </CardFooter>
     </Card>
   );

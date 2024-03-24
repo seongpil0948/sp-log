@@ -18,6 +18,10 @@ import {
   type QueryDocumentSnapshot,
 } from "firebase/firestore";
 import { getFBClientStore } from "@/config/firebase/clientApp";
+import clsx from "clsx";
+import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/popover";
+import { paragraph } from "@/components/server-only/primitives";
+import { Button } from "@nextui-org/button";
 
 // FIXME: unnecessary fetchItems
 export default function BookTable() {
@@ -26,6 +30,7 @@ export default function BookTable() {
   const [lastData, setLastData] =
     React.useState<QueryDocumentSnapshot<TGuestBook | null, DocumentData>>();
   const [items, setItems] = React.useState<TGuestBook[]>([]);
+  const w = window.innerWidth;
 
   const fetchItems = useCallback(async () => {
     console.count("fetchItems");
@@ -82,9 +87,15 @@ export default function BookTable() {
       }}
     >
       <TableHeader>
-        <TableColumn key="nameAlias">별칭</TableColumn>
-        <TableColumn key="message">이야기</TableColumn>
-        <TableColumn key="createdAt">생성일</TableColumn>
+        <TableColumn align="center" key="nameAlias">
+          별칭
+        </TableColumn>
+        <TableColumn align="center" key="message">
+          이야기
+        </TableColumn>
+        <TableColumn align="center" key="createdAt">
+          생성일
+        </TableColumn>
       </TableHeader>
       <TableBody
         isLoading={isLoading}
@@ -94,16 +105,46 @@ export default function BookTable() {
       >
         {(item: TGuestBook) => (
           <TableRow key={item.id}>
-            {/* {(columnKey) => {
-              console.info("columnKey", columnKey, item);
-              return <TableCell>{getKeyValue(item, columnKey)}</TableCell>;
-            }} */}
-            <TableCell>{item.nameAlias}</TableCell>
-            <TableCell>{item.message}</TableCell>
-            <TableCell>{item.createdAt.toLocaleDateString()}</TableCell>
+            <TableCell>
+              <div className={clsx("max-w-20", paragraph({ size: "sm" }))}>
+                {item.nameAlias}
+              </div>
+            </TableCell>
+            <TableCell>
+              <PopoverMessage message={item.message} />
+            </TableCell>
+            <TableCell>
+              <div className={clsx("max-w-20", paragraph({ size: "sm" }))}>
+                {item.createdAt.toLocaleDateString()}
+              </div>
+            </TableCell>
           </TableRow>
         )}
       </TableBody>
     </Table>
+  );
+}
+
+export function PopoverMessage(props: { message: string }) {
+  return (
+    <Popover placement="bottom" showArrow={true}>
+      <PopoverTrigger>
+        <div
+          className={clsx(
+            "max-w-96 text-ellipsis overflow-hidden whitespace-nowrap cursor-pointer",
+            paragraph({ size: "sm" })
+          )}
+        >
+          {props.message}
+        </div>
+      </PopoverTrigger>
+      <PopoverContent>
+        <div className="px-1 py-2 z-1000">
+          <div className={clsx(paragraph({ size: "md", font: "gothic" }))}>
+            {props.message}
+          </div>
+        </div>
+      </PopoverContent>
+    </Popover>
   );
 }
