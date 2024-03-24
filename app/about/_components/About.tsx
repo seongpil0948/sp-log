@@ -2,6 +2,9 @@
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import gsap from "gsap";
+import { GLTF, GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import commonConfig from "@/config";
+import { isMobile } from "@/app/_utils/client/responsive";
 
 export default function About(props: { rootSelector: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -13,8 +16,13 @@ export default function About(props: { rootSelector: string }) {
     const canvas = canvasRef.current;
     const renderer = getRender(canvas);
     const scene = new THREE.Scene();
+    const gltfLoader = new GLTFLoader();
     scene.background = new THREE.Color("white");
     const camera = getCamera();
+    let characterInfo: InitCharacter | undefined = undefined;
+    initCharacter(gltfLoader, scene).then((info) => {
+      characterInfo = info;
+    });
     scene.add(camera);
     // Card https://codepen.io/jakedowns/pen/ExoqYRm?editors=0010
     const cardMesh = initMeCard();
@@ -52,6 +60,9 @@ export default function About(props: { rootSelector: string }) {
       if (actionCard) {
         cardMesh.rotation.z += delta;
         cardMesh.rotation.y += delta * 0.5;
+      }
+      if (characterInfo) {
+        characterInfo.mixer.update(delta);
       }
       renderer.render(scene, camera);
       renderer.setAnimationLoop(draw);
@@ -167,7 +178,12 @@ function initMeCard() {
     darkMaterial, //
   ]);
   cardMesh.name = IDS.ME;
-  cardMesh.position.set(-3, 3, 20);
+  const pos = SECTION_POSITIONS[0];
+  if (isMobile()) {
+    cardMesh.position.set(pos.x, pos.y + 1, pos.z - 5);
+  } else {
+    cardMesh.position.set(pos.x + 2, pos.y + 1, pos.z);
+  }
   cardMesh.rotation.x = Math.PI / 2;
   return cardMesh;
 }
@@ -180,4 +196,41 @@ function initFloorMesh() {
   floorMesh.rotation.x = -Math.PI / 2;
   floorMesh.receiveShadow = true;
   return floorMesh;
+}
+
+interface InitCharacter {
+  mesh: THREE.Object3D;
+  mixer: THREE.AnimationMixer;
+  actions: THREE.AnimationAction[];
+}
+function initCharacter(loader: GLTFLoader, scene: THREE.Scene) {
+  return new Promise<InitCharacter>((resolve) => {
+    loader.load(commonConfig.game.character.default, (glb: GLTF) => {
+      // Replace 'any' with the appropriate type
+      glb.scene.traverse((child) => {
+        const c = child as THREE.Mesh;
+        if (c.isMesh) {
+          c.castShadow = true;
+        }
+      });
+
+      const mesh = glb.scene.children[0];
+      mesh.castShadow = true;
+      const pos = SECTION_POSITIONS[1];
+      if (isMobile()) {
+        mesh.position.set(pos.x, pos.y + 1, pos.z - 5);
+      } else {
+        mesh.position.set(pos.x - 10, pos.y + 1, pos.z);
+      }
+      mesh.position.set(...SECTION_POSITIONS[1].toArray());
+      mesh.rotateY(Math.PI);
+      scene.add(mesh);
+      const mixer = new THREE.AnimationMixer(mesh);
+      const actions = Array.from(glb.animations).map((clip) =>
+        mixer.clipAction(clip)
+      );
+      actions[0].play();
+      return resolve({ mesh, actions, mixer });
+    });
+  });
 }
