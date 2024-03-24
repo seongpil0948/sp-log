@@ -1,10 +1,11 @@
+import { TreeSectionProps } from '@/components/client-only/tree-section'
 import dirTree from 'directory-tree'
 import type {
   DirectoryTree,
   DirectoryTreeOptions,
   DirectoryTreeCallback,
 } from 'directory-tree'
-import { TreeSectionProps } from '../_components/client-only/tree-section'
+// import { TreeSectionProps } from '../_components/client-only/tree-section'
 
 type TDirCustom = {
   href: string
@@ -31,15 +32,15 @@ export interface IGetTreeArgs {
   options?: DirectoryTreeOptions
 }
 export function getTree(args: IGetTreeArgs) {
-  const libTree = dirTree(args.dir, {exclude: /home/,...args.options}, undefined, callback)
-  const tree =  dirTreeToTree(libTree)
+  const libTree = dirTree(args.dir, { exclude: /home/, ...args.options }, undefined, callback)
+  const tree = dirTreeToTree(libTree)
   return tree
 }
 
 
 function dirTreeToTree(obj: DirectoryTree<TDirCustom>): TreeSectionProps | undefined {
   // obj.name = dirTree.name.replace('.mdx', '').replace('.tsx', '')
-  if ((obj.type && obj.type === 'file') || !obj.custom || !obj.custom.href) return 
+  if ((obj.type && obj.type === 'file') || !obj.custom || !obj.custom.href) return
   if (obj.path.includes('/_')) return
   if (obj.name.startsWith('_')) return
   return {
@@ -53,7 +54,7 @@ function dirTreeToTree(obj: DirectoryTree<TDirCustom>): TreeSectionProps | undef
 
 export function getOnlyFiles(dir: string, options: DirectoryTreeOptions) {
   const tree = dirTree(dir, options)
-  const files :string[] = []
+  const files: string[] = []
   tree.children?.forEach((item) => {
     const p = item.path
     if (isAssetFile(p)) {

@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import OneMin from "../_components/client-only/OneMin";
-import Loading from "@/app/";
+import Loading from "@/app/loading";
 
 export default async function SSGPage() {
   return (

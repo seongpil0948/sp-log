@@ -29,6 +29,6 @@ export class SideLight {
 	}
 
 	turnOff() {
-		this.mesh.material.color.set(cm2.lightOffColor);
+		(this.mesh.material as any).color.set(cm2.lightOffColor);
 	}
 }

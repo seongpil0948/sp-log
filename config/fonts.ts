@@ -18,10 +18,11 @@ export const fontRoboto = Roboto({
 export const fontNanumGothic = Nanum_Gothic({
   subsets: ["latin"],
   display: 'swap',
-  weight: '400'
+  weight: ['400', '700'],
 })
 export const fontNanumPenScript = Nanum_Pen_Script({
   subsets: ["latin"],
   display: 'swap',
-  weight: '400'
+  weight: ['400'],
+  adjustFontFallback: false
 })

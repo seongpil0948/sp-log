@@ -1,4 +1,4 @@
-import { type AppDispatch, setMsg } from "@/app/store";
+// import { type AppDispatch, setMsg } from "@/app/store";
 import { type FirebaseError } from "firebase/app";
 
 const isFirebaseError = (err: any): err is FirebaseError =>
@@ -21,15 +21,15 @@ export function handleError(error: unknown): {
   return { message: "An unknown error occurred" };
 }
 
-export async function handleModalError(dispatch: AppDispatch, error: unknown) {
-  const result = handleError(error);
-  // const dict = await getDictionary(lang)
-  console.error("===>", result, error);
-  dispatch(
-    setMsg({
-      title: result.title,
-      content: result.message,
-      type: "error",
-    })
-  );
-}
+// export async function handleModalError(dispatch: AppDispatch, error: unknown) {
+//   const result = handleError(error);
+//   // const dict = await getDictionary(lang)
+//   console.error("===>", result, error);
+//   dispatch(
+//     setMsg({
+//       title: result.title,
+//       content: result.message,
+//       type: "error",
+//     })
+//   );
+// }
