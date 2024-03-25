@@ -8,26 +8,13 @@ import {
   NavbarItem,
   NavbarMenuItem,
 } from "@nextui-org/navbar";
-import { Button } from "@nextui-org/button";
 import { Kbd } from "@nextui-org/kbd";
 import { Link } from "@nextui-org/link";
 import { Input } from "@nextui-org/input";
-
-import { link as linkStyles } from "@nextui-org/theme";
-
 import { siteConfig } from "@/config/site";
 import NextLink from "next/link";
-import clsx from "clsx";
-
 import { ThemeSwitch } from "@/components/theme-switch";
-import {
-  TwitterIcon,
-  GithubIcon,
-  DiscordIcon,
-  HeartFilledIcon,
-  SearchIcon,
-} from "@/components/server-only/icons";
-
+import { GithubIcon, SearchIcon } from "@/components/server-only/icons";
 import { Logo } from "@/components/server-only/icons";
 import { TAvailLocale } from "@/config";
 import { typo } from "./server-only/primitives";
@@ -65,22 +52,6 @@ export const Navbar = (props: { locale: TAvailLocale }) => {
             <p className="font-bold text-inherit">SP World</p>
           </NextLink>
         </NavbarBrand>
-        <ul className="hidden lg:flex gap-4 justify-start ml-2">
-          {siteConfig.links.map((item) => (
-            <NavbarItem key={item.href}>
-              <NextLink
-                className={clsx(
-                  linkStyles({ color: "foreground" }),
-                  "data-[active=true]:text-primary data-[active=true]:font-medium"
-                )}
-                color="foreground"
-                href={item.href}
-              >
-                {item.label[props.locale]}
-              </NextLink>
-            </NavbarItem>
-          ))}
-        </ul>
       </NavbarContent>
 
       <NavbarContent
@@ -88,62 +59,31 @@ export const Navbar = (props: { locale: TAvailLocale }) => {
         justify="end"
       >
         <NavbarItem className="hidden sm:flex gap-2">
-          <Link isExternal aria-label="Twitter">
-            <TwitterIcon className="text-default-500" />
-          </Link>
-          <Link isExternal aria-label="Discord">
-            <DiscordIcon className="text-default-500" />
-          </Link>
           {/* <Link isExternal href={siteConfig.links.github} aria-label="Github"> */}
           <Link isExternal aria-label="Github">
             <GithubIcon className="text-default-500" />
           </Link>
           <ThemeSwitch />
         </NavbarItem>
-        <NavbarItem className="hidden sm:flex basis-3/5 grow">
+        <NavbarItem className="hidden md:flex basis-3/5 grow">
           {searchInput}
         </NavbarItem>
         <NavbarMenuToggle />
-        {/* <NavbarItem className="hidden md:flex">
-          <Button
-            isExternal
-            as={Link}
-            className="text-sm font-normal text-default-600 bg-default-100"
-            href={siteConfig.links.sponsor}
-            startContent={<HeartFilledIcon className="text-danger" />}
-            variant="flat"
-          >
-            Sponsor
-          </Button>
-        </NavbarItem> */}
       </NavbarContent>
 
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
         <Link isExternal aria-label="Github">
-          <GithubIcon className="text-default-500" />
+          <GithubIcon className="text-danger" />
         </Link>
         <ThemeSwitch />
         <NavbarMenuToggle />
       </NavbarContent>
 
       <NavbarMenu>
-        {searchInput}
+        {/* {searchInput} */}
         <div className="mx-4 mt-2 flex flex-col gap-2">
           {siteConfig.links.map((item, index) => (
             <NavbarMenuItem key={`${item}-${index}`}>
-              {/* <Link
-                color={
-                  index === 2
-                    ? "primary"
-                    : index === siteConfig.links.length - 1
-                    ? "danger"
-                    : "foreground"
-                }
-                href="#"
-                size="lg"
-              >
-                {item.label[props.locale]}
-              </Link> */}
               <Link
                 className={typo({
                   type: "link",
