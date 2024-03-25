@@ -4,12 +4,7 @@ export default function DocsLayout({
   children: React.ReactNode;
 }) {
   return (
-    <section
-      style={{
-        maxHeight: "100vh",
-        overflow: "auto",
-      }}
-    >
+    <section className=" px-5 lg:px12 py-3 lg:py-5 h-screen overflow-y-auto overflow-x-hidden">
       {children}
     </section>
   );

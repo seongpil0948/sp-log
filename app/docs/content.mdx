@@ -57,16 +57,16 @@ export default async function SSGPage({ params: { lang } }: Param) {
 * 유저를 생성하면 해당 이름의 그룹도 생성된다.
 
 ```bash
-$ sudo useradd [옵션] 사용자이름
+sudo useradd [옵션] 사용자이름
 # specify the user's uid, gid
-$ sudo useradd -u 1001 -g 1002 사용자이름
+sudo useradd -u 1001 -g 1002 사용자이름
 ```
 
 `/etc/skel` 디렉토리는 유저가 생성된후, 홈 디렉토리가 생성될 때 기본적으로 복사되는 파일들이 저장되어 있는 디렉토리이다.  
 `/etc/default/useradd` 파일에 기록되어 있는 암호화된 비밀번호를 가지고 있다.
 이처럼 유저의 기본 설정을 보고싶다면 아래 명령어를 실행해보자.  
 ```bash
-$ useradd --defaults 
+useradd --defaults 
 GROUP=100
 HOME=/home
 INACTIVE=-1
@@ -74,16 +74,16 @@ EXPIRE=
 SHELL=/bin/sh
 SKEL=/etc/skel
 CREATE_MAIL_SPOOL=no
-$ cat /etc/login.defs
+cat /etc/login.defs
 ```
 
 만약 홈 디렉토리와 쉘을 지정하고 싶다면 아래와 같이 옵션을 추가한다.
 ```bash
-$ sudo useradd --home-dir /home/사용자이름 -s /bin/bash 사용자이름
+sudo useradd --home-dir /home/사용자이름 -s /bin/bash 사용자이름
 ```
 생성한 유저의 상세 정보는 /etc/passwd(사용자 이름, UID, GID, 홈 디렉토리, 쉘 정보) 파일에 기록되어 있다.  
 ```bash
-$ cat /etc/passwd
+cat /etc/passwd
 root:x:0:0:root:/root:/bin/bash
 daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
 bin:x:2:2:bin:/bin:/usr/sbin/nologin
@@ -94,39 +94,39 @@ dhjoe:x:1002:998::/home/abacus:/bin/bash
 * 1번째는 사용자 이름, 2번째는 암호화된 비밀번호, 3번째는 UID, 4번째는 GID, 5번째는  user description or comment field., 6번째는 홈 디렉토리, 7번째는 쉘 정보이다.
 
 ```bash
-$ sudo passwd 사용자이름
+sudo passwd 사용자이름
 ```
 
 #### 사용자 삭제
 * 사용자를 삭제하는 방법은 userdel 명령을 사용한다.
 
 ```bash
-$ sudo userdel 사용자이름
+sudo userdel 사용자이름
 ```
 사용자가 삭제되더라도 홈 디렉토리는 삭제되지 않는다.
 홈 디렉토리까지 삭제하려면 -r 옵션을 사용한다.
 
 ```bash
-$ sudo userdel -r 사용자이름
+sudo userdel -r 사용자이름
 ```
 우린 이제 각 디렉토리가 누구의 소유인지 UID, GID를 확인 할 수있다
 ```bash
-$ ls -ln /home
+ls -ln /home
 total 0
 drwx------ 2 1001 1002 40  9월  9 16:26 testuser
 drwx------ 2 1002 998  40  9월  9 16:26 dhjoe
 ```
 로그인한 사용자는 내가 누구인지 확인할 수 있다.
 ```bash
-$ whoami
+whoami
 dhjoe
-$ id
+id
 uid=1002(dhjoe) gid=998 groups=998 ...
 ```
 그 밖에 우리는 다른 타입의 사용자를 정의 할 수있다 GCP의 서비스 어카운트, Habor의 robot account 등 과같이
 리눅스에서도 시스템 사용자를 정의 할 수 있다.
 ```bash
-$ sudo useradd --system /bin/false 사용자이름
+sudo useradd --system /bin/false 사용자이름
 ```
 > 보통 system user 의 uid, gid는 1000 이하로 정의한다.
 
@@ -134,27 +134,27 @@ $ sudo useradd --system /bin/false 사용자이름
 * 유저를 수정하는 방법은 기본적으로 usermod 명령을 사용한다.
 
 ```bash
-$ sudo usermod [옵션] 사용자이름
+sudo usermod [옵션] 사용자이름
 
 # 사용자의 홈 디렉토리를 변경하고 싶다면 -d 옵션을 사용한다.
-$ sudo usermod -d /home/사용자이름 사용자이름
+sudo usermod -d /home/사용자이름 사용자이름
 
-$ sudo usermod --home /home/other --move-home 사용자이름
+sudo usermod --home /home/other --move-home 사용자이름
 
 # 잠금 처리
-$ sudo usermod -L 사용자이름
+sudo usermod -L 사용자이름
 # 잠금 해제
-$ sudo usermod -U 사용자이름
+sudo usermod -U 사용자이름
 
 # 유저가 2021년 9월 9일에 만료되도록 설정
-$ sudo usermod -e 2021-09-09 사용자이름
+sudo usermod -e 2021-09-09 사용자이름
 
 # 유저의 비밀번호를 만료되도록 설정
-$ sudo chage -d 0 사용자이름
+sudo chage -d 0 사용자이름
 
 # 2021년 9월 9일에 유저의 비밀번호를 만료되도록 설정
 # change age
-$ sudo chage -E 2021-09-09 사용자이름
+sudo chage -E 2021-09-09 사용자이름
 
 ```
 
@@ -162,7 +162,7 @@ $ sudo chage -E 2021-09-09 사용자이름
 * 패스워드를 변경하는 방법은 passwd 명령을 사용한다.
 
 ```bash
-$ sudo passwd 사용자이름
+sudo passwd 사용자이름
 ```
 
 
@@ -187,10 +187,10 @@ $ sudo passwd 사용자이름
 * 그룹을 조회하는 방법은 `groups` 명령을 사용한다.
 
 ```bash
-$ groups
+groups
 abacus adm cdrom sudo dip plugdev lxd docker
 # list of users 
-$ users
+users
 abacus 
 
 ```
@@ -201,14 +201,14 @@ abacus
 * 그룹을 추가하는 방법은 groupadd 명령을 사용한다.
 
 ```bash
-$ sudo groupadd 그룹이름
+sudo groupadd 그룹이름
 sudo groupadd testGroup
 
 # add user to group
-$ sudo usermod -aG testGroup abacus
+sudo usermod -aG testGroup abacus
 
 # check group
-$ groups abacus
+groups abacus
 abacus : abacus testGroup
 
 ```
@@ -218,31 +218,31 @@ first group is primary group, second group is secondary group
 * 그룹을 삭제하는 방법은 `gpasswd` 명령을 사용한다.
 
 ```bash
-$ sudo gpasswd -d 사용자이름 그룹이름
-$ sudo groupdel 그룹이름
+sudo gpasswd -d 사용자이름 그룹이름
+sudo groupdel 그룹이름
 ```
 
 ### 그룹 수정
 * 그룹을 수정하는 방법은 `groupmod` 명령을 사용한다.
 
 ```bash
-$ sudo groupmod [옵션] 그룹이름
+sudo groupmod [옵션] 그룹이름
 
 # 그룹의 이름을 변경하고 싶다면 -n 옵션을 사용한다.
-$ sudo groupmod -n 새로운그룹이름 기존그룹이름
-$ sudo groupmod --new-name programmers testGroup
+sudo groupmod -n 새로운그룹이름 기존그룹이름
+sudo groupmod --new-name programmers testGroup
 
 # change primary group
-$ sudo usermod --gid 그룹이름 사용자이름
-$ sudo suermod -g testGroup abacus
+sudo usermod --gid 그룹이름 사용자이름
+sudo suermod -g testGroup abacus
 ```
 만약 삭제하려는 그룹이 누군가의 기본 그룹이라면 삭제할 수 없다.
 ```bash
-$ sudo groupdel testGroup
+sudo groupdel testGroup
 groupdel: cannot remove the primary group of user 'abacus'
 
-$ sudo usermod -g abacus abacus
-$ sudo groupdel testGroup
+sudo usermod -g abacus abacus
+sudo groupdel testGroup
 done
 ```
 
@@ -258,19 +258,19 @@ Let's 기릿~!
 
 ## setup
 ```bash
-$ sudo dnf install quota
+sudo dnf install quota
 ```
 So let's say we want quotas on the file system where backups are stored.
 백업이 저장되는 파일 시스템에 대한 할당량을 원한다고 가정해 보겠습니다.  
 storage 관련 궁금한 점이 있다면 [storage-management](/doc/linux/storage-management)를 참고하자
 ```bash
-$ sudo vim /etc/fstab
+sudo vim /etc/fstab
 # User quota enables setting storage quotas for users, and group quota enables quotas for groups.
 /dev/vdb1 /mnt/backup xfs defaults,usrquota,grpquota 0 2
 
-$ sudo mount -o remount /mnt/backup
+sudo mount -o remount /mnt/backup
 or
-$ sudo systemctl reboot
+sudo systemctl reboot
 ```
 이시점에서 각 유저와 그룹에 대한 xfs파일 시스템이 활성화된다.   
 시스템은 그룹의 각 사용자가 사용하는 공간의 양을 추적하고 우리가 설정한 제한을 적용합니다.  
@@ -278,14 +278,14 @@ $ sudo systemctl reboot
 --- 
 `/dev/vdb2`와 같은 파티션에 위치한 파일 시스템에 할당량을 적용하려면 다음을 수행합니다.  
 ```bash
-# $ sudo quotacheck --create-files --user --group --verbose /dev/vdb1
-$ sudo quotacheck --create-files --user --group --verbose /mnt/backup
+# sudo quotacheck --create-files --user --group --verbose /dev/vdb1
+sudo quotacheck --create-files --user --group --verbose /mnt/backup
 `--create-files` 옵션은 파일 시스템에 대한 할당량을 생성하는 데 사용됩니다.  
 `--user` 옵션은 사용자에 대한 할당량을 생성하는 데 사용됩니다.  
 `--group` 옵션은 그룹에 대한 할당량을 생성하는 데 사용됩니다.  
 `--verbose` 옵션은 명령이 실행되는 동안 자세한 정보를 표시하는 데 사용됩니다.  
 
-# $ sudo xfs_quota -x -c 'limit bsoft=1t bhard=1.1t abacus' /mnt/backup
+# sudo xfs_quota -x -c 'limit bsoft=1t bhard=1.1t abacus' /mnt/backup
 ```
 파일 시스템에 할당량 그룹과 할당량 사용자라는 두 개의 파일이 생성됩니다.
 - /mnt/backup/aquota.user
@@ -294,17 +294,17 @@ $ sudo quotacheck --create-files --user --group --verbose /mnt/backup
 
 ```bash
 # 활성화
-$ sudo quotaon -v /mnt/backup
+sudo quotaon -v /mnt/backup
 ```
 그럼 이제 확인해보자
 
 ```bash
-# $ sudo repquota /mnt/backup
-$ sudo mkdir /mnt/backup/sp
-$ sudo chown abacus:sp /mnt/backup/sp
-$ sudo chmod 700 /mnt/backup/sp
-$ fallocate -l 100M /mnt/backup/sp/100M-file
-$ sudo edquota --user sp
+# sudo repquota /mnt/backup
+sudo mkdir /mnt/backup/sp
+sudo chown abacus:sp /mnt/backup/sp
+sudo chmod 700 /mnt/backup/sp
+fallocate -l 100M /mnt/backup/sp/100M-file
+sudo edquota --user sp
 Disk quotas for user sp (uid 1001):
   Filesystem                   blocks       soft       hard     inodes     soft     hard
   /dev/vdb1                    102400          0          0          0        0        0
@@ -321,14 +321,14 @@ Disk quotas for user sp (uid 1001):
 
 ### Whenever we add a new user to the system, some files are copied, from a template directory to the user's home directory.
 Manually copy those files into `/home/bob/default_data` directory.
-유저가 생성될 때 어떤 파일들이 복사되는지는 `$ useradd --defaults | grep SKEL` 명령어를 통해 확인할 수 있다.
+유저가 생성될 때 어떤 파일들이 복사되는지는 `useradd --defaults | grep SKEL` 명령어를 통해 확인할 수 있다.
 ```bash
-$ useradd --defaults | grep SKEL
+useradd --defaults | grep SKEL
 SKEL=/etc/skel
 ```
 그럼 이제 `/etc/skel` 디렉토리에 있는 파일들을 `/home/bob/default_data` 디렉토리로 복사하자.
 ```bash
-$ sudo cp -r /etc/skel /home/bob/default_data
+sudo cp -r /etc/skel /home/bob/default_data
 ```
 
 ### Make sure that this command gets executed for any user that logs in to the system:
@@ -359,7 +359,7 @@ fi
 ```
 사용자에게 환영 메시지를 보여주기 위해 `/etc/profile.d` 디렉토리에 `welcome.sh` 파일을 생성하고 아래와 같이 작성한다.
 ```bash
-$ sudo vim /etc/profile.d/welcome.sh
+sudo vim /etc/profile.d/welcome.sh
 echo "Welcome to our server!"
 ```
 

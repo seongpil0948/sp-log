@@ -7,6 +7,7 @@ import CodeHeader from "@/components/server-only/CodeHeader";
 import { DetailedHTMLProps, HTMLAttributes, createElement } from "react";
 import clsx from "clsx";
 import { Card, CardBody } from "@nextui-org/card";
+import { paragraph, title } from "./components/server-only/primitives";
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
@@ -18,20 +19,20 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     //     {...props}
     //   />
     // ),
-    // code: (props) => (
-    //   <code
-    //     className="inline-block h-fit rounded-small  bg-transparent px-0 py-0 font-mono text-xs font-normal text-sky-400 md:text-small"
-    //     // className="inline-block h-fit whitespace-nowrap rounded-small bg-transparent px-0 py-0 font-mono text-small font-normal text-sky-400 before:content-['`'] after:content-['`']"
-    //     // className="inline-block h-fit whitespace-nowrap rounded-small bg-transparent "
-    //     {...props}
-    //   />
-    // ),
+    code: (props) => (
+      <code
+        className={clsx(paragraph({ font: "script" }))}
+        // className="inline-block h-fit whitespace-nowrap rounded-small bg-transparent px-0 py-0 font-mono text-small font-normal text-sky-400 before:content-['`'] after:content-['`']"
+        // className="inline-block h-fit whitespace-nowrap rounded-small bg-transparent "
+        {...props}
+      />
+    ),
     h1: (props) => {
       return (
         <HeaderWithLink
           props={props}
           level={1}
-          className="mb-5 mt-10 text-3xl font-bold leading-tight text-slate-900 dark:text-slate-200 md:text-5xl"
+          className={title({ size: "lg" })}
         />
       );
     },
@@ -40,7 +41,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         <HeaderWithLink
           props={props}
           level={2}
-          className="my-10 text-xl  font-bold text-slate-900 dark:text-slate-200 md:text-3xl"
+          className={title({ size: "md", color: "blue" })}
         />
       );
     },
@@ -49,7 +50,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         <HeaderWithLink
           props={props}
           level={3}
-          className="mb-8 mt-10 text-lg font-semibold text-slate-900 dark:text-slate-200 md:text-2xl"
+          className={title({ size: "sm", color: "cyan" })}
         />
       );
     },
@@ -58,7 +59,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         <HeaderWithLink
           props={props}
           level={4}
-          className="text-md my-2 font-semibold leading-6 text-slate-900   dark:text-slate-200"
+          className={title({ size: "xs", color: "pink" })}
         />
       );
     },
@@ -106,12 +107,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ul: (props) => {
       return <ul className="my-5 list-none [blockquote_&]:my-0" {...props} />;
     },
-    p: (props) => (
-      <p
-        className="sm:text-md my-5 text-sm font-normal leading-7 md:text-lg"
-        {...props}
-      />
-    ),
+    p: (props) => <p className={clsx(paragraph())} {...props} />,
     pre: (props) => {
       return (
         <Snippet
