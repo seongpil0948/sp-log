@@ -1,6 +1,6 @@
 import { Modal, ModalContent, useDisclosure } from "@nextui-org/modal";
 import { ElementRef, forwardRef, useImperativeHandle, useState } from "react";
-import ViewGuestBook from "@/app/game/_guestbook/components/ViewGuestBook";
+import ViewGuestBook from "@/app/[lang]/game/_guestbook/components/ViewGuestBook";
 
 const BridgeEnterModal = forwardRef<
   ElementRef<typeof Modal>,

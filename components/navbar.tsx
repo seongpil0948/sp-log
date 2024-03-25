@@ -28,8 +28,9 @@ import {
 } from "@/components/server-only/icons";
 
 import { Logo } from "@/components/server-only/icons";
+import { TAvailLocale } from "@/config";
 
-export const Navbar = () => {
+export const Navbar = (props: { locale: TAvailLocale }) => {
   const searchInput = (
     <Input
       aria-label="Search"
@@ -61,7 +62,7 @@ export const Navbar = () => {
           </NextLink>
         </NavbarBrand>
         <ul className="hidden lg:flex gap-4 justify-start ml-2">
-          {siteConfig.navItems.map((item) => (
+          {siteConfig.links.map((item) => (
             <NavbarItem key={item.href}>
               <NextLink
                 className={clsx(
@@ -71,7 +72,7 @@ export const Navbar = () => {
                 color="foreground"
                 href={item.href}
               >
-                {item.label}
+                {item.label[props.locale]}
               </NextLink>
             </NavbarItem>
           ))}
@@ -83,19 +84,20 @@ export const Navbar = () => {
         justify="end"
       >
         <NavbarItem className="hidden sm:flex gap-2">
-          <Link isExternal href={siteConfig.links.twitter} aria-label="Twitter">
+          <Link isExternal aria-label="Twitter">
             <TwitterIcon className="text-default-500" />
           </Link>
-          <Link isExternal href={siteConfig.links.discord} aria-label="Discord">
+          <Link isExternal aria-label="Discord">
             <DiscordIcon className="text-default-500" />
           </Link>
-          <Link isExternal href={siteConfig.links.github} aria-label="Github">
+          {/* <Link isExternal href={siteConfig.links.github} aria-label="Github"> */}
+          <Link isExternal aria-label="Github">
             <GithubIcon className="text-default-500" />
           </Link>
           <ThemeSwitch />
         </NavbarItem>
         <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem>
-        <NavbarItem className="hidden md:flex">
+        {/* <NavbarItem className="hidden md:flex">
           <Button
             isExternal
             as={Link}
@@ -106,11 +108,11 @@ export const Navbar = () => {
           >
             Sponsor
           </Button>
-        </NavbarItem>
+        </NavbarItem> */}
       </NavbarContent>
 
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
-        <Link isExternal href={siteConfig.links.github} aria-label="Github">
+        <Link isExternal aria-label="Github">
           <GithubIcon className="text-default-500" />
         </Link>
         <ThemeSwitch />
@@ -120,20 +122,20 @@ export const Navbar = () => {
       <NavbarMenu>
         {searchInput}
         <div className="mx-4 mt-2 flex flex-col gap-2">
-          {siteConfig.navMenuItems.map((item, index) => (
+          {siteConfig.links.map((item, index) => (
             <NavbarMenuItem key={`${item}-${index}`}>
               <Link
                 color={
                   index === 2
                     ? "primary"
-                    : index === siteConfig.navMenuItems.length - 1
+                    : index === siteConfig.links.length - 1
                     ? "danger"
                     : "foreground"
                 }
                 href="#"
                 size="lg"
               >
-                {item.label}
+                {item.label[props.locale]}
               </Link>
             </NavbarMenuItem>
           ))}

@@ -1,0 +1,105 @@
+{
+  "button": {
+    "cancel": "취소",
+    "delete": "삭제",
+    "button": "버튼",
+    "modify": "수정",
+    "search": "검색",
+    "started": "시작하기",
+    "submit": "확인"
+  },
+  "doc": {
+    "title": "문서 정리",
+    "description": "공부한 내용 정리 문서",
+    "kubernetes": {
+      "on-premise-1": {
+        "title": "쿠버네티스",
+        "description": "사내 서버 구축 Part 1"
+      },
+      "cka": {
+        "title": "CKA",
+        "description": "쿠버네티스 관리자 자격증"
+      },      
+      "workloads": {
+        "title": "워크 로드",
+        "description": "워크로드란?"
+      },
+      "components": {
+        "etcd": {
+         "title": "쿠버네티스 ETCD",
+         "description": "etcd 란?"
+        }
+       }      
+    },
+    "linux": {
+      "title": "리눅스",
+      "description": "리눅스",
+      "iptables": {
+        "title": "iptables",
+        "description": "iptables"
+      },
+      "systemd": {
+        "title": "systemd",
+        "description": "systemd"
+      },
+      "network": {
+        "container": {
+          "title": "container network",
+          "description": "container network"
+        },
+        "ufw": {
+          "title": "UFW",
+          "description": "uncomplicated firewall"
+        }        
+      },
+      "user-group": {
+        "title": "유저 & 그룹 관리",
+        "description": "리눅스 유저 및 그룹 관리"
+    },
+    "essential-commands": {
+        "title": "필수 커맨드",
+        "description": "리눅스 필수 커맨드"
+    }      
+    }    
+  },
+
+  "common": {
+    "label": {
+      "createInformation": "등록 정보",
+      "updateInformation": "수정 정보"
+    },
+    "loading": "로딩 중..."
+  },
+  "error": {
+    "errorMessage": {
+      "code": "1자 이상 입력해주세요."
+    }
+  },
+  "home": {
+    "description": {
+      "by": "by SeongPil Choi",
+      "summary1": "방가방가",
+      "summary2": "햄토리",
+      "summary3": "하하",
+      "title": "최성필 로그"
+    },
+    "teamName": "Team SP"
+  },
+  "login": {
+    "signIn": "로그인",
+    "signOut": "로그아웃",
+    "signUp": "회원가입",
+    "searchPassword": "비밀번호 찾기"
+  },
+  "manifest": {
+    "title": "SP Blog"
+  },
+  "search": {
+    "searchCriteria": "검색 조건",
+    "searchWord": "검색어"
+  },
+  "status": {
+    "success": "성공",
+    "fail": "실패"
+  }
+}

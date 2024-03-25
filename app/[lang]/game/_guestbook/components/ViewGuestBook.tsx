@@ -3,7 +3,7 @@ import { Tabs, Tab } from "@nextui-org/tabs";
 import FormGuestBook from "./FormGuestBook";
 import BookTable from "./TableGuestBook";
 import { Card, CardBody, CardHeader } from "@nextui-org/card";
-import { HeaderAbout } from "@/app/about/_components/Header";
+import { HeaderAbout } from "@/app/[lang]/about/_components/Header";
 import clsx from "clsx";
 import { title } from "@/components/server-only/primitives";
 

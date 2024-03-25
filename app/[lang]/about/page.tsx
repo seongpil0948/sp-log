@@ -8,7 +8,7 @@ import About from "./_components/About";
 import clsx from "clsx";
 import { motion } from "framer-motion";
 import { HeaderAbout } from "./_components/Header";
-import { getOnlyFiles } from "../_utils/server/dir-tree";
+import { getOnlyFiles } from "../../_utils/server/dir-tree";
 import CertSection from "./_components/Cert";
 
 export default function AboutPage() {
