@@ -1,8 +1,9 @@
 import { ReactNode } from "react";
 import { TAvailLocale } from ".";
+import { TreeSectionProps } from "@/components/client-only/tree-section";
 
 export type SiteConfig = typeof siteConfig;
-
+export const APP_DOMAIN = "https://www.peachhub.love";
 type LangLabel = { [k in TAvailLocale]: string };
 interface TLink {
   id: string;
@@ -84,8 +85,31 @@ const links = Object.freeze<TLink[]>([
   },
 ]);
 
-export const siteConfig = {
-  name: "SP-LOG",
+export const siteConfig = Object.freeze({
+  name: "SP Log",
+  short_name: "SP Blog",
   description: "seongpil's blog",
   links,
+  sitemap: APP_DOMAIN + "/sitemap.xml",
+  start_url: "/",
+  display: "standalone",
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "favicon-16x16.png",
+    apple: "/apple-touch-icon.png",
+  },
+});
+
+export const reduceChildLinks = (tree: TreeSectionProps): string[] => {
+  // return child links
+  if (!tree || !tree.href) return [];
+  if (!tree.children) return [tree.href];
+
+  return tree.children.reduce((acc, link) => {
+    if (link.children) {
+      acc.push(...reduceChildLinks(link));
+    }
+    acc.push(link.href);
+    return acc;
+  }, [] as string[]);
 };

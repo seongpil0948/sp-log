@@ -6,7 +6,6 @@ import { getDictionary } from "@/app/[lang]/dictionaries";
 export async function generateStaticParams() {
   return commonConfig.i18n.locales.map((lang) => ({ lang }));
 }
-
 interface Param {
   params: { lang: TAvailLocale };
 }

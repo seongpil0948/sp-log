@@ -1,0 +1,490 @@
+# What is LDAP?
+
+LDAP(Lightweight Directory Access Protocol) 는 디렉터리 서비스를 위한 프로토콜이다.   
+디렉터리 서비스는 사용자, 그룹, 서비스등의 정보를 저장하고 검색하기 위한 서비스이다.   
+
+## Architecture
+
+### LDAP Server
+### Server
+- host: `192.168.0.103`
+
+### Client
+- host: `192.168.0.102`
+
+### Directory Information Tree(DIT)
+- LDAP 서버에 저장된 데이터의 계층적 구조를 나타내는 트리 구조
+- 각 노드는 `entry`라고 불리는 객체를 가지고 있다.
+- `entry`는 `attribute`와 `value`로 구성되어 있다.
+- `attribute`는 `value`의 집합이며 `objectClass`를 포함한다.
+- `objectClass`는 `entry`의 타입을 나타낸다.
+- `entry`는 `dn(Distinguished Name)`으로 식별된다.
+- `dc`(도메인 컴포넌트)는 LDAP 트리의 루트를 나타내는 컴포넌트이다.
+  - 여러 개의 `dc`를 사용하여 트리 내에 여러 도메인을 만들 수 있습니다.
+- `cn`(커먼 네임)은 LDAP 트리의 노드를 나타내는 컴포넌트이다.
+  - `CN`은 항목을 식별하는 데 사용되는 고유한 이름입니다.
+  - `CN`은 사용자 이름, 그룹 이름 또는 호스트 이름과 같은 항목과 관련된 의미 있는 이름을 포함해야 합니다.
+  - 여러 개의 `cn`을 사용하여 단일 항목을 식별할 수 있습니다.
+- `sn`(suffix name)은 사용자의 성을 나타내는 데 사용됩니다.
+- `givenName`은 사용자의 이름을 나타내는 데 사용됩니다.
+- `uid`(사용자 ID)는 사용자의 고유 식별자를 나타내는 데 사용됩니다.
+- `gid`(그룹 ID)는 그룹의 고유 식별자를 나타내는 데 사용됩니다.
+- `ou`(조직 단위)는 조직의 단위를 나타내는 데 사용됩니다.
+- `mail은` 사용자의 이메일 주소를 나타내는 데 사용됩니다.
+- `l`(로케이션)은 사용자의 위치를 나타내는 데 사용됩니다.
+- `st`(주)는 사용자의 주를 나타내는 데 사용됩니다.
+- `c`(국가)는 사용자의 국가를 나타내는 데 사용됩니다.
+- `telephoneNumber`는 사용자의 전화 번호를 나타내는 데 사용됩니다.
+- `homeDirectory`는 사용자의 홈 디렉터리를 나타내는 데 사용됩니다.
+- `objectClass`: `entry`의 타입을 나타낸다.
+  - `inetOrgPerson` : 사용자를 나타낸다.
+  - `organizationalUnit` : 조직을 나타낸다.
+- loginShell: 사용자의 로그인 쉘을 나타낸다.
+- EXAMPLE
+  - `dc=abacus,dc=co,dc=kr`는 `abacus`라는 조직의 `co.kr` 도메인을 나타낸다.
+  - `cn=admin,dc=abacus,dc=co,dc=kr`는 `abacus` 조직의 관리자를 나타낸다.
+  - `cn=developer,dc=convergence,dc=abacus,dc=co,dc=kr`는 `abacus` 조직의 사용자 그룹을 나타낸다.
+
+# Install OpenLDAP to server
+```bash
+sudo dnf -y install openldap openldap-servers openldap-clients
+sudo systemctl start slapd.service
+sudo systemctl enable slapd.service
+```
+- `openldap` : LDAP 프로토콜을 지원하는 라이브러리
+- `openldap-servers` : LDAP 서버를 실행하는 데 필요한 파일일
+- `slapd-utils` : LDAP 서버를 실행하는 데 필요한 유틸리티
+
+# Configure LDAP Server
+> slapd.conf - configuration file for slapd that stand-alone LDAP daemon  
+LDAP 연결을 수신(Default port 389)하고 요청받은 LDAP 작업에 응답합니다.
+
+## Configure OpenLDAP
+
+### Edit default configuration
+고유 이름(기본 `DN`)이 포함된 BASE 및 LDAP 서버에 대한 정규화된 도메인 이름 또는 IP 주소가 포함된 URI입니다
+```bash
+sudo vi /etc/openldap/ldap.conf
+# Add the following lines
+BASE     dc=abacus,dc=co,dc=kr
+URI      ldap://ldap.example.com ldap://ldap-master.example.com:666 ldap://192.168.0.103 ldap://192.168.0.103:666
+```
+
+### Configuring the root user
+관리 작업을 수행하려면 LDAP의 **루트 사용자를 변경해야 합니다**. LDAP 항목에서는 이 사용자를 `olcRootDN`이라고 합니다.   
+`/etc/ldap/slapd.d` 또는 `/etc/openldap/slapd.d` 디렉토리의 LDIF 파일을 수동으로 편집하지 마십시오.  
+
+**1.** create password  
+```bash
+# input adm
+slappasswd
+{SSHA}9k8oeC7gLrpFew/e7W97Ji7chVhM1Blp
+```
+
+**2.** create rootpw.ldif
+```bash
+vi rootpw.ldif
+# Add the following lines
+dn: olcDatabase={0}config,cn=config
+changetype: modify
+add: olcRootPW
+olcRootPW: {SSHA}9k8oeC7gLrpFew/e7W97Ji7chVhM1Blp
+```
+
+**3.** Apply the changes:
+```bash
+ldapadd -Y EXTERNAL -H ldapi:/// -f rootpw.ldif
+```
+- `-Y EXTERNAL` : Use the SASL EXTERNAL mechanism for authentication
+- `-H ldapi:///` : Use the LDAP over IPC protocol to connect to the server
+- `-f rootpw.ldif` : Read the LDAP data in LDIF format from the file rootpw.ldif
+- `ldapadd` : Add LDAP entries to the directory
+- `ldapmodify` : Modify LDAP entries in the directory
+
+---
+
+만약 `ldap_modify: Constraint violation (19) additional info: attribute 'olcRootPW' cannot have multiple values`  
+이러한 에러가 발생한다면 `rootpw.ldif` 파일의 `add` key 를 `replace` 로 수정하고 `ldapmodify` 명령어를 사용하여 변경해보자.
+```bash
+ldapmodify -Y EXTERNAL -H ldapi:/// -f rootpw.ldif
+```
+4. basic Schema 를 가져오자
+```bash
+ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/cosine.ldif
+ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/nis.ldif
+ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/inetorgperson.ldif
+ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/openldap.ldif
+ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/dyngroup.ldif
+```
+5. LDAP 서버에 대한 액세스를 구성하고 서버에 대한 `surffix` 및 `관리자`를 구성합니다. 
+```bash
+$ sudo vi manager.ldif
+# Add the following lines
+dn: olcDatabase={2}mdb,cn=config
+changetype: modify
+replace: olcSuffix
+olcSuffix: dc=abacus,dc=co,dc=kr
+
+dn: olcDatabase={2}mdb,cn=config
+changetype: modify
+replace: olcRootDN
+olcRootDN: cn=Manager,dc=abacus,dc=co,dc=kr
+
+dn: olcDatabase={2}mdb,cn=config
+changetype: modify
+add: olcRootPW
+olcRootPW: {SSHA}9k8oeC7gLrpFew/e7W97Ji7chVhM1Blp
+```
+> `/etc/openldap/slapd.d/cn=config/olcDatabase={2}mdb.ldif` 이 없을 수 있다 적절한 파일명을 넣어주자.  
+> no such object (32) 에러가 발생한다면 `olcDatabase={2}mdb.ldif` 파일을 찾아서 적절한 파일명을 넣어주자.
+
+반영
+```bash
+ldapmodify -Y EXTERNAL -H ldapi:/// -f manager.ldif
+```
+
+
+1. LDIF 파일을 생성하여 조직 그룹을 생성합니다.
+```bash
+$ sudo vi org.ldif
+# Add the following lines
+
+dn: dc=abacus,dc=co,dc=kr
+objectClass: top
+objectClass: dcObject
+objectclass: organization
+o: Abacus RPA Server
+dc: abacus
+
+dn: cn=Manager,dc=abacus,dc=co,dc=kr
+objectClass: organizationalRole
+cn: Manager
+description: LDAP Manager
+
+dn: ou=users,dc=abacus,dc=co,dc=kr
+objectClass: organizationalUnit
+ou: rpaUsers
+```
+반영
+```bash
+ldapadd -x -D "cn=Manager,dc=abacus,dc=co,dc=kr" -W -f org.ldif
+```
+LDAP 비밀번호를 입력하라는 메시지가 표시됩니다. LDAP 루트 사용자에 대해 정의한 일반 텍스트 비밀번호를 입력하십시오.
+```
+Enter LDAP Password: 
+ldap_bind: Invalid credentials (49)
+```
+에러가 발생시 hosts를 확인해보자.
+
+7. 새로운 유저를 LDAP server에 등록합니다.
+먼저 사용할 유저의 비밀번호를 암호화 해야합니다.
+```bash
+$ slappasswd -h {SSHA} -s password
+{SSHA}v2JToQPeYErAEUvG/2xQgRutft/o0qWM
+```
+이제 `ldif` 파일을 생성하여 유저를 등록합니다.
+
+```bash
+$ sudo vi addUserName.ldif
+# Add the following lines
+
+# dn: cn=Sejin Park,cn=developer,ou=convergence,dc=abacus,dc=co,dc=kr
+# dn: olcDatabase={2}mdb,cn=config
+# dn: cn=SejinPark,dc=abacus,dc=co,dc=kr
+dn: dc=abacus,dc=co,dc=kr
+changetype: add
+uid: 1501
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+mail: sejin@gmail.com
+# loginShell: /bin/bash
+# homeDirectory: /home/sejin
+cn: SejinPark
+sn: Park
+givenName: Sejin
+telephoneNumber: 010-1234-5678
+userPassword: {SSHA}v2JToQPeYErAEUvG/2xQgRutft/o0qWM
+```
+세진 유저를 등록합니다.
+```bash
+ldapadd -D "cn=Manager,dc=abacus,dc=co,dc=kr" -W -f addUserName.ldif
+```
+잘 등록되었는지 확인합니다.
+```bash
+ldapsearch -x -b "dc=abacus,dc=co,dc=kr"
+# ldapsearch -x -b "dc=abacus,dc=co,dc=kr"
+# extended LDIF
+#
+# LDAPv3
+# base <dc=abacus,dc=co,dc=kr> with scope subtree
+# filter: (objectclass=*)
+# requesting: ALL
+#
+
+# abacus.co.kr
+dn: dc=abacus,dc=co,dc=kr
+objectClass: dcObject
+objectClass: top
+objectClass: organization
+o: Abacus
+dc: abacus
+
+# Manager, abacus.co.kr
+dn: cn=Manager,dc=abacus,dc=co,dc=kr
+objectClass: organizationalRole
+cn: Manager
+description: LDAP Manager
+
+# rpausers, abacus.co.kr
+dn: ou=rpausers,dc=abacus,dc=co,dc=kr
+objectClass: organizationalUnit
+ou: rpaUsers
+
+# SejinPark, abacus.co.kr
+dn: cn=SejinPark,dc=abacus,dc=co,dc=kr
+uid: 1501
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+mail: sejin@gmail.com
+cn: SejinPark
+sn: Park
+givenName: Sejin
+telephoneNumber: 010-1234-5678
+userPassword:: e1NTSEF9YWVKQjM5MzVoTk1oazRaakMxMldtY01Fa1pFc2djVjM=
+```
+이상 configuraion이 완료되었습니다.
+---
+
+
+
+# Configure LDAP Client
+이제 LDAP 클라이언트를 구성해보자.
+## Install LDAP client
+```bash
+sudo dnf install openldap-clients
+```
+## Configure LDAP client
+```bash
+vi /etc/openldap/ldap.conf
+# Add the following lines
+BASE   dc=abacus,dc=co,dc=kr	
+URI    ldap://192.168.0.103 ldap://192.168.0.103:666
+```
+
+## Check LDAP server from client
+```bash
+ldapsearch -x -b "dc=abacus,dc=co,dc=kr"D
+```
+결과가 잘 나옵니다.  
+사용했던 커맨드들을 더 깊게 이해해보자
+
+# Operations utilities
+## ldapsearch
+> LDAP 서버에 연결하여 검색을 수행하는 명령어
+
+### Options
+- `x` : simple authentication
+- `b` : search base
+- `H` : URI
+- `W` : prompt for bind password
+
+## ldapadd
+> LDAP 서버에 연결하여 entry를 추가하는 명령어
+> `ldif` 파일을 사용하여 entry를 추가할 수 있다.
+
+### Options
+- `x` : simple authentication
+- `D` : bind DN
+- `W` : prompt for bind password
+- `f` : file
+
+# Example
+### Add user `admin`  in `abacus.co.kr` with organization `convergence` 
+```bash
+ldapadd -x -D "cn=admin,dc=abacus,dc=co,dc=kr" -W -f add_entry.ldif
+```
+### Add user in domain `abacus.co.kr` 
+- uid: `1501`
+- gid: `150`
+- mail: `sejin@gmail.com`
+- loginShell: `/bin/bash`
+- homeDirectory: `/home/sejin`
+- objectClass: `inetOrgPerson`
+- group: `developer`
+- organization: `convergence`
+- sn: `park`
+- telephoneNumber: `010-1234-5678`
+- givenName: `sejin`
+- password: `passpass`
+
+write `user-sejin.ldif`
+```bash
+$ mkdir -p ldifs
+$ vi ldifs/user-sejin.ldif
+```
+
+
+add user
+```bash
+ldapadd -x -D "cn=admin,dc=abacus,dc=co,dc=kr" -W -f add_user.ldif
+```
+
+### Add group `developer` in `abacus.co.kr` with organization `convergence` 
+write `add_group.ldif`
+```bash
+$ vi add_group.ldif
+```
+input the following lines
+```ldif
+dn: cn=developer,dc=abacus,dc=co,kr
+objectClass: groupOfNames
+cn: developer
+member: uid=1501,gid=151,ou=convergence,dc=abacus,dc=co,kr
+```
+add group
+```bash
+ldapadd -x -D "cn=admin,dc=abacus,dc=co,dc=kr" -W -f add_group.ldif
+```
+
+### Search all entries in abaucs.co.kr
+```bash
+ldapsearch -x -b "dc=abacus,dc=co,dc=kr" -W
+```
+### Search all entries in `abacus.co.kr` and organization `convergence` 
+```bash
+ldapsearch -x -b "ou=convergence,dc=abacus,dc=co,dc=kr" -H ldap://192.168.0.103
+```
+
+### Search group `developer` in `abacus.co.kr`
+```bash
+ldapsearch -x -b "cn=developer,dc=abacus,dc=co,kr" -H ldap://192.168.0.103
+or
+ldapsearch -x -LLL -b dc=example,dc=com cn=developer -H ldap://192.168.0.103
+```
+
+
+---
+
+# Ansible
+ansible은 RedHat에서 개발한 오픈소스 IT 자동화 도구이다.  
+ansible은 SSH를 사용하여 리눅스 서버를 관리하고, YAML을 사용하여 작업을 정의한다.  
+우린 구축한 LDAP 서버의 개발자들을 관리하기 위해 ansible을 사용할 것이다.  
+
+## 목적
+- LDAP 서버의 사용자와 사내서버계정을 동기화(단방향)한다.  
+
+## Setup
+- **control node**: `192.168.0.103`
+- **inventory(host) path**: `/home/admin/.ansible/server.ini`
+- **managed node**: `192.168.0.102`
+
+노드간 SSH 통신이 가능해야한다. control node 에서 다음 명령어를 실행하여 SSH 키를 생성하고, **managed node**에 복사한다.  
+```bash
+# create ssh key (without passphrase)
+$ ssh-keygen -t rsa
+# check
+$ ls .ssh
+# copy public key to managed node
+$ ssh-copy-id -i ~/.ssh/id_rsa.pub root@192.168.0.102
+# check
+$ ssh root@192.168.0.102
+Last login: Wed Mar  6 16:33:52 2024 from hp4
+```
+### Setup Inventory
+`inventory`는 ansible이 관리하는 서버의 목록을 정의하는 파일이다.
+```bash
+$ mkdir  .ansible
+$ vi .ansible/server.ini
+# append the following lines
+[server]
+root@192.168.0.102
+```
+
+
+### Install Ansible
+설치전 사전 세팅은 끝났다.
+Centos
+```bash
+sudo dnf install ansible -y
+```
+Ubuntu
+```bash
+sudo apt-get install ansible -y
+```
+### Check
+```bash
+$ ansible --version
+ansible 2.9.27
+  config file = /etc/ansible/ansible.cfg
+  configured module search path = [u'/home/admin/.ansible/plugins/modules', u'/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/lib/python2.7/site-packages/ansible
+  executable location = /usr/bin/ansible
+  python version = 2.7.5 (default, Nov 14 2023, 16:14:06) [GCC 4.8.5 20150623 (Red Hat 4.8.5-44)]
+```
+필자는 Centos 환경으로 관련 파일을 확인해보았다.
+```bash
+$ dnf repoquery --list ansible > .ansible/ansible-files.txt
+$ cat .ansible/ansible-files.txt | grep python
+/usr/lib/python2.7/site-packages/ansible/vars/reserved.pyo
+$ cat .ansible/ansible-files.txt | grep -v 'python' | grep -v man | grep -v /usr/share | grep -v /usr/bin
+/etc/ansible
+/etc/ansible/ansible.cfg
+/etc/ansible/hosts
+/etc/ansible/roles
+```
+등록된 inventory 파일을 검증해보자.
+```bash
+$ ansible server --inventory ~/.ansible/server.ini --list
+  hosts (1):
+    root@192.168.0.102
+
+$ ansible server --inventory ~/.ansible/server.ini -m ping
+root@192.168.0.102 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    }, 
+    "changed": false, 
+    "ping": "pong"
+}
+```
+성공적으로 서버에 연결되었다.  
+
+### Setup Configuration
+`ansible.cfg` 파일을 생성하여 ansible의 설정을 정의할 수 있다.    
+https://docs.ansible.com/ansible/latest/reference_appendices/config.html#ansible-configuration-settings   
+
+ansible은 아래 순서로 설정 파일을 찾는다.
+1. `ANSIBLE_CONFIG` 환경 변수
+2. `./ansible.cfg` 파일
+3. `~/.ansible.cfg` 파일
+4. `/etc/ansible/ansible.cfg` 파일
+필요시 기 존재하는 `/etc/ansible/ansible.cfg` 파일을 수정하여 사용하겠다.
+```bash
+# backup
+$ cp /etc/ansible/ansible.cfg /etc/ansible/ansible.cfg.bak
+```
+
+
+
+
+
+
+
+
+# References
+- [IBM](https://www.ibm.com/docs/en/rpa/23.0?topic=ldap-installing-configuring-openldap)
+- [Official OpenLDAP](https://www.openldap.org/doc/admin24/quickstart.html)
+- [Understanding LDAP Schema](https://ldap.com/understanding-ldap-schema/)
+- [OpenLDAP](https://www.openldap.org/)
+- [https://www.openldap.org/doc/admin26/quickstart.html](https://www.openldap.org/doc/admin26/quickstart.html)
+- [https://linux.die.net/man/5/slapd.access](https://linux.die.net/man/5/slapd.access)
+- [oid](https://ldap.com/ldap-oid-reference-guide/)
+- https://co-de.tistory.com/114
+- https://nightlies.apache.org/directory/studio/2.0.0.v20210717-M17/userguide/ldap_browser/tools_newconnection_wizard.html
+### Ansible
+- https://docs.ansible.com/ansible/latest/inventory_guide/index.html
+- https://wikidocs.net/130113

@@ -121,3 +121,19 @@ export const typo = tv({
     font: "sans",
   },
 });
+
+export const main = tv({
+  base: "flex-grow py-2 px-8 relative flex flex-col min-h-screen",
+  variants: {
+    justify: {
+      center: "justify-center",
+      start: "justify-start",
+      end: "justify-end",
+    },
+    size: {
+      sm: "px-8 pt-6 pb-8",
+      md: "md:py-10",
+      lg: "px-4 py-10",
+    },
+  },
+});

@@ -43,7 +43,6 @@ export default async function CommonNavbar(p: CommonNavbarProps) {
     },
     ...p.drawerProps,
   };
-  const dict = await getDictionary(p.locale);
   const props = {
     ...p,
     classes: extendedClassNames,

@@ -1,6 +1,4 @@
 import { TAvailLocale } from "@/config";
-import { Button } from "@nextui-org/button";
-import { Link } from "@nextui-org/link";
 import { redirect } from "next/navigation";
 import commonConfig from "@/config";
 import { getDictionary } from "@/app/[lang]/dictionaries";

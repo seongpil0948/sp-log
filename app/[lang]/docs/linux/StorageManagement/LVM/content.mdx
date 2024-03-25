@@ -1,0 +1,314 @@
+## Toc
+- [What is LVM?](#what-is-lvm)
+  - [파티션과의 차이점](#파티션과의-차이점)
+  - [Install](#install)
+    - [Physical Volume (PV)](#physical-volume-pv)
+    - [Physical Extent (PE)](#physical-extent-pe)
+    - [Volume Group (VG)](#volume-group-vg)
+    - [Logical Volume (LV)](#logical-volume-lv)
+    - [Logical Extent (LE)](#logical-extent-le)
+- [Practice](#practice)
+    - [Install lvm on this system.](#install-lvm-on-this-system)
+    - [Add these four disks as PVs (Physical Volumes) to LVM: `/dev/vdb`, `/dev/vdc`, `/dev/vdd` and `/dev/vde`.](#add-these-four-disks-as-pvs-physical-volumes-to-lvm-devvdb-devvdc-devvdd-and-devvde)
+    - [Remove the /dev/vde physical volume from LVM.](#remove-the-devvde-physical-volume-from-lvm)
+    - [Create a Volume Group (VG) named volume1. It should be created on these two Physical Volumes: /dev/vdb and /dev/vdc.](#create-a-volume-group-vg-named-volume1-it-should-be-created-on-these-two-physical-volumes-devvdb-and-devvdc)
+    - [Add /dev/vdd to this volume group so that we gain more usable storage space.](#add-devvdd-to-this-volume-group-so-that-we-gain-more-usable-storage-space)
+    - [Remove /dev/vdd from the volume group volume1.](#remove-devvdd-from-the-volume-group-volume1)
+    - [Create a Logical Volume (LV). It should have these properties:](#create-a-logical-volume-lv-it-should-have-these-properties)
+    - [Resize the Logical Volume called `smalldata` to `1 Gigabyte`. This logical volume resides on the volume group called `volume1`.](#resize-the-logical-volume-called-smalldata-to-1-gigabyte-this-logical-volume-resides-on-the-volume-group-called-volume1)
+    - [Create an `XFS` filesystem on the logical volume called smalldata.](#create-an-xfs-filesystem-on-the-logical-volume-called-smalldata)
+    - [Destroy/Remove the Logical Volume called `smalldata`.](#destroyremove-the-logical-volume-called-smalldata)
+  - [Reference](#reference)
+
+
+# What is LVM?
+> Logical Volume을 효율적이고 유연하게 관리하기 위한 커널의 한 부분이자 프로그램
+> 기존방식이 파일시스템을 블록 장치에 직접 접근해서 읽고 쓰기를 했다면, LVM은 파일시스템이 LVM이 만든 가상의 블록 장치에 읽고 쓰기를 하게 됩니다.
+사용전 좋은 접근방식은 `man lvm`을 통해 어떤 명령어를 사용할 수 있는지 확인하는 것입니다.  
+또한 명령어들이 vg, pv같이 접두어를 가지기 때문에 용도에 맞게 자동완성을 활용해보세요
+```bash
+$ lv + <tab> <tab>
+lvchange     lvcreate     lvextend     lvmconfig    lvmdump      lvmsadc      lvreduce     lvrename     lvs          
+lvconvert    lvdisplay    lvm          lvmdiskscan  lvmpolld     lvmsar       lvremove     lvresize     lvscan    
+
+$ pv + <tab> <tab>
+pvchange  pvck      pvcreate  pvdisplay pvmove    pvremove  pvresize  pvs       pvscan    
+
+$ vg + <tab> <tab>
+vgcfgbackup    vgchange       vgconvert      vgdisplay      vgextend       vgimportclone  vgmknodes      vgremove       vgs            vgsplit        
+vgcfgrestore   vgck           vgcreate       vgexport       vgimport       vgmerge        vgreduce       vgrename       vgscan   
+```
+
+
+## 파티션과의 차이점
+LVM (Logical Volume Manager)와 Partition은 리눅스에서 스토리지를 관리하는 두 가지 주요 방법입니다.
+
+* 유연성: LVM은 파티션보다 훨씬 유연합니다. LVM을 사용하면, 물리적 볼륨을 그룹화하여 논리적 볼륨을 생성할 수 있습니다. 이 논리적 볼륨은 필요에 따라 쉽게 확장하거나 축소할 수 있습니다. 반면에, 파티션은 일단 생성되면 크기를 변경하는 것이 어렵습니다.
+* 스냅샷: LVM은 스냅샷 기능을 제공합니다. 이는 시스템의 특정 시점의 상태를 캡처하고, 필요한 경우 그 상태로 롤백할 수 있게 해줍니다. 파티션은 이러한 기능을 제공하지 않습니다.
+* 스토리지 관리: LVM을 사용하면 여러 물리적 디스크를 하나의 논리적 볼륨으로 결합할 수 있습니다. 이렇게 하면 여러 디스크의 스토리지를 하나의 큰 스토리지 풀로 관리할 수 있습니다. 반면에, 파티션은 각 디스크를 개별적으로 관리해야 합니다.
+* 복잡성: LVM은 파티션보다 복잡합니다. LVM을 설정하고 관리하기 위해서는 추가적인 학습이 필요합니다. 반면에, 파티션은 비교적 간단하고 직관적입니다.
+
+이러한 차이점들 때문에, LVM은 대규모 서버 환경에서 스토리지를 관리하는 데 주로 사용되며, 파티션은 간단한 스토리지 요구 사항이 있는 경우에 주로 사용됩니다.
+
+
+
+## Install
+```bash
+sudo apt-get install lvm2
+sudo dnf install lvm2
+```
+
+### Physical Volume (PV)  
+물리적인 디스크나 파티션을 의미합니다.  즉, 블록 장치 전체 또는 그 블록 장치를 이루고 있는 파티션들을 LVM에서 사용할 수 있게 변환하는 것입니다. 
+예를 들어 `/dev/sda1`, `/dev/sda2` 등의 블록 스토리지를 LVM으로 쓰기위해 PV로 초기화하게 됩니다. PV는 일정한 크기의 PE(Physical Extent)들로 구성이 됩니다.
+
+```bash
+# what disk and partition are available
+$ sudo lvmdiskscan
+
+# create physical volume
+$ sudo pvcreate /dev/sdc /dev/sdd
+Physical volume "/dev/sdc" successfully created.
+Physical volume "/dev/sdd" successfully created.
+```
+`pvs` 명령어는 logical volume manager에 의해 사용중인 논리적 볼륨양을 나타냅니다
+우린 이제 LVM에서 사용할 수 있게 된 두개의 물리적 볼륨을 가지게 되었습니다.
+```bash
+$ sudo pvs
+  PV         VG Fmt  Attr PSize  PFree
+  /dev/sdc       lvm2 ---  1.00g 1.00g
+  /dev/sdd       lvm2 ---  1.00g 1.00g
+# display physical volume
+$ sudo pvscan
+$ sudo pvdisplay
+  "/dev/sdc" is a new physical volume of "1.00 GiB"
+  --- NEW Physical volume ---
+  PV Name               /dev/sdc
+  VG Name
+  PV Size               1.00 GiB
+  Allocatable           NO
+  PE Size               4.00 MiB
+  Total PE              255
+  Free PE               255
+  Allocated PE          0
+  PV UUID               3Z
+# remove physical volume
+$ sudo pvremove /dev/sdc
+```
+
+
+### Physical Extent (PE)  
+물리적 볼륨을 논리적 볼륨으로 나누는 단위입니다. 즉, 블록 장치 전체 또는 그 블록 장치를 이루고 있는 파티션들을 LVM에서 사용할 수 있게 변환하는 것입니다.  
+예를 들어 `/dev/sda1`, `/dev/sda2` 등의 블록 스토리지를 LVM으로 쓰기위해 PV로 초기화하게 됩니다. PV는 일정한 크기의 PE(Physical Extent)들로 구성이 됩니다.
+
+---
+다음으로 이 `PV, PVE` 용량을 사용하는 방법을 알려주어야 합니다.
+
+### Volume Group (VG)  
+하나 이상의 물리적 볼륨을 그룹화한 것입니다 즉, PV들의 집합으로 LV를 할당할 수 있는 공간입니다.  
+즉, PV들로 초기화된 장치들은 VG로 통합되게 됩니다.  
+사용자는 VG안에서 원하는대로 공간을 쪼개서 LV로 만들 수 있습니다.
+
+```bash
+# create volume group
+$ sudo vgcreate my_volume /dev/sdc /dev/sdd
+Volume group "my_volume" successfully created
+```
+우린 VG를 가상 디스크로 생삭 할 수 있습니다. 또한 이는 여러 PV로 구성될 수 있지요  
+sdc, sdd 각각이 50GB 크기로 구성될 경우, `my_volume`은 100GB의 크기를 가지게 됩니다.
+이는 수동으로 디스크를 추가할때 서버를 재부팅 하지 않아도 된다 부터 여러 이점을 제공해줍니다.    
+만약 `my_volume`이 디스크가 부족한경우, 다른 디스크(50G)를 추가하고 `vgextend` 명령어로 추가할 수 있습니다.
+```bash
+$ sudo vgextend my_volume /dev/sde
+$ sudo vgs
+  VG         #PV #LV #SN Attr   VSize  VFree
+  my_volume   3   0   0 wz--n-  150.00g 50.00g
+$ sudo vgscan
+
+# remove pv from vg
+$ sudo vgreduce my_volume /dev/sde
+$ sudo pvremove /dev/sde 
+```
+
+### Logical Volume (LV)  
+논리적인 볼륨을 의미합니다. 이는 논리적 볼륨 그룹에 속해 있습니다. 사용자가 최종적으로 다루게 되는 논리적인 스토리지입니다.   
+생성된 LV는 파일 시스템 및 애플리케이션(Database 등)으로 사용됩니다. 위에서도 언급했듯이, LV를 구성하는 LE들은 PV의 PE들과 맵핑하며 존재하게 됩니다.
+
+```bash
+# create logical volume from volume group as 50GB
+# $ sudo lvcreate -L 50G --name partition1 my_volume
+$ sudo lvcreate --size 50G --name partition1 my_volume
+
+$ sudo vgs  
+  VG         #PV #LV #SN Attr   VSize  VFree
+  my_volume   3   1   0 wz--n-  150.00g 100.00g
+
+# display logical volume
+$ sudo lvs
+  LV         VG        Attr       LSize   Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+  partition1 my_volume -wi-a-----  50.00g
+```
+- 50GB의 크기로 `partition1`이 생성되었습니다.
+- `my_volume`은 150GB의 크기를 가지고 있으며, 100GB의 공간이 남아있습니다.
+- `partition1`은 `my_volume`에 속해있으며, 50GB의 크기를 가지고 있습니다.
+
+```bash
+# create second logical volume from volume group as 30GB
+$ sudo lvcreate --size 30G --name partition2 my_volume
+$ sudo lvs
+  LV         VG        Attr       LSize   Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+  partition1 my_volume -wi-a-----  50.00g
+  partition2 my_volume -wi-a-----  30.00g
+$ sudo vgs
+  VG         #PV #LV #SN Attr   VSize  VFree
+  my_volume   3   2   0 wz--n-  150.00g 70.00g
+
+# extend logical volume
+$ sudo lvextend -L +20G /dev/my_volume/partition2
+
+# remove logical volume
+$ sudo lvremove /dev/my_volume/partition1
+
+# resize logical volume as 100% free space
+# $ sudo lvresize -L 50G /dev/my_volume/partition2
+$ sudo lvresize -l +100%VG /dev/my_volume/partition2
+
+# display logical volume
+$ sudo lvscan
+$ sudo lvdisplay
+ ```
+직관적이고 유연하게 스토리지를 관리할 수 있습니다.   
+
+위 정보로 xfs 파일시스템을 생성하고 마운트하면 됩니다.
+```bash
+# create xfs file system
+$ sudo mkfs.xfs /dev/my_volume/partition2
+
+# mount
+$ sudo mkdir /mnt/my_volume
+$ sudo mount /dev/my_volume/partition2 /mnt/my_volume
+```
+참고로, 파일 시스템을 생성한 후론 더 신중히 다루어야 합니다.  
+만약 resize를 하게 된다면 --resizefs 옵션을 사용해야 합니다. 그리고 커질수 있지만 작아질 수는 없습니다.  
+파일시스템의 제한사항을 확인하고, 파일시스템을 확장하기 전에 파일시스템을 확인해야 합니다.   
+```bash
+# resize file system
+$ sudo lvresize -l 3G /dev/my_volume/partition2
+```
+### Logical Extent (LE)
+논리적인 볼륨을 구성하는 단위입니다. LE는 VG에 속해있으며, PE와 맵핑됩니다. 즉, LE는 PE의 논리적인 표현입니다.  
+LV를 구성하는 일정한 크기의 블록으로 기본크기는 PE와 마찬가지로 4MB입니다.VG1에서 사용자가 원하는 크기대로 분할해서 LV1과 LV2를 만들 수 있습니다.  
+꼭 VG의 모든 공간을 다 써야되는건 아닙니다. 각각의 LV들은 동일한 크기의 LE로 구성이되며 PE들과 1:1로 맵핑됩니다.
+
+# Practice
+
+### Install lvm on this system.
+```bash
+# check os
+$ cat /etc/os-release
+# if ubuntu
+$ sudo apt-get install lvm2
+# if centos
+$ sudo dnf install lvm2
+```
+
+### Add these four disks as PVs (Physical Volumes) to LVM: `/dev/vdb`, `/dev/vdc`, `/dev/vdd` and `/dev/vde`.
+```bash
+# search command
+$ sudo pv
+pvchange   pvck       pvcreate   pvdisplay  pvmove     pvremove   pvresize   pvs        pvscan
+
+# search disk
+$ lsblk
+NAME   MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
+vda    253:0    0  11G  0 disk 
+└─vda1 253:1    0  10G  0 part /
+vdb    253:16   0   1G  0 disk 
+vdc    253:32   0   1G  0 disk 
+vdd    253:48   0   1G  0 disk 
+vde    253:64   0   1G  0 disk
+# create physical volume
+$ sudo pvcreate /dev/vdb /dev/vdc /dev/vdd /dev/vde
+$ sudo pvs
+  PV         VG Fmt  Attr PSize PFree
+  /dev/vdb      lvm2 ---  1.00g 1.00g
+  /dev/vdc      lvm2 ---  1.00g 1.00g
+  /dev/vdd      lvm2 ---  1.00g 1.00g
+  /dev/vde      lvm2 ---  1.00g 1.00g
+```
+
+### Remove the /dev/vde physical volume from LVM.
+```bash
+$ sudo pvremove /dev/vde
+  Labels on physical volume "/dev/vde" successfully wiped.
+```
+
+### Create a Volume Group (VG) named volume1. It should be created on these two Physical Volumes: /dev/vdb and /dev/vdc.  
+```bash
+$ vg + <tab> <tab>
+vgcfgbackup      vgconvert        vgextend         vgmerge          vgrename         
+vgcfgrestore     vgcreate         vgimport         vgmknodes        vgs              
+vgchange         vgdisplay        vgimportclone    vgreduce         vgscan           
+vgck             vgexport         vgimportdevices  vgremove         vgsplit 
+
+# create vg
+$ sudo vgcreate volume1 /dev/vdb /dev/vdc
+  Volume group "volume1" successfully created
+```
+### Add /dev/vdd to this volume group so that we gain more usable storage space.  
+```bash
+$ sudo vgs
+  VG      #PV #LV #SN Attr   VSize VFree
+  volume1   2   0   0 wz--n- 1.99g 1.99g
+# extends vg
+$ sudo vgextend volume1 /dev/vdd
+  Volume group "volume1" successfully extended
+
+$ sudo vgs
+  VG      #PV #LV #SN Attr   VSize  VFree 
+  volume1   3   0   0 wz--n- <2.99g <2.99g
+```
+
+### Remove /dev/vdd from the volume group volume1.
+```bash
+$ sudo vgreduce volume1 /dev/vdd
+  Removed "/dev/vdd" from volume group "volume1"
+```
+
+### Create a Logical Volume (LV). It should have these properties:
+
+1. The size of the LV should be 1.5 Gigabytes.
+2. Its name should be smalldata.
+3. The logical volume should be created on the volume group named volume1.
+```bash
+sudo lvcreate --size 1.5G --name smalldata volume1
+```
+
+### Resize the Logical Volume called `smalldata` to `1 Gigabyte`. This logical volume resides on the volume group called `volume1`.  
+```bash
+$ sudo lvresize -L 1G volume1/smalldata
+```
+
+### Create an `XFS` filesystem on the logical volume called smalldata.
+This logical volume exists on the volume group called `volume1`.
+```bash
+$ sudo mkfs.xfs /dev/volume1/smalldata
+```
+
+### Destroy/Remove the Logical Volume called `smalldata`.
+```bash
+# list of file system
+$ sudo lvscan
+  ACTIVE            '/dev/volume1/smalldata' [1.00 GiB] inherit
+# remove logical volume
+$ sudo lvremove /dev/volume1/smalldata
+```
+
+
+
+
+
+
+
+## Reference
+* https://tech.cloud.nongshim.co.kr/2018/11/23/lvmlogical-volume-manager-1-%EA%B0%9C%EB%85%90

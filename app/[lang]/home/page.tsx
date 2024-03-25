@@ -28,7 +28,6 @@ export default async function SSGPage({ params: { lang } }: Param) {
         leftTreeOptions={{
           dir: "app/[lang]",
         }}
-        locale={lang}
       />
       <main>
         <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">

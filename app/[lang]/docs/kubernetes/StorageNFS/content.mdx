@@ -1,0 +1,562 @@
+# Table of Contents
+- [Table of Contents](#table-of-contents)
+- [NFS in K8s with Auto FS](#nfs-in-k8s-with-auto-fs)
+    - [The Network File System Protocol](#the-network-file-system-protocol)
+  - [구성 전략](#구성-전략)
+  - [NFS Server 구성](#nfs-server-구성)
+  - [NFS Client 구성](#nfs-client-구성)
+  - [Kubernetes NFS Subdir External Provisioner](#kubernetes-nfs-subdir-external-provisioner)
+    - [Install](#install)
+    - [Test](#test)
+      - [파드 제거](#파드-제거)
+  - [MySQL DB (Stateless)](#mysql-db-stateless)
+    - [1. specification 작성](#1-specification-작성)
+      - [PersistentVolumeClaim](#persistentvolumeclaim)
+      - [Deployment](#deployment)
+      - [Service](#service)
+    - [Secret](#secret)
+    - [2. script 작성](#2-script-작성)
+    - [POD 접속 테스트](#pod-접속-테스트)
+    - [데이터 유지 테스트](#데이터-유지-테스트)
+    - [create data to test.users table](#create-data-to-testusers-table)
+    - [select data from test.users table](#select-data-from-testusers-table)
+  - [AutoFs](#autofs)
+    - [Install](#install-1)
+    - [Usage](#usage)
+- [Practice](#practice)
+    - [Let's export `/etc` directory using `NFS` for `127.0.0.1` IP address. Also, the `ro` option should be applied, making this share `read-only`. Clients will only be able to read, but not write to this network shared directory.](#lets-export-etc-directory-using-nfs-for-127001-ip-address-also-the-ro-option-should-be-applied-making-this-share-read-only-clients-will-only-be-able-to-read-but-not-write-to-this-network-shared-directory)
+    - [what `autofs` 's configuration file name and location?](#what-autofs-s-configuration-file-name-and-location)
+    - [Tell `autofs` to auto-mount a directory called `/shares`. If this directory does not exist](#tell-autofs-to-auto-mount-a-directory-called-shares-if-this-directory-does-not-exist)
+
+
+# NFS in K8s with Auto FS
+k8s 의 storage class를 왜 써야할까?
+- persistent volume을 수동으로 생성하지 않는다.
+- persistent volume claim 생성시 class 필드에 해당하는 provider 타입에 맞게 volume을 자동으로 생성한다.
+
+k8s 는 CSI(Container Storage Interface)를 준수 하는 드라이버를 provisioner 로 지정하여 사용한다.
+우리는 NFS storage를 사용할 것이다.
+
+
+### The Network File System Protocol
+원격 파일 시스템에 액세스할 수 있는 프로토콜은 여러 가지가 있습니다.  
+프로토콜은 클라이언트와 서버가 서로 통신하는 데 사용하는 규약 즉 한국어/영어 이런 언어와 같다.
+당연히 동일한 언어를 사용하여 데이터를 전송해야 한다.
+
+이에 Linux는 파일 시스템 공유를 목적으로 많은 프로토콜을 지원하지만 가장 인기있는 프로토콜은 `NFS` 입니다.
+만약 window 와 파일을 공유하고 싶다면 samaba, FTP, SMB, CIFS 등을 사용할 수 있습니다.
+ 
+
+## 구성 전략
+- master node에 NFS server를 구성한다.
+- worker node에 NFS client를 구성한다.
+- [nfs-subdir-external-provisioner](https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner) 드라이버를 설치한다.
+- mysql deployment를 생성한다.
+
+## NFS Server 구성
+
+Setup NFS Server(Ubuntu)
+```bash
+sudo apt update
+sudo apt install nfs-kernel-server
+
+sudo mkdir /nfs_shared
+sudo chmod 777 /nfs_shared
+sudo echo '/nfs_shared 192.168.0.0/255.255.255.0(rw,sync,no_root_squash)' | sudo tee --append /etc/exports
+
+sudo exportfs -ra
+sudo systemctl restart nfs-kernel-server.service
+
+systemctl start nfs-server
+systemctl enable --now nfs
+sudo systemctl enable --now nfs-server
+
+# check status
+systemctl status nfs-server.service
+```
+---
+
+Setting up NFS Server(CentOS)
+```bash
+$ sudo dnf  install nfs-utils -y
+$ sudo systemctl start nfs-server
+$ sudo systemctl enable nfs-server
+
+$ sudo mkdir /nfs_shared
+$ sudo chmod 777 /nfs_shared
+$ sudo echo '/nfs_shared 192.168.0.0/255.255.255.0(rw,sync,no_root_squash)' | sudo tee --append /etc/exports
+$ sudo systemctl restart nfs-server
+```
+
+`Active: active (exited)` 가 출력되면 정상적으로 구성된 것이다.
+
+```bash
+# Show the NFS server's export list
+showmount -e 192.168.0.103
+```
+아래와 같이 출력되면 정상이다.
+```
+Export list for 192.168.0.103:
+/nfs_shared 192.168.0.10
+```
+
+## NFS Client 구성
+set up(Ubuntu)
+```bash
+sudo apt-get install nfs-common
+```
+set up(CentOS)
+```bash
+sudo dnf install nfs-utils -y
+```
+common
+```bash
+sudo systemctl start nfs-client.target
+sudo systemctl enable nfs-client.target
+```
+
+
+아래 명령어는 임시로 nfs 디렉토리를 마운트하는 명령어다. 
+동기화가 잘 되는지 확인해보자
+```bash
+sudo mkdir  /nfs_shared
+sudo mount -t nfs 192.168.0.103:/nfs_shared /nfs_shared
+
+# check directory sync
+ls /nfs_shared/
+```
+동기화를 확인 했다면 영구 저장을 위해 fstab 에 등록한다.
+crontab, fstab 등은 시스템이 부팅될 때 자동으로 실행되는 명령어를 등록하는 파일이다. 또 어떤 tab이 있을까?..
+```bash
+sudo echo '192.168.0.103:/nfs_shared   /nfs_shared   nfs    defaults   0 0' | sudo tee -a /etc/fstab
+sudo mount -a
+
+# check mounted
+df | grep 192.168.0.103:/nfs_shared
+```
+전 worker node에서 성공을 확인했다면, [nfs-subdir-external-provisioner](https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner) 드라이버를 설치한다.
+
+## Kubernetes NFS Subdir External Provisioner
+Kubernetes 영구 볼륨의 동적 프로비저닝을 지원하기 위해 기존 및 이미 구성된 NFS 서버를 사용하는 자동 프로비저닝 프로그램입니다.  
+영구 볼륨은 다음과 같이 프로비저닝됩니다. `${namespace}-${pvcName}-${pvName}.`
+
+[Helm 으로 설치하기](https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner/blob/master/charts/nfs-subdir-external-provisioner/README.md)
+### Install
+```sh
+helm repo add nfs-subdir-external-provisioner https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner
+helm install nfs-shared-class nfs-subdir-external-provisioner/nfs-subdir-external-provisioner \
+  --set nfs.server=192.168.0.103 \
+  --set nfs.path=/nfs_shared \
+  --set storageClass.archiveOnDelete=true \
+  --set storageClass.name=nfs-shared-client \
+  --set storageClass.defaultClass=true \
+
+k describe storageclasses.storage.k8s.io
+Name:                  nfs-shared-client
+IsDefaultClass:        Yes
+Annotations:           meta.helm.sh/release-name=nfs-shared-class,meta.helm.sh/release-namespace=default,storageclass.kubernetes.io/is-default-class=true
+Provisioner:           cluster.local/nfs-shared-class-nfs-subdir-external-provisioner
+Parameters:            archiveOnDelete=true
+AllowVolumeExpansion:  True
+MountOptions:          <none>
+ReclaimPolicy:         Delete
+VolumeBindingMode:     Immediate
+Events:                <none>
+```
+
+### Test
+1. test pvc, pod 생성
+```sh
+$ kubectl create -f https://raw.githubusercontent.com/kubernetes-sigs/nfs-subdir-external-provisioner/master/deploy/test-claim.yaml -f https://raw.githubusercontent.com/kubernetes-sigs/nfs-subdir-external-provisioner/master/deploy/test-pod.yaml
+```
+
+2. test pv, pvc 확인
+- storageclass 가 `nfs-client` 로 생성되었는지 확인한다.
+- STATUS가 `Bound` 인지 확인한다.
+
+```
+$ k get pv,pvc
+NAME                                                        CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                STORAGECLASS   REASON   AGE
+persistentvolume/pvc-515c4733-e843-4be8-a15a-20fcb7f454e6   1Mi        RWX            Delete           Bound    default/test-claim   nfs-shared-client              10m
+
+NAME                               STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+persistentvolumeclaim/test-claim   Bound    pvc-515c4733-e843-4be8-a15a-20fcb7f454e6   1Mi        RWX            nfs-shared-client     10m
+```
+
+3. pod 명세 확인
+```sh
+$ k describe pod test-pod 
+    Command:
+      /bin/sh
+    Args:
+      -c
+      touch /mnt/SUCCESS && exit 0 || exit 1
+    State:          Terminated
+      Reason:       Completed
+      Exit Code:    0
+      Started:      Fri, 19 Jan 2024 01:01:18 +0000
+      Finished:     Fri, 19 Jan 2024 01:01:18 +0000
+    Mounts:
+      /mnt from nfs-pvc (rw)    
+Volumes:
+  nfs-pvc:
+    Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
+    ClaimName:  test-claim
+    ReadOnly:   false        
+```
+pod은 정상적으로 생성되었고, pod가 생성한 `/mnt/SUCCESS` 파일이 가 `nfs_shared` 디렉토리에  반영되었는지 확인하자.
+```sh
+$ ls /nfs_shared/default-test-claim-pvc-515c4733-e843-4be8-a15a-20fcb7f454e6/
+SUCCESS
+```
+성공이다.
+지우는 것 또한 덕목. 
+#### 파드 제거
+```sh
+kubectl delete -f https://raw.githubusercontent.com/kubernetes-sigs/nfs-subdir-external-provisioner/master/deploy/test-claim.yaml -f https://raw.githubusercontent.com/kubernetes-sigs/nfs-subdir-external-provisioner/master/deploy/test-pod.yaml
+```
+pvc 제거시 클레임에 의헤 생성된 폴더가 제거되지 않고 prefix `archived-` 가 붙는다.
+```sh
+$ stat /nfs_shared/archived-default-test-claim-pvc-515c4733-e843-4be8-a15a-20fcb7f454e6
+File: /nfs_shared/archived-default-test-claim-pvc-515c4733-e843-4be8-a15a-20fcb7f454e6
+Size: 4096      	Blocks: 8          IO Block: 4096   directory
+Device: fd00h/64768d	Inode: 4063235     Links: 2
+Access: (0777/drwxrwxrwx)  Uid: (    0/    root)   Gid: (    0/    root)
+Access: 2024-01-19 01:26:19.784210592 +0000
+Modify: 2024-01-19 01:01:18.375471645 +0000
+Change: 2024-01-19 01:25:15.803744698 +0000
+```
+이제 release를 삭제하자.
+```sh
+$ helm delete nfs-shared-class
+$ k get all,pv,pvc
+```
+잘 삭제된 것 같다. 후..
+이제 디비를 생성할거다.. 드디어..!
+
+## MySQL DB (Stateless) 
+OIDC, ARGO 등 여러 도구들은 영구적 상태 저장을 위해 DB가 필요하다.
+다용도로 사용할 수 있는 MySQL을 사용하자.
+생성 후, 샘플 데이터를 추가한 후, 쿠버네티스 리소스를 제거 후 생성시에도 동일한 데이터가 유지되는지 확인해보자.
+
+### 1. specification 작성
+먼저 난 한 파일(`manifests/storage/db-mysql/mysql-spec.yaml`)에 모두 작성 했다.
+
+#### PersistentVolumeClaim
+앞서 만든 storageclass를 활용 할 차례이다.
+걍 만들면 알아서 PV 만들어주죠? 개이득이죠?
+최소 5Gi 이상의 용량을 이 PVC에 할당하자.
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pvc
+  namespace: db
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: nfs-shared-client
+```
+
+#### Deployment
+이제 mysql deployment를 생성하자.
+이전 pvc를 마운트하고, mysql 이미지를 사용하자.
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: common-mysql
+  namespace: db
+  labels:
+    app: common-mysql
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - image: mysql:5.6
+          name: mysql
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "512m"
+            limits:
+              memory: "2Gi"
+              cpu: "1024m"
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: password
+            # - name: MYSQL_PASSWORD
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: mysql-secret
+            #       key: password
+            # - name: MYSQL_DATABASE # 구성할 database명
+            #   value: common
+            # - name: MYSQL_USER # database에 권한이 있는 user
+            #   value: admin
+            # - name: MYSQL_ALLOW_EMPTY_PASSWORD
+            #   value: "false"
+          ports:
+            - containerPort: 3306
+              name: mysql
+          volumeMounts:
+            - name: mysql-persistent-storage
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: mysql-persistent-storage
+          persistentVolumeClaim:
+            claimName: mysql-pvc
+```
+
+#### Service
+고정된 IP를 가지는 서비스를 생성하자.
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: common-mysql
+  name: common-mysql
+  namespace: db
+spec:
+  ports:
+    - port: 3306
+      protocol: TCP
+      targetPort: 3306
+  selector:
+    app: mysql
+  type: ClusterIP
+```
+
+### Secret
+```yaml
+apiVersion: v1
+data:
+  password: YWJhY3VzMTAh
+kind: Secret
+metadata:
+  creationTimestamp: null
+  name: mysql-secret
+```
+
+
+### 2. script 작성
+기존에 있는 경우 `--force` 옵션 사용해서 지워버리고 다시만들자
+
+<CodeHeader text="ignite.sh" /> 
+
+```sh
+kubectl delete ns db
+kubectl create ns db
+kubectl -n db create secret generic mysql-secret --from-literal=password=1234qwer!!
+kubectl -n db apply -f ./deployment.yaml 
+kubectl describe deployment.apps/common-mysql -n db
+```
+
+생성했다면 테스트를 위해 접속하여 상황을 좀 보자
+### POD 접속 테스트
+```sh
+# --namespace db
+$ kubectl exec -it $(k get pod --selector=app=mysql --output=name)  --container mysql -- bash
+$ mysql -uroot -p
+```
+패스워드를 직접 입력하자. 참고로 decoded 된 평문을 입력 해야한다. 
+
+sql client 를 사용할 수 있다.
+```sql
+mysql> show databases;
++--------------------+
+
+mysql> show tables from mysql;
+```
+음 대충 이런구조구나 알 수 있다.
+이제 로컬에서 커넥션 세팅을 위해 서비스 IP를 테스트 해보자.
+```sh
+$ kubectl get svc -n db
+```
+위 명령어에서 출력된 ClusterIP를 확인하자.
+만약  POD 테스트 과정을 서비스로도 확인하고 싶다면, 로컬 혹은 서버에 mysql client를 설치하고, 아래 명령어를 실행하자.
+```sh
+SVC_IP=$(kubectl -n db get svc common-mysql --no-headers | awk '{print $3}')
+echo "go go connect mysql~ $SVC_IP "
+mysql  --host=$SVC_IP --user=root -p 
+```
+
+### 데이터 유지 테스트
+
+가장 중요한건 파드가 삭제되어도 데이터가 유지되는지 확인하는 것이다.
+
+### create data to test.users table
+```sql
+CREATE DATABASE test;
+USE test;
+CREATE TABLE users (
+  id int NOT NULL AUTO_INCREMENT,
+  name varchar(255) NOT NULL,
+  email varchar(255) NOT NULL,
+  PRIMARY KEY (id)
+);
+INSERT INTO users (name, email)
+VALUES
+  ('John Doe', 'johndoe@example.com'),
+  ('Jane Doe', 'janedoe@example.com'),
+  ('Peter Smith', 'petersmith@example.com');
+```
+
+### select data from test.users table
+```mysql> SELECT * FROM users;
++----+-------------+------------------------+
+| id | name        | email                  |
++----+-------------+------------------------+
+|  1 | John Doe    | johndoe@example.com    |
+|  2 | Jane Doe    | janedoe@example.com    |
+|  3 | Peter Smith | petersmith@example.com |
++----+-------------+------------------------+
+3 rows in set (0.00 sec)
+
+```
+
+음 잘 생성된 것 같군요.
+이제 파드를 삭제해보자.
+```sh
+kubectl -n db delete service/common-mysql
+kubectl -n db delete deployments.apps/common-mysql 
+```
+mysql-spec.yaml 에서 pvc 선언부분을 주석처리 후 다시 생성해보자.
+```sh
+$ kubectl -n db apply -f manifests/storage/db-mysql/mysql-spec.yaml
+service/common-mysql created
+deployment.apps/common-mysql created
+```
+
+다시 mysql 클라이언트에 접속후 쿼리를 날려보자
+```sql
+SHOW TABLES FROM test;
+SELECT * FROM test.users;
+```
+데이터가 유지되었다. 성공이다.
+```
++----+-------------+------------------------+
+| id | name        | email                  |
++----+-------------+------------------------+
+|  1 | John Doe    | johndoe@example.com    |
+|  2 | Jane Doe    | janedoe@example.com    |
+|  3 | Peter Smith | petersmith@example.com |
++----+-------------+------------------------+
+```
+
+이제 잘 사용들 해봅시다 후후
+만약 운영 환경에서 사용한다면 statefulset을 사용하여 고 가용성, 백업, master-slave 구조를 등을 고려하여 구성해야한다.
+하지만 우리는 제한된 리소스로 여러 어플리케이션을 활용해야 한다.
+사용자는 없을거라 생각하기 때문에 이정도로 충분하다.
+
+읽어줘서 땡큐
+
+
+## AutoFs
+auto mounter 가 사용할 매핑 형식 즉, 유저의 요구에 따라 On-Demand로 Storage(보통 NFS)를 동적으로 마운트하고자 할 때 사용합니다.  
+예를 들어, 유저가 /nfs_shared/abc 를 사용하고자 할 때, /nfs_shared/abc 디렉토리에 접근하면 자동으로 서버에 마운트되어 사용할 수 있게 됩니다.  
+> 뭔가 하이젠베르크 불확정성 원리 아님? 관측전엔 없고.. 관측하면 생기는.. 
+아닌데 그냥 떠올라서 적어봤다 키득.   
+
+### Install
+--- 
+
+이 시스템에 autofs를 설치하고 해당 서비스를 시작합니다.
+```sh
+# centos, dnf is upgrade of yum
+# -y, --assumeyes: Automatically answer yes for all questions.
+$ sudo dnf install nfs-utils -y
+$ sudo dnf install autofs -y
+
+or 
+# ubuntu
+$ sudo apt-get install nfs-utils
+$ sudo apt-get install autofs
+```
+```sh
+sudo systemctl restart nfs-server.service
+sudo systemctl restart autofs
+```
+### Usage
+보통 `/etc/auto.master` 파일에 마운트할 디렉토리를 정의하고, `/etc/auto.디렉토리명` 파일에 마운트할 서버와 디렉토리를 정의합니다.  
+예를 들어, `/etc/auto.master` 파일에 `/shares` 디렉토리를 on-demand 마운트 할 것이라고 autofs에 알려줍니다.
+그리고 `/etc/auto.shares` 파일에 마운트할 서버와 디렉토리를 정의합니다. 
+아래 `[]` 표시는 optional 항목입니다.
+
+```sh
+# /etc/auto.share
+$ location [-mount_options] server:/path/to/share
+```
+- location: 마운트할 디렉토리: autofs 에서 관리할 디렉토리
+- mount_options: 마운트 옵션, --fstype=auto 를 사용하면 자동으로 파일 시스템을 탐지합니다. nfs, ext2 등 직접 명시 할 수 있습니다.
+- server: 공유하려는 디렉토리, NFS 서버의 IP 주소(`127.0.0.1:/etc`)가 될 수  있고 파일 시스템의 이름(`:/dev/sda1`)이 될 수 있습니다.
+
+auto.master 파일에 아래와 같이 `/shares` 디렉토리를 정의합니다.
+```sh 
+# /etc/auto.master
+$ man 5 auto.master
+$ /shares /etc/auto.shares
+```
+- 포맷은 `mount-point [map-type[,format]:]map [options]`
+- mount-point: 마운트할 디렉토리
+- map-type: 사용할 매핑 형식, `auto` 를 사용하면 자동으로 파일 시스템을 탐지합니다.
+- map: 사용할 매핑 파일(예: `/etc/auto.shares`)
+- 
+이제 `/shares` 폴더는 `/etc/auto.shares` 파일에 정의된 내용을 사용하여 마운트됩니다.
+수고하셧습니당.
+
+
+실습은 [Tell `autofs` to auto-mount a directory called `/shares`. If this directory does not exist, `autofs` should automatically create it. The `/shares` directory should be defined in a file called `/etc/auto.shares`.](#tell-autofs-to-auto-mount-a-directory-called-shares-if-this-directory-does-not-exist-autofs-should-automatically-create-it-the-shares-directory-should-be-defined-in-a-file-called-etcautoshares) 에서 진행합니다.
+
+# Practice
+
+### Let's export `/etc` directory using `NFS` for `127.0.0.1` IP address. Also, the `ro` option should be applied, making this share `read-only`. Clients will only be able to read, but not write to this network shared directory.  
+
+Edit /etc/exports file & add the required configuration:
+```bash
+$ echo '/etc 127.0.0.1(ro)' | sudo tee -a /etc/exports
+$ sudo systemctl reload nfs-server
+ 
+```
+### what `autofs` 's configuration file name and location?
+- `/etc/auto.master` file first to tell autofs that we'll use a directory called /shares for auto-mounting.
+- Further create /etc/auto.shares file to add the required configuration.
+
+
+### Tell `autofs` to auto-mount a directory called `/shares`. If this directory does not exist
+--- 
+ `autofs` should automatically create it. The `/shares` directory should be defined in a file called `/etc/auto.shares`.   
+ Further, autofs should automatically mount a network share 127.0.0.1:/etc in /shares/mynetworkshare/ and should show us the contents of 127.0.0.1:/etc in /shares/mynetworkshare/ directory.  
+또한 autofs는 /shares/mynetworkshare/에 네트워크 공유 127.0.0.1:/etc를 자동으로 마운트하고 /shares/mynetworkshare/ 디렉토리에 127.0.0.1:/etc의 내용을 표시해야 합니다.  
+
+Edit `/etc/auto.master` file first to tell autofs that we'll use a directory called /shares for auto-mounting. Further create /etc/auto.shares file to add the required configuration.  
+
+```bash
+`shares` 디렉토리를 on-demand 마운트 할 것이라고 autofs에 알려줍니다.
+$ echo 'mynetworkshare -fstype=auto 127.0.0.1:/etc' | sudo tee -a /etc/auto.shares
+
+`autofs` 가 관리할 디렉토리를 정의합니다.: `/shares` 폴더는 `/etc/auto.shares` 파일에 정의된 내용을 사용하여 마운트됩니다.
+$ echo '/shares /etc/auto.shares' |  sudo tee -a `/etc/auto.master`
+
+[bob@centos-host ~]$ sudo systemctl reload autofs
+[bob@centos-host ~]$ ls /shares/mynetworkshare
+adjtime                  dhcp                     kdump.conf                passwd-           shells
+aliases                  DIR_COLORS               kernel                    pkcs11            skel
+alternatives             DIR_COLORS.256color      krb5.conf                 pki               ssh
+anacrontab               DIR_COLORS.lightbgcolor
+```

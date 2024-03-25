@@ -14,7 +14,6 @@ import { NavbarSlots, SlotsToClasses } from "@nextui-org/theme";
 import { CommonDrawerProps } from "../../client-only/drawer";
 
 export interface CommonNavbarProps {
-  locale: TAvailLocale;
   tree?: TreeSectionProps;
   children?: React.ReactNode;
 

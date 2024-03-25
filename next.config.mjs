@@ -4,7 +4,11 @@ import rehypePrettyCode from "rehype-pretty-code";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    mdxRs: false,
+  },
   reactStrictMode: false,
+  cleanDistDir: true,
   // Configure `pageExtensions`` to include MDX files
   pageExtensions: ["js", "jsx", "mdx", "ts", "tsx"],
   // Optionally, add any other Next.js config below
