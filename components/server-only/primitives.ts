@@ -5,7 +5,9 @@ import {
   fontRoboto,
   fontSans,
 } from "@/config/fonts";
+import clsx from "clsx";
 import { tv } from "tailwind-variants";
+import { link as linkStyles } from "@nextui-org/theme";
 
 const fontModule = {
   mono: fontMono.className,
@@ -22,6 +24,11 @@ const colorModule = {
   green: "from-[#6FEE8D] to-[#17c964]",
   pink: "from-[#FF72E1] to-[#F54C7A]",
   foreground: "dark:from-[#FFFFFF] dark:to-[#4B4B4B]",
+  primary: "text-primary",
+  secondary: "text-secondary",
+  tertiary: "text-tertiary",
+  default: "text-default",
+  danger: "text-danger",
 };
 export const title = tv({
   base: "tracking-tight inline font-semibold mt-3 mb-7 leading-tight",
@@ -73,19 +80,41 @@ export const subtitle = tv({
   },
 });
 
+const commonTxt = {
+  size: {
+    sm: "text-xs sm:text-sm md:text-base lg:text-lg",
+    md: "text-sm sm:text-md md:text-lg lg:text-xl",
+    lg: "text-md sm:text-lg md:text-xl lg:text-2xl",
+  },
+  font: fontModule,
+  color: colorModule,
+  inline: {
+    true: "inline-block h-fit",
+  },
+};
 export const paragraph = tv({
   base: " my-5 font-normal leading-7 ",
   variants: {
-    size: {
-      sm: "text-xs sm:text-sm md:text-base lg:text-lg",
-      md: "text-sm sm:text-md md:text-lg lg:text-xl",
-      lg: "text-md sm:text-lg md:text-xl lg:text-2xl",
+    ...commonTxt,
+  },
+  defaultVariants: {
+    size: "md",
+    font: "sans",
+  },
+});
+export const typo = tv({
+  base: " my-5 font-normal leading-7 ",
+  variants: {
+    type: {
+      normal: "font-normal",
+      bold: "font-bold",
+      italic: "italic",
+      link: clsx(
+        linkStyles({ color: "foreground" }),
+        "data-[active=true]:text-primary data-[active=true]:font-medium"
+      ),
     },
-    font: fontModule,
-    color: colorModule,
-    inline: {
-      true: "inline-block h-fit",
-    },
+    ...commonTxt,
   },
   defaultVariants: {
     size: "md",

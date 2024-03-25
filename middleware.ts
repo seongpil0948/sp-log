@@ -16,7 +16,7 @@ export const config = {
     // "/((?!api|_next/static|favicon.ico).*)",
     // "/code/:path*",
     // "/signin",
-    "/doc/:path*",
+    "/docs/:path*",
     "/artifacts/:path*",
     "/home",
     "/about",

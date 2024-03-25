@@ -1,19 +1,19 @@
+import { TAvailLocale } from "@/config";
 import { Button } from "@nextui-org/button";
 import { Link } from "@nextui-org/link";
+import { redirect } from "next/navigation";
+import commonConfig from "@/config";
+import { getDictionary } from "@/app/[lang]/dictionaries";
 
-export default async function SSGPage() {
-  return (
-    <main id="content-container" className={"justify-center gap-3"}>
-      hi
-      <Button className="ma-4">
-        <Link href="/game/world">World</Link>
-      </Button>
-      <Button className="ma-4">
-        <Link href="/game/onemin">onemin</Link>
-      </Button>
-      <Button>
-        <Link href="/game/domino">domino</Link>
-      </Button>
-    </main>
-  );
+export async function generateStaticParams() {
+  return commonConfig.i18n.locales.map((lang) => ({ lang }));
+}
+
+interface Param {
+  params: { lang: TAvailLocale };
+}
+
+export default async function SSGPage({ params: { lang } }: Param) {
+  const dict = await getDictionary(lang);
+  redirect("/" + lang + "/game/world");
 }

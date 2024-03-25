@@ -70,6 +70,7 @@ const links = Object.freeze<TLink[]>([
     },
     href: "https://github.com/seongpil0948",
     icon: "🐙",
+    external: true,
   },
   {
     id: "linkedin",
@@ -79,6 +80,7 @@ const links = Object.freeze<TLink[]>([
     },
     href: "https://www.linkedin.com/in/choi-seongpil-9910a0203",
     icon: "🔗",
+    external: true,
   },
 ]);
 

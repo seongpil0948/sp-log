@@ -1,3 +1,4 @@
+"use client";
 import {
   Navbar as NextUINavbar,
   NavbarContent,
@@ -29,8 +30,11 @@ import {
 
 import { Logo } from "@/components/server-only/icons";
 import { TAvailLocale } from "@/config";
+import { typo } from "./server-only/primitives";
+import { usePathname } from "next/navigation";
 
 export const Navbar = (props: { locale: TAvailLocale }) => {
+  const pathName = usePathname();
   const searchInput = (
     <Input
       aria-label="Search"
@@ -96,7 +100,10 @@ export const Navbar = (props: { locale: TAvailLocale }) => {
           </Link>
           <ThemeSwitch />
         </NavbarItem>
-        <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem>
+        <NavbarItem className="hidden sm:flex basis-3/5 grow">
+          {searchInput}
+        </NavbarItem>
+        <NavbarMenuToggle />
         {/* <NavbarItem className="hidden md:flex">
           <Button
             isExternal
@@ -124,7 +131,7 @@ export const Navbar = (props: { locale: TAvailLocale }) => {
         <div className="mx-4 mt-2 flex flex-col gap-2">
           {siteConfig.links.map((item, index) => (
             <NavbarMenuItem key={`${item}-${index}`}>
-              <Link
+              {/* <Link
                 color={
                   index === 2
                     ? "primary"
@@ -133,6 +140,21 @@ export const Navbar = (props: { locale: TAvailLocale }) => {
                     : "foreground"
                 }
                 href="#"
+                size="lg"
+              >
+                {item.label[props.locale]}
+              </Link> */}
+              <Link
+                className={typo({
+                  type: "link",
+                  color: pathName.includes(item.href)
+                    ? "primary"
+                    : item.external
+                    ? "danger"
+                    : "foreground",
+                })}
+                // color="foreground"
+                href={item.href}
                 size="lg"
               >
                 {item.label[props.locale]}
