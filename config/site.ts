@@ -50,7 +50,7 @@ const links = Object.freeze<TLink[]>([
       en: "Projects",
       ko: "프로젝트",
     },
-    href: "/projects",
+    href: "/project",
     icon: "🚀",
   },
   {

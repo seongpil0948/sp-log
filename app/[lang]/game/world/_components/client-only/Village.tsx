@@ -6,11 +6,14 @@ import gsap from "gsap";
 import StateVillage from "../../_logic/Village";
 import BridgeEnterModal from "./BridgeEnterModal";
 import GuestBookModal from "./GuestBookModal";
+import { Button } from "@nextui-org/button";
+import { useRouter } from "next/navigation";
+
 export default function World() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const bridgeEnterRef = useRef<any>(null);
   const guestBookRef = useRef<any>(null);
-
+  const router = useRouter();
   useEffect(() => {
     if (!canvasRef.current) return;
     const s = new StateVillage({ canvasRef, cameraMode: "orthographic" });
@@ -219,6 +222,17 @@ export default function World() {
       />
       <BridgeEnterModal ref={bridgeEnterRef} />
       <GuestBookModal ref={guestBookRef} />
+      <Button
+        size="sm"
+        variant="ghost"
+        color="secondary"
+        className=" absolute top-2 left-2"
+        onClick={() => {
+          router.push("/home");
+        }}
+      >
+        To 🏠
+      </Button>
     </>
   );
 }

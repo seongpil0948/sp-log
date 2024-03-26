@@ -21,8 +21,8 @@ export const config = {
     "/home",
     "/about",
     "/game/:path*",
-    "/projects/:path*",
-    "/",
+    "/project/:path*",
+    // "/",
   ],
 };
 const IGNORE_PATHS = [
@@ -36,13 +36,17 @@ const IGNORE_PATHS = [
   "worker.js",
   "peach-service-worker.js",
   "workbox",
+  "png",
+  "jpg",
 ];
 
 export async function middleware(request: NextRequest, response: NextResponse) {
-  if (IGNORE_PATHS.some((p) => request.nextUrl.pathname.includes(p))) {
+  let nextP = request.nextUrl.pathname;
+  if (IGNORE_PATHS.some((p) => nextP.includes(p))) {
     return NextResponse.next();
   }
-  let nextP = request.nextUrl.pathname;
+  console.log(nextP);
+
   let { locale, path: onlyPath } = await splitLocaleAndPath(nextP);
 
   if (onlyPath === "/" || onlyPath === "") {
