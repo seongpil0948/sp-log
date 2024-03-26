@@ -1,3 +1,4 @@
+"use client";
 export function GameButton(props: { text: string }) {
   return (
     <div className="flex items-center justify-center">

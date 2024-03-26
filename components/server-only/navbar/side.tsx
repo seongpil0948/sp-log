@@ -7,6 +7,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { Link } from "@nextui-org/link";
 import { isMobile } from "@/app/_utils/client/responsive";
 import { CommonNavbarProps } from "./client";
+import { siteConfig } from "@/config/site";
 
 export function PrefixComp(props: CommonNavbarProps): React.ReactNode {
   const router = useRouter();
@@ -88,7 +89,7 @@ export function PrefixComp(props: CommonNavbarProps): React.ReactNode {
         defaultOpen: true,
       }}
       {...drawerProps}
-      title={drawerProps?.title ?? treeLeft.label}
+      title={drawerProps?.title ?? siteConfig.name}
     >
       {hasChildren ? (
         <Accordion defaultExpandedKeys={defaultExpandedKeys}>{items}</Accordion>

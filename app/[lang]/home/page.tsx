@@ -1,13 +1,6 @@
-import { Link } from "@nextui-org/link";
-import { Snippet } from "@nextui-org/snippet";
-import { Code } from "@nextui-org/code";
-import { button as buttonStyles } from "@nextui-org/theme";
-import { siteConfig } from "@/config/site";
-import { title, subtitle } from "@/components/server-only/primitives";
-import { GithubIcon } from "@/components/server-only/icons";
+import { title } from "@/components/server-only/primitives";
 import config, { TAvailLocale } from "@/config";
 import { getDictionary } from "../dictionaries";
-import CommonNavbar from "@/components/server-only/navbar";
 import { GameButton } from "@/components/client-only/three-d/game-button";
 
 export async function generateStaticParams() {

@@ -11,5 +11,5 @@ interface Param {
 }
 
 export default async function SSGPage({ params: { lang } }: Param) {
-  return redirect(`/${lang}/doc/FrameworkNext/GettingStarted`);
+  return redirect(`/${lang}/docs/FrameworkNext/GettingStarted`);
 }

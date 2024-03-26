@@ -19,14 +19,14 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     //     {...props}
     //   />
     // ),
-    code: (props) => (
-      <code
-        className={clsx(paragraph({ font: "script" }))}
-        // className="inline-block h-fit whitespace-nowrap rounded-small bg-transparent px-0 py-0 font-mono text-small font-normal text-sky-400 before:content-['`'] after:content-['`']"
-        // className="inline-block h-fit whitespace-nowrap rounded-small bg-transparent "
-        {...props}
-      />
-    ),
+    // code: (props) => (
+    //   <code
+    //     className={clsx(paragraph({ font: "script" }))}
+    //     // className="inline-block h-fit whitespace-nowrap rounded-small bg-transparent px-0 py-0 font-mono text-small font-normal text-sky-400 before:content-['`'] after:content-['`']"
+    //     // className="inline-block h-fit whitespace-nowrap rounded-small bg-transparent "
+    //     {...props}
+    //   />
+    // ),
     h1: (props) => {
       return (
         <HeaderWithLink
@@ -165,9 +165,9 @@ const Link = ({
     <NextLink
       href={href}
       // isExternal={!href?.startsWith('/') && !href?.includes(APP_DOMAIN)}
-      isExternal={false}
       showAnchorIcon
-      className="text-sm text-sky-500 underline underline-offset-4 hover:text-sky-600 dark:text-sky-400 dark:hover:text-sky-100 md:text-sm"
+      underline="hover"
+      color="foreground"
     >
       {children}
     </NextLink>
