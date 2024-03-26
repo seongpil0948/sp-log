@@ -5,6 +5,7 @@ import GeoButton from "@/components/client-only/three-d/geo-button";
 import { ThemeSwitch } from "@/components/theme-switch";
 import clsx from "clsx";
 import { AnimateBlink } from "@/components/client-only/animate/typo";
+import { AbsoluteFooter } from "@/components/server-only/footers";
 // import { useInView } from "react-intersection-observer";
 
 export async function generateStaticParams() {
@@ -48,9 +49,7 @@ export default async function SSGPage({ params: { lang } }: Param) {
           </GeoButton>
         </div>
       </section>
-      <div className="absolute bottom-2 right-2">
-        <ThemeSwitch />
-      </div>
+      <AbsoluteFooter />
     </>
   );
 }
