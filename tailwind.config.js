@@ -1,4 +1,8 @@
 import { nextui } from "@nextui-org/theme";
+const plugin = require("tailwindcss/plugin");
+const defaultTheme = require("tailwindcss/defaultTheme");
+import { commonColors, semanticColors } from "@nextui-org/theme";
+
 // const defaultTheme = require('tailwindcss/defaultTheme')
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -21,11 +25,12 @@ module.exports = {
         "4xl": "56rem",
         "6xl": "72rem",
       },
-      // fontFamily: {
-      //   sans: ["var(--font-sans)", ...defaultTheme.fontFamily.sans],
-      //   serif: defaultTheme.fontFamily.serif,
-      //   mono: defaultTheme.fontFamily.mono,
-      // },
+      colors: commonColors,
+      fontFamily: {
+        sans: ["var(--font-sans)", ...defaultTheme.fontFamily.sans],
+        serif: defaultTheme.fontFamily.serif,
+        mono: defaultTheme.fontFamily.mono,
+      },
       // backgroundImage: {
       //   'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
       //   'gradient-conic':
@@ -34,5 +39,39 @@ module.exports = {
     },
   },
   darkMode: "class",
-  plugins: [nextui()],
+  plugins: [
+    nextui(),
+    plugin(function ({ addComponents }) {
+      addComponents({
+        // Flex Pattern
+        ".flex-column": {
+          display: "flex",
+          flexDirection: "column",
+        },
+        ".flex-center": {
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        },
+        ".flex-center-col": {
+          display: "flex",
+          alignItems: "center",
+          flexDirection: "column",
+          justifyContent: "center",
+        },
+        ".flex-center-ver": {
+          display: "flex",
+          alignItems: "center",
+        },
+        ".flex-center-hor": {
+          display: "flex",
+          justifyContent: "center",
+        },
+        ".gradient": {
+          background:
+            "linear-gradient(60deg,#61dafb 0%,#d6cbf6 30%,#f2056f 70%)",
+        },
+      });
+    }),
+  ],
 };

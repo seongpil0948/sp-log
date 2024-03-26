@@ -23,7 +23,8 @@ const colorModule = {
   cyan: "from-[#00b7fa] to-[#01cfea]",
   green: "from-[#6FEE8D] to-[#17c964]",
   pink: "from-[#FF72E1] to-[#F54C7A]",
-  foreground: "dark:from-[#FFFFFF] dark:to-[#4B4B4B]",
+  foreground:
+    "dark:from-[#FFFFFF] dark:to-[#4B4B4B] from-[#4B4B4B] to-[#FFFFFF]",
   primary: "text-primary",
   secondary: "text-secondary",
   tertiary: "text-tertiary",
@@ -82,18 +83,22 @@ export const subtitle = tv({
 
 const commonTxt = {
   size: {
-    sm: "text-xs sm:text-sm md:text-base lg:text-lg",
-    md: "text-sm sm:text-md md:text-lg lg:text-xl",
-    lg: "text-md sm:text-lg md:text-xl lg:text-2xl",
+    sm: "text-xs sm:text-sm md:text-base lg:text-lg my-2",
+    md: "text-sm sm:text-md md:text-lg lg:text-xl my-4",
+    lg: "text-md sm:text-lg md:text-xl lg:text-2xl my-6",
   },
   font: fontModule,
   color: colorModule,
   inline: {
     true: "inline-block h-fit",
   },
+  weight: {
+    normal: "font-normal",
+    bold: "font-bold",
+  },
 };
 export const paragraph = tv({
-  base: " my-5 font-normal leading-7 ",
+  base: " font-normal leading-7 ",
   variants: {
     ...commonTxt,
   },
@@ -103,7 +108,7 @@ export const paragraph = tv({
   },
 });
 export const typo = tv({
-  base: " my-5 font-normal leading-7 ",
+  base: "p-1 font-normal leading-7 ",
   variants: {
     type: {
       normal: "font-normal",

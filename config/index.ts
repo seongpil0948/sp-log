@@ -14,7 +14,7 @@ const commonConfig = Object.freeze({
     landingPath: "/home",
   },
   i18n: {
-    defaultLocale: "en" as TAvailLocale,
+    defaultLocale: "ko" as TAvailLocale,
     locales: AVAIL_LOCALES,
     isAvailableLocale: (locale: string): locale is TAvailLocale =>
       AVAIL_LOCALES.includes(locale as TAvailLocale),

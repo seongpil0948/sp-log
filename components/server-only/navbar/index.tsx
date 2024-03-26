@@ -87,6 +87,7 @@ export default async function CommonNavbar(p: CommonNavbarProps) {
         <ThemeSwitch />
         <NavbarMenuToggle />
       </NavbarContent>
+      <NavMobileMenu />
     </NextUINavbar>
   );
 }

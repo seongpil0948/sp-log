@@ -3,7 +3,7 @@ import { Logo } from "./icons";
 
 export const CmFooter = () => {
   return (
-    <footer>
+    <footer className="mt-auto">
       <div className="mx-auto w-full max-w-screen-xl p-4 md:py-8">
         <div className="sm:flex sm:items-center sm:justify-between">
           <Link
@@ -17,16 +17,7 @@ export const CmFooter = () => {
           </Link>
           <div className="mb-6 flex flex-wrap items-center text-sm font-medium text-gray-500 dark:text-gray-400 sm:mb-0">
             <span className="block text-sm text-gray-500 dark:text-gray-400 sm:text-center">
-              © 2023{" "}
-              {/* <Link
-              color="foreground"
-              isExternal
-              href="http://www.iabacus.co.kr/"
-              className="hover:underline"
-            >
-              Abacus
-            </Link> */}
-              . All Rights Reserved.
+              © 2024 . All Rights Reserved.
             </span>
           </div>
         </div>

@@ -3,6 +3,7 @@ import config, { TAvailLocale } from "@/config";
 import Negotiator from "negotiator";
 import { NextRequest } from "next/server";
 import { match as matchLocale } from "@formatjs/intl-localematcher";
+import { extractFromPath } from "../common/locale";
 
 export function getLocaleRequest(request: NextRequest): TAvailLocale {
   // Negotiator expects plain object so we need to transform headers
@@ -49,12 +50,5 @@ export function matchLocaleStr(input: string): TAvailLocale {
 
 export async function splitLocaleAndPath(path: string) {
   "use server";
-  const locale = config.i18n.locales.find(
-    (locale) => path.startsWith(`/${locale}/`) || path === `/${locale}`
-  );
-  const p = path
-    .split("/")
-    .filter((seg) => !(config.i18n.locales as string[]).includes(seg))
-    .join("/");
-  return Promise.resolve({ locale, path: p });
+  return Promise.resolve(extractFromPath(path));
 }

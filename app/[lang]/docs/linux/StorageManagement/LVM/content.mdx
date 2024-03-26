@@ -1,26 +1,3 @@
-## Toc
-- [What is LVM?](#what-is-lvm)
-  - [파티션과의 차이점](#파티션과의-차이점)
-  - [Install](#install)
-    - [Physical Volume (PV)](#physical-volume-pv)
-    - [Physical Extent (PE)](#physical-extent-pe)
-    - [Volume Group (VG)](#volume-group-vg)
-    - [Logical Volume (LV)](#logical-volume-lv)
-    - [Logical Extent (LE)](#logical-extent-le)
-- [Practice](#practice)
-    - [Install lvm on this system.](#install-lvm-on-this-system)
-    - [Add these four disks as PVs (Physical Volumes) to LVM: `/dev/vdb`, `/dev/vdc`, `/dev/vdd` and `/dev/vde`.](#add-these-four-disks-as-pvs-physical-volumes-to-lvm-devvdb-devvdc-devvdd-and-devvde)
-    - [Remove the /dev/vde physical volume from LVM.](#remove-the-devvde-physical-volume-from-lvm)
-    - [Create a Volume Group (VG) named volume1. It should be created on these two Physical Volumes: /dev/vdb and /dev/vdc.](#create-a-volume-group-vg-named-volume1-it-should-be-created-on-these-two-physical-volumes-devvdb-and-devvdc)
-    - [Add /dev/vdd to this volume group so that we gain more usable storage space.](#add-devvdd-to-this-volume-group-so-that-we-gain-more-usable-storage-space)
-    - [Remove /dev/vdd from the volume group volume1.](#remove-devvdd-from-the-volume-group-volume1)
-    - [Create a Logical Volume (LV). It should have these properties:](#create-a-logical-volume-lv-it-should-have-these-properties)
-    - [Resize the Logical Volume called `smalldata` to `1 Gigabyte`. This logical volume resides on the volume group called `volume1`.](#resize-the-logical-volume-called-smalldata-to-1-gigabyte-this-logical-volume-resides-on-the-volume-group-called-volume1)
-    - [Create an `XFS` filesystem on the logical volume called smalldata.](#create-an-xfs-filesystem-on-the-logical-volume-called-smalldata)
-    - [Destroy/Remove the Logical Volume called `smalldata`.](#destroyremove-the-logical-volume-called-smalldata)
-  - [Reference](#reference)
-
-
 # What is LVM?
 > Logical Volume을 효율적이고 유연하게 관리하기 위한 커널의 한 부분이자 프로그램
 > 기존방식이 파일시스템을 블록 장치에 직접 접근해서 읽고 쓰기를 했다면, LVM은 파일시스템이 LVM이 만든 가상의 블록 장치에 읽고 쓰기를 하게 됩니다.
