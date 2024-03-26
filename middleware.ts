@@ -22,7 +22,7 @@ export const config = {
     "/about",
     "/game/:path*",
     "/project/:path*",
-    // "/",
+    "/",
   ],
 };
 const IGNORE_PATHS = [
