@@ -11,8 +11,6 @@ export function getLocaleRequest(request: NextRequest): TAvailLocale {
   const cookieLocale = request.cookies.get(
     SERVER_CONFIG.cookie.keyLocale
   )?.value;
-  console.info("request.cookies", request.cookies);
-  console.info("cookieLocale", cookieLocale);
   if (cookieLocale && config.i18n.isAvailableLocale(cookieLocale))
     return cookieLocale as TAvailLocale;
 

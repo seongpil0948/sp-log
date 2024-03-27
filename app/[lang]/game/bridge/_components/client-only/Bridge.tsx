@@ -14,6 +14,7 @@ import { Player } from "../../_logic/Player";
 import { useEffect, useRef } from "react";
 import { PreventDragClick } from "../../../_utils/PreventDragClick";
 import { Stuff } from "../../_logic/Stuff";
+import GoHomeBtnAbsolute from "@/components/client-only/button/absolute";
 
 type GlassType = "normal" | "strong";
 export default function Bridge() {
@@ -399,6 +400,7 @@ export default function Bridge() {
           top: 0,
         }}
       />
+      <GoHomeBtnAbsolute />
     </>
   );
 }

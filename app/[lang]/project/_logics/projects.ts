@@ -105,6 +105,7 @@ export const PROJECTS: IProject[] = [
     desc: "PM & 개발 & 유지보수",
     projType: "web",
     titleImg: "/projects/intellisys.png",
+    to: "http://intellisys.co.kr",
     using: [mdiNodejs, mdiVuejs],
     allImg: ["/projects/intellisys.png"],
   },
