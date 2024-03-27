@@ -10,12 +10,12 @@ import React, {
 } from "react";
 import { useFrame, ThreeEvent, useThree } from "@react-three/fiber";
 import { isMobile } from "@/app/_utils/client/responsive";
-import { getRandomProjectSingleImg } from "../../project/_logics/projects";
-import { IProject } from "../../project/types";
-import ProjectPanel from "../_logic/ProjectPanel";
+import { getRandomProjectSingleImg } from "../_logics/projects";
+import { IProject } from "../types";
+import ProjectPanel from "../_logics/ProjectPanel";
 import gsap from "gsap";
 import { motion } from "framer-motion-3d";
-import { projectsConfig } from "../../project/config";
+import { projectsConfig } from "../config";
 import { useCursor } from "@/app/_utils/client/hooks/three-d/use-cursor";
 
 const textureLoader = new THREE.TextureLoader();
@@ -42,13 +42,15 @@ function ProjectImage(props: { src: string }) {
 }
 
 const prevInfos = new Map<string, THREE.Object3D>();
-export function ProjectCards(props: { projects: IProject[]; shape: TShape }) {
+export function ProjectCards(props: {
+  projects: IProject[];
+  shape: TShape;
+  onSelect: (p: IProject) => void;
+}) {
   const [projectMeshList, setProjectMeshList] = useState<ReactNode[]>([]);
-  const [busy, setBusy] = useState(false);
   const camera = useThree((state) => state.camera);
   const gl = useThree((state) => state.gl);
-  const pos = new THREE.Vector3();
-  const look = new THREE.Vector3();
+  const scene = useThree((state) => state.scene);
   const isM = isMobile();
   const scaleFactor = isM ? 0.5 : 3;
   const [panels, setPanels] = useState<ProjectPanel[]>([]);
@@ -84,7 +86,6 @@ export function ProjectCards(props: { projects: IProject[]; shape: TShape }) {
   };
 
   const selectAnimation = (e: ThreeEvent<MouseEvent>) => {
-    setBusy(true);
     if (!e.eventObject.isObject3D) return;
     prevInfos.set(e.eventObject.uuid, e.eventObject.clone());
     gsap.to(e.eventObject.position, {
@@ -106,9 +107,9 @@ export function ProjectCards(props: { projects: IProject[]; shape: TShape }) {
       y: 3,
       z: 3,
     });
+    props.onSelect(e.eventObject.userData.projectInfo);
     setTimeout(() => {
       disSelectAnimation(e);
-      setBusy(false);
     }, projectsConfig.selectDuration * 2 * 1000);
   };
 
@@ -120,12 +121,13 @@ export function ProjectCards(props: { projects: IProject[]; shape: TShape }) {
         <motion.mesh
           key={projectInfo.title + i}
           name="ProjectPanel"
-          // ref={(ref) => {
-          //   if (ref) {
-          //     const panel = new ProjectPanel({ mesh: ref, projectInfo });
-          //     setPanels((prev) => [...prev, panel]);
-          //   }
-          // }}
+          userData={{ projectInfo }}
+          ref={(ref) => {
+            if (ref) {
+              const panel = new ProjectPanel({ mesh: ref, projectInfo });
+              setPanels((prev) => [...prev, panel]);
+            }
+          }}
           position={
             new THREE.Vector3(
               spherePositionArray[i],
@@ -145,10 +147,12 @@ export function ProjectCards(props: { projects: IProject[]; shape: TShape }) {
   useEffect(() => {
     initRandomPositionArray();
     initProjectMeshList();
+    console.info("GL", gl);
+    console.info("Scene", scene);
+    console.info("Camera", camera);
   }, []);
 
   const updateShape = (s: TShape) => {
-    console.log("update shape", s, panels);
     if (panels.length < 1) return;
     const array = s === "random" ? randomPositionArray : spherePositionArray;
     for (let i = 0; i < panels.length; i++) {
@@ -182,6 +186,7 @@ export function ProjectCards(props: { projects: IProject[]; shape: TShape }) {
 
   useFrame((state, delta) => {
     if (!focus) return;
+    // state.get().scene.userData
     // zoom ? pos.set(focus.x, focus.y, focus.z + 0.2) : pos.set(0, 0, 5);
     // zoom ? look.set(focus.x, focus.y, focus.z - 0.2) : look.set(0, 0, 4);
 

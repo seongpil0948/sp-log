@@ -1,15 +1,6 @@
 import { MeshProps } from "@react-three/fiber";
-import { IProject } from "../../project/types";
-import {
-  BoxGeometry,
-  DoubleSide,
-  Mesh,
-  MeshBasicMaterial,
-  Vector3,
-  Euler,
-} from "three";
-import { projectsConfig } from "../../project/config";
-import gsap from "gsap";
+import { IProject } from "../types";
+import { Mesh, Vector3, Euler } from "three";
 
 export default class ProjectPanel {
   mesh: Mesh;
