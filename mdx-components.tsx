@@ -6,8 +6,10 @@ import { Snippet } from "@nextui-org/snippet";
 import CodeHeader from "@/components/server-only/CodeHeader";
 import { DetailedHTMLProps, HTMLAttributes, createElement } from "react";
 import clsx from "clsx";
-import { Card, CardBody } from "@nextui-org/card";
+import { Card, CardBody, CardHeader } from "@nextui-org/card";
 import { paragraph, title } from "./components/server-only/primitives";
+import { Chip, ChipProps } from "@nextui-org/chip";
+import { ChipList } from "./components/client-only/ChipList";
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
@@ -50,7 +52,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         <HeaderWithLink
           props={props}
           level={3}
-          className={title({ size: "sm", color: "cyan" })}
+          className={title({ size: "sm" })}
         />
       );
     },
@@ -59,7 +61,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         <HeaderWithLink
           props={props}
           level={4}
-          className={title({ size: "xs", color: "pink" })}
+          className={title({ size: "xs" })}
         />
       );
     },
@@ -151,6 +153,11 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       <td className="border border-gray-200 px-4 py-2">{props.children}</td>
     ),
     CodeHeader,
+    Chip,
+    Card,
+    CardBody,
+    CardHeader,
+    ChipList,
   };
 }
 
