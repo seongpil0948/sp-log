@@ -1,6 +1,7 @@
 import { Link } from "@nextui-org/link";
 import { Logo } from "./icons";
 import { ThemeSwitch } from "../theme-switch";
+import SelectorNational from "../client-only/selector/National";
 
 const LogoLink = () => (
   <Link
@@ -37,8 +38,9 @@ export function AbsoluteFooter() {
       <div className="mx-auto w-full max-w-screen-xl p-2 md:py-4">
         <div className="sm:flex sm:items-center sm:justify-between">
           <LogoLink />
-          <div className="flex flex-wrap items-center sm:mb-0">
+          <div className="flex flex-wrap items-center sm:mb-0 gap-2">
             <ThemeSwitch />
+            <SelectorNational />
           </div>
         </div>
       </div>

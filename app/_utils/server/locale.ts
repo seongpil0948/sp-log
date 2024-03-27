@@ -4,8 +4,18 @@ import Negotiator from "negotiator";
 import { NextRequest } from "next/server";
 import { match as matchLocale } from "@formatjs/intl-localematcher";
 import { extractFromPath } from "../common/locale";
+import SERVER_CONFIG from "@/app/api/config";
 
 export function getLocaleRequest(request: NextRequest): TAvailLocale {
+  // if cookie exists, use it
+  const cookieLocale = request.cookies.get(
+    SERVER_CONFIG.cookie.keyLocale
+  )?.value;
+  console.info("request.cookies", request.cookies);
+  console.info("cookieLocale", cookieLocale);
+  if (cookieLocale && config.i18n.isAvailableLocale(cookieLocale))
+    return cookieLocale as TAvailLocale;
+
   // Negotiator expects plain object so we need to transform headers
   const negotiatorHeaders: Record<string, string> = {};
   request.headers.forEach((value, key) => (negotiatorHeaders[key] = value));
