@@ -35,10 +35,6 @@ export const ChipList = ({
       {tags.map((item, index) => (
         <Chip
           key={item + index}
-          classNames={{
-            base: "min-w-30 h-5 p-2 md:p-5",
-            content: paragraph({ size: "md" }),
-          }}
           variant={variant}
           color={getRandomColor()}
           onClose={onClose ? () => onClose(item, index) : undefined}

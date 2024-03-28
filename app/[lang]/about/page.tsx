@@ -119,15 +119,8 @@ export default async function SSGPage({ params: { lang } }: Param) {
         </section>
         <section className={styles.section}>
           <HeaderAbout title="Experience" />
-          <p className={paragraph({ size: "sm", font: "gothic" })}>
-            Although I can build a service on my own from infrastructure to
-            front <br />
-            I was always with my colleagues when I created the best service.
-            therefore <br />I always struggle to be the best colleague
-          </p>
-
-          <div className="w-full flex  flex-row justify-between">
-            <div className="flex flex-3 flex-col justify-start items-start max-w-[50vw]">
+          <div className="w-full flex flex-row justify-between">
+            <div className="flex flex-col justify-start items-start max-w-[45vw]">
               <div className={clsx(subtitle({ weight: "bold" }), "text-left")}>
                 Company
               </div>
@@ -193,7 +186,7 @@ export default async function SSGPage({ params: { lang } }: Param) {
                           variant: "bordered",
                           classNames: {
                             base: "min-w-30 h-5 p-2 md:p-5 mx-2 overflow-hidden",
-                            content: clsx(typo({ size: "sm" })),
+                            content: clsx(typo({ size: "xs" })),
                           },
                         }}
                       ></ChipList>
@@ -209,17 +202,23 @@ export default async function SSGPage({ params: { lang } }: Param) {
           <HeaderAbout title="Certifications" />
           <CertSection certData={certData} scrollContainer="#about-root" />
         </section>
-        <section className={styles.section}>
+        {/* <section className={styles.section}>
           <HeaderAbout title="Projects" />
           <p>
             Fast forward to 2024, I have been working as a developer for 5 years
             and have worked on a variety of projects. Everything I have done,
             small or big, has been a vital stepping stone for where I am today.
           </p>
-        </section>
+          <p className={paragraph({ size: "sm", font: "gothic" })}>
+            Although I can build a service on my own from infrastructure to
+            front <br />
+            I was always with my colleagues when I created the best service.
+            therefore <br />I always struggle to be the best colleague
+          </p>
+        </section> */}
         <section className={styles.section}>
           <HeaderAbout title="Links" />
-          <div className="flex flex-col justify-center align-middle gap-2 items-center  ">
+          <div className="flex flex-col justify-center align-middle gap-2 items-center h-full ">
             <ButtonGithub />
             <ButtonLinkedIn />
             <ButtonHome />

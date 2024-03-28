@@ -35,7 +35,7 @@ export default async function SSGPage({ params: { lang } }: Param) {
           </h1>
         </AnimateBlink>
 
-        <div className=" inline-flex gap-36 justify-center">
+        <div className="flex flex-wrap max-w-full gap-24 md:gap-36 justify-center">
           {/* <GameButton text="Game" /> */}
           {/* <GameButton text="About" /> */}
           <GeoButton shape="basic" href="/docs">

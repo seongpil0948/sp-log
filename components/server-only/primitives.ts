@@ -94,6 +94,7 @@ export const subtitle = tv({
 
 const commonTxt = {
   size: {
+    xs: "text-xxs sm:text-xs md:text-sm lg:text-base my-1",
     sm: "text-xs sm:text-sm md:text-base lg:text-lg my-2",
     md: "text-sm sm:text-md md:text-lg lg:text-xl my-4",
     lg: "text-md sm:text-lg md:text-xl lg:text-2xl my-6",
