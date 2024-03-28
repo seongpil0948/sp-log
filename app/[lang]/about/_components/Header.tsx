@@ -9,7 +9,7 @@ export function HeaderAbout(props: { title: string }) {
     <motion.h2
       className={clsx(
         styles.h2,
-        title({ size: "lg", fullWidth: true }),
+        title({ size: "lg", fullWidth: true, color: "foreground" }),
         "mb-7"
       )}
       initial={{ x: -100, opacity: 0 }}

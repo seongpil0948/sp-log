@@ -13,6 +13,14 @@ import CertSection from "./_components/Cert";
 
 import commonConfig, { TAvailLocale } from "@/config";
 import { getDictionary } from "@/app/[lang]/dictionaries";
+import { AbsoluteFooter } from "@/components/server-only/footers";
+import { GithubIcon } from "@/components/server-only/icons";
+import Link from "@nextui-org/link";
+import {
+  ButtonGithub,
+  ButtonHome,
+  ButtonLinkedIn,
+} from "@/components/client-only/button/links";
 
 export async function generateStaticParams() {
   return commonConfig.i18n.locales.map((lang) => ({ lang }));
@@ -72,7 +80,16 @@ export default async function SSGPage({ params: { lang } }: Param) {
               <div className={clsx(subtitle(), "text-left")}>Company</div>
             </div>
             <div className="flex-1  justify-end">
-              <div className={clsx(subtitle(), "text-end")}>Skill</div>
+              <div
+                className={clsx(
+                  subtitle({
+                    color: "black",
+                  }),
+                  "text-end"
+                )}
+              >
+                Skill
+              </div>
             </div>
           </div>
         </section>
@@ -90,7 +107,12 @@ export default async function SSGPage({ params: { lang } }: Param) {
           </p>
         </section>
         <section className={styles.section}>
-          <h2>way back</h2>
+          <HeaderAbout title="Links" />
+          <div className="flex flex-col justify-center align-middle gap-2 items-center  ">
+            <ButtonGithub />
+            <ButtonLinkedIn />
+            <ButtonHome />
+          </div>
         </section>
       </div>
       <About rootSelector="#about-root" />

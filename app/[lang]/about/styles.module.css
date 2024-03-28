@@ -1,6 +1,8 @@
 .about {
 	overflow-y: auto;
 	max-height: 100vh;
+	scroll-snap-type: mandatory;
+	scroll-snap-type: y mandatory;	
 }
 .about .sections {
 	position: relative;
@@ -10,6 +12,7 @@
 	box-sizing: border-box;
 	padding: 5rem;
 	height: 100vh;
+	scroll-snap-align: start;
 	/* background-color: aliceblue; */
 }
 .about .sections .section:nth-child(even) {

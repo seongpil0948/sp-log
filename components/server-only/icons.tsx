@@ -1,6 +1,8 @@
 import type { FC } from "react";
 import { IconSvgProps } from "@/types";
 import Image from "next/image";
+import { mdiLinkedin } from "@mdi/js";
+import { Icon } from "@mdi/react";
 
 export const Logo: FC<IconSvgProps> = ({
   size = 36,
@@ -197,4 +199,8 @@ export const NextUILogo: FC<IconSvgProps> = (props) => {
       />
     </svg>
   );
+};
+
+export const LinkedInIcon = () => {
+  return <Icon path={mdiLinkedin} size={1} />;
 };

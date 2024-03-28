@@ -2,16 +2,17 @@ import { Link } from "@nextui-org/link";
 import { Logo } from "./icons";
 import { ThemeSwitch } from "../theme-switch";
 import SelectorNational from "../client-only/selector/National";
+import { paragraph, typo } from "./primitives";
 
-const LogoLink = () => (
+const LogoLink = (props?: { href?: string }) => (
   <Link
     color="foreground"
-    href="https://github.com/seongpil0948"
+    href={props?.href ?? "https://github.com/seongpil0948"}
     isExternal
-    className="mb-4 flex items-center sm:mb-0"
+    className="flex items-center"
   >
     <Logo />
-    <p className="font-bold">Sp Blog</p>
+    <p className={typo({ size: "sm", color: "foreground" })}>Sp Blog</p>
   </Link>
 );
 
@@ -32,12 +33,18 @@ export const CmFooter = () => {
   );
 };
 
-export function AbsoluteFooter() {
+export function AbsoluteFooter(props?: { goHome?: boolean }) {
+  const goHome = props?.goHome ?? false;
   return (
-    <footer className="absolute bottom-0 w-full">
+    <footer
+      className="absolute bottom-0 w-full"
+      style={{
+        zIndex: 2,
+      }}
+    >
       <div className="mx-auto w-full max-w-screen-xl p-2 md:py-4">
         <div className="sm:flex sm:items-center sm:justify-between">
-          <LogoLink />
+          <LogoLink href={props?.goHome ? "/home" : undefined} />
           <div className="flex flex-wrap items-center sm:mb-0 gap-2">
             <ThemeSwitch />
             <SelectorNational />

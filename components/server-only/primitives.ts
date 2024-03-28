@@ -24,12 +24,15 @@ const colorModule = {
   green: "from-[#6FEE8D] to-[#17c964]",
   pink: "from-[#FF72E1] to-[#F54C7A]",
   foreground:
-    "dark:from-[#FFFFFF] dark:to-[#4B4B4B] from-[#4B4B4B] to-[#FFFFFF]",
+    "dark:from-[#FFFFFF] dark:to-[#363434] from-[#363434] to-[#FFFFFF]",
   primary: "text-primary",
   secondary: "text-secondary",
   tertiary: "text-tertiary",
   default: "text-default",
   danger: "text-danger",
+  foregroundPure: "text-black dark:text-white",
+  black: "text-black",
+  white: "text-white",
 };
 export const title = tv({
   base: "tracking-tight inline font-semibold mt-3 mb-7 leading-tight",
@@ -74,10 +77,13 @@ export const subtitle = tv({
       true: "!w-full",
     },
     font: fontModule,
+    color: colorModule,
   },
   defaultVariants: {
+    size: "md",
+    font: "gothic",
+    color: "black",
     fullWidth: true,
-    font: "mono",
   },
 });
 
@@ -104,7 +110,8 @@ export const paragraph = tv({
   },
   defaultVariants: {
     size: "md",
-    font: "sans",
+    font: "gothic",
+    color: "black",
   },
 });
 export const typo = tv({
@@ -123,7 +130,8 @@ export const typo = tv({
   },
   defaultVariants: {
     size: "md",
-    font: "sans",
+    font: "gothic",
+    color: "black",
   },
 });
 
@@ -140,5 +148,10 @@ export const main = tv({
       md: "md:py-10",
       lg: "px-4 py-10",
     },
+  },
+  defaultVariants: {
+    size: "md",
+    font: "gothic",
+    color: "black",
   },
 });

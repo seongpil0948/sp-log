@@ -41,6 +41,9 @@ export default async function SSGPage({ params: { lang } }: Param) {
           <GeoButton shape="basic" href="/docs">
             <p className={btnClass}>Knowledge</p>
           </GeoButton>
+          <GeoButton shape="basic" href="/about">
+            <p className={btnClass}>About</p>
+          </GeoButton>
           <GeoButton shape="character" href="/game">
             <p className={btnClass}>Game</p>
           </GeoButton>

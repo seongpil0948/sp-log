@@ -19,6 +19,7 @@ import { IProject } from "../types";
 import { projectsConfig } from "../config";
 import ProjectCard from "./ProjectCard";
 import { title } from "@/components/server-only/primitives";
+import { ButtonHome } from "@/components/client-only/button/links";
 
 export function RootCanvas() {
   const [shape, setShape] = useState<TShape>("sphere");
@@ -56,14 +57,7 @@ export function RootCanvas() {
         >
           Toggle Shape
         </Button>
-        <Button
-          onClick={() => {
-            router.push("/");
-          }}
-          className="mx-2"
-        >
-          go home
-        </Button>
+        <ButtonHome />
       </div>
       {project && (
         <Modal
