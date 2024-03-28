@@ -18,6 +18,7 @@
 - https://www.enricodeiana.design/about
 - https://www.alexnaraghi.com/contact
 - https://www.lauren-waller.com/about
+- https://blog.cmiscm.com/?page_id=3023
 
 
 ### Projects

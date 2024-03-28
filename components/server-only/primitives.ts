@@ -24,7 +24,7 @@ const colorModule = {
   green: "from-[#6FEE8D] to-[#17c964]",
   pink: "from-[#FF72E1] to-[#F54C7A]",
   foreground:
-    "dark:from-[#FFFFFF] dark:to-[#363434] from-[#363434] to-[#FFFFFF]",
+    "dark:from-[#FFFFFF] dark:to-[#4B4B4B] from-[#4B4B4B] to-[#FFFFFF]",
   primary: "text-primary",
   secondary: "text-secondary",
   tertiary: "text-tertiary",
@@ -33,6 +33,7 @@ const colorModule = {
   foregroundPure: "text-black dark:text-white",
   black: "text-black",
   white: "text-white",
+  gray: "text-gray-300 dark:text-gray-700",
 };
 export const title = tv({
   base: "tracking-tight inline font-semibold mt-3 mb-7 leading-tight",
@@ -75,6 +76,10 @@ export const subtitle = tv({
   variants: {
     fullWidth: {
       true: "!w-full",
+    },
+    weight: {
+      bold: "font-bold",
+      italic: "italic",
     },
     font: fontModule,
     color: colorModule,
