@@ -17,8 +17,13 @@ export interface IProject {
   projType: TProjType;
   titleImg?: string;
   using: string[];
+  usingDetail: string[];
   usingPubIdx?: number[];
   whiteImg?: boolean;
   to?: string;
   allImg: string[];
+  description: string[];
+  myRole: string;
+  roleDetail: string[];
+  earned: string[];
 }
