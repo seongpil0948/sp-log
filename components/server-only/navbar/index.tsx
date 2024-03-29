@@ -68,10 +68,6 @@ export default async function CommonNavbar(p: CommonNavbarProps) {
         justify="end"
       >
         <NavbarItem className="hidden sm:flex gap-2">
-          {/* <Link isExternal href={siteConfig.links.github} aria-label="Github"> */}
-          <Link isExternal aria-label="Github">
-            <GithubIcon className="text-default-500" />
-          </Link>
           <ThemeSwitch />
         </NavbarItem>
         <NavbarItem className="hidden md:flex basis-3/5 grow">

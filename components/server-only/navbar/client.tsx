@@ -37,6 +37,7 @@ export function NavInput() {
           K
         </Kbd>
       }
+      disabled
       labelPlacement="outside"
       placeholder="Search..."
       startContent={
