@@ -15,7 +15,7 @@ import clsx from "clsx";
 import CertSection from "./Cert";
 import styles from "../styles.module.css";
 
-export default function AboutSectionsEn(props: { certData: string[] }) {
+export default function AboutSectionsKo(props: { certData: string[] }) {
   const { certData } = props;
   const expCompany = [
     {
@@ -95,19 +95,19 @@ export default function AboutSectionsEn(props: { certData: string[] }) {
           <li>- Frontend such as NextJs, Vue or Nuxtjs, Flutter(Mobile)</li>
         </ol>
         <p className={paragraph({ size: "md", font: "gothic" })}>
-          I enjoy making miscellaneous product in my free time <br />
-          When I lacked server knowledge, I studied Linux and obtained related
-          certificates. <br />
-          When I lacked Mobile knowledge, I studied Flutter and
-          publish(camping/wear-vendor app). <br></br>
-          When I was working on the <i>익시 도우미 관리도구</i> Tool project
-          with <i>LG</i>, I studied Kubernetes and obtained related
-          certificates.
+          저는 여가시간에도 자기개발을 즐깁니다 특히 주말은, 제 아이디어를
+          구현할 설레이는 날입니다. <br />
+          서버 관련지식이 부족하다 느꼈을때, 리눅스 관련 자격증(LFCS)을
+          취득했습니다. <br />
+          모바일 앱을 만들고 싶어서 Flutter를 공부하고, 캠핑/의류 업체용 앱을
+          출시했습니다. <br />
+          회사에서 쿠버네티스 환경에 배포하는 프로젝트를 맡았을 때, 쿠버네티스
+          자격증(CKA)을 취득했습니다.
         </p>
         <p className={paragraph({ size: "md", font: "gothic" })}>
-          I recently started to have interest in WebGL and{" "}
-          <b>3D(Three.js and Blender)</b>
-          <b>Udemy</b>, <b>Inflearn</b> and Youtube are my best friends.
+          최근에는 WebGL과 3D(Three.js and Blender) 분야에 관심을 가지고
+          있습니다. <br />
+          <b>Udemy</b>, <b>Inflearn</b> , Youtube 는 저의 친구입니다.
         </p>
       </section>
       <section className={styles.section}>
