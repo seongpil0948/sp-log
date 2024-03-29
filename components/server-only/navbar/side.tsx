@@ -3,14 +3,13 @@
 import { AccordionItem, Accordion } from "@nextui-org/accordion";
 import CommonDrawer from "../../client-only/drawer";
 import { TreeSection, TreeSectionProps } from "../../client-only/tree-section";
-import { useRouter, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { Link } from "@nextui-org/link";
 import { isMobile } from "@/app/_utils/client/responsive";
 import { CommonNavbarProps } from "./client";
 import { siteConfig } from "@/config/site";
 
 export function PrefixComp(props: CommonNavbarProps): React.ReactNode {
-  const router = useRouter();
   const path = usePathname();
   const isM = isMobile();
 
@@ -63,15 +62,15 @@ export function PrefixComp(props: CommonNavbarProps): React.ReactNode {
           hideIndicator={child === null}
           disableIndicatorAnimation={child === null}
           disableAnimation={child === null}
-          onPress={(evt) => {
-            if (child === null) {
-              router.push(item.href);
-            }
-          }}
-          onDoubleClick={(evt) => {
-            evt.stopPropagation();
-            router.push(item.href);
-          }}
+          // onPress={(evt) => {
+          //   if (child === null) {
+          //     router.push(item.href);
+          //   }
+          // }}
+          // onDoubleClick={(evt) => {
+          //   evt.stopPropagation();
+          //   router.push(item.href);
+          // }}
         >
           {child}
         </AccordionItem>

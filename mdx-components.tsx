@@ -30,40 +30,20 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     //   />
     // ),
     h1: (props) => {
-      return (
-        <HeaderWithLink
-          props={props}
-          level={1}
-          className={title({ size: "lg" })}
-        />
-      );
+      const className = clsx(title({ size: "lg" }), "mt-24");
+      return <HeaderWithLink attr={props} className={className} level={1} />;
     },
     h2: (props) => {
-      return (
-        <HeaderWithLink
-          props={props}
-          level={2}
-          className={title({ size: "md", color: "blue" })}
-        />
-      );
+      const className = clsx(title({ size: "md", color: "blue" }), "mt-24");
+      return <HeaderWithLink attr={props} className={className} level={2} />;
     },
     h3: (props) => {
-      return (
-        <HeaderWithLink
-          props={props}
-          level={3}
-          className={title({ size: "sm" })}
-        />
-      );
+      const className = clsx(title({ size: "sm" }), "mt-24");
+      return <HeaderWithLink attr={props} className={className} level={3} />;
     },
     h4: (props) => {
-      return (
-        <HeaderWithLink
-          props={props}
-          level={4}
-          className={title({ size: "xs" })}
-        />
-      );
+      const className = clsx(title({ size: "xs" }), "mt-24");
+      return <HeaderWithLink attr={props} className={className} level={4} />;
     },
     hr: (props) => (
       <div
@@ -181,34 +161,30 @@ const Link = ({
   );
 };
 
-// https://developers.google.com/style/headings-targets
-const HeaderWithLink = ({
-  props,
-  level,
-  className,
-}: {
-  props: DetailedHTMLProps<
+const HeaderWithLink = (props: {
+  attr: DetailedHTMLProps<
     HTMLAttributes<HTMLHeadingElement>,
     HTMLHeadingElement
   >;
   level: number;
-  className: string;
+  className?: string;
 }) => {
-  const text = typeof props.children === "string" ? props.children : "";
-
+  const { attr, level, className } = props;
+  const text = typeof attr.children === "string" ? attr.children : "";
   const slug = text.toLowerCase().replaceAll(" ", "-");
+
   return createElement(
     `h${level}`,
     {
-      ...props,
+      ...attr,
       id: slug,
-      className: clsx(props.className, className),
+      className,
     },
     [
       createElement(
         "a",
-        { href: `#${slug}`, key: props.id ?? slug },
-        props.children
+        { href: `#${slug}`, key: attr.id ?? slug },
+        props.attr.children
       ),
     ]
   );

@@ -6,6 +6,7 @@ import { getOnlyFiles } from "@/app/_utils/server/dir-tree";
 import commonConfig, { TAvailLocale } from "@/config";
 import AboutSectionEn from "./_components/AboutSectionEn";
 import AboutSectionKo from "./_components/AboutSectionKo";
+import { AbsoluteFooter } from "@/components/server-only/footers";
 
 export async function generateStaticParams() {
   return commonConfig.i18n.locales.map((lang) => ({ lang }));
@@ -25,6 +26,7 @@ export default async function SSGPage({ params: { lang } }: Param) {
       ) : (
         <AboutSectionEn certData={certData} />
       )}
+      <AbsoluteFooter />
       <About rootSelector="#about-root" />
     </div>
   );

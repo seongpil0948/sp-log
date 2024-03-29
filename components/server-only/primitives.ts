@@ -36,7 +36,7 @@ const colorModule = {
   gray: "text-gray-300 dark:text-gray-700",
 };
 export const title = tv({
-  base: "tracking-tight inline font-semibold mt-3 mb-7 leading-tight",
+  base: "tracking-tight inline font-semibold mt-3 md:mt-5 mb-5 md:mb-7 leading-tight",
   variants: {
     color: colorModule,
     size: {

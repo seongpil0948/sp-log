@@ -1,23 +1,25 @@
-import clsx from 'clsx'
-import Link from 'next/link'
-import { tree } from './theme'
+import clsx from "clsx";
+import { tree } from "./theme";
+// import { setLoading, useAppDispatch } from "@/store";
+import { Link } from "@nextui-org/link";
 
 export interface TreeSectionProps {
-  label: string
-  href: string
-  icon?: string
-  children?: TreeSectionProps[]
+  label: string;
+  href: string;
+  icon?: string;
+  children?: TreeSectionProps[];
 }
 
 export function TreeSection(props: {
-  treeProps: TreeSectionProps[]
-  startDepth?: number
-  linkTextClass?: (label: string) => string
+  treeProps: TreeSectionProps[];
+  startDepth?: number;
+  linkTextClass?: (label: string) => string;
 }) {
-  let { treeProps, startDepth, linkTextClass } = props
-  startDepth = startDepth || 0
+  let { treeProps, startDepth, linkTextClass } = props;
+  startDepth = startDepth || 0;
+  // const dispatch = useAppDispatch();
 
-  const { wrapper, topMenu, menu, menuItem } = tree()
+  const { wrapper, topMenu, menu, menuItem } = tree();
   return (
     <>
       {treeProps.length > 0 && (
@@ -33,11 +35,18 @@ export function TreeSection(props: {
               >
                 <div className={menuItem()}>
                   {/* <Icon path={mdiFolder} size={0.8} /> */}
-                  <Link key={item.href} href={item.href}>
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    // onClick={() => {
+                    //   console.log("click");
+                    //   dispatch(setLoading(true));
+                    // }}
+                  >
                     <div
                       className={clsx(
                         `pl-${startDepth! * 2}`,
-                        linkTextClass && linkTextClass(item.label),
+                        linkTextClass && linkTextClass(item.label)
                       )}
                     >
                       {item.label}
@@ -56,5 +65,5 @@ export function TreeSection(props: {
         </>
       )}
     </>
-  )
+  );
 }

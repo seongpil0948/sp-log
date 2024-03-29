@@ -5,6 +5,8 @@ import { useState, useEffect, createContext, useContext } from "react";
 import { usePathname } from "next/navigation";
 import config, { TAvailLocale } from "@/config";
 import { ContextUndefined } from "../_utils/common";
+import { useAppSelector } from "@/store";
+import Loading from "../loading";
 
 type CommonContextType = {
   clientLocale: TAvailLocale;
@@ -19,9 +21,9 @@ export default function CommonProvider({
 }: {
   children: React.ReactNode;
 }) {
+  const isLoading = useAppSelector((state) => state.common.loading);
   const { i18n } = config;
   const isAvailableLocale = i18n.isAvailableLocale;
-
   const [clientLocale, setClientLocale] = useState<TAvailLocale>(
     i18n.defaultLocale
   );
@@ -44,6 +46,7 @@ export default function CommonProvider({
         setClientLocale,
       }}
     >
+      {isLoading && <Loading />}
       {children}
     </CommonContext.Provider>
   );

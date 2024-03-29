@@ -96,7 +96,7 @@ export default function AboutSectionsKo(props: { certData: string[] }) {
         </ol>
         <p className={paragraph({ size: "md", font: "gothic" })}>
           저는 여가시간에도 자기개발을 즐깁니다 특히 주말은, 제 아이디어를
-          구현할 설레이는 날입니다. <br />
+          구현할 설레는 날입니다. <br />
           서버 관련지식이 부족하다 느꼈을때, 리눅스 관련 자격증(LFCS)을
           취득했습니다. <br />
           모바일 앱을 만들고 싶어서 Flutter를 공부하고, 캠핑/의류 업체용 앱을
@@ -106,8 +106,8 @@ export default function AboutSectionsKo(props: { certData: string[] }) {
         </p>
         <p className={paragraph({ size: "md", font: "gothic" })}>
           최근에는 WebGL과 3D(Three.js and Blender) 분야에 관심을 가지고
-          있습니다. <br />
-          <b>Udemy</b>, <b>Inflearn</b> , Youtube 는 저의 친구입니다.
+          있습니다. <br />전 항상 Udemy, Inflearn , Youtube와 친하게
+          지내고있습니다.
         </p>
       </section>
       <section className={styles.section}>
