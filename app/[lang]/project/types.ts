@@ -12,8 +12,8 @@ export interface ImagePanelInfo {
 export type TProjType = "web" | "app";
 
 export interface IProject {
+  id: string;
   title: string;
-  desc: string;
   projType: TProjType;
   titleImg?: string;
   using: string[];
@@ -21,9 +21,9 @@ export interface IProject {
   usingPubIdx?: number[];
   whiteImg?: boolean;
   to?: string;
-  allImg: string[];
+  allImg?: string[];
   description: string[];
   myRole: string;
-  roleDetail: string[];
+  roleDetail?: string[];
   earned: string[];
 }

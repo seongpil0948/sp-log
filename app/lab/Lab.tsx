@@ -1,18 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { Variants, motion, useAnimationControls } from "framer-motion";
-import {
-  useState,
-  useEffect,
-  useLayoutEffect,
-  useCallback,
-  useRef,
-  use,
-  MouseEvent,
-  useMemo,
-} from "react";
-import { useFollowPointer } from "../_utils/client/hooks/mouse";
+import { useState, MouseEvent } from "react";
 import { useWindowSize } from "../_utils/client/responsive";
+import "./style.css";
 
 type Vec2 = { x: number; y: number };
 export default function Lab() {
@@ -53,8 +44,8 @@ export default function Lab() {
   const controls = useAnimationControls();
   const handleClicked = (e: MouseEvent) => {
     // controls.stop();
-    controls.mount();
-    // controls.set("hidden");
+    // controls.mount();
+    controls.set("hidden");
     const clickedPos = { x: e.clientX, y: e.clientY };
     const endPos = { x: window.innerHeight / 2, y: window.innerHeight / 2 };
     const middle = getMiddlePoint(clickedPos, endPos);
@@ -98,73 +89,58 @@ export default function Lab() {
         opacity: 1,
         transition: {
           pathLength: {
-            type: "spring",
+            type: "tween",
             duration: custom,
-            bounce: 0.5,
-            damping: 5,
-            stiffness: 100,
-            restDelta: 0.001,
-            staggerChildren: 0.1,
+            bounce: 0.25,
+            damping: 1,
+            stiffness: 50,
+            restDelta: 0.01,
+            // staggerChildren: 0.1,
             repeat: Infinity,
+            repeatDelay: 1,
           },
           // opacity: { duration: 1 },
-          opacity: { type: "spring", duration: custom, bounce: 0.5 },
+          opacity: { type: "tween", duration: 0, bounce: 0.5 },
         },
       };
     },
   };
   return (
-    // <div
-    //   style={{
-    //     width: "100vw",
-    //     height: "100vh",
-    //     background: "black",
-    //   }}
-    //   onClick={handleClicked}
-    // >
-    //   {state.clickedPos && (
-    //     <motion.circle
-    //       x={state.clickedPos.x}
-    //       y={state.clickedPos.y}
-    //       r={10}
-    //       fill="green"
-    //     />
-    //   )}
-    //   {state.pathList.map((pos, i) => (
-    //     <div
-    //       key={i}
-    //       style={{
-    //         position: "absolute",
-    //         top: pos.y,
-    //         left: pos.x,
-    //         width: 10,
-    //         height: 10,
-    //         background: "red",
-    //       }}
-    //     />
-    //   ))}
     <motion.svg
       width={size.width}
       height={size.height}
-      style={{ background: "black" }}
+      style={
+        {
+          // background: "conic-gradient(from 180deg, green, orange, red)",
+          // background: "black",
+        }
+      }
       viewBox={`0 0 ${size.width} ${size.height}`}
       onClick={handleClicked}
       xmlns="http://www.w3.org/2000/svg"
     >
+      <defs>
+        <linearGradient id="grad1" x1="0%" x2="100%" y1="0%" y2="0%">
+          <stop offset="0%" stopColor="yellow" />
+          <stop offset="100%" stopColor="red" />
+        </linearGradient>
+      </defs>
       <motion.path
+        className={"shooting-star"}
         initial="hidden"
         animate={controls}
         transition={{
-          ease: "linear",
+          ease: "easeInOut",
         }}
         strokeWidth={4}
         strokeDasharray="0 1"
-        stroke={"#bf4d00"}
+        // stroke={"#bf4d00"}
+        stroke={"url(#grad1)"}
         fill="none"
         strokeLinecap="round"
         strokeLinejoin="round"
         variants={draw}
-        custom={12}
+        custom={3}
         // fill="red"
         // d="M415,275Q422,310,417.5,354Q413,398,378,423Q343,448,299,423Q255,398,227.5,389.5Q200,381,151,401.5Q102,422,86,383.5Q70,345,65,309.5Q60,274,78.5,243.5Q97,213,87.5,176.5Q78,140,107.5,122Q137,104,160.5,74Q184,44,222,33Q260,22,293.5,43.5Q327,65,362,81Q397,97,386,142.5Q375,188,391.5,214Q408,240,415,275Z"
         d={state.animationPath}
@@ -173,6 +149,7 @@ export default function Lab() {
         }}
         onAnimationComplete={() => {
           console.log("onAnimationComplete end");
+          controls.stop();
         }}
       />
     </motion.svg>
