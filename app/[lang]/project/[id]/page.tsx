@@ -22,8 +22,21 @@ import { CmFooter } from "@/components/server-only/footers";
 import { BasicCarousel } from "@/components/client-only/Carousel";
 import CommonNavbar from "@/components/server-only/navbar";
 import { Link } from "@nextui-org/link";
+import commonConfig from "@/config";
 interface Param {
   params: { lang: TAvailLocale; id: string };
+}
+
+export async function generateStaticParams() {
+  const params: Param[] = [];
+  for (let i = 0; i < PROJECTS.length; i++) {
+    const proj = PROJECTS[i];
+    for (let j = 0; j < commonConfig.i18n.locales.length; j++) {
+      const locale = commonConfig.i18n.locales[j];
+      params.push({ params: { lang: locale, id: proj.id } });
+    }
+  }
+  return params;
 }
 
 // is an array of segments matched by [...slug].js
