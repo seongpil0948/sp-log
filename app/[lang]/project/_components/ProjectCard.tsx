@@ -16,10 +16,9 @@ export default function ProjectCard(props: { p: IProject }) {
       isBlurred
       className="max-w-[610px] border-none bg-background/60 dark:bg-default-100/50"
       shadow="sm"
-      isPressable={!!p.to}
-      isHoverable={!!p.to}
+      isPressable
+      isHoverable
       onPress={() => {
-        if (!p.to) return;
         router.push("/project/" + p.id);
       }}
     >
