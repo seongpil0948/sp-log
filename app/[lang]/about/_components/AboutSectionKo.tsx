@@ -112,7 +112,7 @@ export default function AboutSectionsKo(props: { certData: string[] }) {
       </section>
       <section className={styles.section}>
         <HeaderAbout title="Experience" />
-        <div className="w-full flex flex-row justify-between">
+        <div className="w-full flex flex-row justify-between gap-2">
           <div className="flex flex-col justify-start items-start max-w-[45vw]">
             <div className={clsx(subtitle({ weight: "bold" }), "text-left")}>
               Company
@@ -153,7 +153,7 @@ export default function AboutSectionsKo(props: { certData: string[] }) {
               ))}
             </ul>
           </div>
-          <div className="flex-2 flex flex-col justify-start items-start text-right">
+          <div className="flex-2 flex flex-col justify-start items-start text-right max-h-[60vh] overflow-y-auto border border-gray-200 rounded-lg px-3">
             <div className={clsx(subtitle({ weight: "bold" }))}>Skill</div>
             <ul>
               {expSkill.map((exp, idx) => (

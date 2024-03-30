@@ -25,7 +25,6 @@ export default function CommonDrawer(props: CommonDrawerProps) {
   });
 
   const handleClick = () => {
-    console.log("clicked", isOpen);
     isOpen ? onClose() : onOpen();
   };
   return (

@@ -161,3 +161,17 @@ export const main = tv({
     color: "black",
   },
 });
+
+export const listText = tv({
+  base: clsx(
+    typo(),
+    "[&::marker]:font-semibold [&:before]:mr-6 [&:before]:content-['-']"
+  ),
+  variants: {
+    ...commonTxt,
+  },
+});
+
+export const ulText = tv({
+  base: clsx("my-5 list-none [blockquote_&]:my-0"),
+});

@@ -150,7 +150,7 @@ export default function AboutSectionsKo(props: { certData: string[] }) {
               ))}
             </ul>
           </div>
-          <div className="flex-2 flex flex-col justify-start items-start text-right">
+          <div className="flex-2 flex flex-col justify-start items-start text-right max-h-[60vh] overflow-y-auto border border-gray-200 rounded-lg px-3">
             <div className={clsx(subtitle({ weight: "bold" }))}>Skill</div>
             <ul>
               {expSkill.map((exp, idx) => (

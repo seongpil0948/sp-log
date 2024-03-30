@@ -20,7 +20,7 @@ export default function ProjectCard(props: { p: IProject }) {
       isHoverable={!!p.to}
       onPress={() => {
         if (!p.to) return;
-        router.push(p.to);
+        router.push("/project/" + p.id);
       }}
     >
       <CardBody>
@@ -37,16 +37,15 @@ export default function ProjectCard(props: { p: IProject }) {
           </div>
 
           <div className="col-span-6 flex flex-col md:col-span-8">
-            {!p.to && (
-              <div className={typo({ size: "sm", color: "tertiary" })}>
-                {" "}
-                아직 이동할 상세페이지가 없어요ㅎ;
-              </div>
-            )}
             <div className="flex items-start justify-between">
               <div className="flex flex-col gap-0">
                 <h3 className="font-semibold text-foreground/90">{p.title}</h3>
-                <p className="text-small text-foreground/80">{p.desc}</p>
+                {p.description &&
+                  p.description.map((desc, idx) => (
+                    <p key={idx} className="text-small text-foreground/80">
+                      {desc}
+                    </p>
+                  ))}
               </div>
               <div className="flex justify-end">
                 <ProjectTypeIcon projType={p.projType} />

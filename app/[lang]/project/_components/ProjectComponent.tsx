@@ -5,7 +5,6 @@ import { OrbitControls } from "@react-three/drei";
 import projects from "../_logics/projects";
 import { Button } from "@nextui-org/button";
 import clsx from "clsx";
-import { useRouter } from "next/navigation";
 import { ProjectCards, TShape } from "./ProjectCards";
 import {
   useDisclosure,
@@ -23,7 +22,6 @@ import { ButtonHome } from "@/components/client-only/button/links";
 
 export function RootCanvas() {
   const [shape, setShape] = useState<TShape>("sphere");
-  const router = useRouter();
   const { isOpen, onOpen, onOpenChange } = useDisclosure({
     onClose() {
       setProject(null);
@@ -32,7 +30,6 @@ export function RootCanvas() {
   const [project, setProject] = useState<IProject | null>(null);
 
   const handleProjectSelect = (projectInfo: IProject) => {
-    console.log("selected projectInfo", projectInfo);
     setProject(projectInfo);
     onOpen();
   };
