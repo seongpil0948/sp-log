@@ -25,17 +25,16 @@ import { notFound } from "next/navigation";
 interface Param {
   params: { lang: TAvailLocale; id: string };
 }
-
 // https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config#dynamicparams
-// export const dynamic = "force-static";
-// export const dynamicParams = false;
+export const dynamic = "force-static";
+export const dynamicParams = false;
 // 'auto' | 'force-dynamic' | 'error' | 'force-static'
-// export async function generateStaticParams() {
-//   return PROJECTS.map((x) => ({ id: x.id, fallback: true }));
-// }
-
+export function generateStaticParams() {
+  return PROJECTS.map((x) => ({ id: x.id, fallback: true }));
+}
 // is an array of segments matched by [...slug].js
 export default async function PageSSG({ params: { lang, id } }: Param) {
+  console.log("lang", lang, "id", id);
   const post = await getPost({ id });
   const dict = await getDictionary(lang);
   const roles = [...(post?.roleDetail ?? []), post?.myRole];
