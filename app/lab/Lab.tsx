@@ -147,9 +147,19 @@ export default function Lab() {
         onAnimationStart={() => {
           console.log("onAnimationStart");
         }}
+        onAnimationIteration={(evt) => {
+          console.log("onAnimationIteration", evt);
+        }}
+        onAnimationEnd={() => {
+          console.log("onAnimationComplete end");
+          controls.stop();
+        }}
         onAnimationComplete={() => {
           console.log("onAnimationComplete end");
           controls.stop();
+        }}
+        onAnimationIterationCapture={(evt) => {
+          console.log("onAnimationIterationCapture", evt);
         }}
       />
     </motion.svg>

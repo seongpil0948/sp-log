@@ -33,17 +33,33 @@ export const PROJECTS: IProject[] = [
       "/projects/ixi-admin/6.png",
     ],
     description: [
+      "사용자는 익시 통합관리 도구를 통해 LG의 인공지능(AI) 서비스를 통합 관리할 수 있습니다.",
       "LG TTS, NLP 모델 관리 및 서비스 제공 플랫폼",
       "금칙어, 로그, 가중치등 설정 및 모니터링",
     ],
     myRole: "Frontend",
     roleDetail: ["S3 관련 작업", "Project Leader"],
     earned: [
-      "LG 사내 서비스 관리 도구인 IXI K8S 환경에서의 배포 및 모니터링 경험",
+      "LG 내부 개발 도구인 violet(바이올렛, kubernetes,kubeflow 프레임워크)은 각 서비스 별 vscode 컨테이너 환경을 제공받아 개발을 진행하였습니다.",
+      `바이올렛 환경이 아직 초기 단계여서, 개발환경 구축에 어려움(웹서비스 개발은 우리팀이 처음)이 있었습니다.  
+      gateway(apache), container 환경(network, resource) 수동관리, 환경변수 수동 주입, 컨테이너 실행 리소스(프로세스 권한, 파일 관리) 등 상세한 부분은 직접 관리해야 했습니다.  `,
+      `
+      하지만 다양한 리소스들을 직접 관리하면서, kubernetes 환경에서 개발하는 것이 재밌었습니다.  
+      "horizontal pod autoscaler", "Notebook resource", "Argo", 리소스 라벨 관리등 row level 단계에서 "kubectl" 명령어를 직접 사용할 기회(EKS 진짜 비쌈..)가 흔치 않은데 LG 개발팀과 티키타카하며 문제를 해결하면서 흥미로웠습니다.        
+      `,
       "CVT 테스트를 통해 쿠버네티스, istio 환경에서의 네트워킹 이슈 해결 경험",
       "WAF를 사용하여, 보안 이슈를 해결하는 방법",
+      `
+      매 Notebook 를 종료시 이미지를 "ECR"에서 관리하고 있었는데 매 버전이 10GB 이상이 되는경우, 작성된 버전이 저장되지 않는경우 등 "ECR" 에 서비스별 이미지를 관리하는 것이 아직 안정화되지 않아보였습니다.  
+      (매일 야근하시면서 우리팀 업무도 도와주시는 분들이 계셔서 다행이었습니다...)      
+      `,
     ],
-    usingDetail: [],
+    usingDetail: [
+      "web server: 'Vue.js & nginx'",
+      "api server: 'Java Spring Boot'",
+      "db: 'Aura RDS'",
+      "infra: 'kubernetes with istio'",
+    ],
   },
   {
     id: "drone",
@@ -76,7 +92,6 @@ export const PROJECTS: IProject[] = [
     title: "LG 데이터 산업 플랫폼",
     projType: "web",
     using: [mdiAws, mdiVuejs, mdiLanguageTypescript, mdiLanguageJava],
-    to: "/project/list/b2b-platform",
     description: [
       "AI 모델 관리 및 서비스 제공 플랫폼",
       "AWS 사용량, 서버 모니터링를 API로 연동하여, 사용자가 사용량을 확인할 수 있도록 구현",
@@ -113,6 +128,38 @@ export const PROJECTS: IProject[] = [
     ],
   },
   {
+    id: "peachhub",
+    title: "개인 포트폴리오 사이트",
+    projType: "web",
+    titleImg: "/projects/blog/1.png",
+    to: "https://peachhub.love/home",
+    using: [mdiNodejs, mdiReact, mdiFirebase, mdiLanguageTypescript],
+    allImg: [
+      "/projects/blog/3.png",
+      "/projects/blog/2.png",
+      "/projects/blog/1.png",
+    ],
+    description: [
+      "블로그, 기술 연구, 프로젝트 기재",
+      "실무에서 사용할 일이 많이 않은 애니메이션, 3D, 최신 CSS 문법 테스트 등 UI를 적용한 프로젝트",
+      "개발관련 지식들을 정리하고, 공유하기 위한 블로그",
+    ],
+    myRole: "1인 개발",
+    earned: [
+      "실무에서 필요한 경우 제시하고 즉시 적용가능",
+      "내 업무에 맞는 명령어들과 소스들을 정리하여, 빠르게 찾아볼 수 있음",
+    ],
+    usingDetail: [
+      "Next.js",
+      "Tailwind CSS",
+      "Three.js",
+      "Framer Motion",
+      "MDX",
+      "Vercel",
+      "Firebase",
+    ],
+  },
+  {
     id: "inout-box",
     title: "Inout box",
     projType: "web",
@@ -122,8 +169,9 @@ export const PROJECTS: IProject[] = [
       'api server: "Golang (Gin)"',
       'web server: "(Vue.js) firebase hosting"',
       'db: "firestore"',
+      'search engine: "elasticsearch"',
+      'Payment Gateway: "toss payment"',
     ],
-    to: "/project/list/inout-box",
     allImg: [
       "/projects/iobox/inquiry.png",
       "/projects/iobox/shop-main.png",
@@ -148,6 +196,15 @@ export const PROJECTS: IProject[] = [
       `,
       "App, Web(log, analytics), Server의 로그 중앙화(using GCP logging) 기능 구현 및 모니터링",
       "참여 동기였던 전체 서비스 A to Z 개발 경험을 통해, 개발자로서의 역량 향상.",
+      `
+      Admin, Web-app, Flutter-app, Api-server, 기타 컨테이너 로 분리된 서비스에서 기록되는 로그를 한 화면에서
+      확인할 수 있어야 하며, 특정 로그레벨 이상(Emergency)인 경우 알림을 받을 수 있어야 했습니다. 
+      이에 Cloud-logging(like Log4j, GCP Saas)를 선정, 각 언어별로 제공되는 
+      Google-cloud-sdk(미지원일경우 api-server 중계) 를 통해 
+      통일된 entries 형태로 로그를 저장 할 수 있었습니다. 또한 제공되는 View 로 중앙 관리가 가능하였고, 
+      Cloud-Monitoring 을 통해 일정 로그레벨 이상일경우 Slack 을 통해 팀대화방에 알림, 
+      휴대폰으로도 지속 추적관리가 가능하게끔 해결 할 수 있었습니다.      
+      `,
     ],
   },
   {
@@ -157,16 +214,24 @@ export const PROJECTS: IProject[] = [
     titleImg: "/projects/iobox/app-store.jpeg",
     using: ["/icon/flutter-logo.svg", mdiGoogleCloud, mdiGoogleAnalytics],
     usingPubIdx: [0],
-    to: "/project/list/inout-uncle",
     allImg: [
       "/projects/iobox/uncle-app-1.png",
       "/projects/iobox/uncle-app-2.png",
       "/projects/iobox/app-store.jpeg",
     ],
-    description: ["의류 배송 플랫폼"],
-    myRole: "",
-    roleDetail: [],
-    earned: [],
+    description: [
+      "의류 배송 플랫폼",
+      "`in out box` 프로젝트의 사입 직원들의 사입/배송/픽업 사용을 목적으로 제작된 프로젝트",
+    ],
+    myRole: "1인 개발",
+    roleDetail: [
+      "의류 종사자인 친구들의 기획과 요구사항을 바탕으로 혼자 개발.",
+    ],
+    earned: [
+      "사입자 출/퇴근 관리(APP)",
+      "배송 추적, 상태 관리",
+      "사입자의 주문 관리",
+    ],
     usingDetail: ["Push messaging(FCM)"],
   },
   {
@@ -177,7 +242,6 @@ export const PROJECTS: IProject[] = [
     using: ["/icon/flutter-logo.svg", mdiFirebase, mdiGoogleCloud],
     usingPubIdx: [0],
     whiteImg: true,
-    to: "/project/list/campi",
     allImg: ["/projects/campi/feed.jpg", "/projects/campi/my-page.jpg"],
     description: [
       "캠핑 SNS 플랫폼",
@@ -361,34 +425,6 @@ export const PROJECTS: IProject[] = [
       "js 템플릿 엔진(ejs) 경험을 통해 스펙트럼 확장",
     ],
     usingDetail: ["ejs", "nodejs", "express", "mysql"],
-  },
-  {
-    id: "peachhub",
-    title: "개인 포트폴리오 사이트",
-    projType: "web",
-    titleImg: "/projects/intellisys.png",
-    to: "https://peachhub.love/home",
-    using: [mdiNodejs, mdiReact, mdiFirebase, mdiLanguageTypescript],
-    allImg: ["/projects/intellisys.png"],
-    description: [
-      "블로그, 기술 연구, 프로젝트 기재",
-      "실무에서 사용할 일이 많이 않은 애니메이션, 3D, 최신 CSS 문법 테스트 등 UI를 적용한 프로젝트",
-      "개발관련 지식들을 정리하고, 공유하기 위한 블로그",
-    ],
-    myRole: "1인 개발",
-    earned: [
-      "실무에서 필요한 경우 제시하고 즉시 적용가능",
-      "내 업무에 맞는 명령어들과 소스들을 정리하여, 빠르게 찾아볼 수 있음",
-    ],
-    usingDetail: [
-      "Next.js",
-      "Tailwind CSS",
-      "Three.js",
-      "Framer Motion",
-      "MDX",
-      "Vercel",
-      "Firebase",
-    ],
   },
 ];
 const projectsHasImg = PROJECTS.filter((p) => p.allImg && p.allImg.length > 0);

@@ -16,7 +16,7 @@ export function ButtonGithub() {
   return (
     <Button
       {...(BTN_PROPS as any)}
-      href="https://github.com/nextui-org/nextui"
+      href="https://github.com/seongpil0948"
       showAnchorIcon
       startContent={<GithubIcon />}
     >
@@ -29,7 +29,7 @@ export function ButtonLinkedIn() {
   return (
     <Button
       {...(BTN_PROPS as any)}
-      href="https://www.linkedin.com/company/nextui-org"
+      href="https://www.linkedin.com/in/choi-seongpil-9910a0203"
       showAnchorIcon
       startContent={<LinkedInIcon />}
     >

@@ -14,6 +14,8 @@ import {
 import clsx from "clsx";
 import CertSection from "./Cert";
 import styles from "../styles.module.css";
+import PROJECTS from "../../project/_logics/projects";
+import ProjectCard from "../../project/_components/ProjectCard";
 
 export default function AboutSectionsKo(props: { certData: string[] }) {
   const { certData } = props;
@@ -192,20 +194,25 @@ export default function AboutSectionsKo(props: { certData: string[] }) {
         <HeaderAbout title="Certifications" />
         <CertSection certData={certData} scrollContainer="#about-root" />
       </section>
-      {/* <section className={styles.section}>
-    <HeaderAbout title="Projects" />
-    <p>
-      Fast forward to 2024, I have been working as a developer for 5 years
-      and have worked on a variety of projects. Everything I have done,
-      small or big, has been a vital stepping stone for where I am today.
-    </p>
-    <p className={paragraph({ size: "sm", font: "gothic" })}>
-      Although I can build a service on my own from infrastructure to
-      front <br />
-      I was always with my colleagues when I created the best service.
-      therefore <br />I always struggle to be the best colleague
-    </p>
-  </section> */}
+      <section className={styles.section}>
+        <HeaderAbout title="Projects" />
+        <p>
+          Fast forward to 2024, I have been working as a developer for 5 years
+          and have worked on a variety of projects. Everything I have done,
+          small or big, has been a vital stepping stone for where I am today.
+        </p>
+        <p className={paragraph({ size: "sm", font: "gothic" })}>
+          Although I can build a service on my own from infrastructure to front
+          <br />
+          I was always with my colleagues when I created the best service.
+          therefore <br />I always struggle to be the best colleague
+        </p>
+        <div className=" flex overflow-auto gap-3">
+          {PROJECTS.map((proj, idx) => {
+            return <ProjectCard key={idx} p={proj} />;
+          })}
+        </div>
+      </section>
       <section className={styles.section}>
         <HeaderAbout title="Links" />
         <div className="flex flex-col justify-center align-middle gap-2 items-center h-full ">

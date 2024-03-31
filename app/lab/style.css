@@ -1,4 +1,10 @@
 path.shooting-star {
-  background: linear-gradient(90deg, hwb(0 11% 17%), transparent);
+  /* background: linear-gradient(90deg, hwb(0 11% 17%), transparent); */
   filter: drop-shadow(3px 5px 2px rgb(0 0 0 / 05));
+}
+path.shooting-star::after {
+  content: url(/icon/success__full--03b.svg);
+  width: 200px;
+  height: 200px;
+  background-color: red;
 }
