@@ -27,7 +27,11 @@ interface Param {
   params: { lang: TAvailLocale; id: string };
 }
 
-export async function generateStaticParams() {
+// https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config#dynamicparams
+export const dynamicParams = true;
+export const dynamic = "force-static";
+// 'auto' | 'force-dynamic' | 'error' | 'force-static'
+export async function generateStaticParams(): Promise<Param[]> {
   const params: Param[] = [];
   for (let i = 0; i < PROJECTS.length; i++) {
     const proj = PROJECTS[i];
@@ -36,6 +40,7 @@ export async function generateStaticParams() {
       params.push({ params: { lang: locale, id: proj.id } });
     }
   }
+  console.info("generatedStaticParams", params);
   return params;
 }
 
