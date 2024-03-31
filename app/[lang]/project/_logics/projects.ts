@@ -33,8 +33,7 @@ export const PROJECTS: IProject[] = [
       "/projects/ixi-admin/6.png",
     ],
     description: [
-      "사용자는 익시 통합관리 도구를 통해 LG의 인공지능(AI) 서비스를 통합 관리할 수 있습니다.",
-      "LG TTS, NLP 모델 관리 및 서비스 제공 플랫폼",
+      "LG의 AI 서비스 TTS, NLP 모델 관리 플랫폼",
       "금칙어, 로그, 가중치등 설정 및 모니터링",
     ],
     myRole: "Frontend",
