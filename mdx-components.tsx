@@ -21,14 +21,14 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     //     {...props}
     //   />
     // ),
-    // code: (props) => (
-    //   <code
-    //     className={clsx(paragraph({ font: "script" }))}
-    //     // className="inline-block h-fit whitespace-nowrap rounded-small bg-transparent px-0 py-0 font-mono text-small font-normal text-sky-400 before:content-['`'] after:content-['`']"
-    //     // className="inline-block h-fit whitespace-nowrap rounded-small bg-transparent "
-    //     {...props}
-    //   />
-    // ),
+    code: (props) => (
+      <code
+        // className={clsx(paragraph({ font: "script" }))}
+        // className="inline-block h-fit whitespace-nowrap rounded-small bg-transparent px-0 py-0 font-mono text-small font-normal text-sky-400 before:content-['`'] after:content-['`']"
+        // className="inline-block h-fit whitespace-nowrap rounded-small bg-transparent "
+        {...props}
+      />
+    ),
     h1: (props) => {
       const className = clsx(title({ size: "lg" }), "mt-24");
       return <HeaderWithLink attr={props} className={className} level={1} />;
@@ -87,7 +87,13 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       );
     },
     ul: (props) => {
-      return <ul className="my-5 list-none [blockquote_&]:my-0" {...props} />;
+      return (
+        <ul
+          className="my-5 list-none [blockquote_&]:my-0 p-2"
+          style={{ backgroundColor: "cornsilk" }}
+          {...props}
+        />
+      );
     },
     p: (props) => <p className={clsx(paragraph())} {...props} />,
     pre: (props) => {

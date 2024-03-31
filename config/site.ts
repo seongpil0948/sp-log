@@ -85,6 +85,12 @@ const links = Object.freeze<TLink[]>([
   },
 ]);
 
+const LINUX_DEFAULT_PATH = `/docs/linux/essential-commands`;
+export const redirectUris = Object.freeze({
+  docs: LINUX_DEFAULT_PATH,
+  linux: LINUX_DEFAULT_PATH,
+});
+
 export const siteConfig = Object.freeze({
   name: "SP Log",
   short_name: "SP Blog",

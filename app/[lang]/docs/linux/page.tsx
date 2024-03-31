@@ -6,10 +6,11 @@ export async function generateStaticParams() {
 }
 
 import { TAvailLocale } from "@/config";
+import { redirectUris } from "@/config/site";
 interface Param {
   params: { lang: TAvailLocale };
 }
 
 export default async function SSGPage({ params: { lang } }: Param) {
-  return redirect(`/${lang}/docs/linux/EssentialCommands`);
+  return redirect(redirectUris.linux);
 }
