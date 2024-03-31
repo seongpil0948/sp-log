@@ -64,8 +64,12 @@ export function RootCanvas() {
               ease: "easeInOut",
             },
           }}
+          classNames={{
+            base: "w-full h-full flex justify-center items-center",
+          }}
           isOpen={isOpen}
           onOpenChange={onOpenChange}
+          size="full"
         >
           <ModalContent>
             {(onClose) => (

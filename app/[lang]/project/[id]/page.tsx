@@ -34,7 +34,6 @@ export function generateStaticParams() {
 }
 // is an array of segments matched by [...slug].js
 export default async function PageSSG({ params: { lang, id } }: Param) {
-  console.log("lang", lang, "id", id);
   const post = await getPost({ id });
   const dict = await getDictionary(lang);
   const roles = [...(post?.roleDetail ?? []), post?.myRole];
