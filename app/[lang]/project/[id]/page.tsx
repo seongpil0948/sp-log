@@ -1,5 +1,3 @@
-// IN_PROGRESS: https://nextjs.org/learn/basics/data-fetching/blog-data
-
 import {
   listText,
   main,
@@ -23,26 +21,18 @@ import { BasicCarousel } from "@/components/client-only/Carousel";
 import CommonNavbar from "@/components/server-only/navbar";
 import { Link } from "@nextui-org/link";
 import commonConfig from "@/config";
+import { notFound } from "next/navigation";
 interface Param {
   params: { lang: TAvailLocale; id: string };
 }
 
 // https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config#dynamicparams
-export const dynamicParams = true;
-export const dynamic = "force-static";
+// export const dynamic = "force-static";
+// export const dynamicParams = false;
 // 'auto' | 'force-dynamic' | 'error' | 'force-static'
-export async function generateStaticParams(): Promise<Param[]> {
-  const params: Param[] = [];
-  for (let i = 0; i < PROJECTS.length; i++) {
-    const proj = PROJECTS[i];
-    for (let j = 0; j < commonConfig.i18n.locales.length; j++) {
-      const locale = commonConfig.i18n.locales[j];
-      params.push({ params: { lang: locale, id: proj.id } });
-    }
-  }
-  console.info("generatedStaticParams", params);
-  return params;
-}
+// export async function generateStaticParams() {
+//   return PROJECTS.map((x) => ({ id: x.id, fallback: true }));
+// }
 
 // is an array of segments matched by [...slug].js
 export default async function PageSSG({ params: { lang, id } }: Param) {
@@ -50,7 +40,7 @@ export default async function PageSSG({ params: { lang, id } }: Param) {
   const dict = await getDictionary(lang);
   const roles = [...(post?.roleDetail ?? []), post?.myRole];
   if (!post) {
-    return { notFound: true };
+    return notFound();
   }
   return (
     <div className={"overflow-auto h-screen"}>
