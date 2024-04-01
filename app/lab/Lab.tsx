@@ -7,6 +7,7 @@ import "./style.css";
 import clsx from "clsx";
 import { title } from "@/components/server-only/primitives";
 import { Button } from "@nextui-org/button";
+import useTour from "../_utils/client/hooks/tour";
 
 type Vec2 = { x: number; y: number };
 export default function Lab() {
@@ -64,7 +65,7 @@ export default function Lab() {
     // controls.mount();
     // controls.set("hidden");
     console.log("clicked");
-    handleOpenModal();
+    onOverlay();
     const clickedPos = { x: e.clientX, y: e.clientY };
     const endPos = state.endPos;
     const middle = getMiddlePoint(clickedPos, endPos);
@@ -141,19 +142,7 @@ export default function Lab() {
     },
   };
 
-  const modalRef = useRef<HTMLDivElement>(null);
-  const handleOpenModal = () => {
-    const modal = modalRef.current;
-    if (modal) {
-      modal.style.display = "block";
-    }
-  };
-  const handleCloseModal = () => {
-    const modal = modalRef.current;
-    if (modal) {
-      modal.style.display = "none";
-    }
-  };
+  const { overlayRef, onOverlay, offOverlay } = useTour();
 
   return (
     <>
@@ -174,7 +163,7 @@ export default function Lab() {
         </div>
         <Button
           ref={targetRef}
-          onClick={handleCloseModal}
+          onClick={offOverlay}
           style={{ zIndex: 1 }}
           className={clsx(
             "target",
@@ -188,23 +177,30 @@ export default function Lab() {
           I am a target
         </Button>
       </div>
-      <div id="myModal" ref={modalRef} className="modal">
-        <div className="modal-content">
-          <div className="modal-header">
-            <span className="close" onClick={handleCloseModal}>
-              &times;
-            </span>
-            <h2>Modal Header</h2>
-          </div>
-          <div className="modal-body">
-            <p>Some text in the Modal Body</p>
-            <p>Some other text...</p>
-          </div>
-          <div className="modal-footer">
-            <h3>Modal Footer</h3>
-          </div>
-        </div>
-      </div>
+      <div
+        ref={overlayRef}
+        // variants={{
+        //   hidden: { opacity: 0, display: "none" },
+        //   visible: { opacity: 1, display: "block" },
+        // }}
+        // initial="hidden"
+        // animate={controls}
+        // exit="hidden"
+        style={{
+          position: "absolute",
+          top: "0",
+          left: "0",
+          width: "100%",
+          height: "100%",
+          background: "rgba(0, 0, 0, 0.5)",
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
+          zIndex: 1000,
+          display: "none",
+          overflow: "clip",
+          // animationName: "animatetop",
+          // animationDuration: "2s"
+        }}
+      />
       <motion.svg
         width={size.width}
         height={size.height}
@@ -255,7 +251,7 @@ export default function Lab() {
           }}
           onAnimationComplete={() => {
             console.log("onAnimationComplete end");
-            controls.set("hidden");
+            // controls.set("hidden");
           }}
           onAnimationIterationCapture={(evt) => {
             console.log("onAnimationIterationCapture", evt);
