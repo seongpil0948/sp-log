@@ -31,7 +31,7 @@ export const ChipList = ({
   };
   const variant = variants[Math.floor(Math.random() * variants.length)];
   return (
-    <div className={clsx("flex gap-1 mt-1 flex-wrap", className)}>
+    <div className={clsx("flex gap-1 mt-1", className)}>
       {tags.map((item, index) => (
         <Chip
           key={item + index}

@@ -25,7 +25,7 @@ export default function AboutSectionsKo(props: { certData: string[] }) {
       period: "2020.01 ~ 2022.06",
       position: "Developer Manager, Fullstack Developer",
       describe:
-        "data collect using (crawler), manage pipeline using (rabbitmq, k8s argo), provide reliable service from infrastructure to front",
+        "데이터 수집 (crawler), 사내 파이프라인 관리 (rabbitmq, k8s argo), 인프라부터 프론트(app, web)까지 안정적인 서비스 관리",
     },
     {
       name: "inout box",
@@ -114,8 +114,8 @@ export default function AboutSectionsKo(props: { certData: string[] }) {
       </section>
       <section className={styles.section}>
         <HeaderAbout title="Experience" />
-        <div className="w-full flex flex-row justify-between gap-2">
-          <div className="flex flex-col justify-start items-start max-w-[45vw]">
+        <div className="w-full flex flex-col">
+          <div className="flex flex-col  justify-start items-start">
             <div className={clsx(subtitle({ weight: "bold" }), "text-left")}>
               Company
             </div>
@@ -123,14 +123,13 @@ export default function AboutSectionsKo(props: { certData: string[] }) {
               {expCompany.map((exp, idx) => (
                 <li
                   key={idx}
-                  className=" flex flex-col text-start my-2 border-b border-gray-30"
+                  className=" flex flex-col text-start my-1 md:my-2 "
                 >
                   <div
                     className={clsx(
                       typo({
                         size: "sm",
                         font: "gothic",
-                        color: "gray",
                         weight: "bold",
                       }),
                       "!m-0 !p-0"
@@ -138,28 +137,16 @@ export default function AboutSectionsKo(props: { certData: string[] }) {
                   >
                     {exp.name} / {exp.period} / {exp.position}
                   </div>
-                  <div
-                    className={clsx(
-                      typo({
-                        size: "sm",
-                        font: "roboto",
-                        color: "tertiary",
-                        weight: "bold",
-                      })
-                    )}
-                  >
-                    {exp.describe}
-                  </div>
                   {/* add bottom line */}
                 </li>
               ))}
             </ul>
           </div>
-          <div className="flex-2 flex flex-col justify-start items-start text-right max-h-[60vh] overflow-y-auto border border-gray-200 rounded-lg px-3">
+          <div className="flex flex-col justify-start items-start text-right max-h-[60vh] overflow-auto border border-gray-200 rounded-lg px-3 w-[90vw]">
             <div className={clsx(subtitle({ weight: "bold" }))}>Skill</div>
             <ul>
               {expSkill.map((exp, idx) => (
-                <li key={idx} className=" flex flex-col my-4 text-end">
+                <li key={idx} className=" flex flex-col my-2 md:my-4 text-end">
                   <div
                     className={clsx(
                       typo({
@@ -172,20 +159,18 @@ export default function AboutSectionsKo(props: { certData: string[] }) {
                   >
                     {exp.ctgr}
                   </div>
-                  <div className="flex justify-end">
-                    <ChipList
-                      tags={exp.skills}
-                      className="justify-end"
-                      chipProps={{
-                        color: "warning",
-                        variant: "bordered",
-                        classNames: {
-                          base: "min-w-30 h-5 p-2 md:p-5 mx-2 overflow-hidden",
-                          content: clsx(typo({ size: "xs" })),
-                        },
-                      }}
-                    ></ChipList>
-                  </div>
+                  <ChipList
+                    tags={exp.skills}
+                    className="justify-end whitespace-nowrap inline-flex max-w-[80vw]"
+                    chipProps={{
+                      color: "warning",
+                      variant: "bordered",
+                      classNames: {
+                        base: "min-w-30 h-5 p-2 md:p-5 mx-2 overflow-hidden min-w-fit",
+                        content: clsx(typo({ size: "sm" })),
+                      },
+                    }}
+                  ></ChipList>
                 </li>
               ))}
             </ul>

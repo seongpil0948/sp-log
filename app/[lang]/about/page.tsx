@@ -26,7 +26,7 @@ export default async function SSGPage({ params: { lang } }: Param) {
       ) : (
         <AboutSectionEn certData={certData} />
       )}
-      <AbsoluteFooter />
+      <AbsoluteFooter disableDarkMode goHome disableText />
       <About rootSelector="#about-root" />
     </div>
   );

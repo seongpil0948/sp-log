@@ -6,14 +6,19 @@ import gsap from "gsap";
 import { GLTF, GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import commonConfig from "@/config";
 import { isMobile } from "@/app/_utils/client/responsive";
+import { useTheme } from "next-themes";
 
 export default function About(props: { rootSelector: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   let [currentSection, setCurrentSection] = useState(0);
   let [actionCard, setActionCard] = useState(true);
+  const { theme, setTheme } = useTheme();
   useEffect(() => {
     const rootContainer = document.querySelector(props.rootSelector);
     if (!canvasRef.current || !rootContainer) return;
+    if (theme === "dark") {
+      setTheme("light");
+    }
     const canvas = canvasRef.current;
     const renderer = getRender(canvas);
     const scene = new THREE.Scene();

@@ -26,3 +26,7 @@ body,
 figure code {
   background-color: transparent !important;
 }
+code::before {
+  --tw-content: "" !important;
+
+}

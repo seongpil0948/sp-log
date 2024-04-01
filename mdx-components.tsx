@@ -7,7 +7,11 @@ import CodeHeader from "@/components/server-only/CodeHeader";
 import { DetailedHTMLProps, HTMLAttributes, createElement } from "react";
 import clsx from "clsx";
 import { Card, CardBody, CardHeader } from "@nextui-org/card";
-import { paragraph, title } from "./components/server-only/primitives";
+import {
+  listText,
+  paragraph,
+  title,
+} from "./components/server-only/primitives";
 import { Chip, ChipProps } from "@nextui-org/chip";
 import { ChipList } from "./components/client-only/ChipList";
 
@@ -23,8 +27,11 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     // ),
     code: (props) => (
       <code
-        // className={clsx(paragraph({ font: "script" }))}
-        // className="inline-block h-fit whitespace-nowrap rounded-small bg-transparent px-0 py-0 font-mono text-small font-normal text-sky-400 before:content-['`'] after:content-['`']"
+        className={clsx(
+          listText({ font: "mono", color: "primary" }),
+          "!before:content-[''] !after:content-['']"
+        )}
+        // className="inline-block h-fit whitespace-nowrap rounded-small bg-transparent px-0 py-0 font-mono text-small font-normal text-sky-400"
         // className="inline-block h-fit whitespace-nowrap rounded-small bg-transparent "
         {...props}
       />
@@ -73,7 +80,12 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         child = <Link href={props.children}>{props.children}</Link>;
       }
       return (
-        <li className=" sm:text-md my-5  mb-2 text-sm font-normal leading-7 md:text-lg  [&::marker]:font-semibold [&:before]:mr-6 [&:before]:content-['-']">
+        <li
+          className={clsx(
+            listText({ color: "default" }),
+            "[&::marker]:font-semibold [&:before]:mr-6 [&:before]:content-['-']"
+          )}
+        >
           {child}
         </li>
       );
@@ -81,7 +93,10 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ol: (props) => {
       return (
         <ul
-          className="mb-5 ml-5 mt-2 list-decimal [&>li:before]:mr-4 [&>li:before]:content-['']"
+          className="mb-5 ml-5 mt-2 space-y-4 text-gray-500 list-inside dark:text-gray-400 list-decimal [&>li:before]:mr-4 [&>li:before]:content-['']"
+          style={{
+            backgroundColor: "#f2f2f2",
+          }}
           {...props}
         />
       );
@@ -89,8 +104,12 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ul: (props) => {
       return (
         <ul
-          className="my-5 list-none [blockquote_&]:my-0 p-2"
-          style={{ backgroundColor: "cornsilk" }}
+          className={clsx(
+            "my-5 list-disc list-inside dark:text-gray-400 [blockquote_&]:my-0 p-2 rounded-2xl"
+          )}
+          style={{
+            backgroundColor: "#f2f2f2",
+          }}
           {...props}
         />
       );

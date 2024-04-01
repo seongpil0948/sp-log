@@ -96,8 +96,13 @@ export default async function PageSSG({ params: { lang, id } }: Param) {
             </li>
           ))}
         </ul>
-        <h3 className={title({ size: "sm" })}> 모든 이미지 </h3>
-        {post.allImg && <BasicCarousel urls={post.allImg} />}
+
+        {post.allImg && (
+          <>
+            <h3 className={title({ size: "sm" })}> 모든 이미지 </h3>
+            <BasicCarousel urls={post.allImg} />
+          </>
+        )}
         {post.to && (
           <>
             <h3 className={title({ size: "sm" })}> 외부 링크 </h3>

@@ -4,7 +4,7 @@ import { ThemeSwitch } from "../theme-switch";
 import SelectorNational from "../client-only/selector/National";
 import { paragraph, typo } from "./primitives";
 
-const LogoLink = (props?: { href?: string }) => (
+const LogoLink = (props?: { href?: string; disableText?: boolean }) => (
   <Link
     color="foreground"
     href={props?.href ?? "https://github.com/seongpil0948"}
@@ -12,7 +12,9 @@ const LogoLink = (props?: { href?: string }) => (
     className="flex items-center"
   >
     <Logo />
-    <p className={typo({ size: "sm", color: "foreground" })}>Sp Blog</p>
+    {!props?.disableText && (
+      <p className={typo({ size: "sm", color: "foreground" })}>Sp Blog</p>
+    )}
   </Link>
 );
 
@@ -33,7 +35,12 @@ export const CmFooter = () => {
   );
 };
 
-export function AbsoluteFooter(props?: { goHome?: boolean }) {
+export function AbsoluteFooter(props?: {
+  goHome?: boolean;
+  disableDarkMode?: boolean;
+  disableI18n?: boolean;
+  disableText?: boolean;
+}) {
   const goHome = props?.goHome ?? false;
   return (
     <footer
@@ -44,10 +51,13 @@ export function AbsoluteFooter(props?: { goHome?: boolean }) {
     >
       <div className="mx-auto w-full max-w-screen-xl p-2 md:py-4">
         <div className="sm:flex sm:items-center sm:justify-between">
-          <LogoLink href={props?.goHome ? "/home" : undefined} />
+          <LogoLink
+            href={props?.goHome ? "/home" : undefined}
+            disableText={props?.disableText}
+          />
           <div className="flex flex-wrap items-center sm:mb-0 gap-2">
-            <ThemeSwitch />
-            <SelectorNational />
+            {!props?.disableDarkMode && <ThemeSwitch />}
+            {!props?.disableI18n && <SelectorNational />}
           </div>
         </div>
       </div>
