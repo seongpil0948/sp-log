@@ -41,7 +41,7 @@ export default async function PageSSG({ params: { lang, id } }: Param) {
     return notFound();
   }
   return (
-    <div className={"overflow-auto h-screen"}>
+    <div className={"overflow-y-auto overflow-x-hidden h-screen"}>
       <CommonNavbar leftTreeOptions={{ dir: "app/[lang]" }} />
       <div
         className={clsx(
@@ -64,7 +64,7 @@ export default async function PageSSG({ params: { lang, id } }: Param) {
         </div>
 
         <h3 className={title({ size: "sm" })}> My Role </h3>
-        <div className="flex gap-3">
+        <div className="flex gap-3 overflow-x-auto">
           {roles.map((r) => (
             <Chip
               variant="bordered"
@@ -76,7 +76,7 @@ export default async function PageSSG({ params: { lang, id } }: Param) {
           ))}
         </div>
         <h3 className={title({ size: "sm" })}> Tools </h3>
-        <div className="flex gap-3">
+        <div className="flex gap-3 overflow-x-auto">
           {post.usingDetail.map((r) => (
             <Chip
               variant="faded"

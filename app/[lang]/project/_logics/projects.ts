@@ -19,7 +19,64 @@ import type { IProject } from "../types";
 
 export const PROJECTS: IProject[] = [
   {
-    id: "ixi",
+    id: "ixi-studio",
+    title: "LG 익시 솔루션",
+    projType: "web",
+    using: [mdiAws, mdiVuejs, mdiLanguageTypescript, mdiLanguageJava],
+    titleImg: "/projects/ixi-studio/0.png",
+    allImg: [
+      "/projects/ixi-studio/0.png",
+      "/projects/ixi-studio/1.png",
+      "/projects/ixi-studio/2.png",
+      "/projects/ixi-studio/3.png",
+      "/projects/ixi-studio/4.png",
+    ],
+    description: [
+      "LG 생성형 AI 솔루션, 기업용 SaaS(서비스용 소프트웨어) GPT 서비스",
+      "기업 특성에 맞춤 내부에서 사용할 수 있는 AI 모델을 생성하고, 관리할 수 있는 플랫폼",
+    ],
+    myRole: "Frontend Project Leader",
+    roleDetail: [],
+    earned: [
+      "기존 사용에 익숙한 MQTTS, Websocket, REST API, GRPC 경험이 있었지만 새로운 protocol인 SSE(Server Side Event)를 경험하게 해준 고마운 프로젝트입니다.",
+      `외부 서비스로 기획 초기 디자인등 수정사항이 많아 개발일정이 빠듯하여 걱정이 많았지만, PL로서 프로젝트에 대한 이해도를 높이고 병목점이 높을 것으로 판단되는 기능(Chat, Code Editor, SSE)의 POC 품질 향상에 시간을 투자하여, 개발 일정을 맞출 수 있었습니다.`,
+      `사내 프레임워크(SSG) 사용으로 인해 vite prerender build time 에 CodeMirror 라이브러리의 브라우저 참조 이슈가 있었습니다. 이에 해당 라이브러리를 프로젝트에 clone -> vue 코드에 맞게 오픈소스를 수정하여 해결하였습니다.`,
+    ],
+    usingDetail: [
+      "web server: 'Vue.js & nginx'",
+      "SSE",
+      "api server: 'Java Spring Boot'",
+      "db: 'Aura RDS'",
+      "infra: 'kubernetes with istio'",
+    ],
+  },
+  {
+    id: "nextjs-framework",
+    title: "Next.js 사내 프레임워크 제작",
+    description: [
+      "SI 회사로서 React 수요의 증가에 따라 사내 Next.js 프레임워크를 제작하였습니다.",
+      "주 목적은 각 프로젝트 테마 빠르게 적용 할 수 있는 style configuraion을 통해 모든 공통 컴포넌트에 일관된 디자인을 적용, 빠른 생산성을 위한 품질 높은 공용 컴포넌트 제작(with storybook, frontend workshop for building UI components) 이 목적입니다.",
+      "SSR, SSG, SPA 렌더링 지원, CORS 환경, proxy 설정이 가능한 가이드라인 또한 제공하였습니다.",
+    ],
+    myRole: "Frontend",
+    roleDetail: [],
+    earned: [
+      "13버전 이후, 대폭 변경된 AppRouter 기반 프로젝트를 진행할 수 있었던 좋은 기회였습니다.",
+      "tailwind-variants 를 통해 css, class as config 를 적용하여, css-in-js 를 사용하지 않고도 빠르게 스타일을 적용할 수 있었습니다.",
+    ],
+    using: [mdiReact],
+    usingDetail: [
+      "Next.js",
+      "Tailwind CSS",
+      "Storybook",
+      "react aria",
+      "react spectrum",
+    ],
+    allImg: [],
+    projType: "web",
+  },
+  {
+    id: "ixi-admin",
     title: "LG 익시 관리 도구",
     projType: "web",
     using: [mdiAws, mdiVuejs, mdiLanguageTypescript, mdiLanguageJava],
@@ -49,8 +106,8 @@ export const PROJECTS: IProject[] = [
       "CVT 테스트를 통해 쿠버네티스, istio 환경에서의 네트워킹 이슈 해결 경험",
       "WAF를 사용하여, 보안 이슈를 해결하는 방법",
       `
-      매 Notebook 를 종료시 이미지를 "ECR"에서 관리하고 있었는데 매 버전이 10GB 이상이 되는경우, 작성된 버전이 저장되지 않는경우 등 "ECR" 에 서비스별 이미지를 관리하는 것이 아직 안정화되지 않아보였습니다.  
-      (매일 야근하시면서 우리팀 업무도 도와주시는 분들이 계셔서 다행이었습니다...)      
+      매 Notebook Instance 종료시 "ECR"의 이미지 크기가 증분되며 10GB 이상이 되는경우, 작성된 버전이 저장되지 않는경우 등 "ECR" 에 서비스별 이미지를 관리하는 것이 아직 안정화되지 않아보였습니다.  
+      이에 인프라 담당자와 취득한 쿠버네티스 자격증을 기반으로 원활하게 소통하며, 수동 관리 스크립트를 제공받아 해결하였습니다.      
       `,
     ],
     usingDetail: [
