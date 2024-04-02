@@ -27,7 +27,7 @@ export default function CertSection(props: {
   }, [certData]);
 
   return (
-    <div className=" mt-12 grid gap-4 max-h-full overflow-y-hidden max-w-3/4 grid-flow-col grid-rows-3 pr-3  border border-gray-200 rounded-lg shadow dark:border-gray-700">
+    <div className="mt-12 grid gap-4 max-h-full overflow-y-hidden max-w-3/4 grid-flow-col grid-rows-4 md:grid-rows-3 pr-3  border border-gray-200 rounded-lg shadow dark:border-gray-700">
       {cards}
     </div>
   );

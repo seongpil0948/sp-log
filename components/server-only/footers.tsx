@@ -50,7 +50,7 @@ export function AbsoluteFooter(props?: {
       }}
     >
       <div className="mx-auto w-full max-w-screen-xl p-2 md:py-4">
-        <div className="sm:flex sm:items-center sm:justify-between">
+        <div className="flex items-center justify-between">
           <LogoLink
             href={props?.goHome ? "/home" : undefined}
             disableText={props?.disableText}

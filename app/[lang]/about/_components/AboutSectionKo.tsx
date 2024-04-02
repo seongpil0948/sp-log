@@ -47,7 +47,7 @@ export default function AboutSectionsKo(props: { certData: string[] }) {
   const expSkill = [
     {
       ctgr: "Frontend",
-      skills: ["React or NextJs", "Vue or Nuxtjs", "Flutter(Mobile)"],
+      skills: ["React", "Vue", "Flutter(Mobile)"],
     },
     {
       ctgr: "Infra",
@@ -64,12 +64,7 @@ export default function AboutSectionsKo(props: { certData: string[] }) {
     },
     {
       ctgr: "Backend",
-      skills: [
-        "python(Django)",
-        "node(Express)",
-        "java(Spring)",
-        "golang(Gin)",
-      ],
+      skills: ["python", "nodejs", "java", "golang"],
     },
     {
       ctgr: "Etc",
@@ -144,9 +139,12 @@ export default function AboutSectionsKo(props: { certData: string[] }) {
           </div>
           <div className="flex flex-col justify-start items-start text-right max-h-[60vh] overflow-auto border border-gray-200 rounded-lg px-3 w-[90vw]">
             <div className={clsx(subtitle({ weight: "bold" }))}>Skill</div>
-            <ul>
+            <ul className="ml-auto">
               {expSkill.map((exp, idx) => (
-                <li key={idx} className=" flex flex-col my-2 md:my-4 text-end">
+                <li
+                  key={idx}
+                  className=" flex flex-col sm:my-2 md:my-4 text-end"
+                >
                   <div
                     className={clsx(
                       typo({
@@ -161,16 +159,16 @@ export default function AboutSectionsKo(props: { certData: string[] }) {
                   </div>
                   <ChipList
                     tags={exp.skills}
-                    className="justify-end whitespace-nowrap inline-flex max-w-[80vw]"
+                    className="justify-end whitespace-nowrap inline-flex flex-wrap max-w-[80vw]"
                     chipProps={{
                       color: "warning",
                       variant: "bordered",
                       classNames: {
-                        base: "min-w-30 h-5 p-2 md:p-5 mx-2 overflow-hidden min-w-fit",
+                        base: "min-w-30 p-2 md:p-5 mx-1 sm:mx-2 min-w-fit",
                         content: clsx(typo({ size: "sm" })),
                       },
                     }}
-                  ></ChipList>
+                  />
                 </li>
               ))}
             </ul>
@@ -184,14 +182,18 @@ export default function AboutSectionsKo(props: { certData: string[] }) {
       </section>
       <section className={styles.section}>
         <HeaderAbout title="Projects" />
-        <p className={paragraph({ size: "sm", font: "gothic" })}>
+        <p
+          className={clsx(
+            paragraph({ size: "sm", font: "gothic" }),
+            "hidden md:block"
+          )}
+        >
           개발 5년차에 접어든 지금까지 다양한 프로젝트를 경험했습니다. 비록 혼자
           인프라에서 프론트엔드까지 서비스를 만들 수 있지만 <br />
           가장 좋은 서비스를 만들 때는 언제나 동료와 함께했습니다. 그래서 언제나
           최고의 동료가 되기 위해 노력합니다.
-          <br />
         </p>
-        <div className=" flex overflow-auto gap-3">
+        <div className=" flex overflow-auto gap-3 h-full">
           {PROJECTS.map((proj, idx) => {
             return <ProjectCard key={idx} p={proj} />;
           })}

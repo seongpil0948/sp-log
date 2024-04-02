@@ -152,15 +152,13 @@ export default function BottomButtons() {
       <TargetWrapper animate={isOverlay ? "pulse" : "initial"}>
         <div
           ref={targetRef}
-          className="flex flex-wrap gap-24 md:gap-36 justify-center mx-auto"
+          className="flex flex-wrap gap-12 md:gap-24 lg:gap-36 justify-center mb-12"
         >
-          {/* <GameButton text="Game" /> */}
-          {/* <GameButton text="About" /> */}
-          <GeoButton shape="basic" href="/about">
-            <p className={btnClass}>About</p>
-          </GeoButton>
           <GeoButton shape="character" href="/game">
             <p className={btnClass}>Game</p>
+          </GeoButton>
+          <GeoButton shape="basic" href="/about">
+            <p className={btnClass}>About</p>
           </GeoButton>
         </div>
       </TargetWrapper>
@@ -202,9 +200,6 @@ export default function BottomButtons() {
           onAnimationStart={() => {
             console.log("onAnimationStart");
           }}
-          onAnimationIteration={(evt) => {
-            console.log("onAnimationIteration", evt);
-          }}
           onAnimationEnd={() => {
             console.log("onAnimationComplete end");
             controls.stop();
@@ -212,9 +207,6 @@ export default function BottomButtons() {
           onAnimationComplete={() => {
             console.log("onAnimationComplete end");
             // controls.set("hidden");
-          }}
-          onAnimationIterationCapture={(evt) => {
-            console.log("onAnimationIterationCapture", evt);
           }}
         />
       </motion.svg>

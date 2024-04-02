@@ -49,7 +49,7 @@ export const TargetWrapper = (props: {
   className?: string;
   animate: "initial" | "pulse";
 }) => {
-  const cls = clsx(" w-fit m-auto", props.className);
+  const cls = clsx("w-fit mx-auto", props.className);
   return (
     <motion.div
       initial="initial"

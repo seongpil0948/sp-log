@@ -85,7 +85,7 @@ export function PrefixComp(props: CommonNavbarProps): React.ReactNode {
       sheetProps={{
         placement: "left",
         // defaultOpen: hasChildren,
-        defaultOpen: true,
+        defaultOpen: false,
       }}
       {...drawerProps}
       title={drawerProps?.title ?? siteConfig.name}

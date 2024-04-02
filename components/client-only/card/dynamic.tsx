@@ -1,4 +1,5 @@
 "use client";
+import { isMobile } from "@/app/_utils/client/responsive";
 import { fileNameFromPath } from "@/app/_utils/common";
 import { Image } from "@nextui-org/image";
 import {
@@ -18,20 +19,15 @@ export function ImageCard({ src }: { src: string }) {
 
   return (
     <>
-      <div
-        style={{
-          width: "20vw",
-        }}
-      >
-        <Image
-          isZoomed
-          onClick={onOpen}
-          ref={imageRef}
-          src={src}
-          alt={src}
-          loading="lazy"
-        />
-      </div>
+      <Image
+        isZoomed
+        onClick={onOpen}
+        ref={imageRef}
+        src={src}
+        alt={src}
+        width={300}
+        loading="lazy"
+      />
       <Modal size="full" isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
           {(onClose) => (

@@ -8,6 +8,7 @@ import { ProjectTypeIcon, ProjectUsing } from "./server-only/icons";
 import { useRouter } from "next/navigation";
 import clsx from "clsx";
 import { title, typo } from "@/components/server-only/primitives";
+import { isMobile } from "@/app/_utils/client/responsive";
 
 export default function ProjectCard(props: {
   p: IProject;
@@ -43,12 +44,13 @@ export default function ProjectCard(props: {
       shadow="sm"
     >
       <CardBody>
-        <div className="grid grid-cols-6 gap-6 md:gap-4 items-center justify-center">
-          <div className="relative col-span-6 ">
+        <div className="flex flex-col gap-1 md:gap-2 items-center justify-center">
+          <div className="relative w-full ">
             <Image
               alt="Project Image"
               style={{
-                height: "400px",
+                height: "40vh",
+                width: "100%",
                 objectFit: "cover",
               }}
               shadow="md"
@@ -57,7 +59,7 @@ export default function ProjectCard(props: {
             />
           </div>
 
-          <div className="flex flex-col col-span-6 md:col-span-8">
+          <div className="flex flex-col">
             <div className="flex justify-between items-start">
               <div className="flex flex-col gap-0">
                 <h1
@@ -71,7 +73,7 @@ export default function ProjectCard(props: {
                 >
                   {p.title}
                 </h1>
-                <div className=" max-h-28 overflow-clip">
+                <div className="max-h-full overflow-clip">
                   {p.description &&
                     p.description.map((desc, idx) => (
                       <p
