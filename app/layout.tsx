@@ -5,6 +5,7 @@ import { fontSans } from "@/config/fonts";
 import { Providers } from "./_providers";
 import clsx from "clsx";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const viewport: Viewport = {
   themeColor: [
@@ -49,6 +50,7 @@ export default function RootLayout({
           {children}
         </Providers>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
