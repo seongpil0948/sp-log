@@ -22,6 +22,8 @@ import CommonNavbar from "@/components/server-only/navbar";
 import { Link } from "@nextui-org/link";
 import commonConfig from "@/config";
 import { notFound } from "next/navigation";
+import ProjectCardListHorizontal from "../_components/server-only/ProjectCardsHorizontal";
+import { HeaderAbout } from "../../about/_components/Header";
 interface Param {
   params: { lang: TAvailLocale; id: string };
 }
@@ -112,6 +114,10 @@ export default async function PageSSG({ params: { lang, id } }: Param) {
           </>
         )}
       </div>
+      <>
+        <HeaderAbout title="see more" />
+        <ProjectCardListHorizontal />
+      </>
       <CmFooter />
     </div>
   );

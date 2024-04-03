@@ -16,6 +16,7 @@ import CertSection from "./Cert";
 import styles from "../styles.module.css";
 import PROJECTS from "../../project/_logics/projects";
 import ProjectCard from "../../project/_components/ProjectCard";
+import ProjectCardListHorizontal from "../../project/_components/server-only/ProjectCardsHorizontal";
 
 export default function AboutSectionsKo(props: { certData: string[] }) {
   const { certData } = props;
@@ -193,11 +194,7 @@ export default function AboutSectionsKo(props: { certData: string[] }) {
           가장 좋은 서비스를 만들 때는 언제나 동료와 함께했습니다. 그래서 언제나
           최고의 동료가 되기 위해 노력합니다.
         </p>
-        <div className=" flex overflow-auto gap-3 h-full">
-          {PROJECTS.map((proj, idx) => {
-            return <ProjectCard key={idx} p={proj} />;
-          })}
-        </div>
+        <ProjectCardListHorizontal />
       </section>
       <section className={styles.section}>
         <HeaderAbout title="Links" />

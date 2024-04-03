@@ -16,6 +16,7 @@ import CertSection from "./Cert";
 import styles from "../styles.module.css";
 import PROJECTS from "../../project/_logics/projects";
 import ProjectCard from "../../project/_components/ProjectCard";
+import ProjectCardListHorizontal from "../../project/_components/server-only/ProjectCardsHorizontal";
 
 export default function AboutSectionsKo(props: { certData: string[] }) {
   const { certData } = props;
@@ -198,11 +199,7 @@ export default function AboutSectionsKo(props: { certData: string[] }) {
             therefore <br />I always struggle to be the best colleague
           </p>
         </div>
-        <div className=" flex overflow-auto gap-3 h-full">
-          {PROJECTS.map((proj, idx) => {
-            return <ProjectCard key={idx} p={proj} />;
-          })}
-        </div>
+        <ProjectCardListHorizontal />
       </section>
       <section className={styles.section}>
         <HeaderAbout title="Links" />

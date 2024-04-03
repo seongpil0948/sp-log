@@ -38,7 +38,7 @@ export const PROJECTS: IProject[] = [
     myRole: "Frontend Project Leader",
     roleDetail: [],
     earned: [
-      "기존 사용에 익숙한 MQTTS, Websocket, REST API, GRPC 경험이 있었지만 새로운 protocol인 SSE(Server Side Event)를 경험하게 해준 고마운 프로젝트입니다.",
+      "기존 사용에 익숙한 MQTT/AMQP, Websocket, REST API, GRPC 경험이 있었지만 새로운 protocol인 SSE(Server Side Event)를 경험하게 해준 고마운 프로젝트입니다.",
       `외부 서비스로 기획 초기 디자인등 수정사항이 많아 개발일정이 빠듯하여 걱정이 많았지만, PL로서 프로젝트에 대한 이해도를 높이고 병목점이 높을 것으로 판단되는 기능(Chat, Code Editor, SSE)의 POC 품질 향상에 시간을 투자하여, 개발 일정을 맞출 수 있었습니다.`,
       `사내 프레임워크(SSG) 사용으로 인해 vite prerender build time 에 CodeMirror 라이브러리의 브라우저 참조 이슈가 있었습니다. 이에 해당 라이브러리를 프로젝트에 clone -> vue 코드에 맞게 오픈소스를 수정하여 해결하였습니다.`,
     ],

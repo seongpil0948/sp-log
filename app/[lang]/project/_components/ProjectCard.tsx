@@ -44,7 +44,7 @@ export default function ProjectCard(props: {
       shadow="sm"
     >
       <CardBody>
-        <div className="flex flex-col gap-1 md:gap-2 items-center justify-center">
+        <div className="flex flex-col md:gap-2 items-center justify-start h-full">
           <div className="relative w-full ">
             <Image
               alt="Project Image"
@@ -59,35 +59,31 @@ export default function ProjectCard(props: {
             />
           </div>
 
-          <div className="flex flex-col">
-            <div className="flex justify-between items-start">
-              <div className="flex flex-col gap-0">
-                <h1
-                  className={clsx(
-                    title({
-                      size: "sm",
-                      color: "foreground",
-                    }),
-                    "text-ellipsis whitespace-nowrap w-full"
-                  )}
-                >
-                  {p.title}
-                </h1>
-                <div className="max-h-full overflow-clip">
-                  {p.description &&
-                    p.description.map((desc, idx) => (
-                      <p
-                        key={idx}
-                        className={typo({ size: "xs", color: "gray" })}
-                      >
-                        {desc}
-                      </p>
-                    ))}
-                </div>
+          <div className="flex flex-col h-full">
+            <div className="flex flex-col gap-0 h-[30vh]">
+              <h1
+                className={clsx(
+                  title({
+                    size: "sm",
+                    color: "foreground",
+                  }),
+                  "text-ellipsis whitespace-nowrap w-full"
+                )}
+              >
+                {p.title}
+              </h1>
+              <div className="max-h-[25vh] md:max-h-full text-ellipsis overflow-clip ">
+                {p.description &&
+                  p.description.map((desc, idx) => (
+                    <p
+                      key={idx}
+                      className={typo({ size: "xs", color: "gray" })}
+                    >
+                      {desc}
+                    </p>
+                  ))}
               </div>
-              <ProjectTypeIcon projType={p.projType} />
             </div>
-
             <div className="flex justify-between mt-3 ">
               <ProjectTypeIcon projType={p.projType} />
               <ProjectUsing p={p} />
