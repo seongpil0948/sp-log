@@ -83,7 +83,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         <li
           className={clsx(
             listText({ color: "default" }),
-            "[&::marker]:font-semibold [&:before]:mr-6 [&:before]:content-['-']"
+            "[&::marker]:font-semibold :[&:before]:mr-2 md:[&:before]:mr-6 [&:before]:content-['-']"
           )}
         >
           {child}
@@ -105,7 +105,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       return (
         <ul
           className={clsx(
-            "my-5 list-disc list-inside dark:text-gray-400 [blockquote_&]:my-0 p-2 rounded-2xl"
+            "md:my-5 list-disc list-inside dark:text-gray-400 [blockquote_&]:my-0 md:p-2 rounded-2xl"
           )}
           style={{
             backgroundColor: "#f2f2f2",
@@ -159,7 +159,15 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ),
     CodeHeader,
     Chip,
-    Card,
+    Card: (props) => (
+      <Card
+        {...props}
+        classNames={{
+          header: "py-0",
+          body: "py-0",
+        }}
+      />
+    ),
     CardBody,
     CardHeader,
     ChipList,

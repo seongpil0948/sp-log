@@ -39,10 +39,10 @@ export const title = tv({
   variants: {
     color: colorModule,
     size: {
-      xs: "text-2xl lg:text-3xl",
-      sm: "text-3xl lg:text-4xl",
-      md: "text-[2.3rem] lg:text-5xl leading-9 ",
-      lg: "text-4xl lg:text-6xl bold underline underline-offset-8",
+      xs: " text-xl md:text-2xl lg:text-3xl",
+      sm: "text:2xl md:text-3xl lg:text-4xl",
+      md: "text:3xl md:text-[2.3rem] lg:text-5xl leading-9 ",
+      lg: "text:4xl md:text-5xl lg:text-6xl bold underline underline-offset-8",
     },
     fullWidth: {
       true: "w-full block",
@@ -120,14 +120,14 @@ export const paragraph = tv({
   },
 });
 export const typo = tv({
-  base: "p-1 font-normal leading-7 text-black dark:text-white ",
+  base: "p-1 font-normal leading-1 md:leading-7  text-black dark:text-white ",
   variants: {
     type: {
       normal: "font-normal",
       bold: "font-bold",
       italic: "italic",
       link: clsx(
-        linkStyles({ color: "foreground" }),
+        linkStyles({ color: "foreground", size: "sm" }),
         "data-[active=true]:text-primary data-[active=true]:font-medium"
       ),
     },
@@ -141,7 +141,7 @@ export const typo = tv({
 });
 
 export const main = tv({
-  base: "flex-grow py-2 px-8 relative flex flex-col min-h-screen",
+  base: "flex-grow px-2 md:py-2 md:px-4 lg:px-8 relative flex flex-col min-h-screen",
   variants: {
     justify: {
       center: "justify-center",
@@ -149,9 +149,9 @@ export const main = tv({
       end: "justify-end",
     },
     size: {
-      sm: "px-8 pt-6 pb-8",
-      md: "md:py-10",
-      lg: "px-4 py-10",
+      sm: "lg:px-8 md:pt-4 lg:pt-6  md:pb-4 lg:pb-8",
+      md: "lg:py-10",
+      lg: "lg:px-4 lg:py-10",
     },
   },
   defaultVariants: {
@@ -164,7 +164,7 @@ export const main = tv({
 export const listText = tv({
   base: clsx(
     typo(),
-    "text-black dark:text-white [&::marker]:font-semibold [&:before]:mr-6 [&:before]:content-['-']"
+    "text-black dark:text-white [&::marker]:font-semibold md:[&:before]:mr-6 [&:before]:content-['-']"
   ),
   variants: {
     ...commonTxt,

@@ -28,5 +28,11 @@ figure code {
 }
 code::before {
   --tw-content: "" !important;
+}
 
+/* 
+rehype-pretty-code
+*/
+figure[data-rehype-pretty-code-figure] span[data-line] > span {
+  text-wrap: wrap;
 }

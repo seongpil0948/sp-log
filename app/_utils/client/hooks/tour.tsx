@@ -5,8 +5,8 @@ import { init } from "next/dist/compiled/webpack/webpack";
 import { CSSProperties, useRef, useState } from "react";
 
 const Z_INDEX = {
-  overlay: 1000,
-  target: 1001,
+  overlay: 10,
+  target: 11,
 };
 export default function useTour() {
   const overlayRef = useRef<HTMLDivElement>(null);

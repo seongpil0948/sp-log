@@ -66,6 +66,10 @@ export default function BottomButtons() {
 
   const handleClicked = useCallback((e: globalThis.MouseEvent) => {
     controls.set("hidden");
+    console.log(isOverlay);
+    if (isOverlay || overlayRef.current?.style.display === "block") {
+      return offOverlay();
+    }
     onOverlay();
     const clickedPos = { x: e.clientX, y: e.clientY };
     const endPos = getEndPos();
