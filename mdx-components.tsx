@@ -79,21 +79,13 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       ) {
         child = <Link href={props.children}>{props.children}</Link>;
       }
-      return (
-        <li
-          className={clsx(
-            listText({ color: "default" }),
-            "[&::marker]:font-semibold :[&:before]:mr-2 md:[&:before]:mr-6 [&:before]:content-['-']"
-          )}
-        >
-          {child}
-        </li>
-      );
+      return <li className={clsx(listText({ color: "default" }))}>{child}</li>;
     },
     ol: (props) => {
       return (
         <ul
-          className="mb-5 ml-5 mt-2 space-y-4 text-gray-500 list-inside dark:text-gray-400 list-decimal [&>li:before]:mr-4 [&>li:before]:content-['']"
+          // className="mb-5 ml-5 mt-2 space-y-4 text-gray-500 list-inside dark:text-gray-400 list-decimal [&>li:before]:mr-4 [&>li:before]:content-['']"
+          className="mb-5 ml-5 mt-2 space-y-4 text-gray-500 list-inside dark:text-gray-400 list-decimal"
           style={{
             backgroundColor: "#f2f2f2",
           }}
@@ -105,7 +97,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       return (
         <ul
           className={clsx(
-            "md:my-5 list-disc list-inside dark:text-gray-400 [blockquote_&]:my-0 md:p-2 rounded-2xl"
+            "md:my-5 list-disc list-inside dark:text-gray-400 [blockquote_&]:my-0 md:p-2 rounded-2xl ml-11"
           )}
           style={{
             backgroundColor: "#f2f2f2",

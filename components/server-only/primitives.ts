@@ -94,9 +94,10 @@ export const subtitle = tv({
 const commonTxt = {
   size: {
     xs: "text-xxs sm:text-xs md:text-sm lg:text-base my-1",
-    sm: "text-xs sm:text-sm md:text-base lg:text-lg my-2",
-    md: "text-sm sm:text-md md:text-lg lg:text-xl my-4",
-    lg: "text-md sm:text-lg md:text-xl lg:text-2xl my-6",
+    sm: "text-xs sm:text-sm md:text-base lg:text-lg my-1 md:my-2",
+    md: "text-sm sm:text-md md:text-lg lg:text-xl my-2 md:my-4",
+    lg: "text-md sm:text-lg md:text-xl lg:text-2xl my-3 md:my-6",
+    xl: "text-lg sm:text-xl md:text-2xl lg:text-3xl my-4 md:my-8",
   },
   font: fontModule,
   color: colorModule,
@@ -109,7 +110,7 @@ const commonTxt = {
   },
 };
 export const paragraph = tv({
-  base: " font-normal leading-7 text-black dark:text-white",
+  base: " font-normal leading-7 text-black dark:text-white contents",
   variants: {
     ...commonTxt,
   },
@@ -164,7 +165,7 @@ export const main = tv({
 export const listText = tv({
   base: clsx(
     typo(),
-    "text-black dark:text-white [&::marker]:font-semibold md:[&:before]:mr-6 [&:before]:content-['-']"
+    "text-black dark:text-white [&::marker]:font-semibold [&:before]:mr-2 md:[&:before]:mr-6 [&:before]:content-['-']"
   ),
   variants: {
     ...commonTxt,

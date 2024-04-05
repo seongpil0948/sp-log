@@ -10,9 +10,9 @@ import { useState, useRef, useEffect, useCallback } from "react";
 type Vec2 = { x: number; y: number };
 const btnClass = clsx(
   typo({
-    size: "md",
+    size: "xl",
     color: "foreground",
-    font: "gothic",
+    font: "script",
     weight: "bold",
   })
 );
@@ -163,6 +163,9 @@ export default function BottomButtons() {
           </GeoButton>
           <GeoButton shape="basic" href="/about">
             <p className={btnClass}>About</p>
+          </GeoButton>
+          <GeoButton shape="basic" href="/docs">
+            <p className={btnClass}>Documents</p>
           </GeoButton>
         </div>
       </TargetWrapper>
