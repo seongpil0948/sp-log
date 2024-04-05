@@ -14,12 +14,12 @@ import {
 import clsx from "clsx";
 import CertSection from "./Cert";
 import styles from "../styles.module.css";
-import PROJECTS from "../../project/_logics/projects";
-import ProjectCard from "../../project/_components/ProjectCard";
 import ProjectCardListHorizontal from "../../project/_components/server-only/ProjectCardsHorizontal";
+import themeList from "@/components/server-only/theme/list";
 
 export default function AboutSectionsKo(props: { certData: string[] }) {
   const { certData } = props;
+  const { ul: ulClasses, ol: olClasses } = themeList();
   const expCompany = [
     {
       name: "intellisys",
@@ -87,12 +87,25 @@ export default function AboutSectionsKo(props: { certData: string[] }) {
           않고 도전했고, 이를 통해 다양한 경험을 쌓을 수 있었습니다. <br />
           아래는 제가 가지고 있는 기술 스택의 개요입니다.
         </p>
-        <ol className={paragraph({ size: "md", font: "gothic" })}>
-          <li>- Cloud knowledge such as GCP</li>
-          <li>- Server such as (Django, Nextjs, Linux)</li>
-          <li>- Frontend such as NextJs, Vue or Nuxtjs, Flutter(Mobile)</li>
+        <ol
+          className={clsx(
+            "block",
+            olClasses(),
+            paragraph({ size: "md", font: "gothic" })
+          )}
+        >
+          <li className=" mt-3">Cloud knowledge such as GCP</li>
+          <li>Server such as (Django, Nextjs, Linux)</li>
+          <li className="mb-3">
+            Frontend such as NextJs, Vue or Nuxtjs, Flutter(Mobile)
+          </li>
         </ol>
-        <p className={paragraph({ size: "md", font: "gothic" })}>
+        <p
+          className={clsx(
+            paragraph({ size: "md", font: "gothic" }),
+            "my-5 block"
+          )}
+        >
           저는 여가시간에도 자기개발을 즐깁니다 특히 주말은, 제 아이디어를
           구현할 설레는 날입니다. <br />
           서버 관련지식이 부족하다 느꼈을때, 리눅스 관련 자격증(LFCS)을
@@ -102,7 +115,9 @@ export default function AboutSectionsKo(props: { certData: string[] }) {
           회사에서 쿠버네티스 환경에 배포하는 프로젝트를 맡았을 때, 쿠버네티스
           자격증(CKA)을 취득했습니다.
         </p>
-        <p className={paragraph({ size: "md", font: "gothic" })}>
+        <p
+          className={clsx(paragraph({ size: "md", font: "gothic" }), "!block")}
+        >
           최근에는 WebGL과 3D(Three.js and Blender) 분야에 관심을 가지고
           있습니다. <br />전 항상 Udemy, Inflearn , Youtube와 친하게
           지내고있습니다.

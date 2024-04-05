@@ -1,10 +1,9 @@
 import {
-  listText,
   main,
   paragraph,
   title,
   typo,
-  ulText,
+  listText,
 } from "@/components/server-only/primitives";
 import { PROJECTS } from "../_logics/projects";
 import { TAvailLocale } from "@/config";
@@ -20,10 +19,11 @@ import { CmFooter } from "@/components/server-only/footers";
 import { BasicCarousel } from "@/components/client-only/Carousel";
 import CommonNavbar from "@/components/server-only/navbar";
 import { Link } from "@nextui-org/link";
-import commonConfig from "@/config";
 import { notFound } from "next/navigation";
 import ProjectCardListHorizontal from "../_components/server-only/ProjectCardsHorizontal";
 import { HeaderAbout } from "../../about/_components/Header";
+import themeList from "@/components/server-only/theme/list";
+
 interface Param {
   params: { lang: TAvailLocale; id: string };
 }
@@ -38,6 +38,7 @@ export function generateStaticParams() {
 export default async function PageSSG({ params: { lang, id } }: Param) {
   const post = await getPost({ id });
   const dict = await getDictionary(lang);
+  const { ul: ulClasses, ol: olClasses } = themeList();
   const roles = [...(post?.roleDetail ?? []), post?.myRole];
   if (!post) {
     return notFound();
@@ -91,9 +92,9 @@ export default async function PageSSG({ params: { lang, id } }: Param) {
           ))}
         </div>
         <h3 className={title({ size: "sm" })}> 해결한 주요 이슈 </h3>
-        <ul className={ulText()}>
+        <ul className={ulClasses()}>
           {post.earned.map((desc, idx) => (
-            <li key={idx} className={listText({ size: "md" })}>
+            <li key={idx} className={paragraph({ size: "md", block: true })}>
               {desc}
             </li>
           ))}

@@ -41,7 +41,7 @@ module.exports = {
   darkMode: "class",
   plugins: [
     nextui(),
-    plugin(function ({ addComponents }) {
+    plugin(function ({ addComponents, addVariant }) {
       addComponents({
         // Flex Pattern
         ".flex-column": {
@@ -72,6 +72,9 @@ module.exports = {
             "linear-gradient(60deg,#61dafb 0%,#d6cbf6 30%,#f2056f 70%)",
         },
       });
+      addVariant("child", "& > ");
+      addVariant("child-all", "& > *");
+      addVariant("child-all-hover", "& > *:hover");
     }),
   ],
 };

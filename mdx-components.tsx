@@ -14,6 +14,9 @@ import {
 } from "./components/server-only/primitives";
 import { Chip, ChipProps } from "@nextui-org/chip";
 import { ChipList } from "./components/client-only/ChipList";
+import themeList from "@/components/server-only/theme/list";
+
+const { ul: ulClasses, ol: olClasses } = themeList();
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
@@ -84,8 +87,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ol: (props) => {
       return (
         <ul
-          // className="mb-5 ml-5 mt-2 space-y-4 text-gray-500 list-inside dark:text-gray-400 list-decimal [&>li:before]:mr-4 [&>li:before]:content-['']"
-          className="mb-5 ml-5 mt-2 space-y-4 text-gray-500 list-inside dark:text-gray-400 list-decimal"
+          className={clsx(olClasses())}
           style={{
             backgroundColor: "#f2f2f2",
           }}
@@ -96,9 +98,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ul: (props) => {
       return (
         <ul
-          className={clsx(
-            "md:my-5 list-disc list-inside dark:text-gray-400 [blockquote_&]:my-0 md:p-2 rounded-2xl ml-11"
-          )}
+          className={clsx(ulClasses())}
           style={{
             backgroundColor: "#f2f2f2",
           }}
@@ -115,6 +115,9 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
           hideSymbol
           className="flex w-full"
           variant="bordered"
+          classNames={{
+            copyButton: "text-white",
+          }}
           style={{
             backgroundColor: "#282c34",
           }}

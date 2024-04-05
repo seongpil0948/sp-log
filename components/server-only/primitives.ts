@@ -110,14 +110,19 @@ const commonTxt = {
   },
 };
 export const paragraph = tv({
-  base: " font-normal leading-7 text-black dark:text-white contents",
+  base: " font-normal leading-7 text-black dark:text-white",
   variants: {
     ...commonTxt,
+    block: {
+      true: "block",
+      false: "contents",
+    },
   },
   defaultVariants: {
     size: "md",
     font: "gothic",
     color: "black",
+    block: false,
   },
 });
 export const typo = tv({
@@ -163,15 +168,13 @@ export const main = tv({
 });
 
 export const listText = tv({
-  base: clsx(
-    typo(),
-    "text-black dark:text-white [&::marker]:font-semibold [&:before]:mr-2 md:[&:before]:mr-6 [&:before]:content-['-']"
-  ),
+  base: clsx(typo(), "text-black dark:text-white [&::marker]:font-semibold"),
   variants: {
     ...commonTxt,
   },
-});
-
-export const ulText = tv({
-  base: clsx("my-5 list-none [blockquote_&]:my-0"),
+  defaultVariants: {
+    size: "md",
+    font: "gothic",
+    color: "black",
+  },
 });

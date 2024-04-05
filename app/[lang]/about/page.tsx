@@ -20,7 +20,7 @@ export default async function SSGPage({ params: { lang } }: Param) {
   const certificates = getOnlyFiles("public/cert", { extensions: /\.png$/ });
   const certData = [...certificates];
   return (
-    <div id="about-root" className={clsx(styles.about, paragraph())}>
+    <div id="about-root" className={clsx(styles.about)}>
       {lang === "ko" ? (
         <AboutSectionKo certData={certData} />
       ) : (

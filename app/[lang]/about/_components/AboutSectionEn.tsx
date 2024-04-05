@@ -14,12 +14,12 @@ import {
 import clsx from "clsx";
 import CertSection from "./Cert";
 import styles from "../styles.module.css";
-import PROJECTS from "../../project/_logics/projects";
-import ProjectCard from "../../project/_components/ProjectCard";
 import ProjectCardListHorizontal from "../../project/_components/server-only/ProjectCardsHorizontal";
+import themeList from "@/components/server-only/theme/list";
 
 export default function AboutSectionsKo(props: { certData: string[] }) {
   const { certData } = props;
+  const { ul: ulClasses, ol: olClasses } = themeList();
   const expCompany = [
     {
       name: "intellisys",
@@ -84,12 +84,25 @@ export default function AboutSectionsKo(props: { certData: string[] }) {
           cusp of developing has always fascinated me and <br />i have never
           been afraid to just jump to in and give it a go whether it is
         </p>
-        <ol className={paragraph({ size: "md", font: "gothic" })}>
-          <li>Cloud knowledge such as GCP</li>
+        <ol
+          className={clsx(
+            "block",
+            olClasses(),
+            paragraph({ size: "md", font: "gothic" })
+          )}
+        >
+          <li className=" mt-3">Cloud knowledge such as GCP</li>
           <li>Server such as (Django, Nextjs, Linux)</li>
-          <li>Frontend such as NextJs, Vue or Nuxtjs, Flutter(Mobile)</li>
+          <li className=" mb-3">
+            Frontend such as NextJs, Vue or Nuxtjs, Flutter(Mobile)
+          </li>
         </ol>
-        <p className={paragraph({ size: "md", font: "gothic" })}>
+        <p
+          className={clsx(
+            paragraph({ size: "md", font: "gothic" }),
+            "my-5 block"
+          )}
+        >
           I enjoy making miscellaneous product in my free time <br></br>
           When I lacked server knowledge, I studied Linux and obtained related
           certificates. <br></br>
@@ -99,7 +112,9 @@ export default function AboutSectionsKo(props: { certData: string[] }) {
           with <i>LG</i>, I studied Kubernetes and obtained related
           certificates.
         </p>
-        <p className={paragraph({ size: "md", font: "gothic" })}>
+        <p
+          className={clsx(paragraph({ size: "md", font: "gothic" }), "!block")}
+        >
           I recently started to have interest in WebGL and{" "}
           <b>3D(Three.js and Blender)</b>
           <b>Udemy</b>, <b>Inflearn</b> and Youtube are my best friends.
@@ -130,7 +145,6 @@ export default function AboutSectionsKo(props: { certData: string[] }) {
                   >
                     {exp.name} / {exp.period} / {exp.position}
                   </div>
-                  =
                 </li>
               ))}
             </ul>
