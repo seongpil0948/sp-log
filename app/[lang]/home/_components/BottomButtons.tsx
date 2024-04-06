@@ -105,6 +105,7 @@ export default function BottomButtons() {
     });
 
     controls.start("visible");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

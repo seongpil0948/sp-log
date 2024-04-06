@@ -55,6 +55,7 @@ export default function CirclePoint(props: {
     ctx.closePath();
     ctx.fillStyle = "blue";
     ctx.fill();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

@@ -4,12 +4,9 @@ import { APP_DOMAIN, reduceChildLinks, siteConfig } from "@/config/site";
 import { uniqueFilter } from "./_utils/common";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const tree = getTree({ dir: "app" });
-  if (!tree) return [];
-  const links = reduceChildLinks(tree);
   const allLinks: MetadataRoute.Sitemap = uniqueFilter(
     [
-      ...links,
+      ...getAllInnerLinks(),
       APP_DOMAIN,
       ...[...(Object.values(siteConfig.links.map((x) => x.href)) as string[])],
     ].map((url) => {
@@ -31,4 +28,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })
   );
   return allLinks;
+}
+const allInnerLinks: string[] = [];
+function getAllInnerLinks() {
+  if (allInnerLinks.length > 0) return allInnerLinks;
+  const tree = getTree({ dir: "app" });
+  if (!tree) return [];
+  const links = reduceChildLinks(tree);
+  allInnerLinks.push(...links);
+  return allInnerLinks;
 }
