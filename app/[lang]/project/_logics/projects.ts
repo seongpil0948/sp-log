@@ -19,6 +19,38 @@ import type { IProject } from "../types";
 
 export const PROJECTS: IProject[] = [
   {
+    id: "rp-mgmt",
+    title: "LG 물류 로봇 관제 플랫폼",
+    projType: "webApp",
+    using: [mdiAws, mdiVuejs, mdiLanguageTypescript, mdiLanguageJava],
+    usingDetail: [
+      "web server: 'nginx(AWS EC2)'",
+      "api server: 'Java Spring Boot(AWS EC2)'",
+      "db: 'Aura RDS'",
+      "ui tools: 'konva.js', 'element-ui'",
+      "message queue: 'RabbitMQ'",
+    ],
+    description: [
+      "LG U+ 실내배송로봇/안내로봇 플랫폼",
+      `유진로봇 Gateway 연동규격을 기반으로 플랫폼과 상호 운영을 통해 로봇의 상태, 위치, 배터리, 이동경로등의 데이터를 실시간으로 제어/통계 기능 제공.`,
+      "progressive web app(PWA), 반응형 웹 디자인(RWD)을 적용하여 모바일/데스크탑에서 사용가능한 서비스 제공",
+      "대시보드, 로봇 모델, 고객사, 알림 이력, AS 접수 이력, 관리자 계정, AS 대리점, 파츠, 아이콘, 이용약관, 개인정보 처리 방침 등의 관리 화면을 제공",
+    ],
+    titleImg: "/projects/robot-platform/1.png",
+    allImg: [
+      "/projects/robot-platform/1.png",
+      "/projects/robot-platform/2.png",
+      "/projects/robot-platform/3.png",
+      "/projects/robot-platform/4.png",
+    ],
+    myRole: "Frontend Project Leader",
+    roleDetail: ["실시간 지도"],
+    earned: [
+      "로봇 상태 데이터를 AWS IoT Core를 통해 MQTTS-WebSocket으로 연동하여 개발하여 보안이 향상된 서비스를 제공 경험",
+      "직접 MQTT 서버를 구축하고 브라우저와 연결하여, 실시간 데이터 제공",
+    ],
+  },
+  {
     id: "ixi-studio",
     title: "LG 익시 솔루션",
     projType: "web",
@@ -44,6 +76,7 @@ export const PROJECTS: IProject[] = [
     ],
     usingDetail: [
       "web server: 'Vue.js & nginx'",
+      "ui tools: 'konva.js, element-ui, apache echarts'",
       "SSE",
       "api server: 'Java Spring Boot'",
       "db: 'Aura RDS'",

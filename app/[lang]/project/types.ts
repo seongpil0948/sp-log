@@ -9,7 +9,7 @@ export interface ImagePanelInfo {
   projectInfo: IProject;
 }
 
-export type TProjType = "web" | "app";
+export type TProjType = "web" | "app" | "webApp";
 
 export interface IProject {
   id: string;

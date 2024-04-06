@@ -57,13 +57,18 @@ export default async function PageSSG({ params: { lang, id } }: Param) {
         {post.titleImg && <Image alt="title Image" src={post.titleImg} />}
         {post.description &&
           post.description.map((desc, idx) => (
-            <p key={idx} className={paragraph()}>
+            <p
+              key={idx}
+              className={paragraph({
+                block: true,
+              })}
+            >
               {desc}
             </p>
           ))}
         <div className="flex justify-start gap-4">
-          <ProjectTypeIcon projType={post.projType} />
-          <ProjectUsing p={post} />
+          <ProjectTypeIcon projType={post.projType} size={2} />
+          <ProjectUsing p={post} size={2} />
         </div>
 
         <h3 className={title({ size: "sm" })}> My Role </h3>
