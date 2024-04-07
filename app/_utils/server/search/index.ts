@@ -5,6 +5,7 @@ let initialized = false;
 const searchBasic = new SearchEngineBasic();
 export const getSearchBasic = async () => {
   if (!initialized) {
+    console.log("initializing searchBasic");
     initialized = true;
     await initializedSearchBasic(searchBasic);
   }

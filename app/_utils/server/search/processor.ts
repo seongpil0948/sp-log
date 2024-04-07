@@ -14,6 +14,7 @@ export async function initializedSearchBasic(engine: SearchEngineCommon) {
       return isDocName(item);
     }
   );
+  console.info("libTree: ", libTree);
   const treeList = toList(libTree);
 
   for (const link of treeList) {

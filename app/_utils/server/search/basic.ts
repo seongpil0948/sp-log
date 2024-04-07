@@ -30,6 +30,7 @@ export class SearchEngineBasic implements SearchEngineCommon {
   }
 
   search(keyword: string): SearchResult[] {
+    console.log("state in search: ", this.docs.length, Object.keys(this.cache));
     if (this.cache[keyword]) {
       console.info("hit the cache for search: ", keyword);
       return this.cache[keyword];
@@ -57,6 +58,7 @@ export class SearchEngineBasic implements SearchEngineCommon {
         }
       }
     });
+    this.cache[keyword] = result;
     return result;
   }
 }
