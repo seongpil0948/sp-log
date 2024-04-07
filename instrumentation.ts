@@ -2,6 +2,8 @@
 // import searchBasic from "./app/_utils/server/search";
 // import { pathToHref } from "./app/_utils/server/dir-tree";
 
+import getSearchBasic from "./app/_utils/server/search";
+
 // const isDocName = (p: { name: string }) =>
 //   // p.name.endsWith(".ts") ||
 //   // p.name.endsWith(".tsx") ||
@@ -24,6 +26,7 @@
 export async function register() {
   if (process.env.NEXT_RUNTIME === "nodejs") {
     console.log(">>> Registering instrumentation for Node.js runtime >>> ");
+    await getSearchBasic();
     // searchBasic.clear();
     // const dirTree = (await import("directory-tree")).default;
     // const fs = require("fs/promises");

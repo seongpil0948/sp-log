@@ -85,9 +85,9 @@ const isDocName = (p: { name: string }) =>
   // p.name.endsWith(".tsx") ||
   p.name.endsWith(".mdx") || p.name.endsWith(".md");
 
-function toList(tree: DirectoryTree) {
+function toList(tree?: DirectoryTree) {
   const list: DirectoryTree[] = [];
-  if (!tree.children) return list;
+  if (!tree || !tree.children) return list;
 
   for (const child of tree.children) {
     if (isDocName(child)) {
