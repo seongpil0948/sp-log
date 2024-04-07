@@ -11,7 +11,7 @@ type TDirCustom = {
   href: string;
 };
 
-const callback: DirectoryTreeCallback<TDirCustom> = (item, path) => {
+export const pathToHref = (path: string) => {
   if (path.includes("[lang]")) {
     path = path.split("[lang]")[1];
     // remove any extension from path
@@ -22,6 +22,10 @@ const callback: DirectoryTreeCallback<TDirCustom> = (item, path) => {
   if (!path || path === "") {
     path = "/";
   }
+  return path;
+};
+const callback: DirectoryTreeCallback<TDirCustom> = (item, path) => {
+  path = pathToHref(path);
   item.custom = {
     href: path,
   };

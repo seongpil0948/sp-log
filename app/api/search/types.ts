@@ -2,11 +2,15 @@ export interface SearchQuery {
   keyword: string;
 }
 
-export interface SearchResult {
+interface DocBase {
   title: string;
-  url: string;
-  description: string;
-  image: string;
+  href: string;
+}
+export interface SearchDoc extends DocBase {
+  content: string;
+}
+export interface SearchResult extends DocBase {
+  matchedContent: string[];
 }
 
 export interface SearchResponse {
