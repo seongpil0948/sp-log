@@ -14,7 +14,7 @@ export async function initializedSearchBasic(engine: SearchEngineCommon) {
       return isDocName(item);
     }
   );
-  console.info("libTree: ", libTree);
+  if (!libTree) throw new Error("dirTree is empty");
   const treeList = toList(libTree);
 
   for (const link of treeList) {
