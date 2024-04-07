@@ -34,7 +34,7 @@ export default async function SSGPage({ params: { lang } }: Param) {
             {dict.home.description.title}
           </h1>
         </AnimateBlink>
-        <BottomButtons />
+        {/* <BottomButtons /> */}
       </section>
       <AbsoluteFooter />
     </>

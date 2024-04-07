@@ -157,7 +157,7 @@ export default function BottomButtons() {
       <TargetWrapper animate={isOverlay ? "pulse" : "initial"}>
         <div
           ref={targetRef}
-          className="flex flex-wrap gap-12 md:gap-24 lg:gap-36 justify-center mb-12"
+          className="flex flex-col gap-12 md:gap-24 lg:gap-36 justify-center mb-12"
         >
           <GeoButton shape="character" href="/game">
             <p className={btnClass}>Game</p>
