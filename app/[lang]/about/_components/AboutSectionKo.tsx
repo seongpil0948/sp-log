@@ -25,23 +25,23 @@ export default function AboutSectionsKo(props: { certData: string[] }) {
       name: "intellisys",
       period: "2020.01 ~ 2022.06",
       position: "Developer Manager, Fullstack Developer",
-      describe:
-        "데이터 수집 (crawler), 사내 파이프라인 관리 (rabbitmq, k8s argo), 인프라부터 프론트(app, web)까지 안정적인 서비스 관리",
+      describe: `
+      추천 솔루션 회사로 AI 모델 개발자를 서포트하여 Kubernetes 환경에서의 API서버(python), Web서버(Vue/React), 다양한 workflows(Argo, RabbitMQ/dramatiq) 서비스를 구축/유지보수, 데이터 분석 등 다양한 업무를 담당하였습니다.
+      `,
     },
     {
       name: "inout box",
       period: "2022.06 ~ 2023.03",
       position: "Fullstack Developer",
       describe: `
-      My passion for software development stems from a deep fascination with the entire process, from the initial spark of an idea to its final realization as a fully-fledged product.  
-      that's led me to start my own business, As a result, I created camping mobile app, clothing wholesale platform web, app, and gained various experiences.
+      개발의 모든 분야(인프라 to 프론트)를 담당하여 안정적인 서비스를 구축하는 것을 목적으로 진행했던 개인 사업, 결과적으로 의류 도매 플랫폼 웹/앱, 캠핑 모바일 앱 제작등 다양한 경험을 쌓았습니다.
       `,
     },
     {
       name: "Abacus",
       period: "2023.03 ~ Present",
       position: "Frontend Developer",
-      describe: `Abacus is a SI company that provides services. major partner is LG.`,
+      describe: `SI 회사, 주 협력사인 LG, SK와 K8S, EC2, On-Premise 등 개발환경에 맞추어 소프트웨어를 제공했으며 주로 Front End Project Leader 로서 기획 – 설계 – 개발 프로세스에서  Cross Functional Team 들간 커뮤니케이션, 주요 이슈 해결을 도맡았습니다.`,
     },
   ];
 
@@ -80,12 +80,18 @@ export default function AboutSectionsKo(props: { certData: string[] }) {
         <h3 className={title({ size: "md", fullWidth: true })}>
           I am SeongPilChoi.
         </h3>
-        <p className={paragraph({ size: "lg", font: "script" })}>
-          첫 업무, 크롤링을 통해 사내 AI 엔진에 사용될 데이터를 관리하고
-          파이프라인을 자동화 하는 작업은 매력적이었습니다. <br />
-          Fullstack 엔지니어로서 문제를 해결해 나가는 과정에서 저는 주저하지
-          않고 도전했고, 이를 통해 다양한 경험을 쌓을 수 있었습니다. <br />
-          아래는 제가 가지고 있는 기술 스택의 개요입니다.
+        <p className={paragraph({ size: "sm", font: "mono" })}>
+          저는 협업과 소통을 무엇보다도 중요하게 생각하는 개발자입니다. <br />
+          팀원들 간의 원활한 소통이 없이는 프로젝트의 성과를 이루는 것이
+          어렵다고 믿습니다. <br />
+          따라서 저는 항상 열린 자세로 다른 부서와 소통하며, 상호간의 의견을
+          존중하고 조율합니다. <br />
+          특히, 기획자나 디자이너와의 협업에서는 서로의 역할과 목표를 명확하게
+          정의하고, 그에 따른 일정을 철저히 준수합니다. <br />
+          또한, 세심한 성격을 바탕으로 업무를 계획하고 실행함으로써 팀원들에게
+          신뢰를 줍니다. <br />
+          이를 통해 팀 전체가 함께 성장하고 발전할 수 있도록 노력하고 있습니다.
+          <br />
         </p>
         <ol
           className={clsx(
@@ -102,7 +108,7 @@ export default function AboutSectionsKo(props: { certData: string[] }) {
         </ol>
         <p
           className={clsx(
-            paragraph({ size: "md", font: "gothic" }),
+            paragraph({ size: "md", font: "mono" }),
             "my-5 block"
           )}
         >
@@ -115,9 +121,7 @@ export default function AboutSectionsKo(props: { certData: string[] }) {
           회사에서 쿠버네티스 환경에 배포하는 프로젝트를 맡았을 때, 쿠버네티스
           자격증(CKA)을 취득했습니다.
         </p>
-        <p
-          className={clsx(paragraph({ size: "md", font: "gothic" }), "!block")}
-        >
+        <p className={clsx(paragraph({ size: "md", font: "mono" }), "!block")}>
           최근에는 WebGL과 3D(Three.js and Blender) 분야에 관심을 가지고
           있습니다. <br />전 항상 Udemy, Inflearn , Youtube와 친하게
           지내고있습니다.

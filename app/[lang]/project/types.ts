@@ -10,7 +10,12 @@ export interface ImagePanelInfo {
 }
 
 export type TProjType = "web" | "app" | "webApp";
-
+interface STAR {
+  situation: string;
+  task: string;
+  action: string;
+  result: string;
+}
 export interface IProject {
   id: string;
   title: string;
@@ -23,7 +28,8 @@ export interface IProject {
   to?: string;
   allImg?: string[];
   description: string[];
+  earned: string[];
   myRole: string;
   roleDetail?: string[];
-  earned: string[];
+  star?: STAR[]; //TODO
 }
