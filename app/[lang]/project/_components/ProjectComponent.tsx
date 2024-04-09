@@ -36,7 +36,7 @@ export function RootCanvas() {
   const btnClass = clsx("absolute", "top-4", "left-4");
   return (
     <>
-      <Canvas linear camera={{ position: [0, 0, 5] }}>
+      <Canvas linear camera={{ position: [0, 0, 1] }}>
         <OrbitControls enableDamping />
         <Lights />
         <ProjectCards
