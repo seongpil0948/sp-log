@@ -15,6 +15,7 @@ import {
 import { Chip, ChipProps } from "@nextui-org/chip";
 import { ChipList } from "./components/client-only/ChipList";
 import themeList from "@/components/server-only/theme/list";
+import { AlertText } from "./components/server-only/alert";
 
 const { ul: ulClasses, ol: olClasses } = themeList();
 
@@ -40,19 +41,19 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       />
     ),
     h1: (props) => {
-      const className = clsx(title({ size: "lg" }), "mt-24");
+      const className = clsx(title({ size: "lg", margin: false }));
       return <HeaderWithLink attr={props} className={className} level={1} />;
     },
     h2: (props) => {
-      const className = clsx(title({ size: "md", color: "blue" }), "mt-24");
+      const className = clsx(title({ size: "md", color: "pink" }));
       return <HeaderWithLink attr={props} className={className} level={2} />;
     },
     h3: (props) => {
-      const className = clsx(title({ size: "sm" }), "mt-24");
+      const className = clsx(title({ size: "sm" }));
       return <HeaderWithLink attr={props} className={className} level={3} />;
     },
     h4: (props) => {
-      const className = clsx(title({ size: "xs" }), "mt-24");
+      const className = clsx(title({ size: "xs", color: "pink" }));
       return <HeaderWithLink attr={props} className={className} level={4} />;
     },
     hr: (props) => (
@@ -85,38 +86,25 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       return <li className={clsx(listText({ color: "default" }))}>{child}</li>;
     },
     ol: (props) => {
-      return (
-        <ul
-          className={clsx(olClasses())}
-          style={{
-            backgroundColor: "#f2f2f2",
-          }}
-          {...props}
-        />
-      );
+      return <ul className={clsx(olClasses())} {...props} />;
     },
     ul: (props) => {
-      return (
-        <ul
-          className={clsx(ulClasses())}
-          style={{
-            backgroundColor: "#f2f2f2",
-          }}
-          {...props}
-        />
-      );
+      return <ul className={clsx(ulClasses())} {...props} />;
     },
     p: (props) => <p className={clsx(paragraph())} {...props} />,
+    // figure: (props) => (
+    //   <figure className={clsx(props.className, "my-6!")} {...props} />
+    // ),
     pre: (props) => {
       return (
         <Snippet
           size="sm"
           radius="none"
           hideSymbol
-          className="flex w-full"
           variant="bordered"
           classNames={{
             copyButton: "text-white",
+            base: "flex w-full",
           }}
           style={{
             backgroundColor: "#282c34",
@@ -142,7 +130,9 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     },
 
     table: (props) => (
-      <table className="w-full border-collapse">{props.children}</table>
+      <table className="w-full border-collapse my-2 md:my-6">
+        {props.children}
+      </table>
     ),
     th: (props) => (
       <th className="whitespace-nowrap border border-gray-200 bg-gray-100 px-4 py-2">
@@ -166,6 +156,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     CardBody,
     CardHeader,
     ChipList,
+    AlertText,
   };
 }
 

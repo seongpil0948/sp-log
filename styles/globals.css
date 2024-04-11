@@ -23,6 +23,10 @@ body,
   z-index: 10000 !important;
 }
 
+figure {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
 figure code {
   background-color: transparent !important;
 }

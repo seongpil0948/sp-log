@@ -1,0 +1,29 @@
+# tcpdump, Wireshark
+
+
+## Wireshark
+와이어 샤크란 네트워크 패킷 분석기로, 네트워크 프로토콜 분석 및 디버깅에 사용된다. 
+이는 다양한 네트워크 프로토콜을 지원하며, 다양한 운영체제에서 사용할 수 있다. 또한, Wireshark는 오픈 소스 프로젝트로, 무료로 사용할 수 있다.  
+
+## tcpdump
+tcpdump는 네트워크 패킷을 캡처하는 도구로, 네트워크 트래픽을 실시간으로 모니터링하거나, 저장할 수 있다.  
+이는 다양한 운영체제에서 사용할 수 있으며, Wireshark와 함께 사용되기도 한다.
+
+```bash
+sudo tcpdump -i enp2s0f0 -vvv '((dst port 8093) or (dst host k8s-apisix-apisixga-7e8a42a50d-d3dc2bd9d1806e6e.elb.ap-northeast-2.amazonaws.com))' -w /tmp/traffic.pcap
+```
+- `-i`: 인터페이스 지정
+- `-vvv`: 상세한 정보 출력
+- `dst port 8093`: 8093 포트로 전송되는 패킷 캡처
+- `dst host k8s-apisix-apisixga-7e8a42a50d-d3dc2bd9d1806e6e.elb.ap-northeast-2.amazonaws.com`: 특정 호스트로 전송되는 패킷 캡처
+- `-w`: 캡처한 패킷을 저장할 파일 지정
+
+<AlertText title="Tip" color="info">
+  `traffic.pcap` 파일을 Wireshark로 열어서(drag&drop 가능) 패킷을 분석할 수 있다.
+</AlertText>
+
+## hhaha
+hahaha hahahahahaha   
+hahaha hahahahahaha   
+hahaha hahahahahaha   
+hahaha hahahahahaha   

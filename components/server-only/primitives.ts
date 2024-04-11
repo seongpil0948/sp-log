@@ -33,9 +33,10 @@ const colorModule = {
   black: "text-black",
   white: "text-white",
   gray: "text-gray-300 dark:text-gray-700",
+  content: " text-[#333639]",
 };
 export const title = tv({
-  base: "tracking-tight inline font-semibold mt-3 md:mt-5 mb-5 md:mb-7 leading-tight",
+  base: "tracking-tight inline font-semibold leading-tight",
   variants: {
     color: colorModule,
     size: {
@@ -47,12 +48,16 @@ export const title = tv({
     fullWidth: {
       true: "w-full block",
     },
+    margin: {
+      true: "mt-8 md:mt-16 mb-5 md:mb-7",
+    },
     font: fontModule,
   },
   defaultVariants: {
     size: "md",
     font: "mono",
     fullWidth: true,
+    margin: true,
   },
   compoundVariants: [
     {

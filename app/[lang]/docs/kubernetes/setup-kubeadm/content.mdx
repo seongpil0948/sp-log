@@ -3,8 +3,7 @@
 이번에 팀용 사내서버를 새로 구축하게 되면서, 우리도 k8s를 도입하고자 한다.  
 * Ubuntu 20.04 LTS를 사용할 것이며, 모든 서버에 Docker를 설치할 것이다. 
 * 사용할 서버는 4대이며, 각 서버는 16GB의 메모리와 500GB의 디스크를 가지고 있다.  
-* 서버는 1대의 마스터노드와 3대의 워커노드로 구성할 것이다.
-
+* 안정적인 운영전까지 서버를 모두 사용할 필요없다. 2대 기준으로 최소한의 리소스를 가지고 시작할 것이다.
 각 사용할 오픈소스들에 대해 알아보고, 설치 및 설정을 진행해보자.
 
 ## List of Open source
@@ -121,7 +120,7 @@ $ sudo systemctl status crio
 
 
 ## kubelet kubeadm kubectl 세팅에 사용된 스크립트(Ubuntu 20.04)
-CRI는 [container d](https://github.com/containerd/containerd/blob/main/docs/getting-started.md)를 미리 설치해사용했습니다.
+CRI는 [container d](https://github.com/containerd/containerd/blob/main/docs/getting-started.md)를 미리 설치해 사용했습니다.
 ```bash
 # https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
 # apt 패키지 색인을 업데이트하고, 쿠버네티스 apt 리포지터리를 사용하는 데 필요한 패키지를 설치한다.
