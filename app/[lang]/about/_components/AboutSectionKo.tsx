@@ -16,6 +16,8 @@ import CertSection from "./Cert";
 import styles from "../styles.module.css";
 import ProjectCardListHorizontal from "../../project/_components/server-only/ProjectCardsHorizontal";
 import themeList from "@/components/server-only/theme/list";
+import PROJECTS from "../../project/_logics/projects";
+import ProjectContent from "../../project/_components/ProjectContent";
 
 export default function AboutSectionsKo(props: { certData: string[] }) {
   const { certData } = props;
@@ -222,6 +224,11 @@ export default function AboutSectionsKo(props: { certData: string[] }) {
           <ButtonLinkedIn />
           <ButtonHome />
         </div>
+      </section>
+      <section className={clsx(styles.section, "max-h-screen overflow-auto")}>
+        {PROJECTS.map((proj, idx) => {
+          return <ProjectContent key={idx + proj.id} post={proj} />;
+        })}
       </section>
     </div>
   );

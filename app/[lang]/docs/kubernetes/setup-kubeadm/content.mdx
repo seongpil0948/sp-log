@@ -67,7 +67,7 @@ Keycloak은 다양한 클라이언트 언어를 지원하며, 다양한 클라�
 ## 기존 클러스터 제거
 ```bash
 $ sudo kubeadm reset
-$ sudo apt-get purge kubeadm kubectl kubelet kubernetes-cni kube*
+$ sudo apt-get purge kubeadm kubectl kubelet kubernetes-cni cri-o kube*
 $ sudo apt-get autoremove
 $ sudo rm -rf ~/.kube
 $ sudo rm -rf /etc/kubernetes
@@ -99,8 +99,12 @@ Kubernetes는 클러스터의 노드 간에 통신하기 위해 네트워크를 
 *  lo : 로컬 루프백 인터페이스이며 서버 내부 통신에 사용됩니다.
 *  veth* : 인터페이스는 가상 이더넷 인터페이스이며 서버 내부 통신에 사용됩니다.
 *  
-## kubelet kubeadm kubectl 세팅에 사용된 스크립트(CentOS 9)
-작성 기준 CRI-O의 Centos 9버전이 지원되지 않아서, CentOS 8버전을 사용하였습니다.
+## kubelet kubeadm kubectl 세팅에 사용된 스크립트(CentOS)
+
+CentOS 버전, CRI 버전이 다를 수 있습니다.
+[Install CRI-O](https://github.com/cri-o/cri-o/blob/main/install.md)
+[CRI-Versions](https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/)
+를 참조하여 아래 스크립트를 완성하세요
 ### Install CRI
 ```bash
 # https://kubernetes.io/docs/setup/production-environment/container-runtimes/
@@ -108,14 +112,25 @@ Kubernetes는 클러스터의 노드 간에 통신하기 위해 네트워크를 
 sudo dnf update -y && sudo dnf upgrade -y
 $ sudo dnf config-manager --set-enabled crb
 $ sudo dnf install epel-release -y
-$ sudo curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable.repo https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/CentOS_9_Stream/devel:kubic:libcontainers:stable.repo
-  
-$ sudo curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable:cri-o:1.24.0.repo https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/1.24:/1.24.0/CentOS_8_Stream/devel:kubic:libcontainers:stable:cri-o:1.24:1.24.0.repo
+export LINK_LIB_CONTAINERS=https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/CentOS_7/devel:kubic:libcontainers:stable.repo
+export LINK_CRI_O=https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/1.24/CentOS_7/devel:kubic:libcontainers:stable:cri-o:1.24.repo
+$ sudo curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable.repo $LINK_LIB_CONTAINERS
+
+$ sudo curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable:cri-o:1.24.0.repo $LINK_CRI_O
 
 $ sudo dnf install cri-o -y
 $ sudo systemctl start crio
 $ sudo systemctl enable crio
 $ sudo systemctl status crio
+```
+Log에 아래와 같이 원하는 버전과 CentOS 버전이 나와야합니다.
+```
+devel:kubic:libcontainers:stable:cri-o:1.24 (CentOS_7)                                                                                                                                                                             38 kB/s | 139 kB     00:03    
+Stable Releases of Upstream github.com/containers packages (CentOS_7) 
+$ systemctl status crio
+● crio.service - Container Runtime Interface for OCI (CRI-O)
+   Loaded: loaded (/usr/lib/systemd/system/crio.service; enabled; vendor preset: disabled)
+   Active: active (running) since Fri 2024-04-12 11:19:13 KST; 15s ago
 ```
 
 
@@ -203,6 +218,7 @@ EOF
 ```
 ###  Install kubelet, kubeadm and kubectl (and enable epel-release)
 ```bash
+sudo dnf update -y && sudo dnf upgrade -y
 sudo dnf -y install kubelet kubeadm kubectl --disableexcludes=kubernetes epel-release
 kubectl version --client 
 sudo systemctl enable kubelet
@@ -216,20 +232,6 @@ lsmod | grep br_netfilter
 br_netfilter           36864  0
 bridge                409600  1 br_netfilter
 ```
-Enable kubelet service
-```bash
-sudo systemctl enable kubelet
-```
-
-### Join the control-plane node
-```bash
-[example]
-sudo kubeadm join 192.168.0.103:6443 \
---token 74l5ij.t9k6whcpxus8ckup \
---discovery-token-ca-cert-hash sha256:fc67589410c4dd97c879879046fbfad8b9d0980967d2355edb20077e5a9926ae \
---cri-socket=unix:///var/run/crio/crio.sock 
-
-```
 
 
 
@@ -238,9 +240,10 @@ sudo kubeadm join 192.168.0.103:6443 \
 ```bash
 $ sudo kubeadm init \
   --pod-network-cidr=192.168.0.0/16 \
-  --cri-socket=unix:///var/run/crio/crio.sock
+  --cri-socket=unix:///var/run/crio/crio.sock \
+  --apiserver-advertise-address=192.168.0.103
 ```
-음 이미지를 pull 하는 과정에서 에러가 발생했다.
+### 이미지를 pull 하는 과정에서 에러가 발생하는경우
 ```
 PullImage from image service failed" err="rpc error: code = Unknown desc = invalid policy in \"/etc/containers/policy.json\": Unknown key \"keyPaths\"" image="registry.k8s.io/kube-apiserver:v1.28.6"
 time="2024-02-14T00:23:47+09:00" level=fatal msg="pulling image: invalid policy in \"/etc/containers/policy.json\": Unknown key \"keyPaths\""
@@ -355,7 +358,54 @@ NAME            STATUS   ROLES           AGE   VERSION
 ```
 
 
+## Cgroup
+init 과정에서 에러가 발생했다.  
+```bash
+kubeadm init   --pod-network-cidr=192.168.0.0/16   --cri-socket=unix:///var/run/crio/crio.sock --apiserver-advertise-address=192.168.0.103
+```
+에러 내용들을 살펴보니 API 서버에 연결할 수 없다는 내용이었다.
+```
+dial tcp 192.168.0.103:6443: connect: connection refused
+E0412 10:21:12.276483    5638 memcache.go:265] couldn't get current server API group list: Get "http://localhost:8080/api?timeout=32s": dial tcp [::1]:8080: connect: connection refused
+The connection to the server localhost:8080 was refused - did you specify the right host or port?
+```
+확인 명령어
+```bash
+$ sudo netstat -tulnp | grep 6443
+$ ps -auxef | grep kube-apiserver
+```
+- f: full format
+- e: environment
+- x: all processes
+- u: user
+- p: process
+
+
+### 해결방법
+CRI-O 의 default  드라이버는 systemd 이다.  
+찾아보니 [관련링크](https://tech.kakao.com/2020/06/29/cgroup-driver/) 권한 문제가 발생할 수 있다고 한다.  
+cgroupfs cgroup 드라이버로 전환하려면, /etc/crio/crio.conf 를 수정하거나 /etc/crio/crio.conf.d 에 드롭-인(drop-in) 구성을 배치한다.
+```
+[crio.runtime]
+conmon_cgroup = "pod"
+cgroup_manager = "cgroupfs"
+```
+해결 확인
+
+```bash
+systemctl restart crio
+systemctl restart kubelet
+systemctl status kubelet
+crictl ps -a
+kubectl get pods -n kube-system
+```
+음 좋다.
+
+
+
+
 # Reference
 - [Kubernetes](https://kubernetes.io/)
+- [https://tech.hostway.co.kr/2022/05/12/1029/](https://tech.hostway.co.kr/2022/05/12/1029/)
 - [https://tayeh.me/posts/install-kubernetes-cluster-on-centos-8-with-kubeadm-crio/](https://tayeh.me/posts/install-kubernetes-cluster-on-centos-8-with-kubeadm-crio/)
 - [https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#initializing-your-control-plane-node](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#initializing-your-control-plane-node)

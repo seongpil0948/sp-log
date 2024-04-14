@@ -136,6 +136,9 @@ $ sudo rabbitmqctl list_users
 Listing users ...
 user	tags
 root	[administrator]
+
+# set vhost '/' permission to root
+$ sudo rabbitmqctl set_permissions -p / root ".*" ".*" ".*"
 ```
 
 이제 RabbitMQ Plugin들을 활성화하겠습니다.

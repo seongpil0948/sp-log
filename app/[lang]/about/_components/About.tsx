@@ -135,6 +135,7 @@ const SECTION_POSITIONS: THREE.Vector3[] = [
   new THREE.Vector3(-10, COMMON_Y, 0),
   new THREE.Vector3(10, COMMON_Y, -10),
   new THREE.Vector3(-5, COMMON_Y, -20),
+  new THREE.Vector3(5, COMMON_Y, -20),
 ];
 
 function getRender(canvas: HTMLCanvasElement) {
