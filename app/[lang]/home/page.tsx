@@ -7,6 +7,7 @@ import { AbsoluteFooter } from "@/components/server-only/footers";
 import CommonNavbar from "@/components/server-only/navbar";
 import BottomButtons from "./_components/BottomButtons";
 import clsx from "clsx";
+import { NavInput } from "@/components/server-only/navbar/client";
 // import { useInView } from "react-intersection-observer";
 
 export async function generateStaticParams() {
@@ -35,6 +36,9 @@ export default async function SSGPage({ params: { lang } }: Param) {
           </h1>
         </AnimateBlink>
         {/* <BottomButtons /> */}
+        <div className=" max-w-md mx-auto">
+          <NavInput />
+        </div>
       </section>
       <AbsoluteFooter />
     </>

@@ -1,7 +1,7 @@
 import type { DirectoryTree } from "directory-tree";
 import { SearchEngineCommon } from "./basic";
 import dirTree from "directory-tree";
-import fs from "fs/promises";
+import { readFile } from "fs/promises";
 import { pathToHref } from "../dir-tree";
 
 export async function initializedSearchBasic(engine: SearchEngineCommon) {
@@ -19,7 +19,7 @@ export async function initializedSearchBasic(engine: SearchEngineCommon) {
 
   for (const link of treeList) {
     // read file content
-    const fileContent = await fs.readFile(link.path, "utf-8");
+    const fileContent = await readFile(link.path, "utf-8");
     const href = pathToHref(link.path);
 
     const obj = splitContent(fileContent);

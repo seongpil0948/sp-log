@@ -70,9 +70,9 @@ export default async function CommonNavbar(p: CommonNavbarProps) {
         <NavbarItem className="hidden sm:flex gap-2">
           <ThemeSwitch />
         </NavbarItem>
-        {/* <NavbarItem className="hidden md:flex basis-2/5">
+        <NavbarItem className="hidden md:flex basis-2/5">
           <NavInput />
-        </NavbarItem> */}
+        </NavbarItem>
         <NavbarMenuToggle />
       </NavbarContent>
 

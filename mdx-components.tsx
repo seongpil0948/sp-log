@@ -41,7 +41,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       />
     ),
     h1: (props) => {
-      const className = clsx(title({ size: "lg", margin: false }));
+      const className = clsx(title({ size: "lg" }));
       return <HeaderWithLink attr={props} className={className} level={1} />;
     },
     h2: (props) => {
