@@ -1,0 +1,336 @@
+# 개요
+오늘의 장난은 Nginx OpenSource 를 다운받아 컴파일하여 세팅하는 것입니다.
+
+## What is Nginx?
+Nginx는 웹 서버 소프트웨어로, 웹 서버, 리버스 프록시 및 로드 밸런서로 사용됩니다. Nginx는 또한 HTTP, HTTPS, SMTP, POP3 및 IMAP 프로토콜을 지원합니다.  
+돈이 많다면 상용버전인 Nginx Plus를 사용할 수 있습니다. Nginx Plus는 Nginx OpenSource에 비해 더 많은 기능을 제공합니다.  
+
+## 목표
+실행전 목표를 설정해보겠습니다.
+<CodeHeader text="nginx-variables.sh" />
+
+```sh
+export USER=nginx
+export SERVE_DIR=/svc/web/nginx_lguservice
+export LOG_PATH=/logs/web/nginx_lguservice
+export LOG_ROTATE_FILE=/etc/logrotate.d/nginx
+export LOG_ROTATE_BIN=/usr/sbin/logrotate
+export PROJECT_DIR=/app/igsn-studio-client
+export NGINX_CONFIG_FILE_ORIGIN=$PROJECT_DIR/nginx.conf
+export LOG_ROTATE_FILE_ORIGIN=$PROJECT_DIR/logrotate-nginx
+export NGINX_VERSION=1.24.0
+```
+- nginx 프로세스 분리를 위해 master/worker process 는 nginx 사용자로 실행 되도록 설정
+- NGINX 서비스는 `/svc/web/nginx_lguservice` 디렉토리에서 실행   
+- 로그는 `/logs/web/nginx_lguservice` 디렉토리에 저장
+- 로그는 `logrotate`를 통해 관리
+- 프로젝트 디렉토리는 `/app/igsn-studio-client`
+- Nginx 설정 파일은 프로젝트 디렉토리에 있음, Nginx 서버 실행시 이 파일을 사용
+- logrotate 설정 파일은 프로젝트 디렉토리에 있음, logrotate 실행시 이 파일을 사용
+
+## Nginx OpenSource Setup
+<CodeHeader text="install.sh" />
+
+```sh
+#!/bin/bash
+. ./nginx-variables.sh
+sudo mkdir -p $SERVE_DIR
+sudo mkdir -p $LOG_PATH/access-log
+sudo mkdir -p $LOG_PATH/error-log
+export NGINX_DOWNLOAD_URL=https://nginx.org/download/nginx-$NGINX_VERSION.tar.gz
+
+# >>> install nginx dependencies >>>
+sudo apt-get update -y
+sudo apt-get install -y build-essential libpcre3 libpcre3-dev zlib1g zlib1g-dev libssl-dev libgd-dev libxml2 libxml2-dev uuid-dev
+
+cd $SERVE_DIR
+sudo wget github.com/PCRE2Project/pcre2/releases/download/pcre2-10.42/pcre2-10.42.tar.gz
+sudo tar -zxf pcre2-10.42.tar.gz
+cd pcre2-10.42
+sudo ./configure
+sudo make
+sudo make install
+
+cd $SERVE_DIR
+sudo wget http://zlib.net/zlib-1.2.13.tar.gz
+sudo tar -zxf zlib-1.2.13.tar.gz
+cd zlib-1.2.13
+sudo ./configure
+sudo make
+sudo make install
+
+cd $SERVE_DIR
+sudo wget http://www.openssl.org/source/openssl-1.1.1v.tar.gz
+sudo tar -zxf openssl-1.1.1v.tar.gz
+cd openssl-1.1.1v
+sudo ./config --prefix=/usr
+sudo make
+sudo make install
+# <<< install nginx dependencies <<<
+
+cd $SERVE_DIR
+echo "
+USER: $USER
+SERVE_DIR: $SERVE_DIR
+LOG_PATH: $LOG_PATH
+LOG_ROTATE_FILE: $LOG_ROTATE_FILE
+LOG_ROTATE_BIN: $LOG_ROTATE_BIN
+PROJECT_DIR: $PROJECT_DIR
+NGINX_CONFIG_FILE_ORIGIN: $NGINX_CONFIG_FILE_ORIGIN
+LOG_ROTATE_FILE_ORIGIN: $LOG_ROTATE_FILE_ORIGIN
+NGINX_VERSION: $NGINX_VERSION
+NGINX_DOWNLOAD_URL: $NGINX_DOWNLOAD_URL
+"
+
+echo "[info]: change user for $USER"
+if sudo id -u "$USER" >/dev/null 2>&1; then
+  echo "[info]: user $USER aleady exists"
+else
+  echo "[info]: user $USER does not exist then create it."
+  sudo useradd --system $USER
+fi
+echo "$(grep $USER /etc/passwd)"
+
+# add visudo permission for $USER if not exist in /etc/sudoers and exist $USER in /etc/passwd
+# if you want initialize, excute sudo EDITOR='vi' visudo
+sudo chown -R $USER:$USER $SERVE_DIR
+sudo chown -R $USER:$USER $LOG_PATH
+if ! sudo grep -q "$USER" /etc/sudoers && sudo id -u "$USER" >/dev/null 2>&1; then
+  echo "[info]: assign permission to $USER"
+  echo "$USER ALL=NOPASSWD:$SERVE_DIR" | sudo EDITOR='tee -a' visudo
+  echo "$USER ALL=NOPASSWD:$LOG_ROTATE_BIN" | sudo EDITOR='tee -a' visudo
+  echo "$USER ALL=NOPASSWD:/etc/logrotate.d/*" | sudo EDITOR='tee -a' visudo
+  echo "$USER ALL=NOPASSWD:/bin/cat *" | sudo EDITOR='tee -a' visudo
+  echo "$USER ALL=NOPASSWD:/bin/rm $LOG_PATH/*" | sudo EDITOR='tee -a' visudo
+  echo "$USER ALL=NOPASSWD:/bin/mv *" | sudo EDITOR='tee -a' visudo
+  echo "$USER ALL=NOPASSWD:/usr/bin/tail *" | sudo EDITOR='tee -a' visudo
+  echo "$USER ALL=NOPASSWD:/usr/bin/cp *" | sudo EDITOR='tee -a' visudo
+fi
+
+cd $SERVE_DIR
+echo "[info]: download nginx source"
+sudo wget $NGINX_DOWNLOAD_URL
+sudo tar zxf nginx-$NGINX_VERSION.tar.gz
+cd nginx-$NGINX_VERSION
+sudo ./configure \
+--prefix=$SERVE_DIR \
+--user=$USER \
+--group=$USER \
+--with-http_realip_module \
+--without-http_fastcgi_module \
+--without-http_uwsgi_module \
+--without-http_memcached_module \
+--with-http_ssl_module \
+--with-stream \
+--with-http_stub_status_module \
+--with-http_gzip_static_module \
+--with-http_v2_module \
+--with-pcre=../pcre2-10.42 \
+--with-zlib=../zlib-1.2.13 \
+--with-openssl=../openssl-1.1.1v \
+--without-http_empty_gif_module 
+
+echo 'compile nginx'
+sudo make 
+sudo make install
+```
+
+### Start nginx
+```sh
+sudo /svc/web/nginx_lguservice/sbin/nginx -g 'daemon off;'
+```
+
+## (Optional) Systemd Service
+Nginx 서비스를 systemd로 등록합니다.
+작성 소스는 상단 nginx 설치중 `configure`의 출력을 참조합니다.
+<CodeHeader text="nginx.service" />
+
+```sh
+. ./nginx-variables.sh
+cat "/etc/systemd/system/nginx.service" <<EOF
+[Unit]
+Description=Nginx Custom From Source
+After=syslog.target network-online.target remote-fs.target nss-lookup.target
+Wants=network-online.target
+
+[Service]
+Type=forking
+PIDFile=/run/nginx.pid
+ExecStartPre=/svc/web/nginx_lguservice/sbin/nginx -t
+ExecStart=/svc/web/nginx_lguservice/sbin/nginx
+ExecReload=/svc/web/nginx_lguservice/sbin/nginx -s reload
+ExecStop=/bin/kill -s QUIT $MAINPID
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
+EOF
+```
+### operation
+reload systemd
+```sh
+sudo systemctl daemon-reload
+```
+
+auto start when the system boots
+```sh
+sudo systemctl enable nginx
+```
+
+## Nginx Configuration
+이제 서비스에 맞게 Nginx를 구성해보세요
+
+<CodeHeader text="nginx.conf" />
+
+```conf
+
+user  nginx root;
+worker_processes  10;
+
+error_log  /logs/web/nginx_lguservice/error-log/error.log  error;
+error_log  /dev/stderr  error;
+pid        /logs/web/nginx_lguservice/nginx.pid;
+
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for" "$request_time"';
+
+    access_log  /logs/web/nginx_lguservice/access-log/access.log  main;
+    access_log  /dev/stdout  main;    
+
+    sendfile        on;
+    keepalive_timeout  65;
+    autoindex off;
+    server_tokens off;
+    upstream api-server {
+        server sc-ixi-admin-api.ns-17029699039032605.svc.cluster.local;
+    }
+    server {
+        listen       8080;
+        server_name  localhost;
+        client_max_body_size 5M;
+
+        location / {
+            root   html;
+            index  index.html index.htm;
+            try_files $uri $uri/ /index.html;
+        }
+        location /v1/health {
+            add_header Retry-After 3600 always;
+            default_type application/json;
+            alias /app/eggw-v2-admin/health.json;
+        }
+        location /admin/api {
+            proxy_http_version 1.1;
+            proxy_set_header "Connection" "";            
+            proxy_pass http://api-server;
+            proxy_connect_timeout   120; #기본 60초
+            proxy_send_timeout      120; #기본 60초
+            proxy_read_timeout       120;            
+            if ($request_method !~ ^(GET|POST)$) {return 401;}
+        } 
+        error_page 400 401 402 403 404 405 502 /error.html;
+        error_page 500 501 502 503 504 /error.html;
+        location = /usr/local/nginx/html/405.html {
+            root error;
+        }       
+    }
+
+}
+
+```
+
+## Logrotate Configuration
+소스로 직접 빌드한 nginx는 logrotate 설정이 없습니다.   
+logrotate 설정을 추가해보겠습니다.   
+<CodeHeader text="/etc/logrotate.d/nginx" />
+
+```conf
+/logs/web/nginx_lguservice/error-log/*.log {
+        daily
+        missingok
+        rotate 52
+        compress
+        delaycompress
+        notifempty
+        create 640 nginx nginx
+        sharedscripts
+        postrotate
+                if [ -f /logs/web/nginx_lguservice/nginx.pid ]; then
+                        kill -USR1 `cat /logs/web/nginx_lguservice/nginx.pid`
+                fi
+        endscript
+}
+
+/logs/web/nginx_lguservice/access-log/*.log {
+        daily
+        missingok
+        rotate 52
+        compress
+        delaycompress
+        notifempty
+        create 640 nginx nginx
+        sharedscripts
+        postrotate
+                if [ -f /logs/web/nginx_lguservice/nginx.pid ]; then
+                        kill -USR1 `cat /logs/web/nginx_lguservice/nginx.pid`
+                fi
+        endscript
+}
+
+```
+이후 작동확인을 위해 관련 설정기능들을 확인해보세요.  
+1. `/etc/crontab`
+2. `/etc/cron.daily/logrotate`
+3. `/etc/logrotate.conf`
+   1. 1. `include /etc/logrotate.d` 확인
+
+
+## Test
+nginx를 시작하고, configuration 들을 확인하는 테스트를 진행해보세요.
+
+### Test Nginx
+```sh
+sudo /svc/web/nginx_lguservice/sbin/nginx -t
+```
+-  t: test configuration and exit
+
+### Test Logrotate
+```sh
+sudo /usr/sbin/logrotate -d /etc/logrotate.d/nginx
+```
+
+## Operating
+
+### Start Nginx as a background process
+```sh
+sudo /svc/web/nginx_lguservice/sbin/nginx -g daemon off -c /app/nginx.conf -p /svc/web/nginx_lguservice
+```
+### Start Nginx as a foreground process
+```sh
+sudo /svc/web/nginx_lguservice/sbin/nginx'
+```
+
+###  Re
+
+
+
+
+
+
+
+
+
+## Refer
+- https://docs.nginx.com/nginx/admin-guide/installing-nginx/installing-nginx-open-source/#downloading-the-sources
+- https://www.lesstif.com/system-admin/openssl-compile-build-6291508.html
+- https://feccle.tistory.com/128#google_vignette
