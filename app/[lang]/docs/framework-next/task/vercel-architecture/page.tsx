@@ -16,8 +16,8 @@ export async function generateMetadata(
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   return {
-    title: "Nextjs 검색 기능 구현",
-    description: "Nextjs 검색 기능 구현",
+    title: "Vercel 아키텍처",
+    description: "Vercel 아키텍처",
   };
 }
 

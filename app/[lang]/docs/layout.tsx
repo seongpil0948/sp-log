@@ -18,7 +18,10 @@ export default function DocsLayout({
       />
       <main
         id="content-container"
-        className={clsx(main(), "overflow-auto max-h-screen pb-12")}
+        className={clsx(
+          main(),
+          "overflow-auto max-h-screen pb-12 mx-6 md:mx-48 lg:mx-96"
+        )}
       >
         {children}
       </main>

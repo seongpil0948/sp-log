@@ -180,16 +180,19 @@ sudo systemctl enable nginx
 ## Nginx Configuration
 이제 서비스에 맞게 Nginx를 구성해보세요
 
-<CodeHeader text="nginx.conf" />
+<CodeHeader text="/app/nginx.conf" />
 
 ```conf
-
-user  nginx root;
+user  nginx;
 worker_processes  10;
 
 error_log  /logs/web/nginx_lguservice/error-log/error.log  error;
 error_log  /dev/stderr  error;
+#error_log  logs/error.log  notice;
+#error_log  logs/error.log  info;
+
 pid        /logs/web/nginx_lguservice/nginx.pid;
+
 
 events {
     worker_connections  1024;
@@ -204,19 +207,33 @@ http {
                       '$status $body_bytes_sent "$http_referer" '
                       '"$http_user_agent" "$http_x_forwarded_for" "$request_time"';
 
+    log_format ssllog '$server_name $request_id $remote_addr - $remote_user [$time_local]  '
+                      '"$request" $status $body_bytes_sent '
+                      '"$http_referer" "$http_user_agent" "$http_x_forwarded_for" "$request_time"';
+
     access_log  /logs/web/nginx_lguservice/access-log/access.log  main;
-    access_log  /dev/stdout  main;    
+    access_log  /dev/stdout  main;
 
     sendfile        on;
+    #tcp_nopush     on;
+
+    #keepalive_timeout  0;
     keepalive_timeout  65;
+    # 디렉터리 검색 기능 제거
     autoindex off;
     server_tokens off;
+    #gzip  on;
     upstream api-server {
-        server sc-ixi-admin-api.ns-17029699039032605.svc.cluster.local;
+        server sc-igsn-studio-server.ns-17054908266123848.svc.cluster.local;
+        #server sc-igsn-studio-server.dev-sp.violet.uplus.co.kr;
     }
     server {
         listen       8080;
         server_name  localhost;
+
+        #charset koi8-r;
+        # access_log  /logs/host.access.log  main;
+
         client_max_body_size 5M;
 
         location / {
@@ -227,25 +244,26 @@ http {
         location /v1/health {
             add_header Retry-After 3600 always;
             default_type application/json;
-            alias /app/eggw-v2-admin/health.json;
+            alias /app/igsn-studio-client/health.json;
         }
-        location /admin/api {
+        location /api {
             proxy_http_version 1.1;
-            proxy_set_header "Connection" "";            
+            proxy_set_header "Connection" "";
             proxy_pass http://api-server;
             proxy_connect_timeout   120; #기본 60초
             proxy_send_timeout      120; #기본 60초
-            proxy_read_timeout       120;            
+            proxy_read_timeout       120;
             if ($request_method !~ ^(GET|POST)$) {return 401;}
-        } 
+        }
         error_page 400 401 402 403 404 405 502 /error.html;
         error_page 500 501 502 503 504 /error.html;
-        location = /usr/local/nginx/html/405.html {
+        location = /svc/web/nginx_lguservice/html/50x.html {
             root error;
-        }       
-    }
+        }
+        
 
 }
+
 
 ```
 
@@ -300,7 +318,7 @@ nginx를 시작하고, configuration 들을 확인하는 테스트를 진행해�
 
 ### Test Nginx
 ```sh
-sudo /svc/web/nginx_lguservice/sbin/nginx -t
+sudo /svc/web/nginx_lguservice/sbin/nginx -t -c /app/nginx.conf -g 'daemon off;
 ```
 -  t: test configuration and exit
 

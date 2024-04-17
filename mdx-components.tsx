@@ -1,5 +1,6 @@
 import type { MDXComponents } from "mdx/types";
-import Image from "next/image";
+import { Image } from "@nextui-org/image";
+// import Image from "next/image";
 import { parseNumber } from "@/app/_utils/common";
 import { Link as NextLink } from "@nextui-org/link";
 import { Snippet } from "@nextui-org/snippet";
@@ -12,7 +13,7 @@ import {
   paragraph,
   title,
 } from "./components/server-only/primitives";
-import { Chip, ChipProps } from "@nextui-org/chip";
+import { Chip } from "@nextui-org/chip";
 import { ChipList } from "./components/client-only/ChipList";
 import themeList from "@/components/server-only/theme/list";
 import { AlertText } from "./components/server-only/alert";
@@ -64,12 +65,10 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ),
     img: (props) => (
       <Image
-        sizes="100vw"
-        style={{ width: "100%", height: "auto" }}
+        className="mb-6 min-w-full rounded-lg max-h-[50vh] mx-auto"
+        isBlurred
         alt={props.alt ?? "abacus-image"}
         src={props.src ?? "/abacus.png"}
-        width={parseNumber(props.width, 100)}
-        height={parseNumber(props.height, 100)}
       />
     ),
     li: (props) => {
