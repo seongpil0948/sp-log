@@ -1,12 +1,9 @@
 "use client";
 
 import { NavbarMenu, NavbarMenuItem } from "@nextui-org/navbar";
-import { Kbd } from "@nextui-org/kbd";
 import { Link } from "@nextui-org/link";
-import { Listbox, ListboxItem, ListboxSection } from "@nextui-org/listbox";
 import { siteConfig } from "@/config/site";
-import { SearchIcon } from "@/components/server-only/icons";
-import commonConfig, { TAvailLocale } from "@/config";
+import commonConfig from "@/config";
 import { typo } from "@/components/server-only/primitives";
 import { usePathname, useRouter } from "next/navigation";
 import { TreeSectionProps } from "../../client-only/tree-section";
@@ -14,21 +11,9 @@ import { IGetTreeArgs } from "@/app/_utils/server/dir-tree";
 import { NavbarSlots, SlotsToClasses } from "@nextui-org/theme";
 import { CommonDrawerProps } from "../../client-only/drawer";
 import { extractFromPath } from "@/app/_utils/common/locale";
-import { ReactNode, useState } from "react";
-import { SearchResult } from "@/app/api/search/types";
-import { Button } from "@nextui-org/button";
-import clsx from "clsx";
-import { Input } from "@nextui-org/input";
-import {
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  useDisclosure,
-} from "@nextui-org/modal";
-import Loading from "@/app/loading";
-import { Spinner } from "@nextui-org/spinner";
+import { DocSearch } from "@docsearch/react";
+
+import "@docsearch/css";
 
 export interface CommonNavbarProps {
   tree?: TreeSectionProps;
@@ -40,34 +25,51 @@ export interface CommonNavbarProps {
   classes?: SlotsToClasses<NavbarSlots>;
   drawerProps?: Omit<CommonDrawerProps, "children">;
 }
-const ListboxWrapper = (props: { children: ReactNode }) => (
-  <div className="w-full md:max-w-[60vw] max-h-[50vh] overflow-auto  px-1 py-2 border-none ">
-    {props.children}
-  </div>
-);
+// const ListboxWrapper = (props: { children: ReactNode }) => (
+//   <div className="w-full md:max-w-[60vw] max-h-[50vh] overflow-auto  px-1 py-2 border-none ">
+//     {props.children}
+//   </div>
+// );
 export function NavInput() {
-  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
-  const [keyword, setKeyword] = useState<string>("");
-  const [searching, setSearching] = useState<boolean>(false);
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const router = useRouter();
+  // const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
+  // const [keyword, setKeyword] = useState<string>("");
+  // const [searching, setSearching] = useState<boolean>(false);
+  // const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  // const router = useRouter();
+  console.log("process.env", process.env);
 
-  const handleKeywordChange = (value: string) => {
-    setKeyword(value);
-    if (value.length > 0) {
-      setSearching(true);
-      fetch(`/api/search?keyword=${value}`)
-        .then((res) => res.json())
-        .then((data) => {
-          setSearchResults(data.results);
-          setSearching(false);
-        });
-    }
-  };
+  // const handleKeywordChange = (value: string) => {
+  //   setKeyword(value);
+  //   if (value.length > 0) {
+  //     setSearching(true);
+  //     fetch(`/api/search?keyword=${value}`)
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         setSearchResults(data.results);
+  //         setSearching(false);
+  //       });
+  //   }
+  // };
 
   return (
     <>
-      <Button
+      {/* <DocSearch
+                  appId={process.env.ALGOLIA_APP_ID ?? ""}
+                  indexName={process.env.ALGOLIA_INDEX_NAME ?? ""}
+                  apiKey={process.env.ALGOLIA_SEARCH_KEY ?? ""}
+                /> */}
+      {/* https://docsearch.algolia.com/docs/DocSearch-v3 */}
+      <DocSearch
+        appId="R2IYF7ETH7"
+        apiKey="599cec31baffa4868cae4e79f180729b"
+        indexName="docsearch"
+        // https://docsearch.algolia.com/docs/record-extractor/#indexing-content-for-faceting
+        // https://docsearch.algolia.com/docs/required-configuration/#introduce-global-information-as-meta-tags
+        // searchParameters={{
+        //   facetFilters: ["language:en", "version:1.0.0"],
+        // }}
+      />
+      {/* <Button
         aria-label="Search"
         onPress={onOpen}
         endContent={
@@ -177,7 +179,7 @@ export function NavInput() {
             </>
           )}
         </ModalContent>
-      </Modal>
+      </Modal> */}
     </>
   );
 }

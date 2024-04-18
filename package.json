@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@docsearch/react": "3",
     "@formatjs/intl-localematcher": "^0.5.4",
     "@mdi/js": "^7.4.47",
     "@mdi/react": "^1.6.1",

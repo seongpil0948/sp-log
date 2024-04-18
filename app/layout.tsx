@@ -32,9 +32,17 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const ALGOLIA_APP_ID = process.env.ALGOLIA_APP_ID;
   return (
     <html lang="en" suppressHydrationWarning>
-      <head />
+      <head>
+        <link
+          // @ts-ignore
+          crossorigin
+          rel="preconnect"
+          href={`https://${ALGOLIA_APP_ID}-dsn.algolia.net`}
+        />
+      </head>
       <body
         className={clsx(
           "min-h-screen bg-background font-sans antialiased m-0 p-0 overflow-hidden",
