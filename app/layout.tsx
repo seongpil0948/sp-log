@@ -32,7 +32,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const ALGOLIA_APP_ID = process.env.ALGOLIA_APP_ID;
+  const NEXT_PUBLIC_ALGOLIA_APP_ID = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID;
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -40,7 +40,7 @@ export default function RootLayout({
           // @ts-ignore
           crossorigin
           rel="preconnect"
-          href={`https://${ALGOLIA_APP_ID}-dsn.algolia.net`}
+          href={`https://${NEXT_PUBLIC_ALGOLIA_APP_ID}-dsn.algolia.net`}
         />
       </head>
       <body

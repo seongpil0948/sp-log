@@ -1,4 +1,4 @@
-import { CommonNavbarProps, NavInput, NavMobileMenu } from "./client";
+import { CommonNavbarProps, NavMobileMenu } from "./client";
 import { clsx, type ClassValue } from "clsx";
 import { navbar } from "./theme";
 import { getTree } from "@/app/_utils/server/dir-tree";
@@ -16,6 +16,7 @@ import { GithubIcon } from "@/components/server-only/icons";
 import { Logo } from "@/components/server-only/icons";
 import { PrefixComp } from "./side";
 import { getDictionary } from "@/app/[lang]/dictionaries";
+import SearchModal from "../SearchModal";
 
 export function cn(...inputs: ClassValue[]) {
   return clsx(inputs);
@@ -71,7 +72,7 @@ export default async function CommonNavbar(p: CommonNavbarProps) {
           <ThemeSwitch />
         </NavbarItem>
         <NavbarItem className="hidden md:flex basis-2/5">
-          <NavInput />
+          <SearchModal />
         </NavbarItem>
         <NavbarMenuToggle />
       </NavbarContent>
