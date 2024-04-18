@@ -5,9 +5,11 @@ export interface SearchEngineCommon {
   docs: SearchDoc[];
   cache: { [keyword: string]: SearchResult[] };
   clear(): void;
+  save(): void;
   addDoc(doc: SearchDoc): void;
   addCache(keyword: string, searchResult: SearchResult[]): void;
   search(keyword: string): SearchResult[];
+  load: () => void;
 }
 
 export class SearchEngineBasic implements SearchEngineCommon {
@@ -18,7 +20,8 @@ export class SearchEngineBasic implements SearchEngineCommon {
     this.cache = {};
   }
 
-  static JSON_PATH = "search-docs.json";
+  static JSON_PATH = "/search-docs.json";
+  static JSON_BUILD_PATH = "/public" + SearchEngineBasic.JSON_PATH;
 
   public get isLoaded(): boolean {
     return this.docs.length > 0;
@@ -27,6 +30,9 @@ export class SearchEngineBasic implements SearchEngineCommon {
   clear() {
     this.docs = [];
     this.cache = {};
+    if (fs.existsSync(SearchEngineBasic.JSON_BUILD_PATH)) {
+      fs.rmSync(SearchEngineBasic.JSON_BUILD_PATH);
+    }
   }
 
   addDoc(doc: SearchDoc) {
@@ -72,14 +78,12 @@ export class SearchEngineBasic implements SearchEngineCommon {
   get toJson() {
     return JSON.stringify(this.docs);
   }
-  get existsJsonFile() {
-    return fs.existsSync(SearchEngineBasic.JSON_PATH);
+
+  save() {
+    fs.writeFileSync(SearchEngineBasic.JSON_BUILD_PATH, this.toJson);
   }
-  saveJsonFile() {
-    fs.writeFileSync(SearchEngineBasic.JSON_PATH, this.toJson);
-  }
-  loadJsonFile() {
-    if (!this.existsJsonFile) {
+  load() {
+    if (!fs.existsSync(SearchEngineBasic.JSON_PATH)) {
       throw new Error(
         `not initialized search engine,${SearchEngineBasic.JSON_PATH} is not found`
       );
