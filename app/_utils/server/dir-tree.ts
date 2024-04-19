@@ -38,7 +38,10 @@ export interface IGetTreeArgs {
 export function getTree(args: IGetTreeArgs) {
   const libTree = dirTree(
     args.dir,
-    { exclude: /home|[id]]/, ...args.options },
+    {
+      exclude: /\/home|\/\[id\]|\/api/,
+      ...args.options,
+    },
     undefined,
     callback
   );

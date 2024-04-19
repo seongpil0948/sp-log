@@ -17,12 +17,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
           "weekly" as MetadataRoute.Sitemap[number]["changeFrequency"],
         priority: 1,
       };
-      if (url.startsWith("http")) return obj;
-      else if (url.startsWith("/")) {
-        obj.url = `${APP_DOMAIN}${url}`;
+      const u = obj.url;
+      if (u.startsWith("http")) return obj;
+      else if (u.startsWith("/")) {
+        obj.url = `${APP_DOMAIN}${u}`;
         return obj;
       } else {
-        obj.url = `${APP_DOMAIN}/${url}`;
+        obj.url = `${APP_DOMAIN}/${u}`;
         return obj;
       }
     })
