@@ -37,8 +37,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <link
-          // @ts-ignore
-          crossorigin
+          crossOrigin="use-credentials"
           rel="preconnect"
           href={`https://${NEXT_PUBLIC_ALGOLIA_APP_ID}-dsn.algolia.net`}
         />
