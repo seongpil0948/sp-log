@@ -1,4 +1,5 @@
 "use client";
+// @ts-ignore
 
 import { AccordionItem, Accordion } from "@nextui-org/accordion";
 import CommonDrawer from "../../client-only/drawer";
@@ -8,8 +9,9 @@ import { Link } from "@nextui-org/link";
 import { isMobile } from "@/app/_utils/client/responsive";
 import { CommonNavbarProps } from "./client";
 import { siteConfig } from "@/config/site";
+import type { ReactNode, JSX } from "react";
 
-export function PrefixComp(props: CommonNavbarProps): React.ReactNode {
+export function PrefixComp(props: CommonNavbarProps): ReactNode {
   const path = usePathname();
   const isM = isMobile();
 

@@ -1,4 +1,5 @@
-import { AVAIL_LOCALES, TAvailLocale } from "@/config";
+/* eslint-disable no-unused-vars */
+import { TAvailLocale } from "@/config";
 import Content from "./content.mdx";
 
 import { ResolvingMetadata, Metadata } from "next";

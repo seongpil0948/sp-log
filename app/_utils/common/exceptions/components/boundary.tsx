@@ -1,9 +1,10 @@
-'use client'
-import { Component, ErrorInfo, ReactNode } from 'react';
+"use client";
+import { Component, ErrorInfo, ReactNode } from "react";
+import type { ElementType } from "react";
 
 interface Props {
   children?: ReactNode;
-  fallback?: React.ElementType;
+  fallback?: ElementType;
   onError: (error: Error, errorInfo: ErrorInfo) => void;
 }
 
@@ -26,7 +27,7 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('peach error: ', errorInfo, error);
+    console.error("peach error: ", errorInfo, error);
     this.props.onError(error, errorInfo);
   }
 

@@ -19,7 +19,7 @@ import themeList from "@/components/server-only/theme/list";
 
 export default function AboutSectionsKo(props: { certData: string[] }) {
   const { certData } = props;
-  const { ul: ulClasses, ol: olClasses } = themeList();
+  const { ol: olClasses } = themeList();
   const expCompany = [
     {
       name: "intellisys",

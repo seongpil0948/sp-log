@@ -1,7 +1,7 @@
 "use client";
 import clsx from "clsx";
 import { motion, useAnimationControls } from "framer-motion";
-import { init } from "next/dist/compiled/webpack/webpack";
+import type { ReactNode } from "react";
 import { CSSProperties, useRef, useState } from "react";
 
 const Z_INDEX = {
@@ -45,7 +45,7 @@ export default function useTour() {
 }
 
 export const TargetWrapper = (props: {
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
   animate: "initial" | "pulse";
 }) => {

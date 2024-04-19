@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import Content from "./content.mdx";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import { TAvailLocale } from "@/config";

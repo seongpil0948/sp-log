@@ -8,11 +8,12 @@ import {
   TableBody,
   TableProps,
 } from "@nextui-org/table";
+import { ReactNode } from "react";
 
 type Key = TableProps["key"];
 interface KT {
   key: Key;
-  title: React.ReactNode;
+  title: ReactNode;
 }
 interface Row {
   key: Key;

@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { siteConfig } from "@/config/site";
 import { main } from "@/components/server-only/primitives";
-
+import type { ReactNode } from "react";
 export const metadata: Metadata = {
   description: "Interactive Documentation",
   title: {
@@ -10,11 +10,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   // const tree = getTree('app/[lang]/doc/interactive', { extensions: /\.mdx$/,})
   return <main className={main()}>{children}</main>;
 }

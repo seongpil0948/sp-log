@@ -1,4 +1,4 @@
-import { AVAIL_LOCALES, TAvailLocale } from "@/config";
+import { TAvailLocale } from "@/config";
 import Content from "./content.mdx";
 
 import { ResolvingMetadata, Metadata } from "next";

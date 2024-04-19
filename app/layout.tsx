@@ -6,6 +6,7 @@ import { Providers } from "./_providers";
 import clsx from "clsx";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import type { ReactNode } from "react";
 
 export const viewport: Viewport = {
   themeColor: [
@@ -27,11 +28,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   const NEXT_PUBLIC_ALGOLIA_APP_ID = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID;
   return (
     <html lang="en" suppressHydrationWarning>

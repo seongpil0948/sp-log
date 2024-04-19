@@ -1,4 +1,3 @@
-import { paragraph } from "@/components/server-only/primitives";
 import styles from "./styles.module.css";
 import About from "./_components/About";
 import clsx from "clsx";

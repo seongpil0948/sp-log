@@ -8,7 +8,7 @@ export async function generateStaticParams() {
 interface Param {
   params: { lang: TAvailLocale };
 }
-
+// eslint-disable-next-line no-unused-vars
 export default async function SSGPage({ params: { lang } }: Param) {
   return (
     <div>

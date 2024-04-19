@@ -12,9 +12,10 @@ import Icon from "@mdi/react";
 import { useDisclosure } from "@nextui-org/modal";
 import { mdiMenuClose, mdiMenuOpen } from "@mdi/js";
 import { Button } from "@nextui-org/button";
+import type { ReactNode } from "react";
 
 export interface CommonDrawerProps {
-  children: React.ReactNode;
+  children: ReactNode;
   title?: string;
   sheetProps?: Partial<SheetProps>;
 }

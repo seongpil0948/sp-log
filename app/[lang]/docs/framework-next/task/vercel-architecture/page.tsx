@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { TAvailLocale } from "@/config";
 import Content from "./content.mdx";
 

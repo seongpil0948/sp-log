@@ -1,5 +1,4 @@
 import { WaveView } from "./_components/client-only/WaveView";
-import clsx from "clsx";
 
 import commonConfig from "@/config";
 export async function generateStaticParams() {
@@ -11,6 +10,7 @@ interface Param {
   params: { lang: TAvailLocale };
 }
 
+// eslint-disable-next-line no-unused-vars
 export default async function SSGPage({ params: { lang } }: Param) {
   return (
     <div

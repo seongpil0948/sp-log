@@ -5,12 +5,17 @@ export class Ball {
     public y: number,
     private radius: number,
     private color: string
-  ) { }
+  ) {
+    this.x = x;
+    this.y = y;
+    this.radius = radius;
+    this.color = color;
+  }
 
   // Add a draw method to the Ball class
   draw(context: CanvasRenderingContext2D) {
     const numSegments = 100; // Increase this for a more accurate circle
-    const angleStep = Math.PI * 2 / numSegments;
+    const angleStep = (Math.PI * 2) / numSegments;
 
     context.beginPath();
     context.moveTo(this.x + this.radius, this.y); // Start at the rightmost point of the circle

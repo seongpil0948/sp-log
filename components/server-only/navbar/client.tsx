@@ -5,23 +5,23 @@ import { Link } from "@nextui-org/link";
 import { siteConfig } from "@/config/site";
 import commonConfig from "@/config";
 import { typo } from "@/components/server-only/primitives";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { TreeSectionProps } from "../../client-only/tree-section";
 import { IGetTreeArgs } from "@/app/_utils/server/dir-tree";
 import { NavbarSlots, SlotsToClasses } from "@nextui-org/theme";
 import { CommonDrawerProps } from "../../client-only/drawer";
 import { extractFromPath } from "@/app/_utils/common/locale";
-import { DocSearch } from "@docsearch/react";
 
 import "@docsearch/css";
+import type { ReactNode } from "react";
 
 export interface CommonNavbarProps {
   tree?: TreeSectionProps;
-  children?: React.ReactNode;
+  children?: ReactNode;
 
   leftTreeOptions: IGetTreeArgs;
   treeLeft?: TreeSectionProps;
-  prefix?: React.ReactNode;
+  prefix?: ReactNode;
   classes?: SlotsToClasses<NavbarSlots>;
   drawerProps?: Omit<CommonDrawerProps, "children">;
 }

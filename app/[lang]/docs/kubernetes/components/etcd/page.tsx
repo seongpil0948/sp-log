@@ -1,4 +1,4 @@
-import { AVAIL_LOCALES, TAvailLocale } from "@/config";
+import { TAvailLocale } from "@/config";
 import Content from "./content.mdx";
 
 import { ResolvingMetadata, Metadata } from "next";
@@ -16,6 +16,7 @@ type Props = {
 
 export async function generateMetadata(
   { params: { lang } }: Props,
+  // eslint-disable-next-line no-unused-vars
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   const dict = await getDictionary(lang);
@@ -24,7 +25,7 @@ export async function generateMetadata(
     description: dict["doc"]["kubernetes"]["components"]["etcd"]["description"],
   };
 }
-
+// eslint-disable-next-line no-unused-vars
 export default async function SSGPage({ params: { lang } }: Props) {
   return (
     <div>

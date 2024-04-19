@@ -21,7 +21,7 @@ import ProjectContent from "../../project/_components/ProjectContent";
 
 export default function AboutSectionsKo(props: { certData: string[] }) {
   const { certData } = props;
-  const { ul: ulClasses, ol: olClasses } = themeList();
+  const { ol: olClasses } = themeList();
   const expCompany = [
     {
       name: "intellisys",

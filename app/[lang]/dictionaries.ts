@@ -1,5 +1,4 @@
 import commonConfig, { TAvailLocale } from "@/config";
-import { siteConfig } from "@/config/site";
 import "server-only";
 
 const dictionaries = Object.freeze({
