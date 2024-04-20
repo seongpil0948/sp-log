@@ -26,7 +26,7 @@ export default async function PageSSG({ params: { lang, id } }: Param) {
   }
   return (
     <div className={"overflow-y-auto overflow-x-hidden h-screen"}>
-      <CommonNavbar leftTreeOptions={{ dir: "app/[lang]" }} />
+      <CommonNavbar lang={lang} leftTreeOptions={{ dir: "app/[lang]" }} />
       <ProjectContent post={post} />
       <>
         <HeaderAbout title="see more" />

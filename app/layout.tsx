@@ -47,8 +47,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       >
         <Providers
           themeProps={{
-            attribute: "class",
+            attribute: "data-theme",
+            // attribute: "class",
             children: <></>,
+            defaultTheme: "light",
+            enableSystem: true,
+            themes: ["light", "dark"],
           }}
         >
           {children}

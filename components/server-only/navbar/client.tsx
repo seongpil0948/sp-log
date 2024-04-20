@@ -3,7 +3,7 @@
 import { NavbarMenu, NavbarMenuItem } from "@nextui-org/navbar";
 import { Link } from "@nextui-org/link";
 import { siteConfig } from "@/config/site";
-import commonConfig from "@/config";
+import commonConfig, { TAvailLocale } from "@/config";
 import { typo } from "@/components/server-only/primitives";
 import { usePathname } from "next/navigation";
 import { TreeSectionProps } from "../../client-only/tree-section";
@@ -11,14 +11,12 @@ import { IGetTreeArgs } from "@/app/_utils/server/dir-tree";
 import { NavbarSlots, SlotsToClasses } from "@nextui-org/theme";
 import { CommonDrawerProps } from "../../client-only/drawer";
 import { extractFromPath } from "@/app/_utils/common/locale";
-
-import "@docsearch/css";
 import type { ReactNode } from "react";
 
 export interface CommonNavbarProps {
   tree?: TreeSectionProps;
   children?: ReactNode;
-
+  lang: TAvailLocale;
   leftTreeOptions: IGetTreeArgs;
   treeLeft?: TreeSectionProps;
   prefix?: ReactNode;

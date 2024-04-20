@@ -1,0 +1,20 @@
+
+nav button.DocSearch-Button {
+  height: 2.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+button.DocSearch-Button {
+  height: 4rem;
+  padding-left: 2rem;
+  padding-right: 2rem;  
+}
+
+/* 
+@media screen and (max-width: 768px) {
+  button.DocSearch-Button:not(nav) {
+  
+  }
+}
+*/

@@ -16,7 +16,7 @@ import { GithubIcon } from "@/components/server-only/icons";
 import { Logo } from "@/components/server-only/icons";
 import { PrefixComp } from "./side";
 import { getDictionary } from "@/app/[lang]/dictionaries";
-import SearchModal from "../SearchModal";
+import SearchModal from "../../client-only/button/SearchModal";
 
 export function cn(...inputs: ClassValue[]) {
   return clsx(inputs);
@@ -72,7 +72,7 @@ export default async function CommonNavbar(p: CommonNavbarProps) {
           <ThemeSwitch />
         </NavbarItem>
         <NavbarItem className="hidden md:flex basis-2/5">
-          <SearchModal />
+          <SearchModal locale={p.lang} />
         </NavbarItem>
         <NavbarMenuToggle />
       </NavbarContent>

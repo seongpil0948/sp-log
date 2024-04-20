@@ -1,8 +1,12 @@
 "use client";
 
 import { DocSearch } from "@docsearch/react";
+import { TAvailLocale } from "@/config";
+import "@docsearch/css";
+import "./custom.css";
 
-export function SearchModal() {
+export function SearchModal(props: { locale: TAvailLocale }) {
+  const { locale } = props;
   // const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   // const [keyword, setKeyword] = useState<string>("");
   // const [searching, setSearching] = useState<boolean>(false);
@@ -34,6 +38,11 @@ export function SearchModal() {
         appId={process.env.NEXT_PUBLIC_ALGOLIA_APP_ID}
         apiKey={process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_KEY}
         indexName={process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME}
+        translations={{
+          button: {
+            buttonText: locale === "en" ? "Search..." : "검색 팡팡!",
+          },
+        }}
         // https://docsearch.algolia.com/docs/record-extractor/#indexing-content-for-faceting
         // https://docsearch.algolia.com/docs/required-configuration/#introduce-global-information-as-meta-tags
         // searchParameters={{
