@@ -72,7 +72,7 @@ export default async function CommonNavbar(p: CommonNavbarProps) {
           <ThemeSwitch />
         </NavbarItem>
         <NavbarItem className="hidden md:flex basis-2/5">
-          <SearchModal locale={p.lang} />
+          <SearchModal locale={p.lang ?? "en"} />
         </NavbarItem>
         <NavbarMenuToggle />
       </NavbarContent>

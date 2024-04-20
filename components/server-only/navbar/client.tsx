@@ -16,7 +16,7 @@ import type { ReactNode } from "react";
 export interface CommonNavbarProps {
   tree?: TreeSectionProps;
   children?: ReactNode;
-  lang: TAvailLocale;
+  lang?: TAvailLocale;
   leftTreeOptions: IGetTreeArgs;
   treeLeft?: TreeSectionProps;
   prefix?: ReactNode;
