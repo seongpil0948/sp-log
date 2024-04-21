@@ -25,9 +25,10 @@ export function Scene() {
         <FirstSection
           containerScrollable={containerScrollable}
           handleScroll={(progress) => {
+            console.log("progress : ", progress, containerScrollable);
             if (progress > 0.8 && !containerScrollable) {
               setContainerScrollable(true);
-            } else if (progress < 0.01 && containerScrollable) {
+            } else if (progress < 0.1 && containerScrollable) {
               setContainerScrollable(false);
             }
           }}
