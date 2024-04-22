@@ -11,6 +11,18 @@
 //   });
 //   Object.keys(obj).map((k) => s.includes(obj[k]));
 // }
+export function splitArray<T>(array: T[], n: number): T[][] {
+  const result: T[][] = [];
+  const len = array.length;
+  const chunkSize = Math.ceil(len / n);
+
+  for (let i = 0; i < len; i += chunkSize) {
+    const chunk = array.slice(i, i + chunkSize);
+    result.push(chunk);
+  }
+
+  return result;
+}
 
 export const uniqueArr = <T extends string | number>(arr: T[]): T[] =>
   Array.from(new Set(arr));

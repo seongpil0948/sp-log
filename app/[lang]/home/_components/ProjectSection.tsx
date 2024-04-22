@@ -1,7 +1,7 @@
 "use client";
 import clsx from "clsx";
 import { sectionCls } from "../theme";
-import { useRef } from "react";
+import { ReactNode, useRef } from "react";
 import {
   motion,
   useTransform,
@@ -12,12 +12,17 @@ import {
 } from "framer-motion";
 import { wrap } from "@motionone/utils";
 import { title } from "@/components/server-only/primitives";
+import ProjectCardListHorizontal from "../../project/_components/server-only/ProjectCardsHorizontal";
+import PROJECTS from "../../project/_logics/projects";
+import { splitArray } from "@/app/_utils/common";
 
 export function ProjectSection(props: {
   rootRef: React.RefObject<HTMLDivElement>;
   scrollY: MotionValue<number>;
 }) {
   const sectionRef = useRef<HTMLDivElement>(null);
+
+  const arrProjects = splitArray(PROJECTS, 3);
   return (
     <section ref={sectionRef} className={clsx(sectionCls, "-mt-48")}>
       <ParallaxText
@@ -25,21 +30,24 @@ export function ProjectSection(props: {
         containerRef={sectionRef}
         baseVelocity={-3}
       >
-        Framer Motion
+        Projects
       </ParallaxText>
-      <ParallaxText
-        scrollY={props.scrollY}
-        containerRef={sectionRef}
-        baseVelocity={3}
-      >
-        Scroll velocity
-      </ParallaxText>
+      {arrProjects.map((projects, idx) => (
+        <ParallaxText
+          key={idx}
+          scrollY={props.scrollY}
+          containerRef={sectionRef}
+          baseVelocity={idx % 2 === 0 ? 3 : -3}
+        >
+          <ProjectCardListHorizontal projects={projects} />
+        </ParallaxText>
+      ))}
     </section>
   );
 }
 
 interface ParallaxProps {
-  children: string;
+  children: ReactNode;
   baseVelocity: number;
   containerRef?: React.RefObject<HTMLDivElement>;
   rootRef?: React.RefObject<HTMLDivElement>;
@@ -84,7 +92,7 @@ export function ParallaxText(props: ParallaxProps) {
   return (
     <div className=" w-screen overflow-hidden -tracking-widest leading-3 m-0 whitespace-nowrap flex flex-nowrap">
       <motion.div
-        className={clsx(title(), "flex whitespace-nowrap flex-nowrap ")}
+        className={clsx(title(), "flex whitespace-nowrap flex-nowrap gap-12 ")}
         style={{ x }}
       >
         <span>{children} </span>
