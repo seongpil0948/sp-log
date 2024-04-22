@@ -1,3 +1,6 @@
+# Todo
+- [ ] About 의 Developer 에서 스크롤 효과에 따라 중앙에 Dev 로변경되며 트랜지션 되는 효과 추가
+
 # Reference
 
 - https://github.com/vercel/platforms/blob/main/app/sitemap.ts

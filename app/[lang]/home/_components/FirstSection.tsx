@@ -6,11 +6,10 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import clsx from "clsx";
-import { useIntersect } from "@/app/_utils/client/hooks/intersect";
 import { useInView } from "framer-motion";
 import { sectionCls } from "../theme";
-import Image from "next/image";
-import { useWindowSize } from "@/app/_utils/client/responsive";
+// import { Image } from "@nextui-org/image";
+import NextImage from "next/image";
 
 const frameCount = 147;
 const urls = new Array(frameCount)
@@ -25,53 +24,106 @@ export function FirstSection(props: {
   // const isInView = useInView(canvasRef, { amount: "some" });
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { amount: "all" });
+  const [curFrame, setCurFrame] = useState(0);
+  const [images, setImages] = useState<HTMLImageElement[]>([]);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
   const init = useCallback(() => {
-    props.handleScroll(0);
     setCurFrame(0);
+    props.handleScroll(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const size = useWindowSize();
 
   useEffect(() => {
-    console.info("canvas isInView : ", isInView);
     if (isInView && props.containerScrollable) {
-      console.info("init");
       init();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [init, isInView]);
 
-  const [curFrame, setCurFrame] = useState(0);
+  useEffect(() => {
+    if (!isInView) return;
+    const canvas = canvasRef.current;
+    const ctx = canvas?.getContext("2d");
+    if (!canvas || !ctx || !images[curFrame]) return;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const img = images[curFrame];
+    ctx.drawImage(
+      img,
+      canvas.width * 0.3,
+      canvas.height * 0.3,
+      canvas.width * 0.6,
+      canvas.height * 0.6
+    );
+  }, [curFrame, images, isInView]);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas?.getContext("2d");
+    if (!canvas || !ctx) return;
+
+    setImages(
+      urls.map((url) => {
+        let img = new Image();
+        img.src = url;
+        return img;
+      })
+    );
+    resize();
+  }, []);
+
+  const resize = () => {
+    const canvas = canvasRef.current;
+    const ctx = canvas?.getContext("2d");
+    if (!canvas || !ctx) return;
+
+    const stageWidth = document.body.clientWidth;
+    const stageHeight = document.body.clientHeight;
+    canvas.width = stageWidth * 2;
+    canvas.height = stageHeight * 2;
+    ctx.scale(1, 1);
+  };
+
+  const speed = 2;
   const handOnWheel = (e: React.WheelEvent) => {
     if (props.containerScrollable || !isInView) return;
     const delta = e.deltaY;
 
-    const frame = Math.floor(
-      urls.length * (curFrame / urls.length + delta / 1000)
+    const frame = Math.abs(
+      Math.floor(urls.length * (curFrame / urls.length + delta / 1000) * speed)
     );
     if (frame !== curFrame) {
       setCurFrame(frame);
       props.handleScroll(frame / urls.length);
     }
   };
+
   return (
     <section
       ref={sectionRef}
-      className={clsx(sectionCls)}
+      className={clsx(sectionCls, "relative ")}
       onWheel={handOnWheel}
     >
       홈 화면입니다.
-      <Image
-        src={urls[curFrame]}
-        alt="hihi"
-        width={size.width}
-        height={size.height * 0.9}
+      <canvas
+        onResize={resize}
+        ref={canvasRef}
         style={{
-          objectFit: "cover",
-          height: "auto",
-          width: "auto",
-          margin: "auto",
+          zIndex: 1,
+          top: 0,
+          left: 0,
+          width: "80vw",
+          height: "80vh",
+          position: "absolute",
         }}
-      />
+      >
+        <NextImage
+          src={urls[curFrame]}
+          alt="hihi"
+          fill
+          sizes="(max-width: 768px) 80vw, (max-width: 1200px) 60vw, 40vw"
+        />
+      </canvas>
       {/* <canvas onResize={resize} ref={canvasRef} />; */}
     </section>
   );

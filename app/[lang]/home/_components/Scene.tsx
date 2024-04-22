@@ -9,15 +9,19 @@ import { ProjectSection } from "./ProjectSection";
 // on first mounted disable scroll and rotate the image
 // when frame is equal to length of urls, enable scroll
 export function Scene() {
-  const [containerScrollable, setContainerScrollable] = useState(false);
+  const [containerScrollable, setContainerScrollable] = useState(true);
 
   return (
     <>
       <section
         id="scene"
-        className={clsx(sectionCls, {
-          "overflow-auto": containerScrollable,
-        })}
+        className={clsx(
+          sectionCls,
+          {
+            "overflow-auto": containerScrollable,
+          },
+          "relative snap-both snap-mandatory"
+        )}
         style={{
           zIndex: 1,
         }}
@@ -28,7 +32,7 @@ export function Scene() {
             console.log("progress : ", progress, containerScrollable);
             if (progress > 0.8 && !containerScrollable) {
               setContainerScrollable(true);
-            } else if (progress < 0.1 && containerScrollable) {
+            } else if (containerScrollable && progress === 0) {
               setContainerScrollable(false);
             }
           }}
