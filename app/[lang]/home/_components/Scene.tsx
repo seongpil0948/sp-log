@@ -1,32 +1,28 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import clsx from "clsx";
 import { sectionCls } from "../theme";
 import { FirstSection } from "./FirstSection";
 import { ProjectSection } from "./ProjectSection";
-import {
-  useMotionValueEvent,
-  useScroll,
-  useSpring,
-  useVelocity,
-} from "framer-motion";
+import { useScroll, useSpring, useVelocity } from "framer-motion";
 
 // on first mounted disable scroll and rotate the image
 // when frame is equal to length of urls, enable scroll
 export function Scene() {
-  const [containerScrollable, setContainerScrollable] = useState(true);
   const rootRef = useRef<HTMLDivElement>(null);
   const { scrollY } = useScroll({
     container: rootRef,
     layoutEffect: true,
   });
+
   const scrollVelocity = useVelocity(scrollY);
 
   const smoothVelocity = useSpring(scrollVelocity, {
     damping: 50,
     stiffness: 400,
   });
+
   return (
     <>
       <section
@@ -34,26 +30,14 @@ export function Scene() {
         ref={rootRef}
         className={clsx(
           sectionCls,
-          {
-            "overflow-auto": containerScrollable,
-          },
-          "relative snap-both snap-mandatory"
+          // "relative snap-both snap-mandatory overflow-auto"
+          "relative overflow-auto"
         )}
         style={{
           zIndex: 1,
         }}
       >
-        <FirstSection
-          containerScrollable={containerScrollable}
-          handleScroll={(progress) => {
-            console.log("progress : ", progress, containerScrollable);
-            if (progress > 0.8 && !containerScrollable) {
-              setContainerScrollable(true);
-            } else if (containerScrollable && progress === 0) {
-              setContainerScrollable(false);
-            }
-          }}
-        />
+        <FirstSection scrollY={smoothVelocity} />
         <ProjectSection scrollY={smoothVelocity} rootRef={rootRef} />
         <DocsSection />
         <AboutSection />

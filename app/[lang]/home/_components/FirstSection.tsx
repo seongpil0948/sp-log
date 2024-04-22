@@ -4,120 +4,76 @@
 // https://www.apple.com/kr/macbook-air/?afid=p238%7CsiADh6hbK-dc_mtid_18707vxu38484_pcrid_693736852787_pgrid_16348496961_pntwk_g_pchan__pexid_131009289166_&cid=aos-kr-kwgo-Brand--slid-AapXiqMo--product-
 // https://www.framer.com/motion/scroll-animations/##no-code
 
-import { CSSProperties, useCallback, useEffect, useRef, useState } from "react";
+import { CSSProperties, useEffect, useRef } from "react";
 import clsx from "clsx";
-import { useInView, motion, MotionConfig } from "framer-motion";
+import {
+  useInView,
+  motion,
+  MotionConfig,
+  MotionValue,
+  useMotionValueEvent,
+  useTransform,
+} from "framer-motion";
 import { sectionCls } from "../theme";
 import { useWindowSize } from "@/app/_utils/client/responsive";
-import { useRouter } from "next/navigation";
 import HomeNavigation from "./HomeNavigation";
+import { AboutCanvas } from "./AboutCanvas";
 
-const frameCount = 15;
-const urls = new Array(frameCount)
-  .fill(true)
-  .map((o, i) => `/home/moong-me/${(i + 1).toString()}.png`);
-
-export function FirstSection(props: {
-  handleScroll: (progress: number) => void;
-  containerScrollable: boolean;
-}) {
-  const router = useRouter();
+export function FirstSection(props: { scrollY: MotionValue<number> }) {
+  const { scrollY } = props;
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, {
     amount: 0.9,
     margin: "64px 0px 0px 0px",
   });
-  const [curFrame, setCurFrame] = useState(0);
-  const [images, setImages] = useState<HTMLImageElement[]>([]);
+
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const s = useWindowSize();
 
-  const init = useCallback(() => {
-    setCurFrame(0);
-    props.handleScroll(0);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    if (isInView && props.containerScrollable) {
-      init();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [init, isInView]);
-
-  useEffect(() => {
-    if (!isInView) return;
-    const canvas = canvasRef.current;
-    const ctx = canvas?.getContext("2d");
-    if (!canvas || !ctx || !images[curFrame]) return;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    const img = images[curFrame];
-    ctx.drawImage(img, 0, 0, canvas.width / 2, canvas.height / 2);
-    ctx.fillStyle = "white";
-    ctx.fillText("About", 30, 20);
-  }, [curFrame, images, isInView]);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const ctx = canvas?.getContext("2d");
-    if (!canvas || !ctx) return;
-
-    setImages(
-      urls.map((url) => {
-        let img = new Image();
-        img.src = url;
-        return img;
-      })
-    );
-  }, []);
-
-  const speed = 1;
-  const handOnWheel = (e: React.WheelEvent) => {
-    if (!isInView) return;
-    const delta = e.deltaY;
-
-    const frame = Math.abs(
-      Math.floor(urls.length * (curFrame / urls.length + delta / 1000) * speed)
-    );
-    if (frame !== curFrame) {
-      setCurFrame(frame);
-      props.handleScroll(frame / urls.length);
-    }
-  };
-
-  const blackWidth = s.width / 2;
-  const blackHeight = s.height / 2;
-  const itemStyle: CSSProperties = {
-    zIndex: 1,
-    position: "absolute",
-    minWidth: blackWidth,
-    minHeight: blackHeight,
-    cursor: "pointer",
-  };
   const blackHole = {
-    itemStyle,
+    w: s.width / 2,
+    h: s.height / 2,
     initial: { opacity: 0, x: 0 },
   };
+
+  const toX = 0.8;
+  const toY = 0.8;
+  const toR = 5;
+  const animateTo = {
+    leftT: -(blackHole.w * toX),
+    rightT: blackHole.w * toX,
+    topT: -(blackHole.h * toY),
+    centerVT: blackHole.h / 3,
+    common: {
+      opacity: 1,
+    },
+  };
+  const inputRage = [0, blackHole.h / 4];
+  const leftTX = useTransform(scrollY, inputRage, [animateTo.leftT, 0]);
+  const rightTX = useTransform(scrollY, inputRage, [animateTo.rightT, 0]);
+  const topTY = useTransform(scrollY, inputRage, [animateTo.topT, 0]);
+  const opacity = useTransform(scrollY, inputRage, [1, 0]);
+  const rotate = useTransform(scrollY, inputRage, [toR, 0]);
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    console.log("latest: ", latest);
+  });
+
   return (
-    <section
-      ref={sectionRef}
-      className={clsx(sectionCls, "relative")}
-      onWheel={handOnWheel}
-    >
-      <MotionConfig transition={{ duration: 1, type: "spring" }}>
+    <section ref={sectionRef} className={clsx(sectionCls, "relative")}>
+      <MotionConfig transition={{ duration: 0.3, type: "just" }}>
         <motion.span
           initial={blackHole.initial}
           whileInView={{
-            opacity: 1,
-            x: -(blackWidth * 0.8),
-            y: -(blackHeight * 0.8),
+            opacity: opacity.get(),
+            x: leftTX.get(),
+            y: topTY.get(),
           }}
           style={{
             position: "absolute",
             zIndex: 1,
             top: "50%",
             left: "50%",
-            transform: "translate(-50%, -50%)",
             fontSize: "3rem",
             color: "white",
           }}
@@ -127,10 +83,10 @@ export function FirstSection(props: {
         <motion.div
           initial={blackHole.initial}
           whileInView={{
-            opacity: 1,
-            x: blackWidth * 0.8,
-            y: blackHeight / 3,
-            rotate: 5,
+            opacity: opacity.get(),
+            x: rightTX.get(),
+            y: animateTo.centerVT,
+            rotate: -rotate.get(),
           }}
           whileHover={{
             scale: 1.1,
@@ -140,24 +96,22 @@ export function FirstSection(props: {
             },
           }}
         >
-          <canvas
-            ref={canvasRef}
-            onClick={() => router.push("/about")}
-            style={{
-              ...blackHole.itemStyle,
-              top: blackHeight / 4,
-              left: blackWidth / 4,
-            }}
+          <AboutCanvas
+            delta={scrollY}
+            isInView={isInView}
+            speed={1}
+            width={blackHole.w}
+            height={blackHole.h}
+            canvasRef={canvasRef}
           />
         </motion.div>
-
         <motion.div
           initial={blackHole.initial}
           whileInView={{
-            opacity: 1,
-            x: blackWidth * 0.3,
-            rotate: -5,
-            y: blackHeight * 0.6,
+            opacity: opacity.get(),
+            x: leftTX.get() + blackHole.w * 1.1,
+            rotate: -rotate.get(),
+            y: blackHole.h * 0.6,
           }}
           whileHover={{
             scale: 1.1,
@@ -167,8 +121,8 @@ export function FirstSection(props: {
             },
           }}
           style={{
-            width: blackWidth,
-            height: blackHeight * 2,
+            width: blackHole.w,
+            height: blackHole.h * 2,
           }}
         >
           <HomeNavigation />

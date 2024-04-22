@@ -1,4 +1,8 @@
+"use client";
+import GeoButton from "@/components/client-only/three-d/geo-button";
+import { paragraph } from "@/components/server-only/primitives";
 import { motion } from "framer-motion";
+import { ReactNode } from "react";
 
 const menuItemVariants = {
   open: {
@@ -25,7 +29,7 @@ const ulVariants = {
   },
 };
 
-const itemIds = [0, 1, 2, 3, 4];
+const itemIds = [0, 1];
 export const HomeNavigation = () => (
   <motion.ul
     variants={ulVariants}
@@ -39,6 +43,7 @@ export const HomeNavigation = () => (
     ))}
   </motion.ul>
 );
+// const MenuItem = ({ i, children }: { i: number; children?: ReactNode }) => {
 const MenuItem = ({ i }: { i: number }) => {
   return (
     <motion.li
@@ -48,20 +53,22 @@ const MenuItem = ({ i }: { i: number }) => {
       whileTap={{ scale: 0.95 }}
       style={{
         listStyle: "none",
-        marginBottom: "1rem",
+        marginBottom: "8rem",
         width: "100%",
         height: "100%",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        fontSize: "2rem",
         color: "white",
-        background: "hsl(240, 5.83%, 10.08%)",
-        minHeight: "10vh",
-        borderRadius: "1rem",
       }}
     >
-      hi
+      {/* {children ?? "hi"} */}
+      {i === 0 ? (
+        <GeoButton shape="basic" href="/docs">
+          <p className={paragraph({ color: "white" })}>DOCS</p>
+        </GeoButton>
+      ) : (
+        <GeoButton shape="character" href="/game">
+          <p className={paragraph({ color: "white" })}>GAME</p>
+        </GeoButton>
+      )}
     </motion.li>
   );
 };

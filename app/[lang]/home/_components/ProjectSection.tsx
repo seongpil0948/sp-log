@@ -19,7 +19,7 @@ export function ProjectSection(props: {
 }) {
   const sectionRef = useRef<HTMLDivElement>(null);
   return (
-    <section ref={sectionRef} className={clsx(sectionCls)}>
+    <section ref={sectionRef} className={clsx(sectionCls, "-mt-48")}>
       <ParallaxText
         scrollY={props.scrollY}
         containerRef={sectionRef}
