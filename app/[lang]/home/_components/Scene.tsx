@@ -1,20 +1,37 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import clsx from "clsx";
 import { sectionCls } from "../theme";
 import { FirstSection } from "./FirstSection";
 import { ProjectSection } from "./ProjectSection";
+import {
+  useMotionValueEvent,
+  useScroll,
+  useSpring,
+  useVelocity,
+} from "framer-motion";
 
 // on first mounted disable scroll and rotate the image
 // when frame is equal to length of urls, enable scroll
 export function Scene() {
   const [containerScrollable, setContainerScrollable] = useState(true);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const { scrollY } = useScroll({
+    container: rootRef,
+    layoutEffect: true,
+  });
+  const scrollVelocity = useVelocity(scrollY);
 
+  const smoothVelocity = useSpring(scrollVelocity, {
+    damping: 50,
+    stiffness: 400,
+  });
   return (
     <>
       <section
         id="scene"
+        ref={rootRef}
         className={clsx(
           sectionCls,
           {
@@ -37,7 +54,7 @@ export function Scene() {
             }
           }}
         />
-        <ProjectSection />
+        <ProjectSection scrollY={smoothVelocity} rootRef={rootRef} />
         <DocsSection />
         <AboutSection />
       </section>
@@ -45,19 +62,19 @@ export function Scene() {
   );
 }
 
-export function AboutSection() {
+export function DocsSection() {
   return (
     <section className={clsx(sectionCls)}>
-      사이트 개발자에대해 궁금한가요?
+      문서를 확인해보세요. Documents 동영상 재생
       <MockText />
     </section>
   );
 }
 
-export function DocsSection() {
+export function AboutSection() {
   return (
     <section className={clsx(sectionCls)}>
-      문서를 확인해보세요.
+      사이트 개발자에대해 궁금한가요?
       <MockText />
     </section>
   );

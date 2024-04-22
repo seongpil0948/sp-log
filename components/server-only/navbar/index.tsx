@@ -53,7 +53,7 @@ export default async function CommonNavbar(p: CommonNavbarProps) {
   };
 
   return (
-    <NextUINavbar maxWidth="full" position="sticky" shouldHideOnScroll>
+    <NextUINavbar maxWidth="full" shouldHideOnScroll>
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <PrefixComp {...props} />
         <NavbarBrand as="li" className="gap-3 max-w-fit">

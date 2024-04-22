@@ -4,29 +4,33 @@
 // https://www.apple.com/kr/macbook-air/?afid=p238%7CsiADh6hbK-dc_mtid_18707vxu38484_pcrid_693736852787_pgrid_16348496961_pntwk_g_pchan__pexid_131009289166_&cid=aos-kr-kwgo-Brand--slid-AapXiqMo--product-
 // https://www.framer.com/motion/scroll-animations/##no-code
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { CSSProperties, useCallback, useEffect, useRef, useState } from "react";
 import clsx from "clsx";
-import { useInView } from "framer-motion";
+import { useInView, motion, MotionConfig } from "framer-motion";
 import { sectionCls } from "../theme";
-// import { Image } from "@nextui-org/image";
-import NextImage from "next/image";
+import { useWindowSize } from "@/app/_utils/client/responsive";
+import { useRouter } from "next/navigation";
+import HomeNavigation from "./HomeNavigation";
 
-const frameCount = 147;
+const frameCount = 15;
 const urls = new Array(frameCount)
   .fill(true)
-  .map((o, i) => `/home/image_${(i + 1).toString().padStart(4, "0")}.jpg`);
+  .map((o, i) => `/home/moong-me/${(i + 1).toString()}.png`);
 
 export function FirstSection(props: {
   handleScroll: (progress: number) => void;
   containerScrollable: boolean;
 }) {
-  // const canvasRef = useRef<HTMLCanvasElement>(null);
-  // const isInView = useInView(canvasRef, { amount: "some" });
+  const router = useRouter();
   const sectionRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(sectionRef, { amount: "all" });
+  const isInView = useInView(sectionRef, {
+    amount: 0.9,
+    margin: "64px 0px 0px 0px",
+  });
   const [curFrame, setCurFrame] = useState(0);
   const [images, setImages] = useState<HTMLImageElement[]>([]);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const s = useWindowSize();
 
   const init = useCallback(() => {
     setCurFrame(0);
@@ -48,13 +52,9 @@ export function FirstSection(props: {
     if (!canvas || !ctx || !images[curFrame]) return;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     const img = images[curFrame];
-    ctx.drawImage(
-      img,
-      canvas.width * 0.3,
-      canvas.height * 0.3,
-      canvas.width * 0.6,
-      canvas.height * 0.6
-    );
+    ctx.drawImage(img, 0, 0, canvas.width / 2, canvas.height / 2);
+    ctx.fillStyle = "white";
+    ctx.fillText("About", 30, 20);
   }, [curFrame, images, isInView]);
 
   useEffect(() => {
@@ -69,24 +69,11 @@ export function FirstSection(props: {
         return img;
       })
     );
-    resize();
   }, []);
 
-  const resize = () => {
-    const canvas = canvasRef.current;
-    const ctx = canvas?.getContext("2d");
-    if (!canvas || !ctx) return;
-
-    const stageWidth = document.body.clientWidth;
-    const stageHeight = document.body.clientHeight;
-    canvas.width = stageWidth * 2;
-    canvas.height = stageHeight * 2;
-    ctx.scale(1, 1);
-  };
-
-  const speed = 2;
+  const speed = 1;
   const handOnWheel = (e: React.WheelEvent) => {
-    if (props.containerScrollable || !isInView) return;
+    if (!isInView) return;
     const delta = e.deltaY;
 
     const frame = Math.abs(
@@ -98,33 +85,95 @@ export function FirstSection(props: {
     }
   };
 
+  const blackWidth = s.width / 2;
+  const blackHeight = s.height / 2;
+  const itemStyle: CSSProperties = {
+    zIndex: 1,
+    position: "absolute",
+    minWidth: blackWidth,
+    minHeight: blackHeight,
+    cursor: "pointer",
+  };
+  const blackHole = {
+    itemStyle,
+    initial: { opacity: 0, x: 0 },
+  };
   return (
     <section
       ref={sectionRef}
-      className={clsx(sectionCls, "relative ")}
+      className={clsx(sectionCls, "relative")}
       onWheel={handOnWheel}
     >
-      홈 화면입니다.
-      <canvas
-        onResize={resize}
-        ref={canvasRef}
-        style={{
-          zIndex: 1,
-          top: 0,
-          left: 0,
-          width: "80vw",
-          height: "80vh",
-          position: "absolute",
-        }}
-      >
-        <NextImage
-          src={urls[curFrame]}
-          alt="hihi"
-          fill
-          sizes="(max-width: 768px) 80vw, (max-width: 1200px) 60vw, 40vw"
-        />
-      </canvas>
-      {/* <canvas onResize={resize} ref={canvasRef} />; */}
+      <MotionConfig transition={{ duration: 1, type: "spring" }}>
+        <motion.span
+          initial={blackHole.initial}
+          whileInView={{
+            opacity: 1,
+            x: -(blackWidth * 0.8),
+            y: -(blackHeight * 0.8),
+          }}
+          style={{
+            position: "absolute",
+            zIndex: 1,
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            fontSize: "3rem",
+            color: "white",
+          }}
+        >
+          Seongpil Dev
+        </motion.span>
+        <motion.div
+          initial={blackHole.initial}
+          whileInView={{
+            opacity: 1,
+            x: blackWidth * 0.8,
+            y: blackHeight / 3,
+            rotate: 5,
+          }}
+          whileHover={{
+            scale: 1.1,
+            rotate: 0,
+            transition: {
+              duration: 0.5,
+            },
+          }}
+        >
+          <canvas
+            ref={canvasRef}
+            onClick={() => router.push("/about")}
+            style={{
+              ...blackHole.itemStyle,
+              top: blackHeight / 4,
+              left: blackWidth / 4,
+            }}
+          />
+        </motion.div>
+
+        <motion.div
+          initial={blackHole.initial}
+          whileInView={{
+            opacity: 1,
+            x: blackWidth * 0.3,
+            rotate: -5,
+            y: blackHeight * 0.6,
+          }}
+          whileHover={{
+            scale: 1.1,
+            rotate: 0,
+            transition: {
+              duration: 0.5,
+            },
+          }}
+          style={{
+            width: blackWidth,
+            height: blackHeight * 2,
+          }}
+        >
+          <HomeNavigation />
+        </motion.div>
+      </MotionConfig>
     </section>
   );
 }
