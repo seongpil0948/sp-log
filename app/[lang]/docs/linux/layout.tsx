@@ -16,5 +16,5 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   // const tree = getTree('app/[lang]/doc/linux', { extensions: /\.mdx$/ })
-  return <main className={main()}>{children}</main>;
+  return <>{children}</>;
 }

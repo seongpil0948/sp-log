@@ -55,9 +55,9 @@ export function FirstSection(props: { scrollY: MotionValue<number> }) {
   const opacity = useTransform(scrollY, inputRage, [1, 0]);
   const rotate = useTransform(scrollY, inputRage, [toR, 0]);
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    console.log("latest: ", latest);
-  });
+  // useMotionValueEvent(scrollY, "change", (latest) => {
+  //   console.log("latest: ", latest);
+  // });
 
   return (
     <section ref={sectionRef} className={clsx(sectionCls, "relative")}>

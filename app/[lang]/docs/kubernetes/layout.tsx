@@ -13,5 +13,5 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   // const tree = getTree('app/[lang]/doc/kubernetes', { extensions: /\.mdx$/ })
-  return <main className={main()}>{children}</main>;
+  return <>{children}</>;
 }

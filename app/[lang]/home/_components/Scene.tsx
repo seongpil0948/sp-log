@@ -6,6 +6,7 @@ import { sectionCls } from "../theme";
 import { FirstSection } from "./FirstSection";
 import { ProjectSection } from "./ProjectSection";
 import { useScroll, useSpring, useVelocity } from "framer-motion";
+import BlackBall from "./BlackBall";
 
 // on first mounted disable scroll and rotate the image
 // when frame is equal to length of urls, enable scroll
@@ -25,13 +26,14 @@ export function Scene() {
 
   return (
     <>
+      {/* TODO: to context or redux */}
       <section
         id="scene"
         ref={rootRef}
         className={clsx(
           sectionCls,
           // "relative snap-both snap-mandatory overflow-auto"
-          "relative overflow-auto"
+          "relative overflow-auto max-h-screen"
         )}
         style={{
           zIndex: 1,
@@ -42,6 +44,7 @@ export function Scene() {
         <DocsSection />
         <AboutSection />
       </section>
+      <BlackBall speed={smoothVelocity} />
     </>
   );
 }

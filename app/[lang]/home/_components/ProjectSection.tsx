@@ -90,15 +90,20 @@ export function ParallaxText(props: ParallaxProps) {
   });
 
   return (
-    <div className=" w-screen overflow-hidden -tracking-widest leading-3 m-0 whitespace-nowrap flex flex-nowrap">
+    <div className="  whitespace-nowrap flex flex-nowrap">
       <motion.div
-        className={clsx(title(), "flex whitespace-nowrap flex-nowrap gap-12 ")}
+        className={clsx(
+          title({ font: "script" }),
+          "flex whitespace-nowrap flex-nowrap gap-12 "
+        )}
         style={{ x }}
       >
         <span>{children} </span>
         <span>{children} </span>
-        <span>{children} </span>
-        <span>{children} </span>
+
+        {new Array(10).fill(0).map((_, idx) => (
+          <span key={idx}>{children}</span>
+        ))}
       </motion.div>
     </div>
   );

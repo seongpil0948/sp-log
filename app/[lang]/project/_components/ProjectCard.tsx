@@ -44,7 +44,7 @@ export default function ProjectCard(props: {
       shadow="sm"
     >
       <CardBody>
-        <div className="flex flex-col md:gap-2 items-center justify-start h-full">
+        <div className=" max-w-full flex flex-col md:gap-2 items-center justify-start h-full">
           <div className="relative w-full ">
             <Image
               alt="Project Image"

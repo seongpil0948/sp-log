@@ -173,6 +173,11 @@ const Link = ({
       showAnchorIcon
       underline="hover"
       color="foreground"
+      // inherit text
+      className="hover:underline"
+      style={{
+        fontSize: "inherit",
+      }}
     >
       {children}
     </NextLink>
