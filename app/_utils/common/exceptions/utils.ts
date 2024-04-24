@@ -1,4 +1,3 @@
-// import { type AppDispatch, setMsg } from "@/app/store";
 import { type FirebaseError } from "firebase/app";
 
 const isFirebaseError = (err: any): err is FirebaseError =>

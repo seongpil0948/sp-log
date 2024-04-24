@@ -7,7 +7,6 @@ import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { ThemeProviderProps } from "next-themes/dist/types";
 import CommonProvider from "./common";
 import { AnimatePresence, motion } from "framer-motion";
-import { ReduxProvider } from "@/store";
 export interface ProvidersProps {
   children: React.ReactNode;
   themeProps?: ThemeProviderProps;
@@ -18,28 +17,26 @@ export function Providers({ children, themeProps }: ProvidersProps) {
   return (
     <NextUIProvider navigate={router.push}>
       <NextThemesProvider {...themeProps}>
-        <ReduxProvider>
-          <CommonProvider>
-            <AnimatePresence
-              mode="wait"
-              // initial={true}
-              // onExitComplete={() => window.scrollTo(0, 0)}
+        <CommonProvider>
+          <AnimatePresence
+            mode="wait"
+            // initial={true}
+            // onExitComplete={() => window.scrollTo(0, 0)}
+          >
+            <motion.div
+              initial={{ x: 300, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: 300, opacity: 0 }}
+              transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 20,
+              }}
             >
-              <motion.div
-                initial={{ x: 300, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                exit={{ x: 300, opacity: 0 }}
-                transition={{
-                  type: "spring",
-                  stiffness: 260,
-                  damping: 20,
-                }}
-              >
-                {children}
-              </motion.div>
-            </AnimatePresence>
-          </CommonProvider>
-        </ReduxProvider>
+              {children}
+            </motion.div>
+          </AnimatePresence>
+        </CommonProvider>
       </NextThemesProvider>
     </NextUIProvider>
   );

@@ -1,6 +1,5 @@
 import clsx from "clsx";
 import { tree } from "./theme";
-// import { setLoading, useAppDispatch } from "@/store";
 import { Link } from "@nextui-org/link";
 
 export interface TreeSectionProps {

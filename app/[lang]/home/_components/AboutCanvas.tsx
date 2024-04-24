@@ -58,6 +58,7 @@ export function AboutCanvas(props: {
         return img;
       })
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
