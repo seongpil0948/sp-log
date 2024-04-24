@@ -6,8 +6,9 @@ import { MotionConfig, MotionValue, motion } from "framer-motion";
 import { MotionCanvas, motion as motion3d } from "framer-motion-3d";
 import { OrbitControls } from "@react-three/drei";
 import { BufferGeometry, Mesh, SphereGeometry } from "three";
+import SingletonHome from "../_utils/singleton";
 
-const Sphere = (props?: { speed?: MotionValue<number> }) => {
+const Sphere = () => {
   const meshRef = useRef<Mesh>(null!);
   useEffect(() => {
     console.log(meshRef.current);
@@ -26,17 +27,18 @@ const Sphere = (props?: { speed?: MotionValue<number> }) => {
     }
     geoRef.userData.randomArray = randomArray;
   }, []);
+  const inst = SingletonHome.getInstance();
 
   useFrame((state) => {
-    if (!meshRef.current) return;
-    const speed = props?.speed ? props.speed.get() : 1;
+    if (!meshRef.current || !meshRef.current.geometry.userData.randomArray)
+      return;
+    const speed = inst.getData() ?? 1;
     const geoRef = meshRef.current.geometry as SphereGeometry;
     const randomArray = geoRef.userData.randomArray;
     const positionArray = geoRef.attributes.position.array;
     if (geoRef.userData.randomArray.length !== positionArray.length)
       return console.error("length not matched");
-    const time = state.clock.getElapsedTime() * speed;
-
+    const time = state.clock.getElapsedTime();
     for (let i = 0; i < positionArray.length; i += 3) {
       positionArray[i] += Math.sin(time + randomArray[i] * 100) * 0.001;
       positionArray[i + 1] += Math.sin(time + randomArray[i + 1] * 100) * 0.001;
@@ -63,13 +65,10 @@ const Sphere = (props?: { speed?: MotionValue<number> }) => {
   );
 };
 
-export const BlackBall = (props: { speed: MotionValue<number> }) => {
+export const BlackBall = () => {
   return (
-    <MotionConfig transition={{ type: "spring" }}>
-      <motion.div
-        className=" fixed top-0 left-0 w-screen h-screen -z-2"
-        animate={{ scale: 2 }}
-      >
+    <MotionConfig transition={{ type: "tween" }}>
+      <motion.div className=" fixed top-0 left-0 w-screen h-screen -z-2">
         <MotionCanvas>
           {/* <pointLight color={"red"} position={[15, 15, 15]} /> */}
           <ambientLight color="hsl(240, 5.03%, 64.9%)" intensity={0.01} />
@@ -78,8 +77,7 @@ export const BlackBall = (props: { speed: MotionValue<number> }) => {
             position={[1, 0, 5]}
             intensity={1}
           />
-          <OrbitControls />
-          <Sphere speed={props.speed} />
+          <Sphere />
         </MotionCanvas>
       </motion.div>
     </MotionConfig>
