@@ -134,6 +134,9 @@ importers:
       '@react-three/fiber':
         specifier: ^8.16.2
         version: 8.16.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(three@0.163.0)
+      '@react-three/postprocessing':
+        specifier: ^2.16.2
+        version: 2.16.2(@react-three/fiber@8.16.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(three@0.163.0))(@types/three@0.163.0)(react@18.2.0)(three@0.163.0)
       '@types/dat.gui':
         specifier: ^0.7.13
         version: 0.7.13
@@ -1606,6 +1609,13 @@ packages:
         optional: true
       react-native:
         optional: true
+
+  '@react-three/postprocessing@2.16.2':
+    resolution: {integrity: sha512-2ya1gXLDpzyfbELobi3rPHNNZZCrCfyq20GMYJD1yD7ZyBFSpRG9YSPMBnOal6A89kXanPBw273h6/Dqev0n7g==}
+    peerDependencies:
+      '@react-three/fiber': '>=8.0'
+      react: '>=18.0'
+      three: '>= 0.138.0'
 
   '@react-types/accordion@3.0.0-alpha.19':
     resolution: {integrity: sha512-WJaitKz56zRKUwBqDM4OOKtmIdD0lr5nruWoM2IlGRO50WUzSFmAy/1aFiodAVZbun1v5IxbjST6/qSV4jPqug==}
@@ -3388,6 +3398,12 @@ packages:
       '@types/three': '>=0.144.0'
       three: '>=0.144.0'
 
+  maath@0.6.0:
+    resolution: {integrity: sha512-dSb2xQuP7vDnaYqfoKzlApeRcR2xtN8/f7WV/TMAkBC8552TwTLtOO0JTcSygkYMjNDPoo6V01jTw/aPi4JrMw==}
+    peerDependencies:
+      '@types/three': '>=0.144.0'
+      three: '>=0.144.0'
+
   markdown-extensions@2.0.0:
     resolution: {integrity: sha512-o5vL7aDWatOTX8LzaS1WMoaoxIiLRQJuIKKe2wAw6IeULDHaqbiqiggmx+pKvZDb1Sj+pE46Sn1T7lCqfFtg1Q==}
     engines: {node: '>=16'}
@@ -3613,6 +3629,12 @@ packages:
 
   mz@2.7.0:
     resolution: {integrity: sha512-z81GNO7nnYMEhrGh9LeymoE4+Yr0Wn5McHIZMK5cfQCl+NDX08sCZgUc9/6MHni9IWuFLm1Z3HTCXu2z9fN62Q==}
+
+  n8ao@1.8.2:
+    resolution: {integrity: sha512-bJLtqdQxtjBeoT6RozfNfTd6LNRfz/UpTRVRltwsnz8O0chnT8dN2l8FdSYicJZ5HPNFNXEwi3juNVOUybL+bw==}
+    peerDependencies:
+      postprocessing: '>=6.30.0'
+      three: '>=0.137'
 
   nanoid@3.3.7:
     resolution: {integrity: sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==}
@@ -3849,6 +3871,12 @@ packages:
   postcss@8.4.38:
     resolution: {integrity: sha512-Wglpdk03BSfXkHoQa3b/oulrotAkwrlLDRSOb9D0bN86FdRyE9lppSp33aHNPgBa0JKCoB+drFLZkQoRRYae5A==}
     engines: {node: ^10 || ^12 || >=14}
+
+  postprocessing@6.35.3:
+    resolution: {integrity: sha512-PH0/gqVYpp+vZjmSAohG/xH0u9FpbjfCGsFMsmsZVd8XXSmqJUR7b5C9ZFE/iMrWhe+tiTOFN9WvcEdjLI8LYQ==}
+    engines: {node: '>= 0.13.2'}
+    peerDependencies:
+      three: '>= 0.152.0 < 0.164.0'
 
   potpack@1.0.2:
     resolution: {integrity: sha512-choctRBIV9EMT9WGAZHn3V7t0Z2pMQyl0EZE6pFc/6ml3ssw7Dlf/oAOvFwjm1HVsqfQN8GfeFyJ+d8tRzqueQ==}
@@ -6747,6 +6775,19 @@ snapshots:
     optionalDependencies:
       react-dom: 18.2.0(react@18.2.0)
 
+  '@react-three/postprocessing@2.16.2(@react-three/fiber@8.16.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(three@0.163.0))(@types/three@0.163.0)(react@18.2.0)(three@0.163.0)':
+    dependencies:
+      '@react-three/fiber': 8.16.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(three@0.163.0)
+      buffer: 6.0.3
+      maath: 0.6.0(@types/three@0.163.0)(three@0.163.0)
+      n8ao: 1.8.2(postprocessing@6.35.3(three@0.163.0))(three@0.163.0)
+      postprocessing: 6.35.3(three@0.163.0)
+      react: 18.2.0
+      three: 0.163.0
+      three-stdlib: 2.29.6(three@0.163.0)
+    transitivePeerDependencies:
+      - '@types/three'
+
   '@react-types/accordion@3.0.0-alpha.19(react@18.2.0)':
     dependencies:
       '@react-types/shared': 3.22.1(react@18.2.0)
@@ -8945,6 +8986,11 @@ snapshots:
       '@types/three': 0.163.0
       three: 0.163.0
 
+  maath@0.6.0(@types/three@0.163.0)(three@0.163.0):
+    dependencies:
+      '@types/three': 0.163.0
+      three: 0.163.0
+
   markdown-extensions@2.0.0: {}
 
   markdown-table@3.0.3: {}
@@ -9430,6 +9476,11 @@ snapshots:
       object-assign: 4.1.1
       thenify-all: 1.6.0
 
+  n8ao@1.8.2(postprocessing@6.35.3(three@0.163.0))(three@0.163.0):
+    dependencies:
+      postprocessing: 6.35.3(three@0.163.0)
+      three: 0.163.0
+
   nanoid@3.3.7: {}
 
   napi-build-utils@1.0.2: {}
@@ -9656,6 +9707,10 @@ snapshots:
       nanoid: 3.3.7
       picocolors: 1.0.0
       source-map-js: 1.2.0
+
+  postprocessing@6.35.3(three@0.163.0):
+    dependencies:
+      three: 0.163.0
 
   potpack@1.0.2: {}
 
