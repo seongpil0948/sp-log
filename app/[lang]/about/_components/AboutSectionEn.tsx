@@ -1,8 +1,3 @@
-import {
-  ButtonGithub,
-  ButtonHome,
-  ButtonLinkedIn,
-} from "@/components/client-only/button/links";
 import { ChipList } from "@/components/client-only/ChipList";
 import { HeaderAbout } from "./Header";
 import {
@@ -16,6 +11,7 @@ import CertSection from "./Cert";
 import styles from "../styles.module.css";
 import ProjectCardListHorizontal from "../../project/_components/server-only/ProjectCardsHorizontal";
 import themeList from "@/components/server-only/theme/list";
+import LinksContent from "./LinksContent";
 
 export default function AboutSectionsKo(props: { certData: string[] }) {
   const { certData } = props;
@@ -216,12 +212,7 @@ export default function AboutSectionsKo(props: { certData: string[] }) {
         <ProjectCardListHorizontal />
       </section>
       <section className={styles.section}>
-        <HeaderAbout title="Links" />
-        <div className="flex flex-col justify-center align-middle gap-2 items-center h-full ">
-          <ButtonGithub />
-          <ButtonLinkedIn />
-          <ButtonHome />
-        </div>
+        <LinksContent />
       </section>
     </div>
   );

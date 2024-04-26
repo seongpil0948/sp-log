@@ -9,6 +9,7 @@ import {
   useAnimationFrame,
   useInView,
   MotionValue,
+  useSpring,
 } from "framer-motion";
 import { title } from "@/components/server-only/primitives";
 import ProjectCardListHorizontal from "../../project/_components/server-only/ProjectCardsHorizontal";
@@ -21,7 +22,8 @@ export function ProjectSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const inst = SingletonHome.getInstance();
 
-  const arrProjects = splitArray(PROJECTS, 2);
+  // const arrProjects = splitArray(PROJECTS, 2);
+  const arrProjects = [PROJECTS];
   return (
     <section ref={sectionRef} className={clsx(sectionCls, "-mt-48")}>
       <ParallaxText
@@ -63,7 +65,7 @@ export function ParallaxText(props: ParallaxProps) {
     amount: 0.2,
   });
 
-  const x = useTransform(baseX, (v) => `${wrap(-300, 30, v)}%`);
+  const x = useTransform(baseX, (v) => `${wrap(-30, 30, v)}%`);
   const directionFactor = useRef<number>(1);
   useAnimationFrame((t, delta) => {
     if (!inView) return;
@@ -106,7 +108,7 @@ export function ParallaxText(props: ParallaxProps) {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 5, delay: idx * 1 }}
+            transition={{ duration: 2, delay: idx * 1 }}
           >
             {children}
           </motion.span>

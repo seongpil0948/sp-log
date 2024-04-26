@@ -1,7 +1,7 @@
 "use client";
 import { useFrame } from "@react-three/fiber";
-import { useEffect, useMemo, useRef } from "react";
-import { MotionConfig, motion } from "framer-motion";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Variant, motion } from "framer-motion";
 import { MotionCanvas, motion as motion3d } from "framer-motion-3d";
 import { EllipseCurve, Mesh, SphereGeometry, Group, Color } from "three";
 import SingletonHome from "../_utils/singleton";
@@ -10,9 +10,25 @@ import { EffectComposer, Bloom } from "@react-three/postprocessing";
 // https://codesandbox.io/embed/xzi6ps?codemirror=1
 // https://codesandbox.io/p/sandbox/bezier-curves-nodes-3k4g6?file=%2Fsrc%2FNodes.js
 
+const variants = {
+  toCenter: {
+    x: 0,
+    y: 0,
+    scale: 1,
+  },
+  toRightBottom: {
+    x: 3.5,
+    y: -2.5,
+    scale: 0.5,
+  },
+};
+type VariantLabel = keyof typeof variants;
 const Sphere = () => {
   const meshRef = useRef<Mesh>(null!);
   const groupRef = useRef<Group>(null!);
+  const inst = SingletonHome.getInstance();
+  const [currAnimation, setCurrAnimation] = useState<VariantLabel>("toCenter");
+
   useEffect(() => {
     console.log(meshRef.current);
     const randomArray: number[] = [];
@@ -30,7 +46,6 @@ const Sphere = () => {
     }
     geoRef.userData.randomArray = randomArray;
   }, []);
-  const inst = SingletonHome.getInstance();
 
   useFrame((state) => {
     if (!meshRef.current || !meshRef.current.geometry.userData.randomArray)
@@ -47,15 +62,15 @@ const Sphere = () => {
       positionArray[i + 1] += Math.sin(time + randomArray[i + 1] * 100) * 0.001;
       positionArray[i + 2] += Math.sin(time + randomArray[i + 2] * 100) * 0.001;
     }
-    // if (groupRef.current) {
-    // groupRef.current.rotation.y = Math.sin(time) * 0.1;
-    // groupRef.current.rotation.x = groupRef.current.rotation.x + 0.0001;
-    // groupRef.current.rotation.y = groupRef.current.rotation.y + 0.001 * speed;
-    // groupRef.current.rotation.y = groupRef.current.rotation.z + 0.001 * speed;
-    // }
     geoRef.rotateX(0.001 * speed);
     geoRef.rotateY(0.001 * speed);
+
     geoRef.attributes.position.needsUpdate = true;
+    if (inst.scrollY.get() > 200 && currAnimation !== "toRightBottom") {
+      setCurrAnimation("toRightBottom");
+    } else if (inst.scrollY.get() <= 200 && currAnimation !== "toCenter") {
+      setCurrAnimation("toCenter");
+    }
   });
 
   const points = useMemo(
@@ -64,12 +79,15 @@ const Sphere = () => {
     []
   );
   return (
-    <group
-      ref={groupRef}
-      // animate={{ rotateX: 1 }}
-      // transition={{ duration: 0.1, repeat: Infinity }}
-    >
-      {/* <Line worldUnits points={points} color="turquoise" lineWidth={0.3} />
+    <Float speed={4} rotationIntensity={1} floatIntensity={2}>
+      <motion3d.group
+        ref={groupRef as any}
+        variants={variants}
+        // animate={inst.scrollY.get() > 200 ? "toRightBottom" : "toCenter"}
+        animate={currAnimation}
+        // transition={{ duration: 0.1, repeat: Infinity }}
+      >
+        {/* <Line worldUnits points={points} color="turquoise" lineWidth={0.3} />
       <Line
         worldUnits
         points={points}
@@ -95,20 +113,21 @@ const Sphere = () => {
         rotation={[0, 0, -Math.PI / 3]}
         speed={7}
       /> */}
-      <mesh ref={meshRef}>
-        {/* infinite rotation */}
-        <motion3d.sphereGeometry
-          args={[1, 24, 24]}
-          // animate={{ rotateX: 1 }}
-          // transition={{ duration: 0.1, repeat: Infinity }}
-        />
-        <meshStandardMaterial
-          color="hsl(240, 5.03%, 64.9%)"
-          side={2 /* DoubleSide */}
-          flatShading
-        />
-      </mesh>
-    </group>
+        <mesh ref={meshRef}>
+          {/* infinite rotation */}
+          <motion3d.sphereGeometry
+            args={[1, 24, 24]}
+            // animate={{ rotateX: 1 }}
+            // transition={{ duration: 0.1, repeat: Infinity }}
+          />
+          <meshStandardMaterial
+            color="hsl(240, 5.03%, 64.9%)"
+            side={2 /* DoubleSide */}
+            flatShading
+          />
+        </mesh>
+      </motion3d.group>
+    </Float>
   );
 };
 
@@ -141,27 +160,30 @@ function Electron({ radius = 2.75, speed = 6, ...props }) {
 }
 
 export const BlackBall = () => {
+  const inst = SingletonHome.getInstance();
+  const scrollY = inst.scrollY.get();
+  console.info("scroll y: ", scrollY);
+  if (scrollY > 200) {
+    // geoRef.translateX(0.001 * speed);
+  }
   return (
-    <MotionConfig transition={{ type: "tween" }}>
-      <motion.div className=" fixed top-0 left-0 w-screen h-screen -z-2">
-        <MotionCanvas>
-          {/* <pointLight color={"red"} position={[15, 15, 15]} /> */}
-          <ambientLight color="hsl(240, 5.03%, 64.9%)" intensity={0.01} />
-          <directionalLight
-            color="hsl(240, 5.03%, 64.9%)"
-            position={[1, 0, 5]}
-            intensity={1}
-          />
-          <Float speed={4} rotationIntensity={1} floatIntensity={2}>
-            <Sphere />
-          </Float>
-          <Stars saturation={0} count={400} speed={0.5} />
-          <EffectComposer>
-            <Bloom mipmapBlur luminanceThreshold={1} radius={0.7} />
-          </EffectComposer>
-        </MotionCanvas>
-      </motion.div>
-    </MotionConfig>
+    <motion.div className=" fixed top-0 left-0 w-screen h-screen -z-2">
+      <MotionCanvas>
+        {/* <pointLight color={"red"} position={[15, 15, 15]} /> */}
+        <ambientLight color="hsl(240, 5.03%, 64.9%)" intensity={0.01} />
+        <directionalLight
+          color="hsl(240, 5.03%, 64.9%)"
+          position={[1, 0, 5]}
+          intensity={1}
+        />
+
+        <Sphere />
+        <Stars saturation={0} count={400} speed={0.5} />
+        <EffectComposer>
+          <Bloom mipmapBlur luminanceThreshold={1} radius={0.7} />
+        </EffectComposer>
+      </MotionCanvas>
+    </motion.div>
   );
 };
 

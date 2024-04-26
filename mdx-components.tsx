@@ -57,12 +57,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       const className = clsx(title({ size: "xs", color: "pink" }));
       return <HeaderWithLink attr={props} className={className} level={4} />;
     },
-    hr: (props) => (
-      <div
-        {...props}
-        className="my-8 h-px w-full bg-slate-400 dark:bg-default-100"
-      />
-    ),
+    hr: (props) => <div {...props} className={hrCls} />,
     img: (props) => (
       <Image
         className="mb-6 min-w-full rounded-lg max-h-[50vh] mx-auto"
@@ -212,3 +207,5 @@ const HeaderWithLink = (props: {
     ]
   );
 };
+
+export const hrCls = "my-8 h-px w-full bg-slate-400 dark:bg-default-100";
