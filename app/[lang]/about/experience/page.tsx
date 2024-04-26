@@ -1,6 +1,4 @@
-import styles from "./styles.module.css";
 import clsx from "clsx";
-import { getOnlyFiles } from "@/app/_utils/server/dir-tree";
 import commonConfig, { TAvailLocale } from "@/config";
 import { AbsoluteFooter } from "@/components/server-only/footers";
 import { docsSectionCls, sectionCls } from "../../home/theme";
@@ -19,6 +17,14 @@ interface Param {
 
 export default async function SSGPage({ params: { lang } }: Param) {
   return (
+    <>
+      <ExpPage />
+      <AbsoluteFooter disableDarkMode goHome disableText />
+    </>
+  );
+}
+export function ExpPage() {
+  return (
     <div className={clsx(sectionCls, docsSectionCls)}>
       <h1 className={clsx(title({ size: "lg" }))}>Experience</h1>
       <div
@@ -31,14 +37,13 @@ export default async function SSGPage({ params: { lang } }: Param) {
         })}
       </div>
       <LinksContent isText={true} />
-      <AbsoluteFooter disableDarkMode goHome disableText />
     </div>
   );
 }
 
 function ExperienceCard(props: { e: Experience }) {
   const { e } = props;
-  const subtitleCls = clsx(title({ size: "sm" }));
+  const subtitleCls = clsx(title({ size: "xs" }));
   return (
     <div className={clsx()}>
       <h2 className={subtitleCls}>Challenges</h2>
@@ -64,9 +69,13 @@ function Paragraphs(props: { ps: string[]; name: string }) {
       {props.ps.map((p, i) => {
         return (
           <div
-            className={paragraph({
-              block: true,
-            })}
+            className={clsx(
+              paragraph({
+                block: true,
+                size: "xs",
+              }),
+              "w-[50vw] text-wrap"
+            )}
             key={`${props.name}-${i}`}
           >
             {p}

@@ -5,6 +5,7 @@ import {
 } from "@/components/client-only/button/links";
 import { HeaderAbout } from "./Header";
 import clsx from "clsx";
+import { ExperienceDownButton } from "../experience/_components/DownloadButton";
 
 export function LinksContent(props: { isText?: boolean }) {
   return (
@@ -18,6 +19,7 @@ export function LinksContent(props: { isText?: boolean }) {
         <ButtonGithub isText={props.isText} />
         <ButtonLinkedIn isText={props.isText} />
         <ButtonHome isText={props.isText} />
+        <ExperienceDownButton />
       </div>
     </>
   );
