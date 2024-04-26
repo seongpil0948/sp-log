@@ -8,6 +8,7 @@ import { ProjectSection } from "./ProjectSection";
 import { useScroll, useSpring, useVelocity } from "framer-motion";
 import BlackBall from "./BlackBall";
 import SingletonHome from "../_utils/singleton";
+import DocsSection from "./DocSection";
 
 // on first mounted disable scroll and rotate the image
 // when frame is equal to length of urls, enable scroll
@@ -25,9 +26,7 @@ export function Scene() {
     stiffness: 400,
   });
   const inst = SingletonHome.getInstance();
-  smoothVelocity.on("change", (v) => {
-    inst.setData(v);
-  });
+  inst.setData(smoothVelocity);
 
   return (
     <>
@@ -44,22 +43,13 @@ export function Scene() {
           zIndex: 1,
         }}
       >
-        <FirstSection scrollY={smoothVelocity} />
-        <ProjectSection scrollY={smoothVelocity} rootRef={rootRef} />
+        <FirstSection />
+        <ProjectSection />
         <DocsSection />
         <AboutSection />
       </section>
       <BlackBall />
     </>
-  );
-}
-
-export function DocsSection() {
-  return (
-    <section className={clsx(sectionCls)}>
-      문서를 확인해보세요. Documents 동영상 재생
-      <MockText />
-    </section>
   );
 }
 

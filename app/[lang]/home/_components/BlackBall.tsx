@@ -35,7 +35,7 @@ const Sphere = () => {
   useFrame((state) => {
     if (!meshRef.current || !meshRef.current.geometry.userData.randomArray)
       return;
-    const speed = inst.getData() ?? 1;
+    const speed = inst.data.get();
     const geoRef = meshRef.current.geometry as SphereGeometry;
     const randomArray = geoRef.userData.randomArray;
     const positionArray = geoRef.attributes.position.array;

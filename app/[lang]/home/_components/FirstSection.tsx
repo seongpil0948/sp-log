@@ -18,9 +18,11 @@ import { sectionCls } from "../theme";
 import { useWindowSize } from "@/app/_utils/client/responsive";
 import HomeNavigation from "./HomeNavigation";
 import { AboutCanvas } from "./AboutCanvas";
+import SingletonHome from "../_utils/singleton";
 
-export function FirstSection(props: { scrollY: MotionValue<number> }) {
-  const { scrollY } = props;
+export function FirstSection() {
+  const inst = SingletonHome.getInstance();
+
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, {
     amount: 0.9,
@@ -49,13 +51,13 @@ export function FirstSection(props: { scrollY: MotionValue<number> }) {
     },
   };
   const inputRage = [0, blackHole.h / 4];
-  const leftTX = useTransform(scrollY, inputRage, [animateTo.leftT, 0]);
-  const rightTX = useTransform(scrollY, inputRage, [animateTo.rightT, 0]);
-  const topTY = useTransform(scrollY, inputRage, [animateTo.topT, 0]);
-  const opacity = useTransform(scrollY, inputRage, [1, 0]);
-  const rotate = useTransform(scrollY, inputRage, [toR, 0]);
+  const leftTX = useTransform(inst.data, inputRage, [animateTo.leftT, 0]);
+  const rightTX = useTransform(inst.data, inputRage, [animateTo.rightT, 0]);
+  const topTY = useTransform(inst.data, inputRage, [animateTo.topT, 0]);
+  const opacity = useTransform(inst.data, inputRage, [1, 0]);
+  const rotate = useTransform(inst.data, inputRage, [toR, 0]);
 
-  // useMotionValueEvent(scrollY, "change", (latest) => {
+  // useMotionValueEvent(inst.data, "change", (latest) => {
   //   console.log("latest: ", latest);
   // });
 
@@ -97,7 +99,7 @@ export function FirstSection(props: { scrollY: MotionValue<number> }) {
           }}
         >
           <AboutCanvas
-            delta={scrollY}
+            delta={inst.data}
             isInView={isInView}
             speed={1}
             width={blackHole.w}

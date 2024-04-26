@@ -16,7 +16,6 @@
     "@mdi/react": "^1.6.1",
     "@mdx-js/loader": "^3.0.1",
     "@mdx-js/react": "^3.0.1",
-    "@motionone/utils": "^10.17.0",
     "@next/mdx": "^14.2.2",
     "@nextui-org/accordion": "^2.0.31",
     "@nextui-org/button": "2.0.30",

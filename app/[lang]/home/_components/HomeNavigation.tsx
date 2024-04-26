@@ -2,7 +2,6 @@
 import GeoButton from "@/components/client-only/three-d/geo-button";
 import { paragraph } from "@/components/server-only/primitives";
 import { motion } from "framer-motion";
-import { ReactNode } from "react";
 
 const menuItemVariants = {
   open: {

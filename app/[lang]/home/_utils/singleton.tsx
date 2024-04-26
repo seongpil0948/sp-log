@@ -3,15 +3,14 @@
 
 import { MotionValue } from "framer-motion";
 
-export type SingletonHomeData = number | undefined;
+export type SingletonHomeData = MotionValue<number>;
 
 export class SingletonHome {
   private static instance: SingletonHome;
-  private data: SingletonHomeData;
+  private _data?: SingletonHomeData;
 
   private constructor() {
     console.info("SingletonHome constructor init");
-    // this.data = {};
   }
 
   public static getInstance(): SingletonHome {
@@ -21,12 +20,13 @@ export class SingletonHome {
     return this.instance;
   }
 
-  public getData() {
-    return this.data;
+  get data() {
+    if (!this._data) throw new Error("data is not settled");
+    return this._data;
   }
 
   public setData(data: SingletonHomeData): void {
-    this.data = data;
+    this._data = data;
   }
 }
 
