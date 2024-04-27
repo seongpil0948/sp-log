@@ -38,6 +38,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           rel="preconnect"
           href={`https://${NEXT_PUBLIC_ALGOLIA_APP_ID}-dsn.algolia.net`}
         />
+        <script async src="http://localhost:8097" />
       </head>
       <body
         className={clsx(

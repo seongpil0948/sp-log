@@ -6,6 +6,7 @@ import { paragraph, title } from "@/components/server-only/primitives";
 import { Experience, experiences } from "./data";
 import { hrCls } from "@/mdx-components";
 import LinksContent from "../_components/LinksContent";
+import { Card, CardBody } from "@nextui-org/card";
 
 export async function generateStaticParams() {
   return commonConfig.i18n.locales.map((lang) => ({ lang }));
@@ -17,13 +18,20 @@ interface Param {
 
 export default async function SSGPage({ params: { lang } }: Param) {
   return (
-    <>
+    <div className="max-h-screen overflow-auto">
       <ExpPage />
+      <Card>
+        <CardBody>
+          <section className={sectionCls}>
+            <LinksContent isText={true} />
+          </section>
+        </CardBody>
+      </Card>
       <AbsoluteFooter disableDarkMode goHome disableText />
-    </>
+    </div>
   );
 }
-export function ExpPage() {
+function ExpPage() {
   return (
     <div className={clsx(sectionCls, docsSectionCls)}>
       <h1 className={clsx(title({ size: "lg" }))}>Experience</h1>
@@ -36,7 +44,6 @@ export function ExpPage() {
           return <ExperienceCard key={`experience-${i}`} e={e} />;
         })}
       </div>
-      <LinksContent isText={true} />
     </div>
   );
 }

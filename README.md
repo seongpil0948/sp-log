@@ -1,5 +1,9 @@
 # Todo
-- [ ] About 의 Developer 에서 스크롤 효과에 따라 중앙에 Dev 로변경되며 트랜지션 되는 효과 추가
+- Projects to exp data(기존 exp 는 프로젝트 목록에 병합)
+- 잡코리아, 링크드인 등 내용 비교후 업데이트 
+- ExpEtc.mdx
+- 커버 파일 수정(링크) 다운로드 기능 추가
+- 
 
 # Reference
 

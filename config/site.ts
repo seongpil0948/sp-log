@@ -1,9 +1,13 @@
-import { ReactNode } from "react";
+import { FC, ReactNode } from "react";
 import { TAvailLocale } from ".";
 import { TreeSectionProps } from "@/components/client-only/tree-section";
+import { GithubIcon, LinkedInIcon } from "@/components/server-only/icons";
+import { IconSvgProps } from "@/types";
 
 export type SiteConfig = typeof siteConfig;
 export const APP_DOMAIN = "https://www.peachhub.love";
+export const CODING_GAME =
+  "https://www.codingame.com/profile/f98c28095b66d60aa9adc3f62e04210e6669263";
 type LangLabel = { [k in TAvailLocale]: string };
 interface TLink {
   id: string;
@@ -12,21 +16,19 @@ interface TLink {
   external?: boolean; // default false
   showNaveDesktopMenu?: boolean; // default false
   showNaveMobileMenu?: boolean; // default false
-  icon: ReactNode;
+  icon: ReactNode | FC<IconSvgProps>;
 }
-
-const links = Object.freeze<TLink[]>([
-  // internal links
-  {
+export const LINKS_MAP = Object.freeze({
+  home: {
     id: "home",
     label: {
       en: "Home",
       ko: "홈",
     },
-    href: "/",
-    icon: "🏠",
+    href: APP_DOMAIN,
+    icon: "To 🏠",
   },
-  {
+  docs: {
     id: "docs",
     label: {
       en: "Docs",
@@ -35,7 +37,7 @@ const links = Object.freeze<TLink[]>([
     href: "/docs",
     icon: "📚",
   },
-  {
+  about: {
     id: "about",
     label: {
       en: "About",
@@ -44,7 +46,7 @@ const links = Object.freeze<TLink[]>([
     href: "/about",
     icon: "👋",
   },
-  {
+  projects: {
     id: "projects",
     label: {
       en: "Projects",
@@ -53,7 +55,7 @@ const links = Object.freeze<TLink[]>([
     href: "/project",
     icon: "🚀",
   },
-  {
+  game: {
     id: "game",
     label: {
       en: "Game",
@@ -62,28 +64,49 @@ const links = Object.freeze<TLink[]>([
     href: "/game",
     icon: "🎮",
   },
-  // external links
-  {
+  github: {
     id: "github",
     label: {
       en: "GitHub",
       ko: "깃허브",
     },
     href: "https://github.com/seongpil0948",
-    icon: "🐙",
+    icon: GithubIcon,
     external: true,
   },
-  {
+  linkedIn: {
     id: "linkedin",
     label: {
       en: "LinkedIn",
       ko: "링크드인",
     },
     href: "https://www.linkedin.com/in/choi-seongpil-9910a0203",
-    icon: "🔗",
+    icon: LinkedInIcon,
     external: true,
   },
-]);
+  codingGame: {
+    id: "coding-game",
+    label: {
+      en: "Coding Game",
+      ko: "코딩 게임",
+    },
+    href: CODING_GAME,
+    icon: "🎲",
+    external: true,
+  },
+  stock: {
+    id: "stock",
+    label: {
+      en: "Stock",
+      ko: "주식",
+    },
+    href: "https://stock.peachhub.love",
+    icon: "💹",
+    external: true,
+  },
+});
+
+const links = Object.freeze<TLink[]>(Object.values(LINKS_MAP));
 
 const LINUX_DEFAULT_PATH = `/docs/linux/essential-commands`;
 export const redirectUris = Object.freeze({

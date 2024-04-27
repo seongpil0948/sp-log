@@ -31,10 +31,11 @@ export const PROJECTS: IProject[] = [
       "message queue: 'RabbitMQ'",
     ],
     description: [
-      "LG U+ 실내배송로봇/안내로봇 플랫폼",
       `유진로봇 Gateway 연동규격을 기반으로 플랫폼과 상호 운영을 통해 로봇의 상태, 위치, 배터리, 이동경로등의 데이터를 실시간으로 제어/통계 기능 제공.`,
       "progressive web app(PWA), 반응형 웹 디자인(RWD)을 적용하여 모바일/데스크탑에서 사용가능한 서비스 제공",
       "대시보드, 로봇 모델, 고객사, 알림 이력, AS 접수 이력, 관리자 계정, AS 대리점, 파츠, 아이콘, 이용약관, 개인정보 처리 방침 등의 관리 화면을 제공",
+      "층 별 로봇등 리소스의 상태와 위치를 표시하는 실시간 UI를 개발하는 과정에서 건물/층 별 지도의 크기에 따라 위치를 표시하는 방법이 필요했습니다.",
+      "서버측 인력이 부족하여 메세지큐 구축이 필요했습니다.",
     ],
     titleImg: "/projects/robot-platform/1.png",
     allImg: [
@@ -44,10 +45,17 @@ export const PROJECTS: IProject[] = [
       "/projects/robot-platform/4.png",
     ],
     myRole: "Frontend Project Leader",
-    roleDetail: ["실시간 지도"],
+    roleDetail: [
+      "직접 사내서버에 RabbitMQ, API서버를 준비하고, 클라이언트와 연동하여 실시간 UI 서비스를 세팅했습니다.",
+      "레퍼런스 사이트에 번들링된 JS 코드를 참고한 결과 층 별 지도데이터에 scale 값 확인 후, 위치를 표시하는 방법을 찾아내었습니다(M2PX).",
+      "x: this.mapOrigin.x + s.x * this.M2PX",
+      "https://github.com/seongpil0948/map-realtime/blob/main/src/components/WorkerMap/utils/map.ts",
+    ],
     earned: [
       "로봇 상태 데이터를 AWS IoT Core를 통해 MQTTS-WebSocket으로 연동하여 개발하여 보안이 향상된 서비스를 제공 경험",
       "직접 MQTT 서버를 구축하고 브라우저와 연결하여, 실시간 데이터 제공",
+      "정확한 사전 준비는 매끄럽게 프로젝트를 진행할 수 있도록 도와주었습니다.",
+      "데이터에 대한 설명 없이 레퍼런스 사이트의 코드를 참고한 결과는 큰 병목 해결로 도출",
     ],
   },
   {
@@ -87,12 +95,15 @@ export const PROJECTS: IProject[] = [
     id: "nextjs-framework",
     title: "Next.js 사내 프레임워크 제작",
     description: [
-      "SI 회사로서 React 수요의 증가에 따라 사내 Next.js 프레임워크를 제작하였습니다.",
+      "Vue.js 가 주력이었던 자사에 Next.js 개발을 요구하는 프로젝트가 발생",
       "주 목적은 각 프로젝트 테마 빠르게 적용 할 수 있는 style configuraion을 통해 모든 공통 컴포넌트에 일관된 디자인을 적용, 빠른 생산성을 위한 품질 높은 공용 컴포넌트 제작(with storybook, frontend workshop for building UI components) 이 목적입니다.",
       "SSR, SSG, SPA 렌더링 지원, CORS 환경, proxy 설정이 가능한 가이드라인 또한 제공하였습니다.",
     ],
-    myRole: "Frontend",
-    roleDetail: [],
+    myRole:
+      "Frontend Lead, Next.js 프레임워크를 제작하고 빠른 생산성을 위한 전략을 수립",
+    roleDetail: [
+      "퍼블리싱 팀과 협업하여, 빠른 생산성을 위한 품질 높은 공용 컴포넌트 제작",
+    ],
     earned: [
       "13버전 이후, 대폭 변경된 AppRouter 기반 프로젝트를 진행할 수 있었던 좋은 기회였습니다.",
       "tailwind-variants 를 통해 css, class as config 를 적용하여, css-in-js 를 사용하지 않고도 빠르게 스타일을 적용할 수 있었습니다.",
@@ -125,21 +136,26 @@ export const PROJECTS: IProject[] = [
     description: [
       "LG의 AI 서비스 TTS, NLP 모델 관리 플랫폼",
       "금칙어, 로그, 가중치등 설정 및 모니터링",
+      `
+      2024년 LG 에서는 내부 개발 플랫폼(violet(바이올렛, kubernetes,kubeflow 프레임워크))을 사용하여 서비스를 개발하기 시작합니다.
+      각 서비스 별 vscode 컨테이너 환경은 초기 단계여서 개발환경 구축에 어려움(웹서비스 개발은 우리팀이 처음)이 있었습니다.
+      gateway(apache), container 환경(network, resource) 수동관리, 환경변수 수동 주입, 
+      컨테이너 실행 리소스(프로세스 권한, 파일 관리) 등 상세한 부분은 직접 관리해야 했습니다.      
+      `,
     ],
     myRole: "Frontend",
     roleDetail: ["S3 관련 작업", "Project Leader"],
     earned: [
-      "LG 내부 개발 도구인 violet(바이올렛, kubernetes,kubeflow 프레임워크)은 각 서비스 별 vscode 컨테이너 환경을 제공받아 개발을 진행하였습니다.",
-      `바이올렛 환경이 아직 초기 단계여서, 개발환경 구축에 어려움(웹서비스 개발은 우리팀이 처음)이 있었습니다.  
-      gateway(apache), container 환경(network, resource) 수동관리, 환경변수 수동 주입, 컨테이너 실행 리소스(프로세스 권한, 파일 관리) 등 상세한 부분은 직접 관리해야 했습니다.  `,
       `
-      하지만 다양한 리소스들을 직접 관리하면서, kubernetes 환경에서 개발하는 것이 재밌었습니다.  
-      "horizontal pod autoscaler", "Notebook resource", "Argo", 리소스 라벨 관리등 row level 단계에서 "kubectl" 명령어를 직접 사용할 기회(EKS 진짜 비쌈..)가 흔치 않은데 LG 개발팀과 티키타카하며 문제를 해결하면서 흥미로웠습니다.        
+      하지만 다양한 리소스들을 직접 관리하면서, kubernetes 환경에서 개발하는 것이 재밌었습니다. "horizontal pod autoscaler", 
+      "Notebook resource", "Argo", 리소스 라벨 관리등 row level 단계에서 "kubectl" 명령어를 직접 사용할 기회(EKS 진짜 비쌈..)가 
+      흔치 않은데 LG 개발팀과 티키타카하며 문제를 해결하면서 흥미로웠습니다.        
       `,
       "CVT 테스트를 통해 쿠버네티스, istio 환경에서의 네트워킹 이슈 해결 경험",
       "WAF를 사용하여, 보안 이슈를 해결하는 방법",
       `
-      매 Notebook Instance 종료시 "ECR"의 이미지 크기가 증분되며 10GB 이상이 되는경우, 작성된 버전이 저장되지 않는경우 등 "ECR" 에 서비스별 이미지를 관리하는 것이 아직 안정화되지 않아보였습니다.  
+      매 Notebook Instance 종료시 "ECR"의 이미지 크기가 증분되며 10GB 이상이 되는경우, 작성된 버전이 저장되지 않는경우 등   
+      "ECR" 에 서비스별 이미지를 관리하는 것이 아직 안정화되지 않아보였습니다.  
       이에 인프라 담당자와 취득한 쿠버네티스 자격증을 기반으로 원활하게 소통하며, 수동 관리 스크립트를 제공받아 해결하였습니다.      
       `,
     ],
@@ -333,19 +349,15 @@ export const PROJECTS: IProject[] = [
     whiteImg: true,
     allImg: ["/projects/campi/feed.jpg", "/projects/campi/my-page.jpg"],
     description: [
-      "캠핑 SNS 플랫폼",
-      "캠핑장 예약, 리뷰 및 사진 공유, 정보 제공 ",
-      `Camping SNS 플랫폼 구축이 목적인 프로젝트로 사용자/인플루언서들은 캠핑 관련된 컨텐츠를 게시, 도매처의 캠핑상품 판매 서비스 제공.  `,
+      "캠핑 SNS 플랫폼 (캠핑장 예약, 리뷰 및 사진 공유, 정보 제공)",
+      `사용자/인플루언서들은 캠핑 관련된 컨텐츠를 게시, 도매처의 캠핑상품 판매 서비스 제공.`,
+      "하이브리드(Flutter) 앱 개발 도중 이미지 편집 기능 추가 요구, 비교적 초기 단계였던 Flutter 개발 환경에서 모든 조건을 충족하는 이미지 편집 라이브러리는 없었습니다.",
     ],
-    myRole: "1인 개발",
-    roleDetail: ["1인 개발 및 서버 구축, 유지보수"],
-    earned: [
-      `
-        기획상 모든 피드(게시물)에 동영상/사진들의 일관된 크기(ex 200x200)를 유지하기 해야 했습니다.  
-        당시 플러터 생태계에서 제공되는 이미지 편집 라이브러리가 제한되어 직접 
-        기기에 맞게(aspect) Virtual square(200x200)를 기기에 취하는 제스처(scale, pan, drag)에 따라 편집을 할 수 있도록 제공을 하였습니다.
-      `,
+    myRole: "1인 개발 및 서버 구축, 유지보수",
+    roleDetail: [
+      "Dart 언어를 이용하여 이미지 편집 라이브러리를 직접 제작, 필수 기능이었던 제스처(scale, pan, drag) 에 맞게 aspect ratio, clip, rotate, flip 등의 기능을 추가",
     ],
+    earned: [`라이브러리를 제작하면서 Dart 언어에 대한 이해도 증가`],
     usingDetail: ["Flutter", "Firebase", "Google Cloud", "Push messaging(FCM)"],
   },
   {
@@ -376,12 +388,12 @@ export const PROJECTS: IProject[] = [
       "각종 쇼핑플랫폼에서 판매중인 CJ 제일제당 상품데이터 수집 및 ETL to cj",
       "Argo Workflows를 사용하여 ETL 작업을 자동화",
     ],
-    myRole: "크롤러 제작",
+    myRole: "전체 크롤러 제작",
     roleDetail: [
       "CJ The Market의 상품 데이터가 출시된 쿠팡, 컬리, 이마트 등 대형 쇼핑몰로 부터 상품 데이터, 리뷰 데이터, 가격 데이터 등을 수집하여, ETL 작업을 통해 CJ The Market에 데이터를 적재하는 작업을 진행",
     ],
     earned: [
-      "컬리의 경우에는 API 키를 HTML 에 받아둔 덕분에 리소스 소비 없이 API 호출로 데이터를 수집해왔던 재미있는기억이 있습니다 ㅋㅋ",
+      "컬리의 경우에는 API 키를 HTML 에 받아둔 덕분에 리소스 소비 없이 API 호출로 데이터를 수집해왔던 재미있는기억이 있습니다.",
     ],
     usingDetail: [
       '크롤링: "BeautifulSoup, Selenium"',
