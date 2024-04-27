@@ -65,7 +65,7 @@ export function ParallaxText(props: ParallaxProps) {
     amount: 0.2,
   });
 
-  const x = useTransform(baseX, (v) => `${wrap(-30, 30, v)}%`);
+  const x = useTransform(baseX, (v) => `${wrap(-480, 80, v)}%`);
   const directionFactor = useRef<number>(1);
   useAnimationFrame((t, delta) => {
     if (!inView) return;
@@ -85,10 +85,6 @@ export function ParallaxText(props: ParallaxProps) {
 
     baseX.set(baseX.get() + moveBy);
   });
-
-  useEffect(() => {
-    console.log("===> x: ", x);
-  }, [x]);
 
   return (
     <div className="  whitespace-nowrap flex flex-nowrap">

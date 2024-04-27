@@ -48,7 +48,7 @@ export function Scene() {
         <FirstSection />
         <ProjectSection />
         <AboutSection />
-        <DocsSection />
+        {/* <DocsSection /> */}
       </section>
       <BlackBall />
     </MotionConfig>
