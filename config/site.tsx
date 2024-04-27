@@ -16,7 +16,7 @@ interface TLink {
   external?: boolean; // default false
   showNaveDesktopMenu?: boolean; // default false
   showNaveMobileMenu?: boolean; // default false
-  icon: ReactNode | FC<IconSvgProps>;
+  icon: ReactNode;
 }
 export const LINKS_MAP = Object.freeze({
   home: {
@@ -71,7 +71,7 @@ export const LINKS_MAP = Object.freeze({
       ko: "깃허브",
     },
     href: "https://github.com/seongpil0948",
-    icon: GithubIcon,
+    icon: <GithubIcon />,
     external: true,
   },
   linkedIn: {
@@ -81,7 +81,7 @@ export const LINKS_MAP = Object.freeze({
       ko: "링크드인",
     },
     href: "https://www.linkedin.com/in/choi-seongpil-9910a0203",
-    icon: LinkedInIcon,
+    icon: <LinkedInIcon />,
     external: true,
   },
   codingGame: {
