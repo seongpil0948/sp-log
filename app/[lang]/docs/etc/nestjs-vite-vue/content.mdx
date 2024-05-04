@@ -1,0 +1,36 @@
+
+
+# NestJs with Vite and Vue3
+
+### Toc
+- [NestJs with Vite and Vue3](#nestjs-with-vite-and-vue3)
+    - [Toc](#toc)
+  - [Introduction](#introduction)
+    - [프로젝트 요구사항](#프로젝트-요구사항)
+    - [make mono repo](#make-mono-repo)
+
+## Introduction
+Vue 생태계에서 Fullstack 개발을 위한 프레임워크로는 Nuxt.js가 가장 유명한 것이 사실입니다.  
+하지만 급히 프로젝트를 시작해야 할 때, Poc(Proof of Concept)를 거치지않은, 안정되지 않은 기술을 사용하고 싶지 않을 때가 있습니다.  
+저의 경우가 그랬습니다. spring backend 가 있었지만 많은 task를 브라우저에서 처리하도록 설계된 상황.  
+하지만 Frontend 사원급들이 Nuxt.js 를 빠른시간에 습득할 수 없는 상황  
+저희 프론트엔드 팀은 standalone Vue3 즉 NestJs와 Vue3를 사용하여 프로젝트를 시작하기로 결정했습니다.  
+
+즉 이 글은 NestJs, Vite 및 Vue3를 사용하여 프로젝트를 설정하는 방법에 대한 가이드입니다.   
+NestJs는 Node.js용 백엔드 프레임워크이고, Vite는 프론트엔드 빌드 도구이며, Vue3는 프론트엔드 프레임워크입니다.   
+이 가이드에서는 이러한 기술을 사용하여 프로젝트를 설정하는 방법과 이들이 함께 작동하는 방법을 보여줍니다.    
+
+### 프로젝트 요구사항
+- Vite 
+- Vue3 
+- 20개 이상의 MQTT(Iot-Core) 메시지를 처리
+- 각종 Raw Data를 통계 및 시각화 정제
+- 사용자 인증 및 권한 관리
+- mono repo
+
+### make mono repo
+```bash
+mkdir my-project
+cd my-project
+npx create-nx-workspace@latest
+```

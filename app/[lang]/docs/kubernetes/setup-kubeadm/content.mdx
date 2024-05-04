@@ -383,6 +383,11 @@ spec:
 EOF
 ```
 짠, 수고하셨습니다.
+
+만약 `controller` 에서  시크릿 관련 에러가 난다면 아래스크립트도 고려해보세요
+```bash
+$ kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
+```
 에러가 발생하거나, 문제가 있을 경우 아래의 참고 문서를 참조하세요.  
 
 
