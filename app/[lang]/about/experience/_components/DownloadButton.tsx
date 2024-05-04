@@ -3,6 +3,7 @@
 import { Button } from "@nextui-org/button";
 import { useRouter } from "next/navigation";
 import { useCommonCtx } from "@/app/_providers/common";
+import clsx from "clsx";
 
 export function ExperienceDownButton() {
   const router = useRouter();
@@ -41,16 +42,19 @@ export function ExperienceDownButton() {
     }
     a.click();
   };
+  const btnCls = clsx("min-w-[10rem] max-w-[50vw]");
 
   return (
-    <div className="max-w-[50vw] flex gap-3">
-      <Button size="md" onClick={() => handlePrint(false)}>
+    <div className="max-w-[50vw] flex gap-3 flex-wrap overflow-hidden">
+      <Button className={btnCls} size="lg" onClick={() => handlePrint(false)}>
         경력기술서 다운
       </Button>
-      <Button size="md" onClick={() => handlePrint(true)}>
+      <Button className={btnCls} size="lg" onClick={() => handlePrint(true)}>
         이력서 다운
       </Button>
       <Button
+        className={btnCls}
+        size="lg"
         onClick={() => {
           router.push(`/${clientLocale}/about/experience`);
         }}

@@ -61,7 +61,7 @@ export function AboutSection() {
       <div className={subtitle({ color: "gray" })}>
         사이트 개발자에대해 궁금한가요?
       </div>
-      <div className=" w-1/2 mr-auto !text-start  ">
+      <div className=" w-1/2 mr-auto !text-start mb-6  ">
         <LinksContent isText />
       </div>
     </section>

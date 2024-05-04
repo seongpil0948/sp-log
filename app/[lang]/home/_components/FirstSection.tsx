@@ -4,25 +4,18 @@
 // https://www.apple.com/kr/macbook-air/?afid=p238%7CsiADh6hbK-dc_mtid_18707vxu38484_pcrid_693736852787_pgrid_16348496961_pntwk_g_pchan__pexid_131009289166_&cid=aos-kr-kwgo-Brand--slid-AapXiqMo--product-
 // https://www.framer.com/motion/scroll-animations/##no-code
 
-import { CSSProperties, useEffect, useRef } from "react";
+import { useRef } from "react";
 import clsx from "clsx";
-import {
-  useInView,
-  motion,
-  MotionConfig,
-  MotionValue,
-  useMotionValueEvent,
-  useTransform,
-} from "framer-motion";
+import { useInView, motion, MotionConfig, useTransform } from "framer-motion";
 import { sectionCls } from "../theme";
 import { useWindowSize } from "@/app/_utils/client/responsive";
 import HomeNavigation from "./HomeNavigation";
 import { AboutCanvas } from "./AboutCanvas";
 import SingletonHome from "../_utils/singleton";
+import { isMobile } from "@/app/_utils/client/responsive";
 
 export function FirstSection() {
   const inst = SingletonHome.getInstance();
-
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, {
     amount: 0.9,
@@ -31,6 +24,7 @@ export function FirstSection() {
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const s = useWindowSize();
+  const isM = isMobile();
 
   const blackHole = {
     w: s.width / 2,
@@ -38,9 +32,9 @@ export function FirstSection() {
     initial: { opacity: 0, x: 0 },
   };
 
-  const toX = 0.8;
-  const toY = 0.8;
-  const toR = 5;
+  const toX = isM ? 0.3 : 0.8;
+  const toY = isM ? 0.3 : 0.8;
+  const toR = isM ? 2 : 5;
   const animateTo = {
     leftT: -(blackHole.w * toX),
     rightT: blackHole.w * toX,
@@ -74,8 +68,8 @@ export function FirstSection() {
           style={{
             position: "absolute",
             zIndex: 1,
-            top: "50%",
-            left: "50%",
+            top: isM ? "25%" : "50%",
+            left: isM ? "25%" : "50%",
             fontSize: "3rem",
             color: "white",
           }}
@@ -111,7 +105,7 @@ export function FirstSection() {
           initial={blackHole.initial}
           whileInView={{
             opacity: opacity.get(),
-            x: leftTX.get() + blackHole.w * 1.1,
+            x: leftTX.get() + blackHole.w * (isM ? 0.5 : 1.1),
             rotate: -rotate.get(),
             y: blackHole.h * 0.6,
           }}
