@@ -1,8 +1,9 @@
 import clsx from "clsx";
 import { tv } from "tailwind-variants";
+import { listbox } from "@nextui-org/theme";
 
 const uol =
-  "my-2 md:my-5 list-inside bg-slate-100 dark:bg-slate-950 dark:text-gray-400 [blockquote_&]:my-0 md:p-2 rounded-2xl";
+  "my-2 md:my-5 list-inside bg-content1 text-foreground [blockquote_&]:my-0 md:p-2 rounded-2xl";
 
 export default tv({
   base: "",

@@ -98,7 +98,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
           variant="bordered"
           classNames={{
             copyButton: "text-white",
-            base: "flex w-full",
+            base: "flex w-full my-2 md:my-4",
           }}
           style={{
             backgroundColor: "#282c34",

@@ -28,7 +28,7 @@ const colorModule = {
   primary: "text-primary",
   secondary: "text-secondary",
   tertiary: "text-tertiary",
-  default: "text-black dark:text-white",
+  default: "text-foreground",
   danger: "text-danger",
   black: "text-black",
   white: "text-white",
@@ -76,7 +76,7 @@ export const title = tv({
 });
 
 export const subtitle = tv({
-  base: "text-black dark:text-white w-full md:w-1/2 my-2 text-lg lg:text-xl text-default-600 block max-w-full",
+  base: "text-foreground w-full md:w-1/2 my-2 text-lg lg:text-xl text-default-600 block max-w-full",
   variants: {
     fullWidth: {
       true: "!w-full",
@@ -115,7 +115,7 @@ const commonTxt = {
   },
 };
 export const paragraph = tv({
-  base: " font-normal leading-7 text-black dark:text-white",
+  base: " font-normal leading-7 text-foreground",
   variants: {
     ...commonTxt,
     block: {
@@ -126,12 +126,12 @@ export const paragraph = tv({
   defaultVariants: {
     size: "md",
     font: "gothic",
-    color: "black",
+    color: "default",
     block: false,
   },
 });
 export const typo = tv({
-  base: "p-1 font-normal leading-1 md:leading-7  text-black dark:text-white ",
+  base: "p-1 font-normal leading-1 md:leading-7 text-foreground",
   variants: {
     type: {
       normal: "font-normal",
@@ -173,7 +173,7 @@ export const main = tv({
 });
 
 export const listText = tv({
-  base: clsx(typo(), "text-black dark:text-white [&::marker]:font-semibold"),
+  base: clsx(typo(), "[&::marker]:font-semibold"),
   variants: {
     ...commonTxt,
   },
