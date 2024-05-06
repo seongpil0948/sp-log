@@ -38,6 +38,7 @@
     "@nextui-org/react-utils": "^2.0.13",
     "@nextui-org/select": "^2.1.27",
     "@nextui-org/shared-icons": "^2.0.7",
+    "@nextui-org/skeleton": "^2.0.27",
     "@nextui-org/snippet": "2.0.34",
     "@nextui-org/spinner": "^2.0.28",
     "@nextui-org/switch": "2.0.28",

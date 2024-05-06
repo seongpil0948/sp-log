@@ -161,7 +161,7 @@ const Link = ({
   href?: string;
   children?: React.ReactNode;
 }) => {
-  return (
+  return href ? (
     <NextLink
       href={href}
       // isExternal={!href?.startsWith('/') && !href?.includes(APP_DOMAIN)}
@@ -176,6 +176,8 @@ const Link = ({
     >
       {children}
     </NextLink>
+  ) : (
+    <span>{children}</span>
   );
 };
 

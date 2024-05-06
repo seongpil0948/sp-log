@@ -32,11 +32,15 @@ export function PrefixComp(props: CommonNavbarProps): ReactNode {
       return "";
     }
   };
-  const TitleComp = (props: { item: TreeSectionProps }) => (
-    <Link key={props.item.href} href={props.item.href} color="foreground">
-      <div className={getTitleClass(props.item.label)}>{props.item.label}</div>
-    </Link>
-  );
+  const TitleComp = (props: { item: TreeSectionProps }) => {
+    return (
+      <Link key={props.item.href} href={props.item.href} color="foreground">
+        <div className={getTitleClass(props.item.label)}>
+          {props.item.label}
+        </div>
+      </Link>
+    );
+  };
 
   const renderAccordionItems = (items: TreeSectionProps[]): JSX.Element[] => {
     return items.map((item) => {

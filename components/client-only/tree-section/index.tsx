@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { tree } from "./theme";
-import { Link } from "@nextui-org/link";
+import Link from "next/link";
 
 export interface TreeSectionProps {
   label: string;
@@ -17,6 +17,8 @@ export function TreeSection(props: {
   let { treeProps, startDepth, linkTextClass } = props;
   startDepth = startDepth || 0;
   // const dispatch = useAppDispatch();
+  const hasChildren = (item: TreeSectionProps) =>
+    item.children && item.children.length > 0;
 
   const { wrapper, topMenu, menu, menuItem } = tree();
   return (
@@ -52,9 +54,9 @@ export function TreeSection(props: {
                     </div>
                   </Link>
                 </div>
-                {item.children && (
+                {hasChildren(item) && (
                   <TreeSection
-                    treeProps={item.children}
+                    treeProps={item.children!}
                     startDepth={startDepth! + 1}
                   />
                 )}
