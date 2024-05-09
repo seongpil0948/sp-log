@@ -1,11 +1,11 @@
 'use client'
-// @ts-ignore
 
 import { AccordionItem, Accordion } from '@nextui-org/accordion'
 import CommonDrawer from '../../client-only/drawer'
 import { TreeSection, TreeSectionProps } from '../../client-only/tree-section'
 import { usePathname } from 'next/navigation'
-import { Link } from '@nextui-org/link'
+// import { Link } from '@nextui-org/link'
+import Link from 'next/link'
 import { isMobile } from '@/app/_utils/client/responsive'
 import { CommonNavbarProps } from './client'
 import { siteConfig } from '@/config/site'
@@ -36,7 +36,7 @@ export function PrefixComp(props: CommonNavbarProps): ReactNode {
     return (
       <Link key={props.item.href} href={props.item.href} color="foreground">
         <div className={getTitleClass(props.item.label)}>
-          {props.item.label} {props.item.href}
+          {props.item.label}
         </div>
       </Link>
     )
