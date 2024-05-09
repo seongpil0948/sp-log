@@ -17,8 +17,8 @@ export async function generateMetadata(
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   return {
-    title: "Nginx binary 설치",
-    description: "Nginx 설치의 정석.",
+    title: "CDN",
+    description: "CDN에 대하여",
   };
 }
 
