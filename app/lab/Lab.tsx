@@ -2,7 +2,7 @@
 'use client'
 import './style.css'
 import clsx from 'clsx'
-import { title } from '@/components/server-only/primitives'
+import { title } from '@/config/variants/primitives'
 import CirclePoint from './circles/circle-point'
 import CircleLine from './circles/circle-line'
 import { AlertText } from '@/components/server-only/alert'

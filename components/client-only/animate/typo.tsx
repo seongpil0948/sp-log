@@ -1,5 +1,5 @@
 'use client'
-import { title } from '@/components/server-only/primitives'
+import { title } from '@/config/variants/primitives'
 import { motion } from 'framer-motion'
 import { ReactNode } from 'react'
 

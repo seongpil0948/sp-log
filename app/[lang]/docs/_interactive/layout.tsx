@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import { siteConfig } from '@/config/site'
-import { main } from '@/components/server-only/primitives'
+import { main } from '@/config/variants/primitives'
 import type { ReactNode } from 'react'
 export const metadata: Metadata = {
   description: 'Interactive Documentation',

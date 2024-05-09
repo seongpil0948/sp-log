@@ -1,6 +1,6 @@
 import { Chip, ChipProps } from '@nextui-org/chip'
 import React from 'react'
-import { paragraph } from '../server-only/primitives'
+import { paragraph } from '../../config/variants/primitives'
 import clsx from 'clsx'
 
 export interface ChipListProps {

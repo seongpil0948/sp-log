@@ -1,16 +1,11 @@
-import {
-  main,
-  paragraph,
-  title,
-  typo,
-} from '@/components/server-only/primitives'
+import { main, paragraph, title, typo } from '@/config/variants/primitives'
 import clsx from 'clsx'
 import { ProjectTypeIcon, ProjectUsing } from '../_components/server-only/icons'
 import { Image } from '@nextui-org/image'
 import { Chip } from '@nextui-org/chip'
 import { BasicCarousel } from '@/components/client-only/Carousel'
 import { Link } from '@nextui-org/link'
-import themeList from '@/components/server-only/theme/list'
+import themeList from '@/config/variants/list'
 import { IProject } from '../types'
 
 export function ProjectContent(props: { post: IProject }) {

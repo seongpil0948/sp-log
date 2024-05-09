@@ -1,5 +1,5 @@
 import { GithubIcon, LinkedInIcon } from '@/components/server-only/icons'
-import { paragraph } from '@/components/server-only/primitives'
+import { paragraph } from '@/config/variants/primitives'
 import { APP_DOMAIN, CODING_GAME, LINKS_MAP } from '@/config/site'
 import { Button, ButtonProps } from '@nextui-org/button'
 import { Link, LinkProps } from '@nextui-org/link'

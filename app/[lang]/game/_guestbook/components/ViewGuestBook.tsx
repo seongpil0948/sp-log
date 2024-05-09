@@ -4,7 +4,7 @@ import FormGuestBook from './FormGuestBook'
 import BookTable from './TableGuestBook'
 import { Card, CardBody, CardHeader } from '@nextui-org/card'
 import clsx from 'clsx'
-import { title } from '@/components/server-only/primitives'
+import { title } from '@/config/variants/primitives'
 import { isMobile } from '@/app/_utils/client/responsive'
 
 export default function ViewGuestBook() {

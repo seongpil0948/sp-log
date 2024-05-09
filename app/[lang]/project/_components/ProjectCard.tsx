@@ -7,7 +7,7 @@ import { IProject } from '../types'
 import { ProjectTypeIcon, ProjectUsing } from './server-only/icons'
 import { useRouter } from 'next/navigation'
 import clsx from 'clsx'
-import { title, typo } from '@/components/server-only/primitives'
+import { title, typo } from '@/config/variants/primitives'
 import { isMobile } from '@/app/_utils/client/responsive'
 
 export default function ProjectCard(props: {

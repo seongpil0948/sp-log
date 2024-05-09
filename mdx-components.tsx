@@ -8,14 +8,15 @@ import CodeHeader from '@/components/server-only/CodeHeader'
 import { DetailedHTMLProps, HTMLAttributes, createElement } from 'react'
 import clsx from 'clsx'
 import { Card, CardBody, CardHeader } from '@nextui-org/card'
-import { listText, paragraph, title } from './components/server-only/primitives'
+import { listText, paragraph, title } from './config/variants/primitives'
 import { Chip } from '@nextui-org/chip'
 import { ChipList } from './components/client-only/ChipList'
-import themeList from '@/components/server-only/theme/list'
+import themeList from '@/config/variants/list'
 import { AlertText } from './components/server-only/alert'
+import tableTheme from './config/variants/table'
 
 const { ul: ulClasses, ol: olClasses } = themeList()
-
+const { table, th, td } = tableTheme()
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     ...components,
@@ -119,19 +120,9 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       )
     },
 
-    table: props => (
-      <table className="w-full border-collapse my-2 md:my-6">
-        {props.children}
-      </table>
-    ),
-    th: props => (
-      <th className="whitespace-nowrap border border-gray-200 bg-gray-100 px-4 py-2">
-        {props.children}
-      </th>
-    ),
-    td: props => (
-      <td className="border border-gray-200 px-4 py-2">{props.children}</td>
-    ),
+    table: props => <table className={table()}>{props.children}</table>,
+    th: props => <th className={th()}>{props.children}</th>,
+    td: props => <td className={td()}>{props.children}</td>,
     CodeHeader,
     Chip,
     Card: props => (

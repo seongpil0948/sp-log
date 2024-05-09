@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import alertTheme from './theme'
+import alertTheme from '@/config/variants/theme'
 import {
   mdiAlertCircle,
   mdiInformation,

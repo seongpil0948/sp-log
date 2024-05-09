@@ -1,6 +1,5 @@
 import clsx from 'clsx'
 import { tv } from 'tailwind-variants'
-import { listbox } from '@nextui-org/theme'
 
 const uol =
   'my-2 md:my-5 list-inside bg-content1 text-foreground [blockquote_&]:my-0 md:p-2 rounded-2xl'

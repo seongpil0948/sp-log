@@ -1,16 +1,11 @@
 import { ChipList } from '@/components/client-only/ChipList'
 import { HeaderAbout } from './Header'
-import {
-  paragraph,
-  subtitle,
-  title,
-  typo,
-} from '@/components/server-only/primitives'
+import { paragraph, subtitle, title, typo } from '@/config/variants/primitives'
 import clsx from 'clsx'
 import CertSection from './Cert'
 import styles from '../styles.module.css'
 import ProjectCardListHorizontal from '../../project/_components/server-only/ProjectCardsHorizontal'
-import themeList from '@/components/server-only/theme/list'
+import themeList from '@/config/variants/list'
 import LinksContent from './LinksContent'
 
 export default function AboutSectionsKo(props: { certData: string[] }) {

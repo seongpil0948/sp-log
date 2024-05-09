@@ -1,6 +1,6 @@
 'use client'
 import GeoButton from '@/components/client-only/three-d/geo-button'
-import { paragraph } from '@/components/server-only/primitives'
+import { paragraph } from '@/config/variants/primitives'
 import { motion } from 'framer-motion'
 
 const menuItemVariants = {

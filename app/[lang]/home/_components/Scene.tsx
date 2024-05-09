@@ -10,7 +10,7 @@ import BlackBall from './BlackBall'
 import SingletonHome from '../_utils/singleton'
 import DocsSection from './DocSection'
 import LinksContent from '../../about/_components/LinksContent'
-import { subtitle } from '@/components/server-only/primitives'
+import { subtitle } from '@/config/variants/primitives'
 
 // on first mounted disable scroll and rotate the image
 // when frame is equal to length of urls, enable scroll

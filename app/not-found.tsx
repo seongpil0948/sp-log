@@ -1,7 +1,7 @@
 import CommonNavbar from '@/components/server-only/navbar'
 import Link from 'next/link'
 import clsx from 'clsx'
-import { main, title } from '@/components/server-only/primitives'
+import { main, title } from '@/config/variants/primitives'
 import { CmFooter } from '@/components/server-only/footers'
 
 export default function NotFound() {

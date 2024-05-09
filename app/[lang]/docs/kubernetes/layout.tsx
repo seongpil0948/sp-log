@@ -1,4 +1,4 @@
-import { main } from '@/components/server-only/primitives'
+import { main } from '@/config/variants/primitives'
 import { siteConfig } from '@/config/site'
 import { Metadata } from 'next'
 import type { ReactNode } from 'react'

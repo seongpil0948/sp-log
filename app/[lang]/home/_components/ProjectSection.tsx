@@ -11,7 +11,7 @@ import {
   MotionValue,
   useSpring,
 } from 'framer-motion'
-import { title } from '@/components/server-only/primitives'
+import { title } from '@/config/variants/primitives'
 import ProjectCardListHorizontal from '../../project/_components/server-only/ProjectCardsHorizontal'
 import PROJECTS from '../../project/_logics/projects'
 import { splitArray } from '@/app/_utils/common'

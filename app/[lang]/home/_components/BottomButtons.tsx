@@ -2,7 +2,7 @@
 import useTour, { TargetWrapper } from '@/app/_utils/client/hooks/tour'
 import { useWindowSize } from '@/app/_utils/client/responsive'
 import GeoButton from '@/components/client-only/three-d/geo-button'
-import { typo } from '@/components/server-only/primitives'
+import { typo } from '@/config/variants/primitives'
 import clsx from 'clsx'
 import { Variants, motion, useAnimationControls } from 'framer-motion'
 import { useState, useRef, useEffect, useCallback } from 'react'

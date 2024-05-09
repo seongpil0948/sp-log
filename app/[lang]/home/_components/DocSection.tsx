@@ -3,7 +3,7 @@
 import clsx from 'clsx'
 import { motion, Variants } from 'framer-motion'
 import { sectionCls } from '../theme'
-import { paragraph } from '@/components/server-only/primitives'
+import { paragraph } from '@/config/variants/primitives'
 import { on } from 'events'
 
 interface Props {

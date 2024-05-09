@@ -2,7 +2,7 @@
 import clsx from 'clsx'
 import { motion } from 'framer-motion'
 import styles from '../styles.module.css'
-import { title } from '@/components/server-only/primitives'
+import { title } from '@/config/variants/primitives'
 
 export function HeaderAbout(props: { title: string }) {
   return (

@@ -17,7 +17,7 @@ import {
 import { IProject } from '../types'
 import { projectsConfig } from '../config'
 import ProjectCard from './ProjectCard'
-import { title } from '@/components/server-only/primitives'
+import { title } from '@/config/variants/primitives'
 import { ButtonHome } from '@/components/client-only/button/links'
 
 export function RootCanvas() {

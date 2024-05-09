@@ -20,7 +20,7 @@ import {
 import { getFBClientStore } from '@/config/firebase/clientApp'
 import clsx from 'clsx'
 import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover'
-import { paragraph } from '@/components/server-only/primitives'
+import { paragraph } from '@/config/variants/primitives'
 import { Button } from '@nextui-org/button'
 
 // FIXME: unnecessary fetchItems

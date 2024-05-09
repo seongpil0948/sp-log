@@ -1,7 +1,6 @@
 import clsx from 'clsx'
 import { tv } from 'tailwind-variants'
-import { paragraph, subtitle } from '../primitives'
-import { error } from 'console'
+import { paragraph, subtitle } from '@/config/variants/primitives'
 
 export const alertTheme = tv({
   base: '',

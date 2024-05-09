@@ -1,6 +1,6 @@
 import { CmFooter } from '@/components/server-only/footers'
 import CommonNavbar from '@/components/server-only/navbar'
-import { main } from '@/components/server-only/primitives'
+import { main } from '@/config/variants/primitives'
 import clsx from 'clsx'
 
 export default function DocsLayout({

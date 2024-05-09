@@ -2,7 +2,7 @@ import { Link } from '@nextui-org/link'
 import { Logo } from './icons'
 import { ThemeSwitch } from '../theme-switch'
 import SelectorNational from '../client-only/selector/National'
-import { paragraph, typo } from './primitives'
+import { paragraph, typo } from '../../config/variants/primitives'
 
 const LogoLink = (props?: { href?: string; disableText?: boolean }) => (
   <Link

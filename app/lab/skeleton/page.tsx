@@ -1,6 +1,6 @@
 import { SkeletonDoc } from '@/components/server-only/loading/skeletons'
 //<SkeletonDoc />
-import { title } from '@/components/server-only/primitives'
+import { title } from '@/config/variants/primitives'
 
 export default function Page() {
   return (
