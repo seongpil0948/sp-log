@@ -11,5 +11,5 @@ interface Param {
 }
 
 export default async function SSGPage({ params: { lang } }: Param) {
-  return redirect(`/${lang}/docs/vue/getting-started`)
+  return redirect(`/${lang}/docs/frontend/framework-next/getting-started`)
 }

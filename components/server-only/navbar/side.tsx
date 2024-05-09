@@ -36,7 +36,7 @@ export function PrefixComp(props: CommonNavbarProps): ReactNode {
     return (
       <Link key={props.item.href} href={props.item.href} color="foreground">
         <div className={getTitleClass(props.item.label)}>
-          {props.item.label}
+          {props.item.label} {props.item.href}
         </div>
       </Link>
     )
