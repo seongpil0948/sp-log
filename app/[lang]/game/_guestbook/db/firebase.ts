@@ -1,4 +1,9 @@
-import { ECollection, batchInQuery, dataFromSnap, getPCollection } from "@/app/_utils/client/firebase";
+import {
+  ECollection,
+  batchInQuery,
+  dataFromSnap,
+  getPCollection,
+} from "@/app/_utils/client/firebase";
 import {
   Firestore,
   startAfter,
@@ -19,15 +24,15 @@ import { TGuestBook, TGuestBookDB } from "../types";
 import { commonFromJson, commonToJson } from "@/app/_utils/common";
 import { PaginateParam } from "@/types";
 
-
 export const GuestBookFireStore: TGuestBookDB<Firestore> = {
   batchCreate: function (db: Firestore, args: TGuestBook[]): Promise<void> {
     throw new Error("Function not implemented.");
   },
   create: async function (db: Firestore, post: TGuestBook): Promise<void> {
-    const c = getPCollection(db, { c: "guestbook", uid: post.uid }).withConverter(
-      guestBookFireConverter
-    );
+    const c = getPCollection(db, {
+      c: "guestbook",
+      uid: post.uid,
+    }).withConverter(guestBookFireConverter);
     return setDoc(doc(c, post.id), post);
   },
   get: async function (db: Firestore, id: string, uid: string) {
@@ -36,7 +41,11 @@ export const GuestBookFireStore: TGuestBookDB<Firestore> = {
     );
     return getDoc(doc(c, id)).then((snap) => snap.data() ?? undefined);
   },
-  list: async function (db: Firestore, d: PaginateParam<TGuestBook>, uid: string) {
+  list: async function (
+    db: Firestore,
+    d: PaginateParam<TGuestBook>,
+    uid: string
+  ) {
     console.info("===> get guestbook list : ", d);
     const c = getPCollection(db, { c: "guestbook", uid }).withConverter(
       guestBookFireConverter
@@ -56,9 +65,14 @@ export const GuestBookFireStore: TGuestBookDB<Firestore> = {
     const docSnapshots = await getDocs(q);
     const docs = docSnapshots.docs;
     const lastDoc = docs[docs.length - 1];
-    const data = docSnapshots.docs.map((doc) => doc.data()) as TGuestBook[];
+    const data = docSnapshots.docs
+      .map((doc) => doc.data())
+      .filter((x) => x) as TGuestBook[];
     let noMore = false;
-    if (docs.length < pageSize || data.some(d => d.id === lastDoc.id)) {
+    if (
+      docs.length < pageSize ||
+      (lastDoc && data.some((d) => d.id === lastDoc.id))
+    ) {
       noMore = true;
     }
     return { data, noMore, lastDoc };
@@ -97,21 +111,21 @@ export const GuestBookFireStore: TGuestBookDB<Firestore> = {
   },
 };
 
-
-export const guestBookFireConverter: FirestoreDataConverter<TGuestBook | null> = {
-  toFirestore: (l: TGuestBook) => {
-    return commonToJson(l);
-  },
-  fromFirestore: (
-    snapshot: DocumentSnapshot<DocumentData>,
-    options: any
-  ): TGuestBook | null => {
-    const data = snapshot.data(options);
-    const result = data ? commonFromJson(data) : null;
-    return isGuestBook(result) ? result : null;
-  },
-};
+export const guestBookFireConverter: FirestoreDataConverter<TGuestBook | null> =
+  {
+    toFirestore: (l: TGuestBook) => {
+      return commonToJson(l);
+    },
+    fromFirestore: (
+      snapshot: DocumentSnapshot<DocumentData>,
+      options: any
+    ): TGuestBook | null => {
+      const data = snapshot.data(options);
+      const result = data ? commonFromJson(data) : null;
+      return isGuestBook(result) ? result : null;
+    },
+  };
 
 export const isGuestBook = (arg: any): arg is TGuestBook => {
   return arg.id && arg.uid && arg.message && arg.createdAt && arg.updatedAt;
-}
+};
