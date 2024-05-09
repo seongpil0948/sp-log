@@ -1,13 +1,13 @@
-"use client";
+'use client'
 // import { renderToString } from "react-dom/server";
-import { Button } from "@nextui-org/button";
-import { useRouter } from "next/navigation";
-import { useCommonCtx } from "@/app/_providers/common";
-import clsx from "clsx";
+import { Button } from '@nextui-org/button'
+import { useRouter } from 'next/navigation'
+import { useCommonCtx } from '@/app/_providers/common'
+import clsx from 'clsx'
 
 export function ExperienceDownButton() {
-  const router = useRouter();
-  const { clientLocale } = useCommonCtx();
+  const router = useRouter()
+  const { clientLocale } = useCommonCtx()
 
   const handlePrint = async (isResume = false) => {
     // html2pdf().set(opt).from(printContent).save();
@@ -32,17 +32,17 @@ export function ExperienceDownButton() {
     //   .from(printContent)
     //   .save();
 
-    const a = document.createElement("a");
+    const a = document.createElement('a')
     if (isResume) {
-      a.href = "/resume/Cover-Ko-v3.pdf";
-      a.download = "seongpil_resume.pdf";
+      a.href = '/resume/Cover-Ko-v3.pdf'
+      a.download = 'seongpil_resume.pdf'
     } else {
-      a.href = "/resume/experience.pdf";
-      a.download = "seongpil_experience.pdf";
+      a.href = '/resume/experience.pdf'
+      a.download = 'seongpil_experience.pdf'
     }
-    a.click();
-  };
-  const btnCls = clsx("min-w-[10rem] max-w-[50vw]");
+    a.click()
+  }
+  const btnCls = clsx('min-w-[10rem] max-w-[50vw]')
 
   return (
     <div className="max-w-[50vw] flex gap-3 flex-wrap overflow-hidden">
@@ -56,11 +56,11 @@ export function ExperienceDownButton() {
         className={btnCls}
         size="lg"
         onClick={() => {
-          router.push(`/${clientLocale}/about/experience`);
+          router.push(`/${clientLocale}/about/experience`)
         }}
       >
         경력기술서 페이지({clientLocale})
       </Button>
     </div>
-  );
+  )
 }

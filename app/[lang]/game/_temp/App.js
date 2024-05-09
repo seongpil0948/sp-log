@@ -1,7 +1,7 @@
-import { Suspense } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { easing } from "maath";
-import Model from "./Model";
+import { Suspense } from 'react'
+import { Canvas, useFrame } from '@react-three/fiber'
+import { easing } from 'maath'
+import Model from './Model'
 
 function Rig() {
   return useFrame((state, delta) => {
@@ -9,9 +9,9 @@ function Rig() {
       state.camera.position,
       [1 + state.mouse.x / 4, 1.5 + state.mouse.y / 4, 2.5],
       0.2,
-      delta
-    );
-  });
+      delta,
+    )
+  })
 }
 
 export default function App() {
@@ -38,5 +38,5 @@ export default function App() {
       </mesh>
       <Rig />
     </Canvas>
-  );
+  )
 }

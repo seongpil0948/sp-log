@@ -6,35 +6,35 @@ import {
   ModalHeader,
   ModalProps,
   useDisclosure,
-} from "@nextui-org/modal";
-import { Button } from "@nextui-org/button";
-import { ElementRef, forwardRef, useImperativeHandle } from "react";
-import { useRouter } from "next/navigation";
+} from '@nextui-org/modal'
+import { Button } from '@nextui-org/button'
+import { ElementRef, forwardRef, useImperativeHandle } from 'react'
+import { useRouter } from 'next/navigation'
 
 const BridgeEnterModal = forwardRef<
   ElementRef<typeof Modal>,
   // Omit<ModalProps, 'children'>,
   any
->(({ placement = "left", classNames, ...props }, ref) => {
-  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
-  const router = useRouter();
+>(({ placement = 'left', classNames, ...props }, ref) => {
+  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure()
+  const router = useRouter()
 
   useImperativeHandle(
     ref,
     () =>
       ({
         open() {
-          open();
+          open()
         },
-      } as any)
-  );
+      }) as any,
+  )
   const open = () => {
-    if (!isOpen) onOpen();
-  };
+    if (!isOpen) onOpen()
+  }
   const handleEnterBridge = () => {
-    router.push("/game/bridge");
-    onClose();
-  };
+    router.push('/game/bridge')
+    onClose()
+  }
   return (
     <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="auto">
       <ModalContent>
@@ -49,9 +49,9 @@ const BridgeEnterModal = forwardRef<
         </>
       </ModalContent>
     </Modal>
-  );
-});
+  )
+})
 
-BridgeEnterModal.displayName = "BridgeEnterModal";
+BridgeEnterModal.displayName = 'BridgeEnterModal'
 
-export default BridgeEnterModal;
+export default BridgeEnterModal

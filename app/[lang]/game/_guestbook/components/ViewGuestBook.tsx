@@ -1,24 +1,24 @@
-"use client";
-import { Tabs, Tab } from "@nextui-org/tabs";
-import FormGuestBook from "./FormGuestBook";
-import BookTable from "./TableGuestBook";
-import { Card, CardBody, CardHeader } from "@nextui-org/card";
-import clsx from "clsx";
-import { title } from "@/components/server-only/primitives";
-import { isMobile } from "@/app/_utils/client/responsive";
+'use client'
+import { Tabs, Tab } from '@nextui-org/tabs'
+import FormGuestBook from './FormGuestBook'
+import BookTable from './TableGuestBook'
+import { Card, CardBody, CardHeader } from '@nextui-org/card'
+import clsx from 'clsx'
+import { title } from '@/components/server-only/primitives'
+import { isMobile } from '@/app/_utils/client/responsive'
 
 export default function ViewGuestBook() {
-  const isM = isMobile();
+  const isM = isMobile()
   return (
     <Card className="max-w-full p-2 md:p-5">
       <CardHeader>
         <h2
           className={clsx(
             title({
-              size: "sm",
+              size: 'sm',
               fullWidth: true,
-              font: "gothic",
-            })
+              font: 'gothic',
+            }),
           )}
         >
           방명록
@@ -27,7 +27,7 @@ export default function ViewGuestBook() {
       <CardBody className="overflow-auto md:p-3">
         <Tabs
           aria-label="Options"
-          size={isM ? "sm" : "lg"}
+          size={isM ? 'sm' : 'lg'}
           fullWidth
           variant="bordered"
         >
@@ -40,5 +40,5 @@ export default function ViewGuestBook() {
         </Tabs>
       </CardBody>
     </Card>
-  );
+  )
 }

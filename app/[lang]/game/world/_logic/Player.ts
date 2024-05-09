@@ -1,107 +1,106 @@
 import {
-	AnimationMixer,
-	type Scene,
-	type Mesh,
-	type AnimationAction,
-	type Object3D,
-	type Camera,
-	Vector3
-} from 'three';
-import type { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import CONFIG from '../config';
-import { isCloseTo } from './common';
-
+  AnimationMixer,
+  type Scene,
+  type Mesh,
+  type AnimationAction,
+  type Object3D,
+  type Camera,
+  Vector3,
+} from 'three'
+import type { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+import CONFIG from '../config'
+import { isCloseTo } from './common'
 
 interface ConstructorParams {
-	scene: Scene
-	meshes: Object3D[]
-	gltfLoader: GLTFLoader
-	modelSrc: string
+  scene: Scene
+  meshes: Object3D[]
+  gltfLoader: GLTFLoader
+  modelSrc: string
 }
 
 export default class Player {
-	private _moving: boolean
-	private _modelMesh?: Object3D
-	private _mixer?: AnimationMixer
-	private _actions?: AnimationAction[]
-	static initialPosition = new Vector3(0, 0.6, 0)
+  private _moving: boolean
+  private _modelMesh?: Object3D
+  private _mixer?: AnimationMixer
+  private _actions?: AnimationAction[]
+  static initialPosition = new Vector3(0, 0.6, 0)
 
+  constructor(info: ConstructorParams) {
+    this._moving = false
 
-	constructor(info: ConstructorParams) {
-		this._moving = false;
+    info.gltfLoader.load(info.modelSrc, glb => {
+      glb.scene.traverse(child => {
+        const c = child as Mesh
+        if (c.isMesh) {
+          c.castShadow = true
+        }
+      })
 
-		info.gltfLoader.load(
-			info.modelSrc,
-			glb => {
-				glb.scene.traverse(child => {
-					const c = child as Mesh;
-					if (c.isMesh) {
-						c.castShadow = true;
-					}
-				});
+      this._modelMesh = glb.scene.children[0]
+      this._modelMesh.position.set(...Player.initialPosition.toArray())
+      this._modelMesh.rotateY(Math.PI)
 
-				this._modelMesh = glb.scene.children[0];
-				this._modelMesh.position.set(...Player.initialPosition.toArray())
-				this._modelMesh.rotateY(Math.PI);
+      this._modelMesh.name = 'ilbuni'
+      info.scene.add(this._modelMesh)
+      info.meshes.push(this._modelMesh)
 
-				this._modelMesh.name = 'ilbuni';
-				info.scene.add(this._modelMesh);
-				info.meshes.push(this._modelMesh);
+      this._actions = []
 
-				this._actions = [];
+      this._mixer = new AnimationMixer(this._modelMesh)
+      this.actions[0] = this._mixer.clipAction(glb.animations[0])
+      this.actions[1] = this._mixer.clipAction(glb.animations[2])
+      this.actions[0].play()
+    })
+  }
 
-				this._mixer = new AnimationMixer(this._modelMesh);
-				this.actions[0] = this._mixer.clipAction(glb.animations[0]);
-				this.actions[1] = this._mixer.clipAction(glb.animations[2]);
-				this.actions[0].play();
-			}
-		);
-	}
+  public get isInitialized(): boolean {
+    return !!this._modelMesh
+  }
 
-	public get isInitialized(): boolean {
-		return !!this._modelMesh
-	}
+  public get modelMesh(): Object3D {
+    if (!this._modelMesh) throw new Error('modelMesh is not initialized yet.')
+    return this._modelMesh
+  }
 
+  public get actions(): AnimationAction[] {
+    if (!this._actions) throw new Error('actions is not initialized yet.')
+    return this._actions
+  }
+  public get mixer() {
+    return this._mixer
+  }
+  public get moving() {
+    return this._moving
+  }
 
-	public get modelMesh(): Object3D {
-		if (!this._modelMesh) throw new Error('modelMesh is not initialized yet.');
-		return this._modelMesh
-	}
+  public set moving(value: boolean) {
+    this._moving = value
+  }
 
-	public get actions(): AnimationAction[] {
-		if (!this._actions) throw new Error('actions is not initialized yet.');
-		return this._actions
-	}
-	public get mixer() {
-		return this._mixer
-	}
-	public get moving() {
-		return this._moving
-	}
+  public get actDefault() {
+    return this.actions[0]
+  }
 
-	public set moving(value: boolean) {
-		this._moving = value
-	}
+  public get actWork() {
+    return this.actions[1]
+  }
 
-	public get actDefault() {
-		return this.actions[0]
-	}
+  isCloseTo(dest: { x: number; z: number }) {
+    return isCloseTo(this.modelMesh.position, dest, 0.03)
+    // return Math.abs(dest.x - this.modelMesh.position.x) < 0.03 &&
+    // 	Math.abs(dest.z - this.modelMesh.position.z) < 0.03
+  }
+  isOnTheSpot(dest: Vector3) {
+    return (
+      Math.abs(dest.x - this.modelMesh.position.x) < 1.5 &&
+      Math.abs(dest.z - this.modelMesh.position.z) < 1.5
+    )
+  }
 
-	public get actWork() {
-		return this.actions[1]
-	}
-
-	isCloseTo(dest: { x: number, z: number }) {
-		return isCloseTo(this.modelMesh.position, dest, 0.03)
-		// return Math.abs(dest.x - this.modelMesh.position.x) < 0.03 &&
-		// 	Math.abs(dest.z - this.modelMesh.position.z) < 0.03
-	}
-	isOnTheSpot(dest: Vector3) {
-		return Math.abs(dest.x - this.modelMesh.position.x) < 1.5 &&
-			Math.abs(dest.z - this.modelMesh.position.z) < 1.5
-	}
-
-	getAngle(dest: { x: number, z: number }) {
-		return Math.atan2(dest.z - this.modelMesh.position.z, dest.x - this.modelMesh.position.x);
-	}
+  getAngle(dest: { x: number; z: number }) {
+    return Math.atan2(
+      dest.z - this.modelMesh.position.z,
+      dest.x - this.modelMesh.position.x,
+    )
+  }
 }

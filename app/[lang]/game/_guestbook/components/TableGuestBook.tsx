@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-"use client";
-import React, { useCallback, useEffect } from "react";
-import { useInfiniteScroll } from "@nextui-org/use-infinite-scroll";
-import { Spinner } from "@nextui-org/spinner";
+'use client'
+import React, { useCallback, useEffect } from 'react'
+import { useInfiniteScroll } from '@nextui-org/use-infinite-scroll'
+import { Spinner } from '@nextui-org/spinner'
 import {
   Table,
   TableHeader,
@@ -10,62 +10,62 @@ import {
   TableBody,
   TableRow,
   TableCell,
-} from "@nextui-org/table";
-import type { TGuestBook } from "../types";
-import { GUEST_DB } from "../db";
+} from '@nextui-org/table'
+import type { TGuestBook } from '../types'
+import { GUEST_DB } from '../db'
 import {
   type DocumentData,
   type QueryDocumentSnapshot,
-} from "firebase/firestore";
-import { getFBClientStore } from "@/config/firebase/clientApp";
-import clsx from "clsx";
-import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/popover";
-import { paragraph } from "@/components/server-only/primitives";
-import { Button } from "@nextui-org/button";
+} from 'firebase/firestore'
+import { getFBClientStore } from '@/config/firebase/clientApp'
+import clsx from 'clsx'
+import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover'
+import { paragraph } from '@/components/server-only/primitives'
+import { Button } from '@nextui-org/button'
 
 // FIXME: unnecessary fetchItems
 export default function BookTable() {
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [hasMore, setHasMore] = React.useState(true);
+  const [isLoading, setIsLoading] = React.useState(false)
+  const [hasMore, setHasMore] = React.useState(true)
   const [lastData, setLastData] =
-    React.useState<QueryDocumentSnapshot<TGuestBook | null, DocumentData>>();
-  const [items, setItems] = React.useState<TGuestBook[]>([]);
-  const w = window.innerWidth;
+    React.useState<QueryDocumentSnapshot<TGuestBook | null, DocumentData>>()
+  const [items, setItems] = React.useState<TGuestBook[]>([])
+  const w = window.innerWidth
 
   const fetchItems = useCallback(async () => {
-    console.count("fetchItems");
-    if (!hasMore) return;
-    setIsLoading(true);
+    console.count('fetchItems')
+    if (!hasMore) return
+    setIsLoading(true)
     try {
       const resp = await GUEST_DB.list(
         getFBClientStore(),
         {
           pageSize: 10,
-          orderBy: "createdAt",
+          orderBy: 'createdAt',
           lastData: lastData,
         },
-        "-1"
-      );
-      setHasMore(!resp.noMore);
-      setLastData(resp.lastDoc);
-      setItems([...items, ...resp.data]);
-      console.log("result of fetchItems", resp);
+        '-1',
+      )
+      setHasMore(!resp.noMore)
+      setLastData(resp.lastDoc)
+      setItems([...items, ...resp.data])
+      console.log('result of fetchItems', resp)
     } catch (error) {
-      console.error("error on fetchItems", error);
-      setHasMore(false);
+      console.error('error on fetchItems', error)
+      setHasMore(false)
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
-  }, []);
+  }, [])
 
   const [loaderRef, scrollerRef] = useInfiniteScroll({
     hasMore,
     onLoadMore: fetchItems,
-  });
+  })
 
   useEffect(() => {
-    fetchItems();
-  }, [fetchItems]);
+    fetchItems()
+  }, [fetchItems])
 
   return (
     <Table
@@ -82,8 +82,8 @@ export default function BookTable() {
         ) : null
       }
       classNames={{
-        base: "max-h-[520px] overflow-scroll",
-        table: "min-h-[400px]",
+        base: 'max-h-[520px] overflow-scroll',
+        table: 'min-h-[400px]',
       }}
     >
       <TableHeader>
@@ -106,7 +106,7 @@ export default function BookTable() {
         {(item: TGuestBook) => (
           <TableRow key={item.id}>
             <TableCell>
-              <div className={clsx("max-w-20", paragraph({ size: "sm" }))}>
+              <div className={clsx('max-w-20', paragraph({ size: 'sm' }))}>
                 {item.nameAlias}
               </div>
             </TableCell>
@@ -114,7 +114,7 @@ export default function BookTable() {
               <PopoverMessage message={item.message} />
             </TableCell>
             <TableCell>
-              <div className={clsx("max-w-20", paragraph({ size: "sm" }))}>
+              <div className={clsx('max-w-20', paragraph({ size: 'sm' }))}>
                 {item.createdAt.toLocaleDateString()}
               </div>
             </TableCell>
@@ -122,7 +122,7 @@ export default function BookTable() {
         )}
       </TableBody>
     </Table>
-  );
+  )
 }
 
 export function PopoverMessage(props: { message: string }) {
@@ -131,8 +131,8 @@ export function PopoverMessage(props: { message: string }) {
       <PopoverTrigger>
         <div
           className={clsx(
-            "max-w-96 text-ellipsis overflow-hidden whitespace-nowrap cursor-pointer",
-            paragraph({ size: "sm" })
+            'max-w-96 text-ellipsis overflow-hidden whitespace-nowrap cursor-pointer',
+            paragraph({ size: 'sm' }),
           )}
         >
           {props.message}
@@ -140,11 +140,11 @@ export function PopoverMessage(props: { message: string }) {
       </PopoverTrigger>
       <PopoverContent>
         <div className="px-1 py-2 z-1000">
-          <div className={clsx(paragraph({ size: "md", font: "gothic" }))}>
+          <div className={clsx(paragraph({ size: 'md', font: 'gothic' }))}>
             {props.message}
           </div>
         </div>
       </PopoverContent>
     </Popover>
-  );
+  )
 }

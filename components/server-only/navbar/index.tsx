@@ -1,40 +1,40 @@
-import { CommonNavbarProps, NavMobileMenu } from "./client";
-import { clsx, type ClassValue } from "clsx";
-import { navbar } from "./theme";
-import { getTree } from "@/app/_utils/server/dir-tree";
+import { CommonNavbarProps, NavMobileMenu } from './client'
+import { clsx, type ClassValue } from 'clsx'
+import { navbar } from './theme'
+import { getTree } from '@/app/_utils/server/dir-tree'
 import {
   Navbar as NextUINavbar,
   NavbarContent,
   NavbarMenuToggle,
   NavbarBrand,
   NavbarItem,
-} from "@nextui-org/navbar";
-import { Link } from "@nextui-org/link";
-import NextLink from "next/link";
-import { ThemeSwitch } from "@/components/theme-switch";
-import { GithubIcon } from "@/components/server-only/icons";
-import { Logo } from "@/components/server-only/icons";
-import { PrefixComp } from "./side";
-import { getDictionary } from "@/app/[lang]/dictionaries";
-import SearchModal from "../../client-only/button/SearchModal";
+} from '@nextui-org/navbar'
+import { Link } from '@nextui-org/link'
+import NextLink from 'next/link'
+import { ThemeSwitch } from '@/components/theme-switch'
+import { GithubIcon } from '@/components/server-only/icons'
+import { Logo } from '@/components/server-only/icons'
+import { PrefixComp } from './side'
+import { getDictionary } from '@/app/[lang]/dictionaries'
+import SearchModal from '../../client-only/button/SearchModal'
 
 export function cn(...inputs: ClassValue[]) {
-  return clsx(inputs);
+  return clsx(inputs)
 }
 
 export default async function CommonNavbar(p: CommonNavbarProps) {
-  const { tree, leftTreeOptions } = p;
-  const { base, content, brand, item } = navbar();
+  const { tree, leftTreeOptions } = p
+  const { base, content, brand, item } = navbar()
 
-  const treeTop = tree ?? getTree({ dir: "app/[lang]", options: { depth: 3 } });
-  const treeLeft = getTree(leftTreeOptions);
+  const treeTop = tree ?? getTree({ dir: 'app/[lang]', options: { depth: 3 } })
+  const treeLeft = getTree(leftTreeOptions)
 
   const extendedClassNames = {
     base: cn(base(), p.classes?.base),
     content: cn(content(), p.classes?.content),
     brand: cn(brand(), p.classes?.brand),
     item: cn(item(), p.classes?.item),
-  } as CommonNavbarProps["classes"];
+  } as CommonNavbarProps['classes']
 
   const drawerProps = {
     sheetProps: {
@@ -43,14 +43,14 @@ export default async function CommonNavbar(p: CommonNavbarProps) {
       shouldBlockScroll: false,
     },
     ...p.drawerProps,
-  };
+  }
   const props = {
     ...p,
     classes: extendedClassNames,
     tree: treeTop,
     treeLeft: treeLeft,
     drawerProps: drawerProps,
-  };
+  }
 
   return (
     <NextUINavbar maxWidth="full" shouldHideOnScroll>
@@ -72,7 +72,7 @@ export default async function CommonNavbar(p: CommonNavbarProps) {
           <ThemeSwitch />
         </NavbarItem>
         <NavbarItem className="hidden md:flex basis-2/5">
-          <SearchModal locale={p.lang ?? "en"} />
+          <SearchModal locale={p.lang ?? 'en'} />
         </NavbarItem>
         <NavbarMenuToggle />
       </NavbarContent>
@@ -86,5 +86,5 @@ export default async function CommonNavbar(p: CommonNavbarProps) {
       </NavbarContent>
       <NavMobileMenu />
     </NextUINavbar>
-  );
+  )
 }

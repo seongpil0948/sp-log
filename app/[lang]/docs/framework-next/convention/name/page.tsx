@@ -1,12 +1,12 @@
-import Content from "./content.mdx";
+import Content from './content.mdx'
 
-import commonConfig, { TAvailLocale } from "@/config";
+import commonConfig, { TAvailLocale } from '@/config'
 export async function generateStaticParams() {
-  return commonConfig.i18n.locales.map((lang) => ({ lang }));
+  return commonConfig.i18n.locales.map(lang => ({ lang }))
 }
 
 interface Param {
-  params: { lang: TAvailLocale };
+  params: { lang: TAvailLocale }
 }
 // eslint-disable-next-line no-unused-vars
 export default async function SSGPage({ params: { lang } }: Param) {
@@ -14,5 +14,5 @@ export default async function SSGPage({ params: { lang } }: Param) {
     <div>
       <Content />
     </div>
-  );
+  )
 }

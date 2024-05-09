@@ -1,69 +1,69 @@
-"use client";
-import { TAvailLocale } from "@/config";
-import { Button } from "@nextui-org/button";
-import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/popover";
-import { usePathname, useRouter } from "next/navigation";
-import { use, useEffect, useState } from "react";
+'use client'
+import { TAvailLocale } from '@/config'
+import { Button } from '@nextui-org/button'
+import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover'
+import { usePathname, useRouter } from 'next/navigation'
+import { use, useEffect, useState } from 'react'
 
-type LocaleIcon = "🇺🇸" | "🇰🇷";
+type LocaleIcon = '🇺🇸' | '🇰🇷'
 
 function SelectorNational() {
-  const path = usePathname();
-  console.log("path", path);
-  const initialLocale: LocaleIcon = path.includes("/ko") ? "🇰🇷" : "🇺🇸";
+  const path = usePathname()
+  console.log('path', path)
+  const initialLocale: LocaleIcon = path.includes('/ko') ? '🇰🇷' : '🇺🇸'
 
-  const [selected, setSelected] = useState<LocaleIcon>(initialLocale);
-  const [isOpen, setIsOpen] = useState(false);
-  const router = useRouter();
-  const optionList: LocaleIcon[] = ["🇺🇸", "🇰🇷"];
+  const [selected, setSelected] = useState<LocaleIcon>(initialLocale)
+  const [isOpen, setIsOpen] = useState(false)
+  const router = useRouter()
+  const optionList: LocaleIcon[] = ['🇺🇸', '🇰🇷']
 
   const handleChanged = (option: LocaleIcon) => {
-    const oldLocale = selected && iconToLocale(selected);
-    const newLocale = iconToLocale(option);
-    if (oldLocale === newLocale) return;
+    const oldLocale = selected && iconToLocale(selected)
+    const newLocale = iconToLocale(option)
+    if (oldLocale === newLocale) return
 
-    setSelected(option);
-    setIsOpen(false);
+    setSelected(option)
+    setIsOpen(false)
 
-    fetch(`/api/locale?locale=${newLocale}`).then((res) => {
+    fetch(`/api/locale?locale=${newLocale}`).then(res => {
       if (res.ok) {
-        let newPath = path;
+        let newPath = path
         if (oldLocale) {
-          newPath = newPath.replace(oldLocale, newLocale);
+          newPath = newPath.replace(oldLocale, newLocale)
         }
-        router.replace(newPath);
+        router.replace(newPath)
       }
-    });
-  };
+    })
+  }
 
   return (
-    <Popover showArrow isOpen={isOpen} onOpenChange={(open) => setIsOpen(open)}>
+    <Popover showArrow isOpen={isOpen} onOpenChange={open => setIsOpen(open)}>
       <PopoverTrigger>
         <button className=" bg-transparent">{selected}</button>
       </PopoverTrigger>
       <PopoverContent className="p-1">
-        {optionList.map((option) => (
+        {optionList.map(option => (
           <Button
             key={option}
             isIconOnly
             className="w-full"
             onClick={() => {
-              handleChanged(option);
+              handleChanged(option)
             }}
             variant="light"
-            color={selected === option ? "primary" : "default"}
+            color={selected === option ? 'primary' : 'default'}
           >
             {option}
           </Button>
         ))}
       </PopoverContent>
     </Popover>
-  );
+  )
 }
 
 function iconToLocale(icon: LocaleIcon): TAvailLocale {
-  return icon === "🇺🇸" ? "en" : "ko";
+  return icon === '🇺🇸' ? 'en' : 'ko'
 }
 
-export default SelectorNational;
-export { SelectorNational };
+export default SelectorNational
+export { SelectorNational }

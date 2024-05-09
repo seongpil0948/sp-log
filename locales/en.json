@@ -25,10 +25,10 @@
         "description": "What is workloads"
       },
       "components": {
-       "etcd": {
-        "title": "Kubernetes components etcd",
-        "description": "What is Kubernetes components etcd"
-       }
+        "etcd": {
+          "title": "Kubernetes components etcd",
+          "description": "What is Kubernetes components etcd"
+        }
       }
     },
     "linux": {
@@ -53,15 +53,15 @@
         }
       },
       "user-group": {
-          "title": "user & group",
-          "description": "manage user & group"
+        "title": "user & group",
+        "description": "manage user & group"
       },
       "essential-commands": {
-          "title": "essential commands",
-          "description": "linux essential commands"
+        "title": "essential commands",
+        "description": "linux essential commands"
       }
     }
-  },  
+  },
   "common": {
     "label": {
       "createInformation": "Create Information",

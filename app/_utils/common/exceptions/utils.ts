@@ -1,23 +1,23 @@
-import { type FirebaseError } from "firebase/app";
+import { type FirebaseError } from 'firebase/app'
 
 const isFirebaseError = (err: any): err is FirebaseError =>
-  err.code && err.message;
+  err.code && err.message
 
 export function handleError(error: unknown): {
-  title?: string;
-  message: string;
+  title?: string
+  message: string
 } {
   if (isFirebaseError(error)) {
     return {
       title: error.code,
       message: error.message,
-    };
+    }
   }
   if (error instanceof Error) {
-    return { message: error.message };
+    return { message: error.message }
   }
-  console.error(error);
-  return { message: "An unknown error occurred" };
+  console.error(error)
+  return { message: 'An unknown error occurred' }
 }
 
 // export async function handleModalError(dispatch: AppDispatch, error: unknown) {

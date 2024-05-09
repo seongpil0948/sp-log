@@ -1,15 +1,31 @@
 'use client'
-import { RefObject } from "react"
-import { AmbientLight, AxesHelper, Camera, DirectionalLight, DirectionalLightHelper, Mesh, MeshBasicMaterial, MeshStandardMaterial, OrthographicCamera, PerspectiveCamera, PlaneGeometry, RepeatWrapping, Scene, TextureLoader, Vector2, Vector3 } from "three"
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js"
-import House from "./House"
-import Player from "./Player"
-import CONFIG from "../config"
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js"
-import { commonColors } from "@nextui-org/theme"
-import commonConfig from "@/config"
-import GuestBook from "./GuestBook"
-
+import { RefObject } from 'react'
+import {
+  AmbientLight,
+  AxesHelper,
+  Camera,
+  DirectionalLight,
+  DirectionalLightHelper,
+  Mesh,
+  MeshBasicMaterial,
+  MeshStandardMaterial,
+  OrthographicCamera,
+  PerspectiveCamera,
+  PlaneGeometry,
+  RepeatWrapping,
+  Scene,
+  TextureLoader,
+  Vector2,
+  Vector3,
+} from 'three'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+import House from './House'
+import Player from './Player'
+import CONFIG from '../config'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import { commonColors } from '@nextui-org/theme'
+import commonConfig from '@/config'
+import GuestBook from './GuestBook'
 
 type CameraMode = 'perspective' | 'orthographic'
 interface ConstructorParam {
@@ -41,14 +57,13 @@ export default class StateVillage {
   public gltfLoader: GLTFLoader
   public light = {
     ambient: new AmbientLight('white', 1),
-    directional: getDirectionalLight()
+    directional: getDirectionalLight(),
   }
   public camera: {
     perspective: PerspectiveCamera
     orthographic: OrthographicCamera
   }
   public controls: OrbitControls
-
 
   constructor(p: ConstructorParam) {
     this._canvasRef = p.canvasRef
@@ -115,10 +130,14 @@ export default class StateVillage {
     const angle = this.player.getAngle(this.destinationPoint)
     this.player.modelMesh.position.x += Math.cos(angle) * CONFIG.player.speed
     this.player.modelMesh.position.z += Math.sin(angle) * CONFIG.player.speed
-    this.camera.orthographic.position.x = this.cameraPosition.orthographic.x + this.player.modelMesh.position.x
-    this.camera.orthographic.position.z = this.cameraPosition.orthographic.z + this.player.modelMesh.position.z
-    this.camera.perspective.position.x = this.cameraPosition.perspective.x + this.player.modelMesh.position.x
-    this.camera.perspective.position.z = (this.cameraPosition.perspective.z + this.player.modelMesh.position.z)
+    this.camera.orthographic.position.x =
+      this.cameraPosition.orthographic.x + this.player.modelMesh.position.x
+    this.camera.orthographic.position.z =
+      this.cameraPosition.orthographic.z + this.player.modelMesh.position.z
+    this.camera.perspective.position.x =
+      this.cameraPosition.perspective.x + this.player.modelMesh.position.x
+    this.camera.perspective.position.z =
+      this.cameraPosition.perspective.z + this.player.modelMesh.position.z
     // Camera의 rotation을 player의 rotation으로 설정합니다.
     // this.camera.perspective.rotation.copy(this.player.modelMesh.rotation);
     // this.camera.perspective.position.copy(this.player.modelMesh.position);
@@ -138,7 +157,6 @@ export default class StateVillage {
     this.player.moving = true
   }
 
-
   public get cameraMode() {
     return this._cameraMode
   }
@@ -153,11 +171,21 @@ export default class StateVillage {
   }
 
   public get initializable() {
-    return !this._isInitialized && !!this._canvasRef.current && this.player.isInitialized && typeof window !== 'undefined'
+    return (
+      !this._isInitialized &&
+      !!this._canvasRef.current &&
+      this.player.isInitialized &&
+      typeof window !== 'undefined'
+    )
   }
 
   public get isInitialized(): boolean {
-    return this._isInitialized && !!this._canvasRef.current && this.player.isInitialized && typeof window !== 'undefined'
+    return (
+      this._isInitialized &&
+      !!this._canvasRef.current &&
+      this.player.isInitialized &&
+      typeof window !== 'undefined'
+    )
   }
 
   public get canvas(): HTMLCanvasElement {
@@ -182,7 +210,6 @@ export default class StateVillage {
   public set mouse(value: Vector2) {
     this._mouse = value
   }
-
 }
 
 const getCamera = {
@@ -295,6 +322,6 @@ function getPerspectiveCameraPosition(targetPos: Vector3) {
 //   if (mode==='perspective') {
 //     return position
 //   } else {
-//     return 
+//     return
 //   }
 // }

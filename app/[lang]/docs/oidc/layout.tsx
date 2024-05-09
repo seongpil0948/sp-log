@@ -1,20 +1,20 @@
-import { Metadata } from "next";
-import { siteConfig } from "@/config/site";
-import { main } from "@/components/server-only/primitives";
+import { Metadata } from 'next'
+import { siteConfig } from '@/config/site'
+import { main } from '@/components/server-only/primitives'
 
 export const metadata: Metadata = {
-  description: "Interactive Documentation",
+  description: 'Interactive Documentation',
   title: {
     default: `Js Interactive`,
     template: `%s - ${siteConfig.name}`,
   },
-};
+}
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   // const tree = getTree('app/[lang]/doc/interactive', { extensions: /\.mdx$/,})
-  return <>{children}</>;
+  return <>{children}</>
 }

@@ -1,18 +1,18 @@
-import { AvailDb, CrudBatchDB, ICommonDate, ICommonId, IUserId } from "@/types";
+import { AvailDb, CrudBatchDB, ICommonDate, ICommonId, IUserId } from '@/types'
 export interface TGuestBook {
-  id: string;
-  uid: string;
-  nameAlias: string;
-  message: string;
-  createdAt: Date;
-  updatedAt: Date;
+  id: string
+  uid: string
+  nameAlias: string
+  message: string
+  createdAt: Date
+  updatedAt: Date
 }
 
 export type TGuestBookDB<DB extends AvailDb> = CrudBatchDB<DB, TGuestBook> & {
-  favorite(db: DB, p: PUIds): Promise<void>;
-  isFavorite(db: DB, p: PUIds): Promise<boolean>;
-};
+  favorite(db: DB, p: PUIds): Promise<void>
+  isFavorite(db: DB, p: PUIds): Promise<boolean>
+}
 interface PUIds {
-  uid: string;
-  postId: string;
+  uid: string
+  postId: string
 }

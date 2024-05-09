@@ -1,17 +1,17 @@
-import type { ReactNode } from "react";
-import alertTheme from "./theme";
+import type { ReactNode } from 'react'
+import alertTheme from './theme'
 import {
   mdiAlertCircle,
   mdiInformation,
   mdiAlert,
   mdiCloseCircle,
-} from "@mdi/js";
-import Icon from "@mdi/react";
+} from '@mdi/js'
+import Icon from '@mdi/react'
 
 interface AlertTextProps {
-  title?: string;
-  children: ReactNode;
-  color?: "info" | "warn" | "error" | "default";
+  title?: string
+  children: ReactNode
+  color?: 'info' | 'warn' | 'error' | 'default'
 }
 export function AlertText(props: AlertTextProps) {
   const {
@@ -22,7 +22,7 @@ export function AlertText(props: AlertTextProps) {
     content,
   } = alertTheme({
     color: props.color,
-  });
+  })
 
   return (
     <div className={wrapper()}>
@@ -32,18 +32,18 @@ export function AlertText(props: AlertTextProps) {
         <div className={content()}>{props.children}</div>
       </div>
     </div>
-  );
+  )
 }
 
-function getIcon(variant: AlertTextProps["color"]) {
+function getIcon(variant: AlertTextProps['color']) {
   switch (variant) {
-    case "info":
-      return mdiInformation;
-    case "warn":
-      return mdiAlert;
-    case "error":
-      return mdiCloseCircle;
+    case 'info':
+      return mdiInformation
+    case 'warn':
+      return mdiAlert
+    case 'error':
+      return mdiCloseCircle
     default:
-      return mdiAlertCircle;
+      return mdiAlertCircle
   }
 }

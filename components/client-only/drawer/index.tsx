@@ -1,4 +1,4 @@
-"use client";
+'use client'
 
 import {
   Sheet,
@@ -7,27 +7,27 @@ import {
   SheetBody,
   SheetFooter,
   SheetProps,
-} from "./sheet";
-import Icon from "@mdi/react";
-import { useDisclosure } from "@nextui-org/modal";
-import { mdiMenuClose, mdiMenuOpen } from "@mdi/js";
-import { Button } from "@nextui-org/button";
-import type { ReactNode } from "react";
+} from './sheet'
+import Icon from '@mdi/react'
+import { useDisclosure } from '@nextui-org/modal'
+import { mdiMenuClose, mdiMenuOpen } from '@mdi/js'
+import { Button } from '@nextui-org/button'
+import type { ReactNode } from 'react'
 
 export interface CommonDrawerProps {
-  children: ReactNode;
-  title?: string;
-  sheetProps?: Partial<SheetProps>;
+  children: ReactNode
+  title?: string
+  sheetProps?: Partial<SheetProps>
 }
 export default function CommonDrawer(props: CommonDrawerProps) {
-  const { children, sheetProps, title } = props;
+  const { children, sheetProps, title } = props
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure({
     defaultOpen: sheetProps?.defaultOpen ?? false,
-  });
+  })
 
   const handleClick = () => {
-    isOpen ? onClose() : onOpen();
-  };
+    isOpen ? onClose() : onOpen()
+  }
   return (
     <>
       <Button isIconOnly onPress={handleClick}>
@@ -36,8 +36,8 @@ export default function CommonDrawer(props: CommonDrawerProps) {
 
       <Sheet
         classNames={{
-          body: "overflow-auto",
-          wrapper: "h-full rounded-l-none rounded-r-xl shadow-xl",
+          body: 'overflow-auto',
+          wrapper: 'h-full rounded-l-none rounded-r-xl shadow-xl',
         }}
         isOpen={isOpen}
         defaultOpen={sheetProps?.defaultOpen ?? false}
@@ -45,7 +45,7 @@ export default function CommonDrawer(props: CommonDrawerProps) {
         {...sheetProps}
       >
         <SheetContent>
-          {(onClose) => (
+          {onClose => (
             <>
               {title && <SheetHeader>{title}</SheetHeader>}
               <SheetBody>{children}</SheetBody>
@@ -55,7 +55,7 @@ export default function CommonDrawer(props: CommonDrawerProps) {
         </SheetContent>
       </Sheet>
     </>
-  );
+  )
 }
 /*
  - https://github.com/nextui-org/nextui/blob/main/packages/components/modal/src/use-modal.ts 

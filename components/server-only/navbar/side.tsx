@@ -1,37 +1,37 @@
-"use client";
+'use client'
 // @ts-ignore
 
-import { AccordionItem, Accordion } from "@nextui-org/accordion";
-import CommonDrawer from "../../client-only/drawer";
-import { TreeSection, TreeSectionProps } from "../../client-only/tree-section";
-import { usePathname } from "next/navigation";
-import { Link } from "@nextui-org/link";
-import { isMobile } from "@/app/_utils/client/responsive";
-import { CommonNavbarProps } from "./client";
-import { siteConfig } from "@/config/site";
-import type { ReactNode, JSX } from "react";
+import { AccordionItem, Accordion } from '@nextui-org/accordion'
+import CommonDrawer from '../../client-only/drawer'
+import { TreeSection, TreeSectionProps } from '../../client-only/tree-section'
+import { usePathname } from 'next/navigation'
+import { Link } from '@nextui-org/link'
+import { isMobile } from '@/app/_utils/client/responsive'
+import { CommonNavbarProps } from './client'
+import { siteConfig } from '@/config/site'
+import type { ReactNode, JSX } from 'react'
 
 export function PrefixComp(props: CommonNavbarProps): ReactNode {
-  const path = usePathname();
-  const isM = isMobile();
+  const path = usePathname()
+  const isM = isMobile()
 
-  const defaultExpandedKeys = path.split("/");
-  const { prefix, treeLeft, drawerProps } = props;
+  const defaultExpandedKeys = path.split('/')
+  const { prefix, treeLeft, drawerProps } = props
 
   if (prefix) {
-    return prefix;
+    return prefix
   }
 
   if (!treeLeft) {
-    return <></>;
+    return <></>
   }
   const getTitleClass = (label: string) => {
     if (defaultExpandedKeys.includes(label)) {
-      return "text-primary-700 underline";
+      return 'text-primary-700 underline'
     } else {
-      return "";
+      return ''
     }
-  };
+  }
   const TitleComp = (props: { item: TreeSectionProps }) => {
     return (
       <Link key={props.item.href} href={props.item.href} color="foreground">
@@ -39,25 +39,25 @@ export function PrefixComp(props: CommonNavbarProps): ReactNode {
           {props.item.label}
         </div>
       </Link>
-    );
-  };
+    )
+  }
 
   const renderAccordionItems = (items: TreeSectionProps[]): JSX.Element[] => {
-    return items.map((item) => {
+    return items.map(item => {
       let child: null | JSX.Element = (
         <TreeSection
           linkTextClass={getTitleClass}
           treeProps={item.children ?? []}
         />
-      );
+      )
       if (!item.children || item.children.length < 1) {
-        child = null;
+        child = null
       } else if (isChildGroup(item)) {
         child = (
           <Accordion isCompact={isM} defaultExpandedKeys={defaultExpandedKeys}>
             {renderAccordionItems(item.children!)}
           </Accordion>
-        );
+        )
       }
       return (
         <AccordionItem
@@ -80,16 +80,16 @@ export function PrefixComp(props: CommonNavbarProps): ReactNode {
         >
           {child}
         </AccordionItem>
-      );
-    });
-  };
+      )
+    })
+  }
 
-  const items = renderAccordionItems(treeLeft.children ?? []);
-  const hasChildren = treeHasChildren(treeLeft);
+  const items = renderAccordionItems(treeLeft.children ?? [])
+  const hasChildren = treeHasChildren(treeLeft)
   return (
     <CommonDrawer
       sheetProps={{
-        placement: "left",
+        placement: 'left',
         // defaultOpen: hasChildren,
         defaultOpen: false,
       }}
@@ -105,11 +105,10 @@ export function PrefixComp(props: CommonNavbarProps): ReactNode {
         />
       )}
     </CommonDrawer>
-  );
+  )
 }
 
 const treeHasChildren = (tree: TreeSectionProps) =>
-  tree.children?.some((item) => item.children && item.children?.length > 0);
+  tree.children?.some(item => item.children && item.children?.length > 0)
 const isChildGroup = (item: TreeSectionProps) =>
-  treeHasChildren(item) &&
-  item.children!.map((c) => c.children).flat().length > 0;
+  treeHasChildren(item) && item.children!.map(c => c.children).flat().length > 0

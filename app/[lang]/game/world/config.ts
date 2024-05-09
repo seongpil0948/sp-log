@@ -1,6 +1,6 @@
 const CONFIG = Object.freeze({
   player: {
-    speed: 0.05
+    speed: 0.05,
   },
   color: {
     primary: '#ff0000',
@@ -10,8 +10,8 @@ const CONFIG = Object.freeze({
     text: '#ffffff',
     shadow: '#000000',
     light: '#ffffff',
-    glass: '#ffffff'
-  }
-});
+    glass: '#ffffff',
+  },
+})
 
 export default CONFIG

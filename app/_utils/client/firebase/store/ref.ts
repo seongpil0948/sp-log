@@ -1,106 +1,110 @@
-import { RequiredField, commonToJson, commonFromJson } from "@/app/_utils/common";
+import {
+  RequiredField,
+  commonToJson,
+  commonFromJson,
+} from '@/app/_utils/common'
 import {
   CollectionReference,
   collection,
   collectionGroup,
   Firestore,
-} from "firebase/firestore";
-import type { QueryDocumentSnapshot, WithFieldValue } from "firebase/firestore";
+} from 'firebase/firestore'
+import type { QueryDocumentSnapshot, WithFieldValue } from 'firebase/firestore'
 
 export type ECollection =
-  | "post"
-  | "user"
-  | "post_comment"
-  | "likePost"
-  | "dislikePost"
-  | "recentlyViewedPosts"
-  | "likeGuestbook"
-  | "guestbook"
+  | 'post'
+  | 'user'
+  | 'post_comment'
+  | 'likePost'
+  | 'dislikePost'
+  | 'recentlyViewedPosts'
+  | 'likeGuestbook'
+  | 'guestbook'
 
 export const ECollection: { [key in ECollection]: ECollection } = Object.freeze(
   {
-    post: "post",
-    user: "user",
-    post_comment: "post_comment",
-    likePost: "likePost",
-    dislikePost: "dislikePost",
-    recentlyViewedPosts: "recentlyViewedPosts",
-    guestbook: "guestbook",
-    likeGuestbook: "likeGuestbook",
-  }
-);
+    post: 'post',
+    user: 'user',
+    post_comment: 'post_comment',
+    likePost: 'likePost',
+    dislikePost: 'dislikePost',
+    recentlyViewedPosts: 'recentlyViewedPosts',
+    guestbook: 'guestbook',
+    likeGuestbook: 'likeGuestbook',
+  },
+)
 export interface ICollectionParam {
-  readonly c: ECollection;
-  readonly postId?: string;
-  readonly uid?: string;
+  readonly c: ECollection
+  readonly postId?: string
+  readonly uid?: string
 }
 
 export function getPCollectionStr(p: ICollectionParam) {
-  let str: string;
+  let str: string
   switch (p.c) {
     case ECollection.user:
-      str = p.c;
-      break;
+      str = p.c
+      break
     case ECollection.likePost:
-      if (!p.uid) throw new RequiredField("getPCollection", "uid");
-      str = `${ECollection.user}/${p.uid}/${ECollection.likePost}`;
-      break;
+      if (!p.uid) throw new RequiredField('getPCollection', 'uid')
+      str = `${ECollection.user}/${p.uid}/${ECollection.likePost}`
+      break
     case ECollection.dislikePost:
-      if (!p.uid) throw new RequiredField("getPCollection", "uid");
-      str = `${ECollection.user}/${p.uid}/${ECollection.dislikePost}`;
-      break;
+      if (!p.uid) throw new RequiredField('getPCollection', 'uid')
+      str = `${ECollection.user}/${p.uid}/${ECollection.dislikePost}`
+      break
 
     case ECollection.likeGuestbook:
-      if (!p.uid) throw new RequiredField("getPCollection", "uid");
-      str = `${ECollection.user}/${p.uid}/${ECollection.likePost}`;
-      break;
+      if (!p.uid) throw new RequiredField('getPCollection', 'uid')
+      str = `${ECollection.user}/${p.uid}/${ECollection.likePost}`
+      break
     case ECollection.guestbook:
-      if (!p.uid) throw new RequiredField("getPCollection", "uid");
-      str = `${ECollection.user}/${p.uid}/${ECollection.guestbook}`;
-      break;
+      if (!p.uid) throw new RequiredField('getPCollection', 'uid')
+      str = `${ECollection.user}/${p.uid}/${ECollection.guestbook}`
+      break
     case ECollection.recentlyViewedPosts:
-      if (!p.uid) throw new RequiredField("getPCollection", "uid");
-      str = `${ECollection.user}/${p.uid}/${ECollection.recentlyViewedPosts}`;
-      break;
+      if (!p.uid) throw new RequiredField('getPCollection', 'uid')
+      str = `${ECollection.user}/${p.uid}/${ECollection.recentlyViewedPosts}`
+      break
     case ECollection.post:
-      str = p.c;
-      break;
+      str = p.c
+      break
     case ECollection.post_comment:
-      if (!p.postId) throw new RequiredField("getPCollection", "postId");
-      str = `${ECollection.post}/${p.postId}/${ECollection.post_comment}`;
-      break;
+      if (!p.postId) throw new RequiredField('getPCollection', 'postId')
+      str = `${ECollection.post}/${p.postId}/${ECollection.post_comment}`
+      break
     default:
-      throw Error(`IoCollection Enum Member ${p.c} is not Exist`);
+      throw Error(`IoCollection Enum Member ${p.c} is not Exist`)
   }
-  return str;
+  return str
 }
 
 export function getPCollection<T>(
   store: Firestore,
-  p: ICollectionParam
+  p: ICollectionParam,
 ): CollectionReference<T> {
-  const str = getPCollectionStr(p);
-  return collection(store, str).withConverter(fireConverter<T>());
+  const str = getPCollectionStr(p)
+  return collection(store, str).withConverter(fireConverter<T>())
 }
 
 export function getPCollectionGroup(store: Firestore, c: ECollection) {
-  let str: string;
+  let str: string
   switch (c) {
     case ECollection.post_comment:
-      str = c;
-      break;
+      str = c
+      break
     default:
-      throw Error(`getPCollectionGroup not supported Enum Member ${c}`);
+      throw Error(`getPCollectionGroup not supported Enum Member ${c}`)
   }
-  return collectionGroup(store, str);
+  return collectionGroup(store, str)
 }
 
 export const fireConverter = <T>(
   toJson?: (d: T) => any,
-  fromJson?: (d: any) => T
+  fromJson?: (d: any) => T,
 ) => ({
   toFirestore: (data: WithFieldValue<T>) =>
     toJson ? toJson(data as T) : commonToJson(data),
   fromFirestore: (snap: QueryDocumentSnapshot) =>
     fromJson ? fromJson(snap.data()) : (commonFromJson(snap.data()) as T),
-});
+})

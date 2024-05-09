@@ -1,24 +1,24 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-"use client";
-import "./style.css";
-import clsx from "clsx";
-import { title } from "@/components/server-only/primitives";
-import CirclePoint from "./circles/circle-point";
-import CircleLine from "./circles/circle-line";
-import { AlertText } from "@/components/server-only/alert";
+'use client'
+import './style.css'
+import clsx from 'clsx'
+import { title } from '@/components/server-only/primitives'
+import CirclePoint from './circles/circle-point'
+import CircleLine from './circles/circle-line'
+import { AlertText } from '@/components/server-only/alert'
 
 export default function Lab() {
   return (
     <>
       <div
         className={clsx(
-          "w-screen h-screen text-center flex flex-col justify-between overflow-auto"
+          'w-screen h-screen text-center flex flex-col justify-between overflow-auto',
         )}
       >
         <div
           className={title({
-            size: "md",
-            color: "pink",
+            size: 'md',
+            color: 'pink',
           })}
         >
           Lab
@@ -45,5 +45,5 @@ export default function Lab() {
         </div>
       </div>
     </>
-  );
+  )
 }

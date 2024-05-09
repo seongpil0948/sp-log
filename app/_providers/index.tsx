@@ -1,19 +1,19 @@
-"use client";
+'use client'
 
-import * as React from "react";
-import { NextUIProvider } from "@nextui-org/system";
-import { useRouter } from "next/navigation";
-import { ThemeProvider as NextThemesProvider } from "next-themes";
-import { ThemeProviderProps } from "next-themes/dist/types";
-import CommonProvider from "./common";
-import { AnimatePresence, motion } from "framer-motion";
+import * as React from 'react'
+import { NextUIProvider } from '@nextui-org/system'
+import { useRouter } from 'next/navigation'
+import { ThemeProvider as NextThemesProvider } from 'next-themes'
+import { ThemeProviderProps } from 'next-themes/dist/types'
+import CommonProvider from './common'
+import { AnimatePresence, motion } from 'framer-motion'
 export interface ProvidersProps {
-  children: React.ReactNode;
-  themeProps?: ThemeProviderProps;
+  children: React.ReactNode
+  themeProps?: ThemeProviderProps
 }
 
 export function Providers({ children, themeProps }: ProvidersProps) {
-  const router = useRouter();
+  const router = useRouter()
   return (
     <NextUIProvider navigate={router.push}>
       <NextThemesProvider {...themeProps}>
@@ -28,7 +28,7 @@ export function Providers({ children, themeProps }: ProvidersProps) {
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: 300, opacity: 0 }}
               transition={{
-                type: "spring",
+                type: 'spring',
                 stiffness: 260,
                 damping: 20,
               }}
@@ -39,5 +39,5 @@ export function Providers({ children, themeProps }: ProvidersProps) {
         </CommonProvider>
       </NextThemesProvider>
     </NextUIProvider>
-  );
+  )
 }

@@ -1,5 +1,5 @@
-import { BaseClass } from "./common"
-import Point from "./point"
+import { BaseClass } from './common'
+import Point from './point'
 
 export default class Wave extends BaseClass {
   points: Point[]
@@ -9,7 +9,12 @@ export default class Wave extends BaseClass {
   pointGap: number
   gapAlpha: number = 1.4
 
-  constructor(index: number, totalPoints: number, color: string, gapAlpha: number = 1.4) {
+  constructor(
+    index: number,
+    totalPoints: number,
+    color: string,
+    gapAlpha: number = 1.4,
+  ) {
     super(document.querySelector('#wave-page') ?? document.body)
     this.gapAlpha = gapAlpha
     this.index = index
@@ -24,7 +29,7 @@ export default class Wave extends BaseClass {
     this.stageHeight = stageHeight
     this.centerX = this.stageWidth / 2
     this.centerY = this.stageHeight / 2
-    this.pointGap = this.stageWidth / (this.totalPoints - 1) * this.gapAlpha
+    this.pointGap = (this.stageWidth / (this.totalPoints - 1)) * this.gapAlpha
     this.init()
   }
 
@@ -67,5 +72,4 @@ export default class Wave extends BaseClass {
     // ctx.arc(this.point!.x, this.point!.y, 30, 0, 2 * Math.PI)
     ctx.fill()
   }
-
 }

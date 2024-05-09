@@ -1,15 +1,15 @@
-"use client";
+'use client'
 
-import clsx from "clsx";
-import { motion, Variants } from "framer-motion";
-import { sectionCls } from "../theme";
-import { paragraph } from "@/components/server-only/primitives";
-import { on } from "events";
+import clsx from 'clsx'
+import { motion, Variants } from 'framer-motion'
+import { sectionCls } from '../theme'
+import { paragraph } from '@/components/server-only/primitives'
+import { on } from 'events'
 
 interface Props {
-  emoji: string;
-  hueA: number;
-  hueB: number;
+  emoji: string
+  hueA: number
+  hueB: number
 }
 
 const cardVariants: Variants = {
@@ -20,18 +20,18 @@ const cardVariants: Variants = {
     y: 50,
     rotate: -10,
     transition: {
-      type: "spring",
+      type: 'spring',
       bounce: 0.4,
       duration: 0.8,
     },
   },
   onHover: { rotate: 0, scale: 1.1, zIndex: 1 },
-};
+}
 
-const hue = (h: number) => `hsl(${h}, 100%, 50%)`;
+const hue = (h: number) => `hsl(${h}, 100%, 50%)`
 
 function Card({ emoji, hueA, hueB }: Props) {
-  const background = `linear-gradient(306deg, ${hue(hueA)}, ${hue(hueB)})`;
+  const background = `linear-gradient(306deg, ${hue(hueA)}, ${hue(hueB)})`
 
   return (
     <motion.div
@@ -40,22 +40,22 @@ function Card({ emoji, hueA, hueB }: Props) {
       viewport={{ once: true, amount: 0.8 }}
       whileHover="onHover"
       style={{
-        overflow: "hidden",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        position: "relative",
+        overflow: 'hidden',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'relative',
         paddingTop: 20,
         marginBottom: -120,
         width: 500,
         height: 450,
-        margin: "auto",
+        margin: 'auto',
       }}
     >
       <div
         style={{
           background,
-          position: "absolute",
+          position: 'absolute',
           bottom: 0,
           left: 0,
           right: 0,
@@ -65,48 +65,48 @@ function Card({ emoji, hueA, hueB }: Props) {
         }}
       />
       <motion.div
-        className={paragraph({ size: "xs" })}
+        className={paragraph({ size: 'xs' })}
         style={{
           width: 300,
           height: 430,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          background: "white",
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: 'white',
           borderRadius: 20,
-          cursor: "pointer",
+          cursor: 'pointer',
           boxShadow:
-            "0 0 1px hsl(0deg 0% 0% / 0.075), 0 0 2px hsl(0deg 0% 0% / 0.075), 0 0 4px hsl(0deg 0% 0% / 0.075), 0 0 8px hsl(0deg 0% 0% / 0.075), 0 0 16px hsl(0deg 0% 0% / 0.075)",
-          transformOrigin: "10% 60%",
+            '0 0 1px hsl(0deg 0% 0% / 0.075), 0 0 2px hsl(0deg 0% 0% / 0.075), 0 0 4px hsl(0deg 0% 0% / 0.075), 0 0 8px hsl(0deg 0% 0% / 0.075), 0 0 16px hsl(0deg 0% 0% / 0.075)',
+          transformOrigin: '10% 60%',
         }}
         variants={cardVariants}
       >
         {emoji}
       </motion.div>
     </motion.div>
-  );
+  )
 }
 
 const food: [string, number, number][] = [
-  ["🍅", 340, 10],
-  ["🍊", 20, 40],
-  ["🍋", 60, 90],
-  ["🍐", 80, 120],
-  ["🍏", 100, 140],
-  ["🫐", 205, 245],
-  ["🍆", 260, 290],
-  ["🍇", 290, 320],
-];
+  ['🍅', 340, 10],
+  ['🍊', 20, 40],
+  ['🍋', 60, 90],
+  ['🍐', 80, 120],
+  ['🍏', 100, 140],
+  ['🫐', 205, 245],
+  ['🍆', 260, 290],
+  ['🍇', 290, 320],
+]
 
 export function DocsSection() {
   const cards = food.map(([emoji, hueA, hueB]) => (
     <Card emoji={emoji} hueA={hueA} hueB={hueB} key={emoji} />
-  ));
+  ))
   return (
-    <section className={clsx(sectionCls, "my-[100] mx-auto pb-[100]")}>
+    <section className={clsx(sectionCls, 'my-[100] mx-auto pb-[100]')}>
       {cards}
     </section>
-  );
+  )
 }
 
-export default DocsSection;
+export default DocsSection

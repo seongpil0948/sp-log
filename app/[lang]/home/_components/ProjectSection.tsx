@@ -1,7 +1,7 @@
-"use client";
-import clsx from "clsx";
-import { sectionCls } from "../theme";
-import { ReactNode, useEffect, useRef } from "react";
+'use client'
+import clsx from 'clsx'
+import { sectionCls } from '../theme'
+import { ReactNode, useEffect, useRef } from 'react'
 import {
   motion,
   useTransform,
@@ -10,22 +10,22 @@ import {
   useInView,
   MotionValue,
   useSpring,
-} from "framer-motion";
-import { title } from "@/components/server-only/primitives";
-import ProjectCardListHorizontal from "../../project/_components/server-only/ProjectCardsHorizontal";
-import PROJECTS from "../../project/_logics/projects";
-import { splitArray } from "@/app/_utils/common";
-import SingletonHome from "../_utils/singleton";
-import { wrap } from "@/app/_utils/client/motion";
+} from 'framer-motion'
+import { title } from '@/components/server-only/primitives'
+import ProjectCardListHorizontal from '../../project/_components/server-only/ProjectCardsHorizontal'
+import PROJECTS from '../../project/_logics/projects'
+import { splitArray } from '@/app/_utils/common'
+import SingletonHome from '../_utils/singleton'
+import { wrap } from '@/app/_utils/client/motion'
 
 export function ProjectSection() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const inst = SingletonHome.getInstance();
+  const sectionRef = useRef<HTMLDivElement>(null)
+  const inst = SingletonHome.getInstance()
 
   // const arrProjects = splitArray(PROJECTS, 2);
-  const arrProjects = [PROJECTS];
+  const arrProjects = [PROJECTS]
   return (
-    <section ref={sectionRef} className={clsx(sectionCls, "-mt-48")}>
+    <section ref={sectionRef} className={clsx(sectionCls, '-mt-48')}>
       <ParallaxText
         scrollY={inst.data}
         containerRef={sectionRef}
@@ -44,54 +44,54 @@ export function ProjectSection() {
         </ParallaxText>
       ))}
     </section>
-  );
+  )
 }
 
 interface ParallaxProps {
-  children: ReactNode;
-  baseVelocity: number;
-  containerRef?: React.RefObject<HTMLDivElement>;
-  scrollY: MotionValue<number>;
+  children: ReactNode
+  baseVelocity: number
+  containerRef?: React.RefObject<HTMLDivElement>
+  scrollY: MotionValue<number>
 }
 
 export function ParallaxText(props: ParallaxProps) {
-  const { baseVelocity, children, scrollY } = props;
-  const baseX = useMotionValue(0);
+  const { baseVelocity, children, scrollY } = props
+  const baseX = useMotionValue(0)
 
   const velocityFactor = useTransform(scrollY, [0, 1000], [0, 10], {
     clamp: false,
-  });
+  })
   const inView = useInView(props.containerRef!, {
     amount: 0.2,
-  });
+  })
 
-  const x = useTransform(baseX, (v) => `${wrap(-480, 80, v)}%`);
-  const directionFactor = useRef<number>(1);
+  const x = useTransform(baseX, v => `${wrap(-480, 80, v)}%`)
+  const directionFactor = useRef<number>(1)
   useAnimationFrame((t, delta) => {
-    if (!inView) return;
-    let moveBy = directionFactor.current * baseVelocity * (delta / 1000);
+    if (!inView) return
+    let moveBy = directionFactor.current * baseVelocity * (delta / 1000)
 
     /**
      * This is what changes the direction of the scroll once we
      * switch scrolling directions.
      */
     if (velocityFactor.get() < 0) {
-      directionFactor.current = -1;
+      directionFactor.current = -1
     } else if (velocityFactor.get() > 0) {
-      directionFactor.current = 1;
+      directionFactor.current = 1
     }
 
-    moveBy += directionFactor.current * moveBy * velocityFactor.get();
+    moveBy += directionFactor.current * moveBy * velocityFactor.get()
 
-    baseX.set(baseX.get() + moveBy);
-  });
+    baseX.set(baseX.get() + moveBy)
+  })
 
   return (
     <div className="  whitespace-nowrap flex flex-nowrap">
       <motion.div
         className={clsx(
-          title({ font: "script" }),
-          "flex whitespace-nowrap flex-nowrap gap-12 "
+          title({ font: 'script' }),
+          'flex whitespace-nowrap flex-nowrap gap-12 ',
         )}
         style={{ x }}
       >
@@ -111,5 +111,5 @@ export function ParallaxText(props: ParallaxProps) {
         ))}
       </motion.div>
     </div>
-  );
+  )
 }

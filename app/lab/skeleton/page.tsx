@@ -1,6 +1,6 @@
-import { SkeletonDoc } from "@/components/server-only/loading/skeletons";
+import { SkeletonDoc } from '@/components/server-only/loading/skeletons'
 //<SkeletonDoc />
-import { title } from "@/components/server-only/primitives";
+import { title } from '@/components/server-only/primitives'
 
 export default function Page() {
   return (
@@ -10,5 +10,5 @@ export default function Page() {
         <SkeletonDoc />
       </div>
     </div>
-  );
+  )
 }

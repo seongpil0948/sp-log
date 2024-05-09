@@ -1,0 +1,5 @@
+dist
+*.md
+*.mdx
+*.html
+pnpm-lock.yaml

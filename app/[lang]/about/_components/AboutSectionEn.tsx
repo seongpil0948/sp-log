@@ -1,90 +1,90 @@
-import { ChipList } from "@/components/client-only/ChipList";
-import { HeaderAbout } from "./Header";
+import { ChipList } from '@/components/client-only/ChipList'
+import { HeaderAbout } from './Header'
 import {
   paragraph,
   subtitle,
   title,
   typo,
-} from "@/components/server-only/primitives";
-import clsx from "clsx";
-import CertSection from "./Cert";
-import styles from "../styles.module.css";
-import ProjectCardListHorizontal from "../../project/_components/server-only/ProjectCardsHorizontal";
-import themeList from "@/components/server-only/theme/list";
-import LinksContent from "./LinksContent";
+} from '@/components/server-only/primitives'
+import clsx from 'clsx'
+import CertSection from './Cert'
+import styles from '../styles.module.css'
+import ProjectCardListHorizontal from '../../project/_components/server-only/ProjectCardsHorizontal'
+import themeList from '@/components/server-only/theme/list'
+import LinksContent from './LinksContent'
 
 export default function AboutSectionsKo(props: { certData: string[] }) {
-  const { certData } = props;
-  const { ol: olClasses } = themeList();
+  const { certData } = props
+  const { ol: olClasses } = themeList()
   const expCompany = [
     {
-      name: "intellisys",
-      period: "2020.01 ~ 2022.06",
-      position: "Developer Manager, Fullstack Developer",
+      name: 'intellisys',
+      period: '2020.01 ~ 2022.06',
+      position: 'Developer Manager, Fullstack Developer',
       describe:
-        "data collect using (crawler), manage pipeline using (rabbitmq, k8s argo), provide reliable service from infrastructure to front",
+        'data collect using (crawler), manage pipeline using (rabbitmq, k8s argo), provide reliable service from infrastructure to front',
     },
     {
-      name: "inout box",
-      period: "2022.06 ~ 2023.03",
-      position: "Fullstack Developer",
+      name: 'inout box',
+      period: '2022.06 ~ 2023.03',
+      position: 'Fullstack Developer',
       describe: `
       My passion for software development stems from a deep fascination with the entire process, from the initial spark of an idea to its final realization as a fully-fledged product.  
       that's led me to start my own business, As a result, I created camping mobile app, clothing wholesale platform web, app, and gained various experiences.
       `,
     },
     {
-      name: "Abacus",
-      period: "2023.03 ~ Present",
-      position: "Frontend Developer",
+      name: 'Abacus',
+      period: '2023.03 ~ Present',
+      position: 'Frontend Developer',
       describe: `Abacus is a SI company that provides services. major partner is LG.`,
     },
-  ];
+  ]
 
   const expSkill = [
     {
-      ctgr: "Frontend",
-      skills: ["React", "Vue", "Flutter(Mobile)"],
+      ctgr: 'Frontend',
+      skills: ['React', 'Vue', 'Flutter(Mobile)'],
     },
     {
-      ctgr: "Infra",
+      ctgr: 'Infra',
       skills: [
-        "GCP",
-        "AWS",
-        "Firebase",
-        "Kubernetes",
-        "Docker",
-        "Linux",
-        "Nginx",
-        "RabbitMQ",
+        'GCP',
+        'AWS',
+        'Firebase',
+        'Kubernetes',
+        'Docker',
+        'Linux',
+        'Nginx',
+        'RabbitMQ',
       ],
     },
     {
-      ctgr: "Backend",
-      skills: ["python", "nodejs", "java", "golang"],
+      ctgr: 'Backend',
+      skills: ['python', 'nodejs', 'java', 'golang'],
     },
     {
-      ctgr: "Etc",
-      skills: ["Git", "Jira", "Confluence", "Typescript"],
+      ctgr: 'Etc',
+      skills: ['Git', 'Jira', 'Confluence', 'Typescript'],
     },
-  ];
+  ]
 
   return (
     <div className={styles.sections}>
       <section className={styles.section}>
         <HeaderAbout title="About a Developer" />
-        <h3 className={title({ size: "md", fullWidth: true })}>
+        <h3 className={title({ size: 'md', fullWidth: true })}>
           I am SeongPilChoi.
         </h3>
-        <p className={paragraph({ size: "lg", font: "script" })}>
+        <p className={paragraph({ size: 'lg', font: 'script' })}>
           cusp of developing has always fascinated me and <br />i have never
           been afraid to just jump to in and give it a go whether it is
         </p>
         <ol
           className={clsx(
-            "block",
+            'block',
             olClasses(),
-            paragraph({ size: "md", font: "gothic" })
+            paragraph({ size: 'md', font: 'gothic' }),
           )}
         >
           <li className=" mt-3">Cloud knowledge such as GCP</li>
@@ -95,8 +95,8 @@ export default function AboutSectionsKo(props: { certData: string[] }) {
         </ol>
         <p
           className={clsx(
-            paragraph({ size: "md", font: "gothic" }),
-            "my-5 block"
+            paragraph({ size: 'md', font: 'gothic' }),
+            'my-5 block',
           )}
         >
           I enjoy making miscellaneous product in my free time <br></br>
@@ -109,9 +109,9 @@ export default function AboutSectionsKo(props: { certData: string[] }) {
           certificates.
         </p>
         <p
-          className={clsx(paragraph({ size: "md", font: "gothic" }), "!block")}
+          className={clsx(paragraph({ size: 'md', font: 'gothic' }), '!block')}
         >
-          I recently started to have interest in WebGL and{" "}
+          I recently started to have interest in WebGL and{' '}
           <b>3D(Three.js and Blender)</b>
           <b>Udemy</b>, <b>Inflearn</b> and Youtube are my best friends.
         </p>
@@ -120,7 +120,7 @@ export default function AboutSectionsKo(props: { certData: string[] }) {
         <HeaderAbout title="Experience" />
         <div className="w-full flex flex-col">
           <div className="flex flex-col  justify-start items-start">
-            <div className={clsx(subtitle({ weight: "bold" }), "text-left")}>
+            <div className={clsx(subtitle({ weight: 'bold' }), 'text-left')}>
               Company
             </div>
             <ul>
@@ -132,11 +132,11 @@ export default function AboutSectionsKo(props: { certData: string[] }) {
                   <div
                     className={clsx(
                       typo({
-                        size: "sm",
-                        font: "gothic",
-                        weight: "bold",
+                        size: 'sm',
+                        font: 'gothic',
+                        weight: 'bold',
                       }),
-                      "!m-0 !p-0"
+                      '!m-0 !p-0',
                     )}
                   >
                     {exp.name} / {exp.period} / {exp.position}
@@ -146,7 +146,7 @@ export default function AboutSectionsKo(props: { certData: string[] }) {
             </ul>
           </div>
           <div className="flex flex-col justify-start items-start text-right max-h-[60vh] overflow-auto border border-gray-200 rounded-lg px-3 w-[90vw]">
-            <div className={clsx(subtitle({ weight: "bold" }))}>Skill</div>
+            <div className={clsx(subtitle({ weight: 'bold' }))}>Skill</div>
             <ul className="ml-auto">
               {expSkill.map((exp, idx) => (
                 <li
@@ -156,11 +156,11 @@ export default function AboutSectionsKo(props: { certData: string[] }) {
                   <div
                     className={clsx(
                       typo({
-                        size: "sm",
-                        font: "gothic",
-                        color: "gray",
-                        weight: "bold",
-                      })
+                        size: 'sm',
+                        font: 'gothic',
+                        color: 'gray',
+                        weight: 'bold',
+                      }),
                     )}
                   >
                     {exp.ctgr}
@@ -169,11 +169,11 @@ export default function AboutSectionsKo(props: { certData: string[] }) {
                     tags={exp.skills}
                     className="justify-end whitespace-nowrap inline-flex flex-wrap max-w-[80vw]"
                     chipProps={{
-                      color: "warning",
-                      variant: "bordered",
+                      color: 'warning',
+                      variant: 'bordered',
                       classNames: {
-                        base: "min-w-30 p-2 md:p-5 mx-1 sm:mx-2 min-w-fit",
-                        content: clsx(typo({ size: "sm" })),
+                        base: 'min-w-30 p-2 md:p-5 mx-1 sm:mx-2 min-w-fit',
+                        content: clsx(typo({ size: 'sm' })),
                       },
                     }}
                   />
@@ -192,8 +192,8 @@ export default function AboutSectionsKo(props: { certData: string[] }) {
         <HeaderAbout title="Projects" />
         <div
           className={clsx(
-            paragraph({ size: "sm", font: "gothic" }),
-            "hidden md:block"
+            paragraph({ size: 'sm', font: 'gothic' }),
+            'hidden md:block',
           )}
         >
           <p>
@@ -201,7 +201,7 @@ export default function AboutSectionsKo(props: { certData: string[] }) {
             and have worked on a variety of projects. Everything I have done,
             small or big, has been a vital stepping stone for where I am today.
           </p>
-          <p className={paragraph({ size: "sm", font: "gothic" })}>
+          <p className={paragraph({ size: 'sm', font: 'gothic' })}>
             Although I can build a service on my own from infrastructure to
             front
             <br />
@@ -215,5 +215,5 @@ export default function AboutSectionsKo(props: { certData: string[] }) {
         <LinksContent />
       </section>
     </div>
-  );
+  )
 }

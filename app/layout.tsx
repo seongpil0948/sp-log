@@ -1,19 +1,19 @@
-import "@/styles/globals.css";
-import { Metadata, Viewport } from "next";
-import { siteConfig } from "@/config/site";
-import { fontSans } from "@/config/fonts";
-import { Providers } from "./_providers";
-import clsx from "clsx";
-import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/next";
-import type { ReactNode } from "react";
+import '@/styles/globals.css'
+import { Metadata, Viewport } from 'next'
+import { siteConfig } from '@/config/site'
+import { fontSans } from '@/config/fonts'
+import { Providers } from './_providers'
+import clsx from 'clsx'
+import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/next'
+import type { ReactNode } from 'react'
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
+    { media: '(prefers-color-scheme: light)', color: 'white' },
+    { media: '(prefers-color-scheme: dark)', color: 'black' },
   ],
-};
+}
 
 export const metadata: Metadata = {
   title: {
@@ -22,14 +22,14 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon-16x16.png",
-    apple: "/apple-touch-icon.png",
+    icon: '/favicon.ico',
+    shortcut: '/favicon-16x16.png',
+    apple: '/apple-touch-icon.png',
   },
-};
+}
 
 export default function RootLayout({ children }: { children: ReactNode }) {
-  const NEXT_PUBLIC_ALGOLIA_APP_ID = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID;
+  const NEXT_PUBLIC_ALGOLIA_APP_ID = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -42,18 +42,18 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       </head>
       <body
         className={clsx(
-          "min-h-screen bg-background font-sans antialiased m-0 p-0 overflow-hidden",
-          fontSans.variable
+          'min-h-screen bg-background font-sans antialiased m-0 p-0 overflow-hidden',
+          fontSans.variable,
         )}
       >
         <Providers
           themeProps={{
-            attribute: "data-theme",
+            attribute: 'data-theme',
             // attribute: "class",
             children: <></>,
-            defaultTheme: "dark",
+            defaultTheme: 'dark',
             enableSystem: true,
-            themes: ["light", "dark"],
+            themes: ['light', 'dark'],
           }}
         >
           {children}
@@ -62,5 +62,5 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <SpeedInsights />
       </body>
     </html>
-  );
+  )
 }

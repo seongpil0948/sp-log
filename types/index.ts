@@ -1,10 +1,10 @@
-import { SVGProps } from "react";
-export * from "./common";
-export * from "./db";
+import { SVGProps } from 'react'
+export * from './common'
+export * from './db'
 
 export type IconSvgProps = SVGProps<SVGSVGElement> & {
-  size?: number;
-};
+  size?: number
+}
 
 export enum TIME_FORMATS {
   DAY,
@@ -12,9 +12,9 @@ export enum TIME_FORMATS {
 }
 
 export interface StaticAsset {
-  fileType: "image" | "video";
-  objective: "project";
-  part?: string;
-  ctgr?: string;
-  src: string;
+  fileType: 'image' | 'video'
+  objective: 'project'
+  part?: string
+  ctgr?: string
+  src: string
 }

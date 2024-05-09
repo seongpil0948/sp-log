@@ -1,8 +1,8 @@
-import { Button } from "@nextui-org/button";
-import { useRouter } from "next/navigation";
+import { Button } from '@nextui-org/button'
+import { useRouter } from 'next/navigation'
 
 export function GoHomeBtnAbsolute() {
-  const router = useRouter();
+  const router = useRouter()
   return (
     <Button
       size="sm"
@@ -10,12 +10,12 @@ export function GoHomeBtnAbsolute() {
       color="secondary"
       className=" absolute top-2 left-2"
       onClick={() => {
-        router.push("/home");
+        router.push('/home')
       }}
     >
       To 🏠
     </Button>
-  );
+  )
 }
 
-export default GoHomeBtnAbsolute;
+export default GoHomeBtnAbsolute

@@ -11,13 +11,8 @@
       "text": "#content-container  p,#content-container div"
     }
   },
-  "selectors_exclude": [
-    ".footer",
-    "nav ul"
-  ],
-  "sitemap_urls": [
-    "https://www.peachhub.love/sitemap.xml"
-  ],
+  "selectors_exclude": [".footer", "nav ul"],
+  "sitemap_urls": ["https://www.peachhub.love/sitemap.xml"],
   "js_render": true,
   "js_wait": 2,
   "start_urls": [

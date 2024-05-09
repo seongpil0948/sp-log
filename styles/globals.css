@@ -30,7 +30,7 @@ figure code {
   background-color: transparent !important;
 }
 code::before {
-  --tw-content: "" !important;
+  --tw-content: '' !important;
 }
 ul > li {
   margin-left: 1rem;

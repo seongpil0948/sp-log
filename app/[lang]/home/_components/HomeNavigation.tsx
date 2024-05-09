@@ -1,7 +1,7 @@
-"use client";
-import GeoButton from "@/components/client-only/three-d/geo-button";
-import { paragraph } from "@/components/server-only/primitives";
-import { motion } from "framer-motion";
+'use client'
+import GeoButton from '@/components/client-only/three-d/geo-button'
+import { paragraph } from '@/components/server-only/primitives'
+import { motion } from 'framer-motion'
 
 const menuItemVariants = {
   open: {
@@ -18,7 +18,7 @@ const menuItemVariants = {
       y: { stiffness: 1000 },
     },
   },
-};
+}
 const ulVariants = {
   open: {
     transition: { staggerChildren: 0.07, delayChildren: 0.2 },
@@ -26,22 +26,22 @@ const ulVariants = {
   closed: {
     transition: { staggerChildren: 0.05, staggerDirection: -1 },
   },
-};
+}
 
-const itemIds = [0, 1];
+const itemIds = [0, 1]
 export const HomeNavigation = () => (
   <motion.ul
     variants={ulVariants}
     style={{
-      maxWidth: "30vw",
-      maxHeight: "40vh",
+      maxWidth: '30vw',
+      maxHeight: '40vh',
     }}
   >
-    {itemIds.map((i) => (
+    {itemIds.map(i => (
       <MenuItem i={i} key={i} />
     ))}
   </motion.ul>
-);
+)
 // const MenuItem = ({ i, children }: { i: number; children?: ReactNode }) => {
 const MenuItem = ({ i }: { i: number }) => {
   return (
@@ -51,25 +51,25 @@ const MenuItem = ({ i }: { i: number }) => {
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.95 }}
       style={{
-        listStyle: "none",
-        marginBottom: "8rem",
-        width: "100%",
-        height: "100%",
-        color: "white",
+        listStyle: 'none',
+        marginBottom: '8rem',
+        width: '100%',
+        height: '100%',
+        color: 'white',
       }}
     >
       {/* {children ?? "hi"} */}
       {i === 0 ? (
         <GeoButton shape="basic" href="/docs">
-          <p className={paragraph({ color: "white" })}>DOCS</p>
+          <p className={paragraph({ color: 'white' })}>DOCS</p>
         </GeoButton>
       ) : (
         <GeoButton shape="character" href="/game">
-          <p className={paragraph({ color: "white" })}>GAME</p>
+          <p className={paragraph({ color: 'white' })}>GAME</p>
         </GeoButton>
       )}
     </motion.li>
-  );
-};
+  )
+}
 
-export default HomeNavigation;
+export default HomeNavigation

@@ -1,28 +1,28 @@
-import { AVAIL_LOCALES, TAvailLocale } from "@/config";
-import Content from "./content.mdx";
+import { AVAIL_LOCALES, TAvailLocale } from '@/config'
+import Content from './content.mdx'
 
-import { ResolvingMetadata, Metadata } from "next";
+import { ResolvingMetadata, Metadata } from 'next'
 // import { getDictionary } from '@/app/[lang]/dictionaries'
 
-import commonConfig from "@/config";
+import commonConfig from '@/config'
 export async function generateStaticParams() {
-  return commonConfig.i18n.locales.map((lang) => ({ lang }));
+  return commonConfig.i18n.locales.map(lang => ({ lang }))
 }
 
 type Props = {
-  params: { lang: TAvailLocale };
-  searchParams: { [key: string]: string | string[] | undefined };
-};
+  params: { lang: TAvailLocale }
+  searchParams: { [key: string]: string | string[] | undefined }
+}
 
 export async function generateMetadata(
   { params: { lang } }: Props,
-  parent: ResolvingMetadata
+  parent: ResolvingMetadata,
 ): Promise<Metadata> {
   // const dict = await getDictionary(lang)
   return {
-    title: "Daemon & Service",
-    description: "Daemon & Service with Linux",
-  };
+    title: 'Daemon & Service',
+    description: 'Daemon & Service with Linux',
+  }
 }
 
 export default async function SSGPage({ params: { lang } }: Props) {
@@ -30,5 +30,5 @@ export default async function SSGPage({ params: { lang } }: Props) {
     <div>
       <Content />
     </div>
-  );
+  )
 }

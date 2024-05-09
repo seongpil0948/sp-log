@@ -1,8 +1,8 @@
 const SERVER_CONFIG = {
   cookie: {
-    keyLocale: "locale",
+    keyLocale: 'locale',
   },
-};
+}
 
-export default SERVER_CONFIG;
-export { SERVER_CONFIG };
+export default SERVER_CONFIG
+export { SERVER_CONFIG }

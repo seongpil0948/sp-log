@@ -2,17 +2,17 @@
 
 export const findScrollContainer = (element: HTMLElement) => {
   if (!element) {
-    return undefined;
+    return undefined
   }
 
-  let parent = element.parentElement;
+  let parent = element.parentElement
   while (parent) {
-    const { overflow } = window.getComputedStyle(parent);
+    const { overflow } = window.getComputedStyle(parent)
     if (overflow.split(' ').every(o => o === 'auto' || o === 'scroll')) {
-      return parent;
+      return parent
     }
-    parent = parent.parentElement;
+    parent = parent.parentElement
   }
 
-  return document.documentElement;
-};
+  return document.documentElement
+}

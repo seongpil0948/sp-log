@@ -1,38 +1,38 @@
-import { Modal, ModalContent, useDisclosure } from "@nextui-org/modal";
-import { ElementRef, forwardRef, useImperativeHandle, useState } from "react";
-import ViewGuestBook from "@/app/[lang]/game/_guestbook/components/ViewGuestBook";
+import { Modal, ModalContent, useDisclosure } from '@nextui-org/modal'
+import { ElementRef, forwardRef, useImperativeHandle, useState } from 'react'
+import ViewGuestBook from '@/app/[lang]/game/_guestbook/components/ViewGuestBook'
 
 const BridgeEnterModal = forwardRef<
   ElementRef<typeof Modal>,
   // Omit<ModalProps, 'children'>,
   any
->(({ placement = "left", classNames, ...props }, ref) => {
-  const [openAble, setOpenAble] = useState(true);
+>(({ placement = 'left', classNames, ...props }, ref) => {
+  const [openAble, setOpenAble] = useState(true)
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure({
     onClose() {
-      setOpenAble(false);
+      setOpenAble(false)
       setTimeout(() => {
-        setOpenAble(true);
-      }, 1000);
+        setOpenAble(true)
+      }, 1000)
     },
-  });
+  })
 
   useImperativeHandle(
     ref,
     () =>
       ({
         open() {
-          open();
+          open()
         },
         isOpen() {
-          return isOpen;
+          return isOpen
         },
-      } as any)
-  );
+      }) as any,
+  )
 
   const open = () => {
-    if (!isOpen && openAble) onOpen();
-  };
+    if (!isOpen && openAble) onOpen()
+  }
   return (
     <Modal
       size="4xl"
@@ -44,9 +44,9 @@ const BridgeEnterModal = forwardRef<
         <ViewGuestBook />
       </ModalContent>
     </Modal>
-  );
-});
+  )
+})
 
-BridgeEnterModal.displayName = "BridgeEnterModal";
+BridgeEnterModal.displayName = 'BridgeEnterModal'
 
-export default BridgeEnterModal;
+export default BridgeEnterModal

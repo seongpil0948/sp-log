@@ -1,36 +1,36 @@
-"use client";
+'use client'
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react'
 
-export type ScreenSize = "S" | "M" | "L";
+export type ScreenSize = 'S' | 'M' | 'L'
 export const ScreenSize: { [k: string]: ScreenSize } = {
-  S: "S",
-  M: "M",
-  L: "L",
-};
+  S: 'S',
+  M: 'M',
+  L: 'L',
+}
 export function getScreenSize(): ScreenSize {
-  const w = window.innerWidth;
-  if (w < 700) return "S";
-  else return "L";
+  const w = window.innerWidth
+  if (w < 700) return 'S'
+  else return 'L'
 }
 
 export function isMobile() {
-  if (typeof window === "undefined") return false;
-  const agent = navigator.userAgent;
+  if (typeof window === 'undefined') return false
+  const agent = navigator.userAgent
   if (
     agent.match(
-      /iPhone|iPod|Android|Windows CE|BlackBerry|Symbian|Windows Phone|webOS|Opera Mini|Opera Mobi|POLARIS|IEMobile|lgtelecom|nokia|SonyEricsson/i
+      /iPhone|iPod|Android|Windows CE|BlackBerry|Symbian|Windows Phone|webOS|Opera Mini|Opera Mobi|POLARIS|IEMobile|lgtelecom|nokia|SonyEricsson/i,
     ) != null ||
     agent.match(/LG|SAMSUNG|Samsung/) != null
   ) {
-    return true;
+    return true
   } else {
-    return false;
+    return false
   }
 }
 
 export function useResponsive() {
-  return { getScreenSize, isMobile };
+  return { getScreenSize, isMobile }
 }
 
 export function useWindowSize() {
@@ -38,7 +38,7 @@ export function useWindowSize() {
   const [windowSize, setWindowSize] = useState({
     width: 0,
     height: 0,
-  });
+  })
 
   useEffect(() => {
     // window resize를 위한 핸들러
@@ -47,18 +47,18 @@ export function useWindowSize() {
       setWindowSize({
         width: window.innerWidth,
         height: window.innerHeight,
-      });
+      })
     }
 
     // 이벤트 리스너 부착
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize)
 
     // 핸들러를 바로 불러서 state가 초기 window size로 업데이트 될 수 있도록한다
-    handleResize();
+    handleResize()
 
     //이벤트리스너 제거 그리고 청소
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
-  return windowSize;
+  return windowSize
 }

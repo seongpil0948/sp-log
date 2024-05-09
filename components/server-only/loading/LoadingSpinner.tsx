@@ -1,4 +1,4 @@
-import { Spinner } from "@nextui-org/spinner";
+import { Spinner } from '@nextui-org/spinner'
 
 export default function LoadingSpinner() {
   // Or a custom loading skeleton component
@@ -8,5 +8,5 @@ export default function LoadingSpinner() {
         Loading...
       </Spinner>
     </div>
-  );
+  )
 }

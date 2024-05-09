@@ -1,11 +1,11 @@
-"use client";
-import React, { useState } from "react";
-import { Canvas } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
-import projects from "../_logics/projects";
-import { Button } from "@nextui-org/button";
-import clsx from "clsx";
-import { ProjectCards, TShape } from "./ProjectCards";
+'use client'
+import React, { useState } from 'react'
+import { Canvas } from '@react-three/fiber'
+import { OrbitControls } from '@react-three/drei'
+import projects from '../_logics/projects'
+import { Button } from '@nextui-org/button'
+import clsx from 'clsx'
+import { ProjectCards, TShape } from './ProjectCards'
 import {
   useDisclosure,
   Modal,
@@ -13,27 +13,27 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-} from "@nextui-org/modal";
-import { IProject } from "../types";
-import { projectsConfig } from "../config";
-import ProjectCard from "./ProjectCard";
-import { title } from "@/components/server-only/primitives";
-import { ButtonHome } from "@/components/client-only/button/links";
+} from '@nextui-org/modal'
+import { IProject } from '../types'
+import { projectsConfig } from '../config'
+import ProjectCard from './ProjectCard'
+import { title } from '@/components/server-only/primitives'
+import { ButtonHome } from '@/components/client-only/button/links'
 
 export function RootCanvas() {
-  const [shape, setShape] = useState<TShape>("sphere");
+  const [shape, setShape] = useState<TShape>('sphere')
   const { isOpen, onOpen, onOpenChange } = useDisclosure({
     onClose() {
-      setProject(null);
+      setProject(null)
     },
-  });
-  const [project, setProject] = useState<IProject | null>(null);
+  })
+  const [project, setProject] = useState<IProject | null>(null)
 
   const handleProjectSelect = (projectInfo: IProject) => {
-    setProject(projectInfo);
-    onOpen();
-  };
-  const btnClass = clsx("absolute", "top-4", "left-4");
+    setProject(projectInfo)
+    onOpen()
+  }
+  const btnClass = clsx('absolute', 'top-4', 'left-4')
   return (
     <>
       <Canvas linear camera={{ position: [0, 0, 1] }}>
@@ -48,7 +48,7 @@ export function RootCanvas() {
       <div className={clsx(btnClass)}>
         <Button
           onClick={() => {
-            setShape(shape === "sphere" ? "random" : "sphere");
+            setShape(shape === 'sphere' ? 'random' : 'sphere')
           }}
           className="mx-2"
         >
@@ -61,21 +61,21 @@ export function RootCanvas() {
           motionProps={{
             transition: {
               duration: projectsConfig.selectDuration * 3,
-              ease: "easeInOut",
+              ease: 'easeInOut',
             },
           }}
           classNames={{
-            base: "w-full h-full flex justify-center items-center",
+            base: 'w-full h-full flex justify-center items-center',
           }}
           isOpen={isOpen}
           onOpenChange={onOpenChange}
           size="full"
         >
           <ModalContent>
-            {(onClose) => (
+            {onClose => (
               <>
                 <ModalHeader className="flex flex-col gap-1">
-                  <h3 className={title({ size: "sm" })}>{project.title}</h3>
+                  <h3 className={title({ size: 'sm' })}>{project.title}</h3>
                 </ModalHeader>
                 <ModalBody>
                   <ProjectCard p={project} />
@@ -91,7 +91,7 @@ export function RootCanvas() {
         </Modal>
       )}
     </>
-  );
+  )
 }
 
 function Lights() {
@@ -105,7 +105,7 @@ function Lights() {
       <directionalLight position={[1, 0, 2]} intensity={1} /> */}
       {/* <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} /> */}
     </>
-  );
+  )
 }
 
-export default RootCanvas;
+export default RootCanvas

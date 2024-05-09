@@ -1,11 +1,11 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
 
-import commonConfig from "./config";
+import commonConfig from './config'
 import {
   splitLocaleAndPath,
   getLocaleRequest,
-} from "@/app/_utils/server/locale";
+} from '@/app/_utils/server/locale'
 
 export const config = {
   // Matcher ignoring `/_next/` and `/api/`
@@ -16,59 +16,59 @@ export const config = {
     // "/((?!api|_next/static|favicon.ico).*)",
     // "/code/:path*",
     // "/signin",
-    "/docs/:path*",
-    "/artifacts/:path*",
-    "/home",
-    "/about",
-    "/game/:path*",
-    "/project/:path*",
-    "/",
+    '/docs/:path*',
+    '/artifacts/:path*',
+    '/home',
+    '/about',
+    '/game/:path*',
+    '/project/:path*',
+    '/',
   ],
-};
+}
 const IGNORE_PATHS = [
-  "icon/",
-  "sitemap.xml",
-  "robots.txt",
-  "favicon.ico",
-  "svg",
-  "manifest",
-  "sw.js",
-  "worker.js",
-  "peach-service-worker.js",
-  "workbox",
-  "png",
-  "jpg",
-];
+  'icon/',
+  'sitemap.xml',
+  'robots.txt',
+  'favicon.ico',
+  'svg',
+  'manifest',
+  'sw.js',
+  'worker.js',
+  'peach-service-worker.js',
+  'workbox',
+  'png',
+  'jpg',
+]
 
 export async function middleware(request: NextRequest, response: NextResponse) {
-  let nextP = request.nextUrl.pathname;
-  if (IGNORE_PATHS.some((p) => nextP.includes(p))) {
-    return NextResponse.next();
+  let nextP = request.nextUrl.pathname
+  if (IGNORE_PATHS.some(p => nextP.includes(p))) {
+    return NextResponse.next()
   }
-  console.log(nextP);
+  console.log(nextP)
 
-  let { locale, path: onlyPath } = await splitLocaleAndPath(nextP);
+  let { locale, path: onlyPath } = await splitLocaleAndPath(nextP)
 
-  if (onlyPath === "/" || onlyPath === "") {
-    onlyPath = commonConfig.system.landingPath;
+  if (onlyPath === '/' || onlyPath === '') {
+    onlyPath = commonConfig.system.landingPath
   }
 
-  if (onlyPath.includes("/api")) {
-    locale = undefined;
+  if (onlyPath.includes('/api')) {
+    locale = undefined
   } else if (!locale) {
-    locale = getLocaleRequest(request);
+    locale = getLocaleRequest(request)
   }
   // console.log({ onlyPath, locale, nextP })
 
   const join = (p: string, l?: string) => {
-    if (!l) return new URL(p, request.url);
-    return new URL(`/${l}${p.startsWith("/") ? "" : "/"}${p}`, request.url);
-  };
+    if (!l) return new URL(p, request.url)
+    return new URL(`/${l}${p.startsWith('/') ? '' : '/'}${p}`, request.url)
+  }
 
-  const nextUrl = join(onlyPath, locale);
+  const nextUrl = join(onlyPath, locale)
   if (nextUrl.pathname === nextP) {
-    return NextResponse.next();
+    return NextResponse.next()
   }
   // console.log(`go redirect from ${nextP} to ${nextUrl.pathname}`)
-  return NextResponse.redirect(nextUrl, { status: 301 });
+  return NextResponse.redirect(nextUrl, { status: 301 })
 }

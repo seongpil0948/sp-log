@@ -1,4 +1,4 @@
-"use client";
+'use client'
 import {
   Table,
   TableColumn,
@@ -7,42 +7,42 @@ import {
   TableHeader,
   TableBody,
   TableProps,
-} from "@nextui-org/table";
-import { ReactNode } from "react";
+} from '@nextui-org/table'
+import { ReactNode } from 'react'
 
-type Key = TableProps["key"];
+type Key = TableProps['key']
 interface KT {
-  key: Key;
-  title: ReactNode;
+  key: Key
+  title: ReactNode
 }
 interface Row {
-  key: Key;
-  cells: KT[];
+  key: Key
+  cells: KT[]
 }
 interface Props {
-  columns: KT[];
-  rows: Row[];
+  columns: KT[]
+  rows: Row[]
 }
 
 export default function MdxTable(props: Props) {
-  const { columns, rows } = props;
+  const { columns, rows } = props
 
   return (
     <Table aria-label="Example static collection table" className="my-7">
       <TableHeader>
-        {...columns.map((col) => (
+        {...columns.map(col => (
           <TableColumn key={col.key}>{col.title}</TableColumn>
         ))}
       </TableHeader>
       <TableBody>
-        {...rows.map((row) => (
+        {...rows.map(row => (
           <TableRow key={row.key}>
-            {...row.cells.map((cell) => (
+            {...row.cells.map(cell => (
               <TableCell key={cell.key}>{cell.title}</TableCell>
             ))}
           </TableRow>
         ))}
       </TableBody>
     </Table>
-  );
+  )
 }

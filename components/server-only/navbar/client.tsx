@@ -1,33 +1,33 @@
-"use client";
+'use client'
 
-import { NavbarMenu, NavbarMenuItem } from "@nextui-org/navbar";
-import { Link } from "@nextui-org/link";
-import { siteConfig } from "@/config/site";
-import commonConfig, { TAvailLocale } from "@/config";
-import { typo } from "@/components/server-only/primitives";
-import { usePathname } from "next/navigation";
-import { TreeSectionProps } from "../../client-only/tree-section";
-import { IGetTreeArgs } from "@/app/_utils/server/dir-tree";
-import { NavbarSlots, SlotsToClasses } from "@nextui-org/theme";
-import { CommonDrawerProps } from "../../client-only/drawer";
-import { extractFromPath } from "@/app/_utils/common/locale";
-import type { ReactNode } from "react";
+import { NavbarMenu, NavbarMenuItem } from '@nextui-org/navbar'
+import { Link } from '@nextui-org/link'
+import { siteConfig } from '@/config/site'
+import commonConfig, { TAvailLocale } from '@/config'
+import { typo } from '@/components/server-only/primitives'
+import { usePathname } from 'next/navigation'
+import { TreeSectionProps } from '../../client-only/tree-section'
+import { IGetTreeArgs } from '@/app/_utils/server/dir-tree'
+import { NavbarSlots, SlotsToClasses } from '@nextui-org/theme'
+import { CommonDrawerProps } from '../../client-only/drawer'
+import { extractFromPath } from '@/app/_utils/common/locale'
+import type { ReactNode } from 'react'
 
 export interface CommonNavbarProps {
-  tree?: TreeSectionProps;
-  children?: ReactNode;
-  lang?: TAvailLocale;
-  leftTreeOptions: IGetTreeArgs;
-  treeLeft?: TreeSectionProps;
-  prefix?: ReactNode;
-  classes?: SlotsToClasses<NavbarSlots>;
-  drawerProps?: Omit<CommonDrawerProps, "children">;
+  tree?: TreeSectionProps
+  children?: ReactNode
+  lang?: TAvailLocale
+  leftTreeOptions: IGetTreeArgs
+  treeLeft?: TreeSectionProps
+  prefix?: ReactNode
+  classes?: SlotsToClasses<NavbarSlots>
+  drawerProps?: Omit<CommonDrawerProps, 'children'>
 }
 
 export const NavMobileMenu = () => {
-  const pathName = usePathname();
-  let { locale } = extractFromPath(pathName);
-  if (!locale) locale = commonConfig.i18n.defaultLocale;
+  const pathName = usePathname()
+  let { locale } = extractFromPath(pathName)
+  if (!locale) locale = commonConfig.i18n.defaultLocale
   return (
     <NavbarMenu className="m-0 p-0">
       <div className="flex flex-col gap-2">
@@ -38,13 +38,13 @@ export const NavMobileMenu = () => {
           >
             <Link
               className={typo({
-                type: "link",
-                size: "lg",
+                type: 'link',
+                size: 'lg',
                 color: pathName.includes(item.href)
-                  ? "primary"
+                  ? 'primary'
                   : item.external
-                  ? "danger"
-                  : "foreground",
+                    ? 'danger'
+                    : 'foreground',
               })}
               // color="foreground"
               href={item.href}
@@ -56,7 +56,7 @@ export const NavMobileMenu = () => {
         ))}
       </div>
     </NavbarMenu>
-  );
-};
+  )
+}
 
-export default NavMobileMenu;
+export default NavMobileMenu

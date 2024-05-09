@@ -1,22 +1,22 @@
-import { Link } from "@nextui-org/link";
-import { Logo } from "./icons";
-import { ThemeSwitch } from "../theme-switch";
-import SelectorNational from "../client-only/selector/National";
-import { paragraph, typo } from "./primitives";
+import { Link } from '@nextui-org/link'
+import { Logo } from './icons'
+import { ThemeSwitch } from '../theme-switch'
+import SelectorNational from '../client-only/selector/National'
+import { paragraph, typo } from './primitives'
 
 const LogoLink = (props?: { href?: string; disableText?: boolean }) => (
   <Link
     color="foreground"
-    href={props?.href ?? "https://github.com/seongpil0948"}
+    href={props?.href ?? 'https://github.com/seongpil0948'}
     isExternal
     className="flex items-center"
   >
     <Logo />
     {!props?.disableText && (
-      <p className={typo({ size: "sm", color: "foreground" })}>Sp Blog</p>
+      <p className={typo({ size: 'sm', color: 'foreground' })}>Sp Blog</p>
     )}
   </Link>
-);
+)
 
 export const CmFooter = () => {
   return (
@@ -32,16 +32,16 @@ export const CmFooter = () => {
         </div>
       </div>
     </footer>
-  );
-};
+  )
+}
 
 export function AbsoluteFooter(props?: {
-  goHome?: boolean;
-  disableDarkMode?: boolean;
-  disableI18n?: boolean;
-  disableText?: boolean;
+  goHome?: boolean
+  disableDarkMode?: boolean
+  disableI18n?: boolean
+  disableText?: boolean
 }) {
-  const goHome = props?.goHome ?? false;
+  const goHome = props?.goHome ?? false
   return (
     <footer
       className="absolute bottom-0 w-full"
@@ -52,7 +52,7 @@ export function AbsoluteFooter(props?: {
       <div className="mx-auto w-full max-w-screen-xl p-2 md:py-4">
         <div className="flex items-center justify-between">
           <LogoLink
-            href={props?.goHome ? "/home" : undefined}
+            href={props?.goHome ? '/home' : undefined}
             disableText={props?.disableText}
           />
           <div className="flex flex-wrap items-center sm:mb-0 gap-2">
@@ -62,5 +62,5 @@ export function AbsoluteFooter(props?: {
         </div>
       </div>
     </footer>
-  );
+  )
 }

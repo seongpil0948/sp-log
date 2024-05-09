@@ -5,7 +5,6 @@ export class BaseClass {
   centerX: number
   centerY: number
 
-
   constructor(parentElement: HTMLElement) {
     this.parentElement = parentElement
     this.stageWidth = parentElement.clientWidth
@@ -20,5 +19,4 @@ export class BaseClass {
     this.centerX = this.stageWidth / 2
     this.centerY = this.stageHeight / 2
   }
-
 }

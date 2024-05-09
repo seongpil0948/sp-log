@@ -1,35 +1,35 @@
-"use client";
+'use client'
 
-import { Card, CardBody, CardProps } from "@nextui-org/card";
-import { Image } from "@nextui-org/image";
-import { IProject } from "../types";
+import { Card, CardBody, CardProps } from '@nextui-org/card'
+import { Image } from '@nextui-org/image'
+import { IProject } from '../types'
 
-import { ProjectTypeIcon, ProjectUsing } from "./server-only/icons";
-import { useRouter } from "next/navigation";
-import clsx from "clsx";
-import { title, typo } from "@/components/server-only/primitives";
-import { isMobile } from "@/app/_utils/client/responsive";
+import { ProjectTypeIcon, ProjectUsing } from './server-only/icons'
+import { useRouter } from 'next/navigation'
+import clsx from 'clsx'
+import { title, typo } from '@/components/server-only/primitives'
+import { isMobile } from '@/app/_utils/client/responsive'
 
 export default function ProjectCard(props: {
-  p: IProject;
-  classNames?: CardProps["classNames"];
+  p: IProject
+  classNames?: CardProps['classNames']
 }) {
-  const { p } = props;
-  const router = useRouter();
-  const cardClassNames: CardProps["classNames"] = {
+  const { p } = props
+  const router = useRouter()
+  const cardClassNames: CardProps['classNames'] = {
     ...props.classNames,
-    body: clsx(props.classNames?.body, " overflow-hidden"),
+    body: clsx(props.classNames?.body, ' overflow-hidden'),
     base: clsx(
       props.classNames?.base,
-      "border-none bg-background/60 dark:bg-default-100/50 max-w-[610px] min-w-[400px] md:min-w-[500px]"
+      'border-none bg-background/60 dark:bg-default-100/50 max-w-[610px] min-w-[400px] md:min-w-[500px]',
     ),
-  };
-  let imgSrc: string | undefined = p.titleImg;
+  }
+  let imgSrc: string | undefined = p.titleImg
   if (!imgSrc && p.allImg && p.allImg.length > 0) {
-    imgSrc = p.allImg[0];
+    imgSrc = p.allImg[0]
   }
   if (!imgSrc) {
-    imgSrc = "/image/try-on.png";
+    imgSrc = '/image/try-on.png'
   }
 
   return (
@@ -38,7 +38,7 @@ export default function ProjectCard(props: {
       isPressable
       isHoverable
       onPress={() => {
-        router.push("/project/" + p.id);
+        router.push('/project/' + p.id)
       }}
       classNames={cardClassNames}
       shadow="sm"
@@ -49,9 +49,9 @@ export default function ProjectCard(props: {
             <Image
               alt="Project Image"
               style={{
-                height: "40vh",
-                width: "100%",
-                objectFit: "cover",
+                height: '40vh',
+                width: '100%',
+                objectFit: 'cover',
               }}
               shadow="md"
               src={imgSrc}
@@ -64,10 +64,10 @@ export default function ProjectCard(props: {
               <h1
                 className={clsx(
                   title({
-                    size: "sm",
-                    color: "foreground",
+                    size: 'sm',
+                    color: 'foreground',
                   }),
-                  "text-ellipsis whitespace-nowrap w-full"
+                  'text-ellipsis whitespace-nowrap w-full',
                 )}
               >
                 {p.title}
@@ -77,7 +77,7 @@ export default function ProjectCard(props: {
                   p.description.map((desc, idx) => (
                     <p
                       key={idx}
-                      className={typo({ size: "xs", color: "gray" })}
+                      className={typo({ size: 'xs', color: 'gray' })}
                     >
                       {desc}
                     </p>
@@ -92,5 +92,5 @@ export default function ProjectCard(props: {
         </div>
       </CardBody>
     </Card>
-  );
+  )
 }

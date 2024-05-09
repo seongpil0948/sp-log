@@ -1,12 +1,12 @@
-"use client";
+'use client'
 
-import { DocSearch } from "@docsearch/react";
-import { TAvailLocale } from "@/config";
-import "@docsearch/css";
-import "./custom.css";
+import { DocSearch } from '@docsearch/react'
+import { TAvailLocale } from '@/config'
+import '@docsearch/css'
+import './custom.css'
 
 export function SearchModal(props: { locale: TAvailLocale }) {
-  const { locale } = props;
+  const { locale } = props
   // const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   // const [keyword, setKeyword] = useState<string>("");
   // const [searching, setSearching] = useState<boolean>(false);
@@ -40,7 +40,7 @@ export function SearchModal(props: { locale: TAvailLocale }) {
         indexName={process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME}
         translations={{
           button: {
-            buttonText: locale === "en" ? "Search..." : "검색 팡팡!",
+            buttonText: locale === 'en' ? 'Search...' : '검색 팡팡!',
           },
         }}
         // https://docsearch.algolia.com/docs/record-extractor/#indexing-content-for-faceting
@@ -161,7 +161,7 @@ export function SearchModal(props: { locale: TAvailLocale }) {
         </ModalContent>
       </Modal> */}
     </>
-  );
+  )
 }
 
 // const ListboxWrapper = (props: { children: ReactNode }) => (
@@ -170,4 +170,4 @@ export function SearchModal(props: { locale: TAvailLocale }) {
 //   </div>
 // );
 
-export default SearchModal;
+export default SearchModal

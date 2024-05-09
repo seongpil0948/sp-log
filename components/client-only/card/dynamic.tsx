@@ -1,21 +1,21 @@
-"use client";
-import { isMobile } from "@/app/_utils/client/responsive";
-import { fileNameFromPath } from "@/app/_utils/common";
-import { Image } from "@nextui-org/image";
+'use client'
+import { isMobile } from '@/app/_utils/client/responsive'
+import { fileNameFromPath } from '@/app/_utils/common'
+import { Image } from '@nextui-org/image'
 import {
   Modal,
   ModalBody,
   ModalContent,
   ModalHeader,
   useDisclosure,
-} from "@nextui-org/modal";
-import { useRef } from "react";
+} from '@nextui-org/modal'
+import { useRef } from 'react'
 
 // refer: https://poke-holo.simey.me/
 // refer: https://www.youtube.com/watch?v=YDCCauu4lIk&t=67s
 export function ImageCard({ src }: { src: string }) {
-  const imageRef = useRef<HTMLImageElement>(null);
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const imageRef = useRef<HTMLImageElement>(null)
+  const { isOpen, onOpen, onOpenChange } = useDisclosure()
 
   return (
     <>
@@ -30,7 +30,7 @@ export function ImageCard({ src }: { src: string }) {
       />
       <Modal size="full" isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
-          {(onClose) => (
+          {onClose => (
             <>
               <ModalHeader className="flex flex-col gap-1">
                 {fileNameFromPath(src)}
@@ -48,5 +48,5 @@ export function ImageCard({ src }: { src: string }) {
         </ModalContent>
       </Modal>
     </>
-  );
+  )
 }

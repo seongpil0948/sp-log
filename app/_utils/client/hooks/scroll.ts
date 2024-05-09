@@ -1,6 +1,5 @@
 'use client'
-import { useEffect } from "react"
-
+import { useEffect } from 'react'
 
 export function useRedirectScroll(props: RedirectScrollProps) {
   const { fromRef, toRef } = props
@@ -37,7 +36,8 @@ export function useRedirectScroll(props: RedirectScrollProps) {
 
   const startInnerScroll = () => {
     const { from, to, body } = getRef()
-    if (isFromScrollMode()) return // scroll is already in progress
+    if (isFromScrollMode())
+      return // scroll is already in progress
     else if (isDoneInnerScroll()) return console.log('scroll is already done')
 
     from.scrollIntoView({ behavior: 'smooth' })
@@ -46,11 +46,10 @@ export function useRedirectScroll(props: RedirectScrollProps) {
   }
 
   const endInnerScroll = (evt: Event) => {
-    if (!isDoneInnerScroll()) return console.error("scroll is not done")
+    if (!isDoneInnerScroll()) return console.error('scroll is not done')
     const { body, to } = getRef()
     stopRedirectWheel(body, to)
   }
-
 
   const handleRedirectWheel = (to: HTMLElement, evt: WheelEvent) => {
     // evt.preventDefault()
@@ -59,11 +58,11 @@ export function useRedirectScroll(props: RedirectScrollProps) {
   }
   const startRedirectWheel = (from: HTMLElement, to: HTMLElement) => {
     from.style.overflow = 'hidden'
-    from.addEventListener('wheel', (evt) => handleRedirectWheel(to, evt))
+    from.addEventListener('wheel', evt => handleRedirectWheel(to, evt))
   }
   const stopRedirectWheel = (from: HTMLElement, to: HTMLElement) => {
     from.style.overflow = 'auto'
-    from.removeEventListener('wheel', (evt) => handleRedirectWheel(to, evt))
+    from.removeEventListener('wheel', evt => handleRedirectWheel(to, evt))
   }
   return {
     startRedirectWheel,
@@ -71,8 +70,7 @@ export function useRedirectScroll(props: RedirectScrollProps) {
     isFromScrollMode,
     isDoneInnerScroll,
     startInnerScroll,
-    endInnerScroll
-
+    endInnerScroll,
   }
 }
 
