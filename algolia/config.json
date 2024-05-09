@@ -11,13 +11,30 @@
       "text": "#content-container  p,#content-container div"
     }
   },
-  "selectors_exclude": [".footer", "nav ul"],
-  "sitemap_urls": ["https://www.peachhub.love/sitemap.xml"],
+  "selectors_exclude": [
+    ".footer",
+    "nav ul"
+  ],
+  "sitemap_urls": [
+    "https://www.peachhub.love/sitemap.xml"
+  ],
   "js_render": true,
   "js_wait": 2,
   "start_urls": [
     {
+      "url": "https://www.peachhub.love/about/experience",
+      "selectors_key": "default"
+    },
+    {
       "url": "https://www.peachhub.love/about",
+      "selectors_key": "default"
+    },
+    {
+      "url": "https://www.peachhub.love/docs/etc/cdn",
+      "selectors_key": "default"
+    },
+    {
+      "url": "https://www.peachhub.love/docs/etc/nestjs-vite-vue",
       "selectors_key": "default"
     },
     {
@@ -29,6 +46,10 @@
       "selectors_key": "default"
     },
     {
+      "url": "https://www.peachhub.love/docs/etc/web-rtc",
+      "selectors_key": "default"
+    },
+    {
       "url": "https://www.peachhub.love/docs/etc/wireshark",
       "selectors_key": "default"
     },
@@ -37,47 +58,63 @@
       "selectors_key": "default"
     },
     {
-      "url": "https://www.peachhub.love/docs/framework-next/convention/name",
+      "url": "https://www.peachhub.love/docs/frontend/framework-next/convention/name",
       "selectors_key": "default"
     },
     {
-      "url": "https://www.peachhub.love/docs/framework-next/convention/structure",
+      "url": "https://www.peachhub.love/docs/frontend/framework-next/convention/structure",
       "selectors_key": "default"
     },
     {
-      "url": "https://www.peachhub.love/docs/framework-next/convention",
+      "url": "https://www.peachhub.love/docs/frontend/framework-next/convention",
       "selectors_key": "default"
     },
     {
-      "url": "https://www.peachhub.love/docs/framework-next/getting-started",
+      "url": "https://www.peachhub.love/docs/frontend/framework-next/getting-started",
       "selectors_key": "default"
     },
     {
-      "url": "https://www.peachhub.love/docs/framework-next/guide/contribute",
+      "url": "https://www.peachhub.love/docs/frontend/framework-next/guide/contribute",
       "selectors_key": "default"
     },
     {
-      "url": "https://www.peachhub.love/docs/framework-next/guide/mdx-sample",
+      "url": "https://www.peachhub.love/docs/frontend/framework-next/guide/mdx-sample",
       "selectors_key": "default"
     },
     {
-      "url": "https://www.peachhub.love/docs/framework-next/guide/server-client-pattern",
+      "url": "https://www.peachhub.love/docs/frontend/framework-next/guide/server-client-pattern",
       "selectors_key": "default"
     },
     {
-      "url": "https://www.peachhub.love/docs/framework-next/guide",
+      "url": "https://www.peachhub.love/docs/frontend/framework-next/guide",
       "selectors_key": "default"
     },
     {
-      "url": "https://www.peachhub.love/docs/framework-next/task/vercel-architecture",
+      "url": "https://www.peachhub.love/docs/frontend/framework-next/task/vercel-architecture",
       "selectors_key": "default"
     },
     {
-      "url": "https://www.peachhub.love/docs/framework-next/task",
+      "url": "https://www.peachhub.love/docs/frontend/framework-next/task",
       "selectors_key": "default"
     },
     {
-      "url": "https://www.peachhub.love/docs/framework-next",
+      "url": "https://www.peachhub.love/docs/frontend/framework-next",
+      "selectors_key": "default"
+    },
+    {
+      "url": "https://www.peachhub.love/docs/frontend/performance",
+      "selectors_key": "default"
+    },
+    {
+      "url": "https://www.peachhub.love/docs/frontend/test-playwright",
+      "selectors_key": "default"
+    },
+    {
+      "url": "https://www.peachhub.love/docs/frontend/test-theory",
+      "selectors_key": "default"
+    },
+    {
+      "url": "https://www.peachhub.love/docs/frontend",
       "selectors_key": "default"
     },
     {
@@ -165,10 +202,6 @@
       "selectors_key": "default"
     },
     {
-      "url": "https://www.peachhub.love/docs/linux/network/ PortRedirectionAndNAT",
-      "selectors_key": "default"
-    },
-    {
       "url": "https://www.peachhub.love/docs/linux/network/Container",
       "selectors_key": "default"
     },
@@ -178,6 +211,10 @@
     },
     {
       "url": "https://www.peachhub.love/docs/linux/network/NTP",
+      "selectors_key": "default"
+    },
+    {
+      "url": "https://www.peachhub.love/docs/linux/network/PortRedirectionAndNAT",
       "selectors_key": "default"
     },
     {
@@ -301,14 +338,6 @@
       "selectors_key": "default"
     },
     {
-      "url": "https://www.peachhub.love/docs/vue/performance",
-      "selectors_key": "default"
-    },
-    {
-      "url": "https://www.peachhub.love/docs/vue",
-      "selectors_key": "default"
-    },
-    {
       "url": "https://www.peachhub.love/docs/write",
       "selectors_key": "default"
     },
@@ -342,6 +371,10 @@
     },
     {
       "url": "https://www.peachhub.love/app/lab/circles",
+      "selectors_key": "default"
+    },
+    {
+      "url": "https://www.peachhub.love/app/lab/skeleton",
       "selectors_key": "default"
     },
     {
