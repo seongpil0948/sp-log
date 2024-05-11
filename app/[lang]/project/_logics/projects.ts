@@ -232,36 +232,29 @@ export const PROJECTS: IProject[] = [
       '파이프라인 (AWS CodePipeline, CodeBuild, CodeDeploy)',
     ],
   },
+
   {
-    id: 'peachhub',
-    title: '개인 포트폴리오 사이트',
+    id: 'lotte-admin',
+    title: 'LOTTE 추천 어드민 페이지',
     projType: 'web',
-    titleImg: '/projects/blog/1.png',
-    to: 'https://peachhub.love/home',
-    using: [mdiNodejs, mdiReact, mdiFirebase, mdiLanguageTypescript],
-    allImg: [
-      '/projects/blog/3.png',
-      '/projects/blog/2.png',
-      '/projects/blog/1.png',
-    ],
+    using: [mdiAws, mdiKubernetes, mdiVuejs, mdiLanguagePython, mdiWebpack],
     description: [
-      '블로그, 기술 연구, 프로젝트 기재',
-      '실무에서 사용할 일이 많이 않은 애니메이션, 3D, 최신 CSS 문법 테스트 등 UI를 적용한 프로젝트',
-      '개발관련 지식들을 정리하고, 공유하기 위한 블로그',
+      'Fashion SNS APP에 사용되는 추천 서비스 관리도구 제작',
+      '각종 가중치를 조정하고, 대시보드를 통해 데이터 시각화 및 관리',
     ],
-    myRole: '1인 개발',
+    myRole: 'Frontend',
+    roleDetail: [
+      'Vue.js를 사용하여 Server에서 받아온 데이터를 가공하여 사용자에게 보여주는 역할',
+      'amchart를 사용하여 데이터 시각화',
+    ],
     earned: [
-      '실무에서 필요한 경우 제시하고 즉시 적용가능',
-      '내 업무에 맞는 명령어들과 소스들을 정리하여, 빠르게 찾아볼 수 있음',
+      '모든 데이터가 가공되기에 제한이 있어, 10만건의 object를 js로 가공하여 사용자에게 보여주는 경험',
+      '낮은 사양에서 제대로 동작할 수 있도록 불필요한 반응성, 이벤트을 최소화하고 최적화를 적용한 경험',
     ],
     usingDetail: [
-      'Next.js',
-      'Tailwind CSS',
-      'Three.js',
-      'Framer Motion',
-      'MDX',
-      'Vercel',
-      'Firebase',
+      '웹 서비스: "Vue.js"',
+      '데이터 시각화: "amchart"',
+      '배포: "Kubernetes, ArgoCD"',
     ],
   },
   {
@@ -483,30 +476,7 @@ export const PROJECTS: IProject[] = [
       '검색: "Elastic Search"',
     ],
   },
-  {
-    id: 'lotte-admin',
-    title: 'LOTTE 추천 어드민 페이지',
-    projType: 'web',
-    using: [mdiAws, mdiKubernetes, mdiVuejs, mdiLanguagePython, mdiWebpack],
-    description: [
-      'Fashion SNS APP에 사용되는 추천 서비스 관리도구 제작',
-      '각종 가중치를 조정하고, 대시보드를 통해 데이터 시각화 및 관리',
-    ],
-    myRole: 'Frontend',
-    roleDetail: [
-      'Vue.js를 사용하여 Server에서 받아온 데이터를 가공하여 사용자에게 보여주는 역할',
-      'amchart를 사용하여 데이터 시각화',
-    ],
-    earned: [
-      '모든 데이터가 가공되기에 제한이 있어, 10만건의 object를 js로 가공하여 사용자에게 보여주는 경험',
-      '낮은 사양에서 제대로 동작할 수 있도록 불필요한 반응성, 이벤트을 최소화하고 최적화를 적용한 경험',
-    ],
-    usingDetail: [
-      '웹 서비스: "Vue.js"',
-      '데이터 시각화: "amchart"',
-      '배포: "Kubernetes, ArgoCD"',
-    ],
-  },
+
   {
     id: 'intellisys',
     title: '회사 홈페이지 제작',
@@ -526,6 +496,38 @@ export const PROJECTS: IProject[] = [
       'js 템플릿 엔진(ejs) 경험을 통해 스펙트럼 확장',
     ],
     usingDetail: ['ejs', 'nodejs', 'express', 'mysql'],
+  },
+  {
+    id: 'peachhub',
+    title: '개인 포트폴리오 사이트',
+    projType: 'web',
+    titleImg: '/projects/blog/1.png',
+    to: 'https://peachhub.love/home',
+    using: [mdiNodejs, mdiReact, mdiFirebase, mdiLanguageTypescript],
+    allImg: [
+      '/projects/blog/3.png',
+      '/projects/blog/2.png',
+      '/projects/blog/1.png',
+    ],
+    description: [
+      '블로그, 기술 연구, 프로젝트 기재',
+      '실무에서 사용할 일이 많이 않은 애니메이션, 3D, 최신 CSS 문법 테스트 등 UI를 적용한 프로젝트',
+      '개발관련 지식들을 정리하고, 공유하기 위한 블로그',
+    ],
+    myRole: '1인 개발',
+    earned: [
+      '실무에서 필요한 경우 제시하고 즉시 적용가능',
+      '내 업무에 맞는 명령어들과 소스들을 정리하여, 빠르게 찾아볼 수 있음',
+    ],
+    usingDetail: [
+      'Next.js',
+      'Tailwind CSS',
+      'Three.js',
+      'Framer Motion',
+      'MDX',
+      'Vercel',
+      'Firebase',
+    ],
   },
 ]
 const projectsHasImg = PROJECTS.filter(p => p.allImg && p.allImg.length > 0)

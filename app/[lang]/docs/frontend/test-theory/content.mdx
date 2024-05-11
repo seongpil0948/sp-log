@@ -201,11 +201,8 @@ const unsubscribeAuth = authStore.$onAction(
 );
 ```
 새로온 팀원이 userStore 의 action들을 subscribe 하던 store는 savePicture를 중복으로 호출하여,  
-
 리소스를 낭비하는 코드를 작성 해버렸습니다.  
-
 평소 보다 배수로 뛴 API 요금에 기겁하고 디버깅한 결과 원인을 발견, Fix(savePicture) 커밋까지.. 해결 했습니다.  
-
 분명 유저의 사진저장 인터랙션이 진행되고 3초후 onSavePicture의 호출횟수를 테스트 했다면, 빠른 발견이 가능 했을겁니다.  
 
 
