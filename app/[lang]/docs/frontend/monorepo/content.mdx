@@ -1,0 +1,183 @@
+# Monorepo - Nx
+In this Article, we will learn about Monorepo and Nx.
+
+> This topic-specific writing will be updated as long as my career continues.
+
+### what is Monorepo?
+Monorepo is a way to store multiple projects in one repository. It is convenient when managing multiple projects. With Monorepo, you can manage multiple projects at once.
+
+<AlertText title="Tip" color="info">
+If you make "stock service" and it consist "backend", "frontend", "common utility", "common type" etc, you need to manage the sources efficiently. In this case, I use the Mono repositories (AKA multi-package repositories) technique.
+</AlertText>
+
+### What is Nx?
+Nx is a powerful open-source build system that provides tools and techniques for enhancing developer productivity, optimizing CI performance, and maintaining code quality. [Check out our video](https://nx.dev/getting-started/why-nx) to learn more about what Nx is about.
+
+### Features of Nx
+- **Run Tasks Efficiently**: Nx [runs tasks in parallel](https://nx.dev/features/run-tasks) and orders the tasks based on the dependencies between them.
+- **Distribute Tasks in CI**: Nx scales your CI by [distributing tasks](https://nx.dev/ci/features/distribute-task-execution) across many VMs. Your CI is fast no matter how big your repository is.
+- **Cache Locally & Remotely**: With [local](https://nx.dev/features/cache-task-results) and [remote caching](https://nx.dev/ci/features/remote-cache), Nx prevents unnecessary re-runs of tasks, saving you valuable dev time.
+- **Split E2E Tests and Rerun Flaky Tests**: Nx [automatically splits](https://nx.dev/ci/features/split-e2e-tasks) large e2e tests to distribute them across VMs. Nx can also automatically [identify and rerun flaky e2e tests](https://nx.dev/ci/features/flaky-tasks).
+- **Automate Dependency Updates**: if you leverage [Nx plugins](https://nx.dev/concepts/nx-plugins) you gain additional features such as [code generation](https://nx.dev/features/generate-code) and tools to [automatically upgrade](https://nx.dev/features/automate-updating-dependencies) your codebase and dependencies.
+- **Make it Your Own**: Nx is highly customizable and extensible. Fine-tune it by [creating your own plugins](https://nx.dev/extending-nx/intro/getting-started) and optionally [share them with the community](https://nx.dev/extending-nx/tutorials/publish-plugin#publish-your-nx-plugin).
+
+## Terms in Nx
+- **Workspace**: A workspace is a collection of projects that share dependencies. A workspace can contain multiple applications and libraries.
+- **Library**: A library is a collection of reusable code that can be shared across multiple projects.
+- **Application**: An application is a project that can be built and run. It is the entry point of your code.
+- **Executor**: An executor is a function that can run tasks in your workspace. Executors are used to run commands, build applications, and perform other tasks.
+- **Generator**: A generator is a function that can create files and modify existing files in your workspace. Generators are used to create new projects, libraries, and other files.
+- **Plugin**: A plugin is a collection of generators and executors that extend the functionality of Nx. Plugins can be used to add new features to your workspace.
+
+
+
+## Getting Started 
+
+### Step 1: Install Nx, Create a Workspace
+```bash
+$ pnpm add -g nx
+$ npx create-nx-workspace --pm pnpm
+✔ Where would you like to create your workspace? · spsp
+✔ Which stack do you want to use? · none
+✔ Package-based monorepo, integrated monorepo, or standalone project? · integrated
+✔ Set up CI with caching, distribution and test deflaking · github
+```
+
+### Step 2: Migrate the Sample Repository
+```bash
+$ git clone https://github.com/nrwl/tuskydesign.git
+mv tuskydesign/apps .
+mv tuskydesign/packages .
+```
+
+create `pnpm-workspace.yaml` file and add line to
+```yaml
+{
+   ...
+   "workspaces": ["packages/*", "apps/*"],
+}
+```
+
+add line to `.gitignore`
+```bash
+build/
+out/
+dist/
+```
+and remove repository
+```bash
+$ rm -rf tuskydesign 
+```
+install the dependencies
+```bash
+$ pnpm install
+```
+raise error, because of `package.json` file is invalid. 
+in Step 1, you create workspace named `spsp`, this name is used in package group or namespace
+you need to change `package.json`, and codes containing tuskydesign text file in `apps` and `packages` directory
+```json
+{
+  "name": "@spsp/[library-name]"
+}
+```
+example of `packages/forms/package.json`
+```json
+{
+  "name": "@spsp/forms",
+   ...
+   "dependencies": {
+      "react": "^18.2.0",
+      "react-dom": "^18.2.0",
+      "@spsp/buttons": "workspace:*"
+   },
+}
+```
+If you run the `pnpm install` again, it will be successful. 
+
+### Step 3: Build the Sample Application
+
+we will now git initialize the code to confirm some modifications.
+```bash
+$ git init
+$ git add .
+$ git commit -m "initial commit"
+```
+add line to root `.package.json`
+```json
+{
+   "scripts": {
+    "lint": "pnpm -F \"./packages/**\" -F \"./apps/**\" --parallel --stream -r run lint",
+    "build": "pnpm -F \"./packages/**\" -F \"./apps/**\" --parallel --stream -r run build",
+    "preview": "pnpm -F \"./packages/**\" -F \"./apps/**\" --parallel --stream -r run preview"
+  }
+}
+```
+above code is used to run lint command in all packages and apps. 
+```bash
+$ pnpm  lint
+```
+we will now build the sample application
+```bash
+$ pnpm build
+Scope: 3 of 4 workspace projects
+apps/demo prebuild$ npm run typecheck
+packages/buttons build$ tsup ./index.tsx --format esm,cjs --dts --external react
+packages/forms build$ tsup ./index.tsx --format esm,cjs --dts --external react
+packages/buttons build: CLI Building entry: ./index.tsx
+packages/buttons build: CLI Using tsconfig: tsconfig.json
+packages/buttons build: CLI tsup v6.2.2
+packages/forms build: CLI Building entry: ./index.tsx
+packages/forms build: CLI Using tsconfig: tsconfig.json
+packages/forms build: CLI tsup v6.2.2
+packages/forms build: CLI Target: node14
+packages/buttons build: CLI Target: node14
+packages/buttons build: CJS Build start
+packages/forms build: ESM Build start
+packages/buttons build: ESM Build start
+packages/forms build: CJS Build start
+packages/forms build: CJS dist/index.js 1.05 KB
+packages/forms build: CJS ⚡️ Build success in 9ms
+packages/forms build: ESM dist/index.mjs 74.00 B
+packages/forms build: ESM ⚡️ Build success in 17ms
+packages/buttons build: ESM dist/index.mjs 347.00 B
+packages/buttons build: ESM ⚡️ Build success in 16ms
+packages/buttons build: CJS dist/index.js 1.38 KB
+packages/buttons build: CJS ⚡️ Build success in 19ms
+apps/demo prebuild: > @spsp/demo@0.0.0 typecheck
+apps/demo prebuild: > tsc
+packages/buttons build: DTS Build start
+packages/forms build: DTS Build start
+packages/buttons build: DTS ⚡️ Build success in 385ms
+packages/buttons build: DTS dist/index.d.ts 62.00 B
+packages/buttons build: Done
+packages/forms build: DTS ⚡️ Build success in 396ms
+packages/forms build: DTS dist/index.d.ts 67.00 B
+packages/forms build: Done
+apps/demo prebuild: Done
+apps/demo build$ vite build
+apps/demo build: vite v5.2.11 building for production...
+apps/demo build: transforming...
+apps/demo build: ✓ 35 modules transformed.
+apps/demo build: rendering chunks...
+apps/demo build: computing gzip size...
+apps/demo build: dist/index.html                   0.46 kB │ gzip:  0.30 kB
+apps/demo build: dist/assets/react-CHdo91hT.svg    4.13 kB │ gzip:  2.05 kB
+apps/demo build: dist/assets/index-DiwrgTda.css    1.39 kB │ gzip:  0.72 kB
+apps/demo build: dist/assets/index-CbehMb7D.js   143.41 kB │ gzip: 46.12 kB
+apps/demo build: ✓ built in 300ms
+apps/demo build: Done
+```
+after the build is complete, you can checkout the `dist` directory in the `apps/*`, `packages/*` directory.    
+
+### Step 4: Run the Sample Application
+```bash
+$ pnpm preview
+```
+you can see the sample application running on the browser.
+visit `http://localhost:4173/` to see the sample application.  
+
+
+## See more
+- [NPM Workspaces Tutorial | Nx](https://nx.dev/getting-started/tutorials/npm-workspaces-tutorial)
+- [Intro to Nx | Nx](https://nx.dev/getting-started/intro)
+- [Setup a Monorepo with PNPM workspaces and speed it up with Nx! - DEV Community](https://dev.to/nx/setup-a-monorepo-with-pnpm-workspaces-and-speed-it-up-with-nx-1eem)

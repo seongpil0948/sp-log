@@ -15,8 +15,8 @@ export async function generateMetadata(
   parent: ResolvingMetadata,
 ): Promise<Metadata> {
   return {
-    title: 'Web Performance',
-    description: 'How to measure web performance.',
+    title: 'Monorepo management - Nx',
+    description: 'How to manage a monorepo with nx.',
   }
 }
 

@@ -8,12 +8,9 @@ export function LinksContent(props: { isText?: boolean }) {
     <>
       <HeaderAbout title="Links" />
       <div
-        className={clsx(
-          'flex flex-col justify-center  gap-2 md:gap-6  h-full ',
-          {
-            'items-center': !props.isText,
-          },
-        )}
+        className={clsx('flex flex-wrap gap-2 md:gap-4  h-full ', {
+          'items-center': !props.isText,
+        })}
       >
         {...ButtonAll({ isText: props.isText })}
         <ExperienceDownButton />

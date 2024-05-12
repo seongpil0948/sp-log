@@ -22,7 +22,7 @@ export function cn(...inputs: ClassValue[]) {
   return clsx(inputs)
 }
 
-export default async function CommonNavbar(p: CommonNavbarProps) {
+export default function CommonNavbar(p: CommonNavbarProps) {
   const { tree, leftTreeOptions } = p
   const { base, content, brand, item } = navbar()
 

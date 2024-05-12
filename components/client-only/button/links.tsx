@@ -10,7 +10,7 @@ const BTN_PROPS: ButtonProps = {
   as: Link,
   color: 'default',
   size: 'lg',
-  className: clsx(paragraph({ size: 'md' }), 'w-60'),
+  className: clsx(paragraph({ size: 'md' }), 'w-60 inline-flex'),
   variant: 'bordered',
 }
 interface BtnProps {

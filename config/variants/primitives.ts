@@ -40,7 +40,7 @@ export const title = tv({
   variants: {
     color: colorModule,
     size: {
-      xs: ' text-xl md:text-2xl lg:text-3xl',
+      xs: 'text-xl md:text-2xl lg:text-3xl',
       sm: 'text:2xl md:text-3xl lg:text-4xl',
       md: 'text:3xl md:text-[2.3rem] lg:text-5xl leading-9 ',
       lg: 'text:4xl md:text-5xl lg:text-6xl bold underline underline-offset-8',
@@ -98,11 +98,11 @@ export const subtitle = tv({
 
 const commonTxt = {
   size: {
-    xs: 'text-xxs sm:text-xs md:text-sm lg:text-base my-1',
-    sm: 'text-xs sm:text-sm md:text-base lg:text-lg my-1 md:my-2',
-    md: 'text-sm sm:text-md md:text-lg lg:text-xl my-2 md:my-4',
-    lg: 'text-md sm:text-lg md:text-xl lg:text-2xl my-3 md:my-6',
-    xl: 'text-lg sm:text-xl md:text-2xl lg:text-3xl my-4 md:my-8',
+    xs: 'text-xxs sm:text-xs xl:text-sm my-1',
+    sm: 'text-xs sm:text-sm xl:text-lg my-1 md:my-2',
+    md: 'text-sm sm:text-md  lg:text-lg xl:text-xl my-2 md:my-4',
+    lg: 'text-md sm:text-lg  xl:text-2xl my-3 md:my-6',
+    xl: 'text-lg sm:text-xl  xl:text-3xl my-4 md:my-8',
   },
   font: fontModule,
   color: colorModule,

@@ -12,7 +12,5 @@
     }
   },
   "selectors_exclude": [".footer", "nav ul"],
-  "sitemap_urls": ["https://www.peachhub.love/sitemap.xml"],
-  "js_render": true,
-  "js_wait": 10
+  "sitemap_urls": ["https://www.peachhub.love/sitemap.xml"]
 }

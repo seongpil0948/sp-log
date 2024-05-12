@@ -14,9 +14,12 @@ import { ChipList } from './components/client-only/ChipList'
 import themeList from '@/config/variants/list'
 import { AlertText } from './components/server-only/alert'
 import tableTheme from './config/variants/table'
+import preTheme from './config/variants/pre'
+import { HeaderLink } from './components/server-only/text/HeaderLink'
 
 const { ul: ulClasses, ol: olClasses } = themeList()
 const { table, th, td } = tableTheme()
+const { container: preContainer, pre: preCls } = preTheme()
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     ...components,
@@ -39,20 +42,16 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       />
     ),
     h1: props => {
-      const className = clsx(title({ size: 'lg' }))
-      return <HeaderWithLink attr={props} className={className} level={1} />
+      return <HeaderLink attr={props} level={1} />
     },
     h2: props => {
-      const className = clsx(title({ size: 'md', color: 'pink' }))
-      return <HeaderWithLink attr={props} className={className} level={2} />
+      return <HeaderLink attr={props} level={2} />
     },
     h3: props => {
-      const className = clsx(title({ size: 'sm' }))
-      return <HeaderWithLink attr={props} className={className} level={3} />
+      return <HeaderLink attr={props} level={3} />
     },
     h4: props => {
-      const className = clsx(title({ size: 'xs', color: 'pink' }))
-      return <HeaderWithLink attr={props} className={className} level={4} />
+      return <HeaderLink attr={props} level={4} />
     },
     hr: props => <div {...props} className={hrCls} />,
     img: props => (
@@ -82,7 +81,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ul: props => {
       return <ul className={clsx(ulClasses())} {...props} />
     },
-    p: props => <p className={clsx(paragraph())} {...props} />,
+    p: props => <p className={clsx(paragraph({ size: 'lg' }))} {...props} />,
     // figure: (props) => (
     //   <figure className={clsx(props.className, "my-6!")} {...props} />
     // ),
@@ -102,16 +101,15 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
           }}
         >
           {/* <span className="flex whitespace-pre-wrap p-7 text-sm leading-6"> */}
-          <span className="flex whitespace-pre-wrap text-sm leading-6">
+          <span className={preContainer()}>
             <pre
               tabIndex={0}
               data-language="tsx"
-              className="flex"
               data-theme="github-dark-dimmed"
               style={{
-                backgroundColor: 'transparent',
                 color: 'rgb(173, 186, 199)',
               }}
+              className={preCls()}
             >
               {props.children}
             </pre>
@@ -168,33 +166,33 @@ const Link = ({
   )
 }
 
-const HeaderWithLink = (props: {
-  attr: DetailedHTMLProps<
-    HTMLAttributes<HTMLHeadingElement>,
-    HTMLHeadingElement
-  >
-  level: number
-  className?: string
-}) => {
-  const { attr, level, className } = props
-  const text = typeof attr.children === 'string' ? attr.children : ''
-  const slug = text.toLowerCase().replaceAll(' ', '-')
+// const HeaderLink = (props: {
+//   attr: DetailedHTMLProps<
+//     HTMLAttributes<HTMLHeadingElement>,
+//     HTMLHeadingElement
+//   >
+//   level: number
+//   className?: string
+// }) => {
+//   const { attr, level, className } = props
+//   const text = typeof attr.children === 'string' ? attr.children : ''
+//   const slug = text.toLowerCase().replaceAll(' ', '-')
 
-  return createElement(
-    `h${level}`,
-    {
-      ...attr,
-      id: slug,
-      className,
-    },
-    [
-      createElement(
-        'a',
-        { href: `#${slug}`, key: attr.id ?? slug },
-        props.attr.children,
-      ),
-    ],
-  )
-}
+//   return createElement(
+//     `h${level}`,
+//     {
+//       ...attr,
+//       id: slug,
+//       className,
+//     },
+//     [
+//       createElement(
+//         'a',
+//         { href: `#${slug}`, key: attr.id ?? slug },
+//         props.attr.children,
+//       ),
+//     ],
+//   )
+// }
 
 export const hrCls = 'my-8 h-px w-full bg-slate-400 dark:bg-default-100'
