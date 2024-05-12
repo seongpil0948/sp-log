@@ -5,7 +5,7 @@ import { listbox } from '@nextui-org/theme'
 const { base } = listbox()
 const uol = clsx(
   base(),
-  'my-1 md:my-2 list-inside bg-slate-100 dark:bg-content1  text-foreground [blockquote_&]:my-0 md:p-2 rounded-2xl [&>li]:my-1 md:[&>li]:my-2',
+  'my-1 md:my-2 px-1 md:px-2 pb-1 md:pb-2 pt-4 pt-6  list-inside bg-content2  text-foreground [blockquote_&]:my-0  rounded-2xl [&>li]:my-1 lg:[&>li]:my-2',
 )
 
 export default tv({
