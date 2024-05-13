@@ -104,6 +104,16 @@ export const LINKS_MAP = Object.freeze({
     icon: '💹',
     external: true,
   },
+  credly: {
+    id: 'credly',
+    label: {
+      en: 'Credly',
+      ko: 'Credly',
+    },
+    href: 'https://www.credly.com/users/seongpill-choi/badges',
+    icon: '👨🏼‍🎓',
+    external: true,
+  },
 })
 
 const links = Object.freeze<TLink[]>(Object.values(LINKS_MAP))
