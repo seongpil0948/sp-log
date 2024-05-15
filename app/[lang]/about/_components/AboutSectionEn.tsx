@@ -1,16 +1,19 @@
-import { ChipList } from '@/components/client-only/ChipList'
-import { HeaderAbout } from './Header'
-import { paragraph, subtitle, title, typo } from '@/config/variants/primitives'
-import clsx from 'clsx'
-import CertSection from './Cert'
-import styles from '../styles.module.css'
-import ProjectCardListHorizontal from '../../project/_components/server-only/ProjectCardsHorizontal'
+import {ChipList} from '@/components/client-only/ChipList'
 import themeList from '@/config/variants/list'
+import {paragraph, subtitle, title, typo} from '@/config/variants/primitives'
+
+import clsx from 'clsx'
+
+import ProjectCardListHorizontal from '../../project/_components/server-only/ProjectCardsHorizontal'
+import styles from '../styles.module.css'
+
+import CertSection from './Cert'
+import {HeaderAbout} from './Header'
 import LinksContent from './LinksContent'
 
-export default function AboutSectionsKo(props: { certData: string[] }) {
-  const { certData } = props
-  const { ol: olClasses } = themeList()
+export default function AboutSectionsKo(props: {certData: string[]}) {
+  const {certData} = props
+  const {ol: olClasses} = themeList()
   const expCompany = [
     {
       name: 'intellisys',
@@ -43,16 +46,7 @@ export default function AboutSectionsKo(props: { certData: string[] }) {
     },
     {
       ctgr: 'Infra',
-      skills: [
-        'GCP',
-        'AWS',
-        'Firebase',
-        'Kubernetes',
-        'Docker',
-        'Linux',
-        'Nginx',
-        'RabbitMQ',
-      ],
+      skills: ['GCP', 'AWS', 'Firebase', 'Kubernetes', 'Docker', 'Linux', 'Nginx', 'RabbitMQ'],
     },
     {
       ctgr: 'Backend',
@@ -68,46 +62,25 @@ export default function AboutSectionsKo(props: { certData: string[] }) {
     <div className={styles.sections}>
       <section className={styles.section}>
         <HeaderAbout title="About a Developer" />
-        <h3 className={title({ size: 'md', fullWidth: true })}>
-          I am SeongPilChoi.
-        </h3>
-        <p className={paragraph({ size: 'lg', font: 'script' })}>
-          cusp of developing has always fascinated me and <br />i have never
-          been afraid to just jump to in and give it a go whether it is
+        <h3 className={title({size: 'md', fullWidth: true})}>I am SeongPilChoi.</h3>
+        <p className={paragraph({size: 'lg', font: 'script'})}>
+          cusp of developing has always fascinated me and <br />i have never been afraid to just jump to in and give it
+          a go whether it is
         </p>
-        <ol
-          className={clsx(
-            'block',
-            olClasses(),
-            paragraph({ size: 'md', font: 'gothic' }),
-          )}
-        >
+        <ol className={clsx('block', olClasses(), paragraph({size: 'md', font: 'gothic'}))}>
           <li className=" mt-3">Cloud knowledge such as GCP</li>
           <li>Server such as (Django, Nextjs, Linux)</li>
-          <li className=" mb-3">
-            Frontend such as NextJs, Vue or Nuxtjs, Flutter(Mobile)
-          </li>
+          <li className=" mb-3">Frontend such as NextJs, Vue or Nuxtjs, Flutter(Mobile)</li>
         </ol>
-        <p
-          className={clsx(
-            paragraph({ size: 'md', font: 'gothic' }),
-            'my-5 block',
-          )}
-        >
+        <p className={clsx(paragraph({size: 'md', font: 'gothic'}), 'my-5 block')}>
           I enjoy making miscellaneous product in my free time <br></br>
-          When I lacked server knowledge, I studied Linux and obtained related
-          certificates. <br></br>
-          When I lacked Mobile knowledge, I studied Flutter and
-          publish(camping/wear-vendor app). <br></br>
-          When I was working on the <i>익시 도우미 관리도구</i> Tool project
-          with <i>LG</i>, I studied Kubernetes and obtained related
-          certificates.
+          When I lacked server knowledge, I studied Linux and obtained related certificates. <br></br>
+          When I lacked Mobile knowledge, I studied Flutter and publish(camping/wear-vendor app). <br></br>
+          When I was working on the <i>익시 도우미 관리도구</i> Tool project with <i>LG</i>, I studied Kubernetes and
+          obtained related certificates.
         </p>
-        <p
-          className={clsx(paragraph({ size: 'md', font: 'gothic' }), '!block')}
-        >
-          I recently started to have interest in WebGL and{' '}
-          <b>3D(Three.js and Blender)</b>
+        <p className={clsx(paragraph({size: 'md', font: 'gothic'}), '!block')}>
+          I recently started to have interest in WebGL and <b>3D(Three.js and Blender)</b>
           <b>Udemy</b>, <b>Inflearn</b> and Youtube are my best friends.
         </p>
       </section>
@@ -115,15 +88,10 @@ export default function AboutSectionsKo(props: { certData: string[] }) {
         <HeaderAbout title="Experience" />
         <div className="w-full flex flex-col">
           <div className="flex flex-col  justify-start items-start">
-            <div className={clsx(subtitle({ weight: 'bold' }), 'text-left')}>
-              Company
-            </div>
+            <div className={clsx(subtitle({weight: 'bold'}), 'text-left')}>Company</div>
             <ul>
               {expCompany.map((exp, idx) => (
-                <li
-                  key={idx}
-                  className=" flex flex-col text-start my-1 md:my-2 "
-                >
+                <li key={idx} className=" flex flex-col text-start my-1 md:my-2 ">
                   <div
                     className={clsx(
                       typo({
@@ -141,13 +109,10 @@ export default function AboutSectionsKo(props: { certData: string[] }) {
             </ul>
           </div>
           <div className="flex flex-col justify-start items-start text-right max-h-[60vh] overflow-auto border border-gray-200 rounded-lg px-3 w-[90vw]">
-            <div className={clsx(subtitle({ weight: 'bold' }))}>Skill</div>
+            <div className={clsx(subtitle({weight: 'bold'}))}>Skill</div>
             <ul className="ml-auto">
               {expSkill.map((exp, idx) => (
-                <li
-                  key={idx}
-                  className=" flex flex-col sm:my-2 md:my-4 text-end"
-                >
+                <li key={idx} className=" flex flex-col sm:my-2 md:my-4 text-end">
                   <div
                     className={clsx(
                       typo({
@@ -168,7 +133,7 @@ export default function AboutSectionsKo(props: { certData: string[] }) {
                       variant: 'bordered',
                       classNames: {
                         base: 'min-w-30 p-2 md:p-5 mx-1 sm:mx-2 min-w-fit',
-                        content: clsx(typo({ size: 'sm' })),
+                        content: clsx(typo({size: 'sm'})),
                       },
                     }}
                   />
@@ -185,23 +150,16 @@ export default function AboutSectionsKo(props: { certData: string[] }) {
       </section>
       <section className={styles.section}>
         <HeaderAbout title="Projects" />
-        <div
-          className={clsx(
-            paragraph({ size: 'sm', font: 'gothic' }),
-            'hidden md:block',
-          )}
-        >
+        <div className={clsx(paragraph({size: 'sm', font: 'gothic'}), 'hidden md:block')}>
           <p>
-            Fast forward to 2024, I have been working as a developer for 5 years
-            and have worked on a variety of projects. Everything I have done,
-            small or big, has been a vital stepping stone for where I am today.
+            Fast forward to 2024, I have been working as a developer for 5 years and have worked on a variety of
+            projects. Everything I have done, small or big, has been a vital stepping stone for where I am today.
           </p>
-          <p className={paragraph({ size: 'sm', font: 'gothic' })}>
-            Although I can build a service on my own from infrastructure to
-            front
+          <p className={paragraph({size: 'sm', font: 'gothic'})}>
+            Although I can build a service on my own from infrastructure to front
             <br />
-            I was always with my colleagues when I created the best service.
-            therefore <br />I always struggle to be the best colleague
+            I was always with my colleagues when I created the best service. therefore <br />I always struggle to be the
+            best colleague
           </p>
         </div>
         <ProjectCardListHorizontal />

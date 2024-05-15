@@ -1,13 +1,10 @@
 'use client'
 
-import { ImageCard } from '@/components/client-only/card/dynamic'
-import { useMemo } from 'react'
+import {ImageCard} from '@/components/client-only/card/dynamic'
+import {useMemo} from 'react'
 
-export default function CertSection(props: {
-  certData: string[]
-  scrollContainer: string
-}) {
-  const { certData } = props
+export default function CertSection(props: {certData: string[]; scrollContainer: string}) {
+  const {certData} = props
   const cards = useMemo(() => {
     return certData.map((c, i) => {
       const defaultComp = (

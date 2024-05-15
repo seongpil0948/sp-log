@@ -1,25 +1,25 @@
-import type { MDXComponents } from 'mdx/types'
-import { Image } from '@nextui-org/image'
 // import Image from "next/image";
-import { parseNumber } from '@/app/_utils/common'
-import { Link as NextLink } from '@nextui-org/link'
-import { Snippet } from '@nextui-org/snippet'
 import CodeHeader from '@/components/server-only/CodeHeader'
-import { DetailedHTMLProps, HTMLAttributes, createElement } from 'react'
-import clsx from 'clsx'
-import { Card, CardBody, CardHeader } from '@nextui-org/card'
-import { listText, paragraph, title } from './config/variants/primitives'
-import { Chip } from '@nextui-org/chip'
-import { ChipList } from './components/client-only/ChipList'
 import themeList from '@/config/variants/list'
-import { AlertText } from './components/server-only/alert'
-import tableTheme from './config/variants/table'
-import preTheme from './config/variants/pre'
-import { HeaderLink } from './components/server-only/text/HeaderLink'
 
-const { ul: ulClasses, ol: olClasses } = themeList()
-const { table, th, td } = tableTheme()
-const { container: preContainer, pre: preCls } = preTheme()
+import {Card, CardBody, CardHeader} from '@nextui-org/card'
+import {Chip} from '@nextui-org/chip'
+import {Image} from '@nextui-org/image'
+import {Link as NextLink} from '@nextui-org/link'
+import {Snippet} from '@nextui-org/snippet'
+import clsx from 'clsx'
+import type {MDXComponents} from 'mdx/types'
+
+import {ChipList} from './components/client-only/ChipList'
+import {AlertText} from './components/server-only/alert'
+import {HeaderLink} from './components/server-only/text/HeaderLink'
+import preTheme from './config/variants/pre'
+import {listText, paragraph, title} from './config/variants/primitives'
+import tableTheme from './config/variants/table'
+
+const {ul: ulClasses, ol: olClasses} = themeList()
+const {table, th, td} = tableTheme()
+const {container: preContainer, pre: preCls} = preTheme()
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     ...components,
@@ -32,10 +32,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     // ),
     code: props => (
       <code
-        className={clsx(
-          listText({ font: 'mono', color: 'primary' }),
-          "!before:content-[''] !after:content-['']",
-        )}
+        className={clsx(listText({font: 'mono', color: 'primary'}), "!before:content-[''] !after:content-['']")}
         // className="inline-block h-fit whitespace-nowrap rounded-small bg-transparent px-0 py-0 font-mono text-small font-normal text-sky-400"
         // className="inline-block h-fit whitespace-nowrap rounded-small bg-transparent "
         {...props}
@@ -67,13 +64,10 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       // if (props.children[0].props?.children[0].props?.children[0] === '[]') {
       // if text is link
       let child = props.children
-      if (
-        typeof props.children === 'string' &&
-        props.children.startsWith('http')
-      ) {
+      if (typeof props.children === 'string' && props.children.startsWith('http')) {
         child = <Link href={props.children}>{props.children}</Link>
       }
-      return <li className={clsx(listText({ color: 'default' }))}>{child}</li>
+      return <li className={clsx(listText({color: 'default'}))}>{child}</li>
     },
     ol: props => {
       return <ul className={clsx(olClasses())} {...props} />
@@ -81,7 +75,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ul: props => {
       return <ul className={clsx(ulClasses())} {...props} />
     },
-    p: props => <p className={clsx(paragraph({ size: 'lg' }))} {...props} />,
+    p: props => <p className={clsx(paragraph({size: 'lg'}))} {...props} />,
     // figure: (props) => (
     //   <figure className={clsx(props.className, "my-6!")} {...props} />
     // ),
@@ -139,13 +133,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
   }
 }
 
-const Link = ({
-  href,
-  children,
-}: {
-  href?: string
-  children?: React.ReactNode
-}) => {
+const Link = ({href, children}: {href?: string; children?: React.ReactNode}) => {
   return href ? (
     <NextLink
       href={href}

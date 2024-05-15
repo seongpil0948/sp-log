@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { tv } from 'tailwind-variants'
+import {tv} from 'tailwind-variants'
 
 export const preTheme = tv({
   base: '',

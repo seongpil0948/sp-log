@@ -1,15 +1,7 @@
-import {
-  RequiredField,
-  commonToJson,
-  commonFromJson,
-} from '@/app/_utils/common'
-import {
-  CollectionReference,
-  collection,
-  collectionGroup,
-  Firestore,
-} from 'firebase/firestore'
-import type { QueryDocumentSnapshot, WithFieldValue } from 'firebase/firestore'
+import {RequiredField, commonToJson, commonFromJson} from '@/app/_utils/common'
+
+import {collection, collectionGroup} from 'firebase/firestore'
+import type {QueryDocumentSnapshot, WithFieldValue, CollectionReference, Firestore} from 'firebase/firestore'
 
 export type ECollection =
   | 'post'
@@ -21,18 +13,16 @@ export type ECollection =
   | 'likeGuestbook'
   | 'guestbook'
 
-export const ECollection: { [key in ECollection]: ECollection } = Object.freeze(
-  {
-    post: 'post',
-    user: 'user',
-    post_comment: 'post_comment',
-    likePost: 'likePost',
-    dislikePost: 'dislikePost',
-    recentlyViewedPosts: 'recentlyViewedPosts',
-    guestbook: 'guestbook',
-    likeGuestbook: 'likeGuestbook',
-  },
-)
+export const ECollection: {[key in ECollection]: ECollection} = Object.freeze({
+  post: 'post',
+  user: 'user',
+  post_comment: 'post_comment',
+  likePost: 'likePost',
+  dislikePost: 'dislikePost',
+  recentlyViewedPosts: 'recentlyViewedPosts',
+  guestbook: 'guestbook',
+  likeGuestbook: 'likeGuestbook',
+})
 export interface ICollectionParam {
   readonly c: ECollection
   readonly postId?: string
@@ -79,10 +69,7 @@ export function getPCollectionStr(p: ICollectionParam) {
   return str
 }
 
-export function getPCollection<T>(
-  store: Firestore,
-  p: ICollectionParam,
-): CollectionReference<T> {
+export function getPCollection<T>(store: Firestore, p: ICollectionParam): CollectionReference<T> {
   const str = getPCollectionStr(p)
   return collection(store, str).withConverter(fireConverter<T>())
 }
@@ -99,12 +86,8 @@ export function getPCollectionGroup(store: Firestore, c: ECollection) {
   return collectionGroup(store, str)
 }
 
-export const fireConverter = <T>(
-  toJson?: (d: T) => any,
-  fromJson?: (d: any) => T,
-) => ({
-  toFirestore: (data: WithFieldValue<T>) =>
-    toJson ? toJson(data as T) : commonToJson(data),
+export const fireConverter = <T>(toJson?: (d: T) => any, fromJson?: (d: any) => T) => ({
+  toFirestore: (data: WithFieldValue<T>) => (toJson ? toJson(data as T) : commonToJson(data)),
   fromFirestore: (snap: QueryDocumentSnapshot) =>
     fromJson ? fromJson(snap.data()) : (commonFromJson(snap.data()) as T),
 })

@@ -24,8 +24,7 @@ export function splitArray<T>(array: T[], n: number): T[][] {
   return result
 }
 
-export const uniqueArr = <T extends string | number>(arr: T[]): T[] =>
-  Array.from(new Set(arr))
+export const uniqueArr = <T extends string | number>(arr: T[]): T[] => Array.from(new Set(arr))
 export function uniqueFilter<T>(arr: T[]): T[] {
   // used when There are many Duplicate values
   return arr.filter((x, idx) => arr.indexOf(x) === idx)
@@ -46,18 +45,13 @@ export function valueByDotsKey(obj: any, key: string) {
   return result
 }
 
-export const getCopyWith = <T extends {}>(
-  defaultObj: () => T,
-): ((props?: Partial<T>) => T) => {
+export const getCopyWith = <T extends {}>(defaultObj: () => T): ((props?: Partial<T>) => T) => {
   return function (props?: Partial<T>) {
     return Object.assign<T, Partial<T>>(defaultObj(), props ?? {}) as T
   }
 }
 
-export const debounceFunction = <Func extends (args: any) => void>(
-  callback: Func,
-  delay: number,
-) => {
+export const debounceFunction = <Func extends (args: any) => void>(callback: Func, delay: number) => {
   // let timer: NodeJS.Timeout;
   let timer: any
   return (args: any) => {
@@ -93,15 +87,11 @@ export const SetUtils = {
   inter: twoSetIntersection,
 }
 
-export const paramToQuery = (
-  url: string,
-  params: Record<string, string | undefined | number>,
-) => {
+export const paramToQuery = (url: string, params: Record<string, string | undefined | number>) => {
   const requestUrl = new URL(url, window.location.origin)
   for (const [key, value] of Object.entries(params)) {
     if (!value) continue
-    else if (typeof value === 'number')
-      requestUrl.searchParams.set(key, value.toString())
+    else if (typeof value === 'number') requestUrl.searchParams.set(key, value.toString())
     else requestUrl.searchParams.set(key, value)
   }
   return requestUrl

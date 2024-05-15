@@ -1,7 +1,7 @@
-import { nextui } from '@nextui-org/theme'
+import {nextui} from '@nextui-org/theme'
 const plugin = require('tailwindcss/plugin')
 const defaultTheme = require('tailwindcss/defaultTheme')
-import { commonColors, semanticColors } from '@nextui-org/theme'
+import {commonColors, semanticColors} from '@nextui-org/theme'
 
 // const defaultTheme = require('tailwindcss/defaultTheme')
 /** @type {import('tailwindcss').Config} */
@@ -42,7 +42,7 @@ module.exports = {
   darkMode: 'class',
   plugins: [
     nextui(),
-    plugin(function ({ addComponents, addVariant }) {
+    plugin(function ({addComponents, addVariant}) {
       addComponents({
         // Flex Pattern
         '.flex-column': {
@@ -69,8 +69,7 @@ module.exports = {
           justifyContent: 'center',
         },
         '.gradient': {
-          background:
-            'linear-gradient(60deg,#61dafb 0%,#d6cbf6 30%,#f2056f 70%)',
+          background: 'linear-gradient(60deg,#61dafb 0%,#d6cbf6 30%,#f2056f 70%)',
         },
       })
       addVariant('child', '& > ')

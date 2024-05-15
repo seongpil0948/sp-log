@@ -1,12 +1,16 @@
 'use client'
-import { useFrame } from '@react-three/fiber'
-import { useEffect, useMemo, useRef, useState } from 'react'
-import { Variant, motion } from 'framer-motion'
-import { MotionCanvas, motion as motion3d } from 'framer-motion-3d'
-import { EllipseCurve, Mesh, SphereGeometry, Group, Color } from 'three'
+import {useEffect, useMemo, useRef, useState} from 'react'
+
+import {Float, Line, Stars, Trail} from '@react-three/drei'
+import {useFrame} from '@react-three/fiber'
+import {EffectComposer, Bloom} from '@react-three/postprocessing'
+import {Variant, motion} from 'framer-motion'
+import {MotionCanvas, motion as motion3d} from 'framer-motion-3d'
+import {EllipseCurve, Color} from 'three'
+import type {Mesh, SphereGeometry, Group} from 'three'
+
 import SingletonHome from '../_utils/singleton'
-import { Float, Line, Stars, Trail } from '@react-three/drei'
-import { EffectComposer, Bloom } from '@react-three/postprocessing'
+
 // https://codesandbox.io/embed/xzi6ps?codemirror=1
 // https://codesandbox.io/p/sandbox/bezier-curves-nodes-3k4g6?file=%2Fsrc%2FNodes.js
 
@@ -48,14 +52,12 @@ const Sphere = () => {
   }, [])
 
   useFrame(state => {
-    if (!meshRef.current || !meshRef.current.geometry.userData.randomArray)
-      return
+    if (!meshRef.current?.geometry.userData.randomArray) return
     const speed = inst.data.get()
     const geoRef = meshRef.current.geometry as SphereGeometry
     const randomArray = geoRef.userData.randomArray
     const positionArray = geoRef.attributes.position.array
-    if (geoRef.userData.randomArray.length !== positionArray.length)
-      return console.error('length not matched')
+    if (geoRef.userData.randomArray.length !== positionArray.length) return console.error('length not matched')
     const time = state.clock.getElapsedTime()
     for (let i = 0; i < positionArray.length; i += 3) {
       positionArray[i] += Math.sin(time + randomArray[i] * 100) * 0.001
@@ -73,11 +75,7 @@ const Sphere = () => {
     }
   })
 
-  const points = useMemo(
-    () =>
-      new EllipseCurve(0, 0, 3, 1.15, 0, 2 * Math.PI, false, 0).getPoints(100),
-    [],
-  )
+  const points = useMemo(() => new EllipseCurve(0, 0, 3, 1.15, 0, 2 * Math.PI, false, 0).getPoints(100), [])
   return (
     <Float speed={4} rotationIntensity={1} floatIntensity={2}>
       <motion3d.group
@@ -120,36 +118,22 @@ const Sphere = () => {
             // animate={{ rotateX: 1 }}
             // transition={{ duration: 0.1, repeat: Infinity }}
           />
-          <meshStandardMaterial
-            color="hsl(240, 5.03%, 64.9%)"
-            side={2 /* DoubleSide */}
-            flatShading
-          />
+          <meshStandardMaterial color="hsl(240, 5.03%, 64.9%)" side={2 /* DoubleSide */} flatShading />
         </mesh>
       </motion3d.group>
     </Float>
   )
 }
 
-function Electron({ radius = 2.75, speed = 6, ...props }) {
+function Electron({radius = 2.75, speed = 6, ...props}) {
   const ref = useRef<Mesh>(null!)
   useFrame(state => {
     const t = state.clock.getElapsedTime() * speed
-    ref.current.position.set(
-      Math.sin(t) * radius,
-      (Math.cos(t) * radius * Math.atan(t)) / Math.PI / 1.25,
-      0,
-    )
+    ref.current.position.set(Math.sin(t) * radius, (Math.cos(t) * radius * Math.atan(t)) / Math.PI / 1.25, 0)
   })
   return (
     <group {...props}>
-      <Trail
-        local
-        width={5}
-        length={6}
-        color={new Color(2, 5, 10)}
-        attenuation={t => t * t}
-      >
+      <Trail local width={5} length={6} color={new Color(2, 5, 10)} attenuation={t => t * t}>
         <mesh ref={ref}>
           <sphereGeometry args={[0.25]} />
           <meshBasicMaterial color={[10, 1, 10]} toneMapped={false} />
@@ -171,11 +155,7 @@ export const BlackBall = () => {
       <MotionCanvas>
         {/* <pointLight color={"red"} position={[15, 15, 15]} /> */}
         <ambientLight color="hsl(240, 5.03%, 64.9%)" intensity={0.01} />
-        <directionalLight
-          color="hsl(240, 5.03%, 64.9%)"
-          position={[1, 0, 5]}
-          intensity={1}
-        />
+        <directionalLight color="hsl(240, 5.03%, 64.9%)" position={[1, 0, 5]} intensity={1} />
 
         <Sphere />
         <Stars saturation={0} count={400} speed={0.5} />

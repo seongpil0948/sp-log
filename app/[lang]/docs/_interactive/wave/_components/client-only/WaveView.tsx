@@ -1,7 +1,8 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
-import { App } from '../../_classes/app'
+import {useEffect, useRef} from 'react'
+
+import {App} from '../../_classes/app'
 
 interface Props {
   className?: string

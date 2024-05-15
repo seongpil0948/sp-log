@@ -1,9 +1,5 @@
-import {
-  MotionValue,
-  useSpring,
-  useTransform,
-  type SpringOptions,
-} from 'framer-motion'
+import {useSpring, useTransform, type SpringOptions} from 'framer-motion'
+import type {MotionValue} from 'framer-motion'
 
 export function useSmoothTransform<T>(
   value: MotionValue<T>,

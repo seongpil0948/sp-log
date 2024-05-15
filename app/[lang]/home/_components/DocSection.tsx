@@ -1,10 +1,14 @@
 'use client'
 
+import {on} from 'events'
+
+import {paragraph} from '@/config/variants/primitives'
+
 import clsx from 'clsx'
-import { motion, Variants } from 'framer-motion'
-import { sectionCls } from '../theme'
-import { paragraph } from '@/config/variants/primitives'
-import { on } from 'events'
+import {motion} from 'framer-motion'
+import type {Variants} from 'framer-motion'
+
+import {sectionCls} from '../theme'
 
 interface Props {
   emoji: string
@@ -25,19 +29,19 @@ const cardVariants: Variants = {
       duration: 0.8,
     },
   },
-  onHover: { rotate: 0, scale: 1.1, zIndex: 1 },
+  onHover: {rotate: 0, scale: 1.1, zIndex: 1},
 }
 
 const hue = (h: number) => `hsl(${h}, 100%, 50%)`
 
-function Card({ emoji, hueA, hueB }: Props) {
+function Card({emoji, hueA, hueB}: Props) {
   const background = `linear-gradient(306deg, ${hue(hueA)}, ${hue(hueB)})`
 
   return (
     <motion.div
       initial="offscreen"
       whileInView="onscreen"
-      viewport={{ once: true, amount: 0.8 }}
+      viewport={{once: true, amount: 0.8}}
       whileHover="onHover"
       style={{
         overflow: 'hidden',
@@ -65,7 +69,7 @@ function Card({ emoji, hueA, hueB }: Props) {
         }}
       />
       <motion.div
-        className={paragraph({ size: 'xs' })}
+        className={paragraph({size: 'xs'})}
         style={{
           width: 300,
           height: 430,
@@ -99,14 +103,8 @@ const food: [string, number, number][] = [
 ]
 
 export function DocsSection() {
-  const cards = food.map(([emoji, hueA, hueB]) => (
-    <Card emoji={emoji} hueA={hueA} hueB={hueB} key={emoji} />
-  ))
-  return (
-    <section className={clsx(sectionCls, 'my-[100] mx-auto pb-[100]')}>
-      {cards}
-    </section>
-  )
+  const cards = food.map(([emoji, hueA, hueB]) => <Card emoji={emoji} hueA={hueA} hueB={hueB} key={emoji} />)
+  return <section className={clsx(sectionCls, 'my-[100] mx-auto pb-[100]')}>{cards}</section>
 }
 
 export default DocsSection

@@ -18,8 +18,6 @@ export class RequiredField extends PeachError {
 
 export class ContextUndefined extends PeachError {
   constructor(contextName: string) {
-    super(
-      `context ${contextName} context undefined use must be within proper according Provider`,
-    )
+    super(`context ${contextName} context undefined use must be within proper according Provider`)
   }
 }

@@ -1,14 +1,15 @@
 'use client'
-import { title } from '@/config/variants/primitives'
-import { motion } from 'framer-motion'
-import { ReactNode } from 'react'
+import {title} from '@/config/variants/primitives'
+import type {ReactNode} from 'react'
 
-export function AnimateBlink(props: { children: ReactNode }) {
+import {motion} from 'framer-motion'
+
+export function AnimateBlink(props: {children: ReactNode}) {
   return (
     <motion.div
       variants={{
-        hidden: { opacity: 0.4 },
-        visible: { opacity: 1 },
+        hidden: {opacity: 0.4},
+        visible: {opacity: 1},
       }}
       initial="hidden"
       animate="visible"

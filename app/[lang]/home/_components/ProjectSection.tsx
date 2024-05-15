@@ -1,22 +1,18 @@
 'use client'
+import {wrap} from '@/app/_utils/client/motion'
+import {splitArray} from '@/app/_utils/common'
+import {title} from '@/config/variants/primitives'
+import {useEffect, useRef} from 'react'
+import type {ReactNode} from 'react'
+
 import clsx from 'clsx'
-import { sectionCls } from '../theme'
-import { ReactNode, useEffect, useRef } from 'react'
-import {
-  motion,
-  useTransform,
-  useMotionValue,
-  useAnimationFrame,
-  useInView,
-  MotionValue,
-  useSpring,
-} from 'framer-motion'
-import { title } from '@/config/variants/primitives'
+import {motion, useTransform, useMotionValue, useAnimationFrame, useInView, useSpring} from 'framer-motion'
+import type {MotionValue} from 'framer-motion'
+
 import ProjectCardListHorizontal from '../../project/_components/server-only/ProjectCardsHorizontal'
 import PROJECTS from '../../project/_logics/projects'
-import { splitArray } from '@/app/_utils/common'
 import SingletonHome from '../_utils/singleton'
-import { wrap } from '@/app/_utils/client/motion'
+import {sectionCls} from '../theme'
 
 export function ProjectSection() {
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -26,20 +22,11 @@ export function ProjectSection() {
   const arrProjects = [PROJECTS]
   return (
     <section ref={sectionRef} className={clsx(sectionCls, '-mt-48')}>
-      <ParallaxText
-        scrollY={inst.data}
-        containerRef={sectionRef}
-        baseVelocity={-10}
-      >
+      <ParallaxText scrollY={inst.data} containerRef={sectionRef} baseVelocity={-10}>
         Projects
       </ParallaxText>
       {arrProjects.map((projects, idx) => (
-        <ParallaxText
-          key={idx}
-          scrollY={inst.data}
-          containerRef={sectionRef}
-          baseVelocity={idx % 2 === 0 ? 10 : -10}
-        >
+        <ParallaxText key={idx} scrollY={inst.data} containerRef={sectionRef} baseVelocity={idx % 2 === 0 ? 10 : -10}>
           <ProjectCardListHorizontal projects={projects} />
         </ParallaxText>
       ))}
@@ -55,7 +42,7 @@ interface ParallaxProps {
 }
 
 export function ParallaxText(props: ParallaxProps) {
-  const { baseVelocity, children, scrollY } = props
+  const {baseVelocity, children, scrollY} = props
   const baseX = useMotionValue(0)
 
   const velocityFactor = useTransform(scrollY, [0, 1000], [0, 10], {
@@ -88,23 +75,17 @@ export function ParallaxText(props: ParallaxProps) {
 
   return (
     <div className="  whitespace-nowrap flex flex-nowrap">
-      <motion.div
-        className={clsx(
-          title({ font: 'script' }),
-          'flex whitespace-nowrap flex-nowrap gap-12 ',
-        )}
-        style={{ x }}
-      >
+      <motion.div className={clsx(title({font: 'script'}), 'flex whitespace-nowrap flex-nowrap gap-12 ')} style={{x}}>
         <span>{children} </span>
         <span>{children} </span>
 
         {new Array(10).fill(0).map((_, idx) => (
           <motion.span
             key={idx}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 2, delay: idx * 1 }}
+            initial={{opacity: 0}}
+            whileInView={{opacity: 1}}
+            viewport={{once: true}}
+            transition={{duration: 2, delay: idx * 1}}
           >
             {children}
           </motion.span>

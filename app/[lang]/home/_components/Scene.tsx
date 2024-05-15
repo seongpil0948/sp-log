@@ -1,22 +1,25 @@
 'use client'
 
-import { useRef } from 'react'
+import {subtitle} from '@/config/variants/primitives'
+import {useRef} from 'react'
+
 import clsx from 'clsx'
-import { sectionCls } from '../theme'
-import { FirstSection } from './FirstSection'
-import { ProjectSection } from './ProjectSection'
-import { MotionConfig, useScroll, useSpring, useVelocity } from 'framer-motion'
-import BlackBall from './BlackBall'
-import SingletonHome from '../_utils/singleton'
-import DocsSection from './DocSection'
+import {MotionConfig, useScroll, useSpring, useVelocity} from 'framer-motion'
+
 import LinksContent from '../../about/_components/LinksContent'
-import { subtitle } from '@/config/variants/primitives'
+import SingletonHome from '../_utils/singleton'
+import {sectionCls} from '../theme'
+
+import BlackBall from './BlackBall'
+import DocsSection from './DocSection'
+import {FirstSection} from './FirstSection'
+import {ProjectSection} from './ProjectSection'
 
 // on first mounted disable scroll and rotate the image
 // when frame is equal to length of urls, enable scroll
 export function Scene() {
   const rootRef = useRef<HTMLDivElement>(null)
-  const { scrollY } = useScroll({
+  const {scrollY} = useScroll({
     container: rootRef,
     layoutEffect: true,
   })
@@ -31,7 +34,7 @@ export function Scene() {
   inst.scrollY = scrollY
 
   return (
-    <MotionConfig transition={{ type: 'tween', duration: 0.5 }}>
+    <MotionConfig transition={{type: 'tween', duration: 0.5}}>
       {/* TODO: to context or redux */}
       <section
         id="scene"
@@ -58,9 +61,7 @@ export function Scene() {
 export function AboutSection() {
   return (
     <section className={clsx(sectionCls, 'pl-4')}>
-      <div className={subtitle({ color: 'gray' })}>
-        사이트 개발자에대해 궁금한가요?
-      </div>
+      <div className={subtitle({color: 'gray'})}>사이트 개발자에대해 궁금한가요?</div>
       <div className=" w-1/2 mr-auto !text-start mb-6  ">
         <LinksContent isText />
       </div>

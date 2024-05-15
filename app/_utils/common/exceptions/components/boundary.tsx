@@ -1,6 +1,6 @@
 'use client'
-import { Component, ErrorInfo, ReactNode } from 'react'
-import type { ElementType } from 'react'
+import {Component} from 'react'
+import type {ElementType, ErrorInfo, ReactNode} from 'react'
 
 interface Props {
   children?: ReactNode
@@ -23,7 +23,7 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   static getDerivedStateFromError(error: Error) {
-    return { hasError: true, info: error }
+    return {hasError: true, info: error}
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
@@ -32,8 +32,8 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   render() {
-    const { hasError, info } = this.state
-    const { children } = this.props
+    const {hasError, info} = this.state
+    const {children} = this.props
     if (hasError && this.props.fallback) {
       return <this.props.fallback error={info} />
     }

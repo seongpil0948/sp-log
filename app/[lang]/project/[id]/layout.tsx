@@ -1,13 +1,14 @@
-import config, { TAvailLocale } from '@/config'
+import config from '@/config'
+import type {TAvailLocale} from '@/config'
 
 export async function generateStaticParams() {
-  return config.i18n.locales.map(lang => ({ lang }))
+  return config.i18n.locales.map(lang => ({lang}))
 }
 
 interface Param {
-  params: { lang: TAvailLocale }
+  params: {lang: TAvailLocale}
 }
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default function Layout({children}: {children: React.ReactNode}) {
   return <>{children}</>
 }

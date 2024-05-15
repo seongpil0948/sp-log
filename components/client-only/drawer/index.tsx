@@ -1,18 +1,14 @@
 'use client'
 
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetBody,
-  SheetFooter,
-  SheetProps,
-} from './sheet'
+import type {ReactNode} from 'react'
+
+import {mdiMenuClose, mdiMenuOpen} from '@mdi/js'
 import Icon from '@mdi/react'
-import { useDisclosure } from '@nextui-org/modal'
-import { mdiMenuClose, mdiMenuOpen } from '@mdi/js'
-import { Button } from '@nextui-org/button'
-import type { ReactNode } from 'react'
+import {Button} from '@nextui-org/button'
+import {useDisclosure} from '@nextui-org/modal'
+
+import {Sheet, SheetContent, SheetHeader, SheetBody, SheetFooter} from './sheet'
+import type {SheetProps} from './sheet'
 
 export interface CommonDrawerProps {
   children: ReactNode
@@ -20,8 +16,8 @@ export interface CommonDrawerProps {
   sheetProps?: Partial<SheetProps>
 }
 export default function CommonDrawer(props: CommonDrawerProps) {
-  const { children, sheetProps, title } = props
-  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure({
+  const {children, sheetProps, title} = props
+  const {isOpen, onOpen, onOpenChange, onClose} = useDisclosure({
     defaultOpen: sheetProps?.defaultOpen ?? false,
   })
 

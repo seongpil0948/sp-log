@@ -1,11 +1,9 @@
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
+import {splitLocaleAndPath, getLocaleRequest} from '@/app/_utils/server/locale'
+
+import {NextResponse} from 'next/server'
+import type {NextRequest} from 'next/server'
 
 import commonConfig from './config'
-import {
-  splitLocaleAndPath,
-  getLocaleRequest,
-} from '@/app/_utils/server/locale'
 
 export const config = {
   // Matcher ignoring `/_next/` and `/api/`
@@ -41,13 +39,13 @@ const IGNORE_PATHS = [
 ]
 
 export async function middleware(request: NextRequest, response: NextResponse) {
-  let nextP = request.nextUrl.pathname
+  const nextP = request.nextUrl.pathname
   if (IGNORE_PATHS.some(p => nextP.includes(p))) {
     return NextResponse.next()
   }
   console.log(nextP)
 
-  let { locale, path: onlyPath } = await splitLocaleAndPath(nextP)
+  let {locale, path: onlyPath} = await splitLocaleAndPath(nextP)
 
   if (onlyPath === '/' || onlyPath === '') {
     onlyPath = commonConfig.system.landingPath
@@ -70,5 +68,5 @@ export async function middleware(request: NextRequest, response: NextResponse) {
     return NextResponse.next()
   }
   // console.log(`go redirect from ${nextP} to ${nextUrl.pathname}`)
-  return NextResponse.redirect(nextUrl, { status: 301 })
+  return NextResponse.redirect(nextUrl, {status: 301})
 }

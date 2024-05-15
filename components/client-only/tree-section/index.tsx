@@ -1,6 +1,7 @@
 import clsx from 'clsx'
-import { tree } from './theme'
 import Link from 'next/link'
+
+import {tree} from './theme'
 
 export interface TreeSectionProps {
   label: string
@@ -14,13 +15,12 @@ export function TreeSection(props: {
   startDepth?: number
   linkTextClass?: (label: string) => string
 }) {
-  let { treeProps, startDepth, linkTextClass } = props
+  let {treeProps, startDepth, linkTextClass} = props
   startDepth = startDepth || 0
   // const dispatch = useAppDispatch();
-  const hasChildren = (item: TreeSectionProps) =>
-    item.children && item.children.length > 0
+  const hasChildren = (item: TreeSectionProps) => item.children && item.children.length > 0
 
-  const { wrapper, topMenu, menu, menuItem } = tree()
+  const {wrapper, topMenu, menu, menuItem} = tree()
   return (
     <>
       {treeProps.length > 0 && (
@@ -44,22 +44,10 @@ export function TreeSection(props: {
                     //   dispatch(setLoading(true));
                     // }}
                   >
-                    <div
-                      className={clsx(
-                        `pl-${startDepth! * 2}`,
-                        linkTextClass && linkTextClass(item.label),
-                      )}
-                    >
-                      {item.label}
-                    </div>
+                    <div className={clsx(`pl-${startDepth * 2}`, linkTextClass?.(item.label))}>{item.label}</div>
                   </Link>
                 </div>
-                {hasChildren(item) && (
-                  <TreeSection
-                    treeProps={item.children!}
-                    startDepth={startDepth! + 1}
-                  />
-                )}
+                {hasChildren(item) && <TreeSection treeProps={item.children!} startDepth={startDepth + 1} />}
               </li>
             ))}
           </ul>

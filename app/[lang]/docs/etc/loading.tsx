@@ -1,4 +1,4 @@
-import { SkeletonDoc } from '@/components/server-only/loading/skeletons'
+import {SkeletonDoc} from '@/components/server-only/loading/skeletons'
 
 export default function Loading() {
   // Or a custom loading skeleton component

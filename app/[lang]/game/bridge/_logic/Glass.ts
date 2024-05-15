@@ -1,6 +1,9 @@
-import { cm1, geo, mat, getSounds } from './common'
-import { BoxGeometry, Material, Mesh } from 'three'
-import { Stuff, StuffChildParams } from './Stuff'
+import {Mesh} from 'three'
+import type {BoxGeometry, Material} from 'three'
+
+import {cm1, geo, mat, getSounds} from './common'
+import {Stuff} from './Stuff'
+import type {StuffChildParams} from './Stuff'
 
 type GlassType = 'normal' | 'strong'
 export class Glass extends Stuff {
@@ -16,7 +19,7 @@ export class Glass extends Stuff {
     type: GlassType
   } // Declare the 'mesh' property
 
-  constructor(info: { type: GlassType; step: number } & StuffChildParams) {
+  constructor(info: {type: GlassType; step: number} & StuffChildParams) {
     // Add type annotation to the constructor parameter
     super({
       ...geo.glass.parameters,
@@ -50,14 +53,14 @@ export class Glass extends Stuff {
     mesh.castShadow = true
     mesh.receiveShadow = true
     mesh.name = this.name
-    this.mesh = Object.assign(mesh, { step: this.step, type: this.type })
+    this.mesh = Object.assign(mesh, {step: this.step, type: this.type})
     cm1.scene.add(this.mesh)
 
     this.setCannonBody()
 
     this.cannonBody?.addEventListener('collide', playSound) // Add optional chaining to handle possible undefined value
     const sounds = getSounds()
-    const sound = sounds[this.type as keyof typeof sounds] // Add type assertion to access the correct property
+    const sound = sounds[this.type] // Add type assertion to access the correct property
     function playSound(e: any) {
       // Add type annotation to the 'e' parameter
       const strength = e.contact.getImpactVelocityAlongNormal()

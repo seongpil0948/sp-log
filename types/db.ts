@@ -1,9 +1,6 @@
 import type admin from '@/config/firebase/nodeApp'
-import {
-  DocumentData,
-  Firestore,
-  QueryDocumentSnapshot,
-} from 'firebase/firestore'
+
+import type {DocumentData, Firestore, QueryDocumentSnapshot} from 'firebase/firestore'
 
 export interface PaginateParam<T> {
   readonly pageSize?: number

@@ -1,6 +1,8 @@
-import { MeshProps } from '@react-three/fiber'
-import { IProject } from '../types'
-import { Mesh, Vector3, Euler } from 'three'
+import type {MeshProps} from '@react-three/fiber'
+import {Mesh} from 'three'
+import type {Vector3, Euler} from 'three'
+
+import type {IProject} from '../types'
 
 export default class ProjectPanel {
   mesh: Mesh

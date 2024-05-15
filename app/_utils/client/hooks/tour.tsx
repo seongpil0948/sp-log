@@ -1,8 +1,9 @@
 'use client'
+import {useRef, useState} from 'react'
+import type {ReactNode, CSSProperties} from 'react'
+
 import clsx from 'clsx'
-import { motion, useAnimationControls } from 'framer-motion'
-import type { ReactNode } from 'react'
-import { CSSProperties, useRef, useState } from 'react'
+import {motion, useAnimationControls} from 'framer-motion'
 
 const Z_INDEX = {
   overlay: 10,
@@ -41,14 +42,10 @@ export default function useTour() {
     // animationDuration: "2s"
   }
 
-  return { overlayRef, onOverlay, offOverlay, overlayStyle, isOverlay }
+  return {overlayRef, onOverlay, offOverlay, overlayStyle, isOverlay}
 }
 
-export const TargetWrapper = (props: {
-  children: ReactNode
-  className?: string
-  animate: 'initial' | 'pulse'
-}) => {
+export const TargetWrapper = (props: {children: ReactNode; className?: string; animate: 'initial' | 'pulse'}) => {
   const cls = clsx('w-fit mx-auto', props.className)
   return (
     <motion.div
@@ -67,8 +64,8 @@ export const TargetWrapper = (props: {
       }}
       className={cls}
       animate={props.animate}
-      style={{ zIndex: Z_INDEX.target }}
-      transition={{ duration: 1, repeat: Infinity }}
+      style={{zIndex: Z_INDEX.target}}
+      transition={{duration: 1, repeat: Infinity}}
     >
       {props.children}
     </motion.div>

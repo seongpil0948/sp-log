@@ -1,13 +1,8 @@
-import {
-  fontMono,
-  fontNanumGothic,
-  fontNanumPenScript,
-  fontRoboto,
-  fontSans,
-} from '@/config/fonts'
+import {fontMono, fontNanumGothic, fontNanumPenScript, fontRoboto, fontSans} from '@/config/fonts'
+
+import {link as linkStyles} from '@nextui-org/theme'
 import clsx from 'clsx'
-import { tv } from 'tailwind-variants'
-import { link as linkStyles } from '@nextui-org/theme'
+import {tv} from 'tailwind-variants'
 
 const fontModule = {
   mono: fontMono.className,
@@ -23,8 +18,7 @@ const colorModule = {
   cyan: 'from-[#00b7fa] to-[#01cfea]',
   green: 'from-[#6FEE8D] to-[#17c964]',
   pink: 'from-[#FF72E1] to-[#F54C7A]',
-  foreground:
-    'dark:from-[#FFFFFF] dark:to-[#4B4B4B] from-[#4B4B4B] to-[#FFFFFF]',
+  foreground: 'dark:from-[#FFFFFF] dark:to-[#4B4B4B] from-[#4B4B4B] to-[#FFFFFF]',
   primary: 'text-primary',
   secondary: 'text-secondary',
   tertiary: 'text-tertiary',
@@ -61,15 +55,7 @@ export const title = tv({
   },
   compoundVariants: [
     {
-      color: [
-        'violet',
-        'yellow',
-        'blue',
-        'cyan',
-        'green',
-        'pink',
-        'foreground',
-      ],
+      color: ['violet', 'yellow', 'blue', 'cyan', 'green', 'pink', 'foreground'],
       class: 'bg-clip-text text-transparent bg-gradient-to-b',
     },
   ],
@@ -138,7 +124,7 @@ export const typo = tv({
       bold: 'font-bold',
       italic: 'italic',
       link: clsx(
-        linkStyles({ color: 'foreground', size: 'sm' }),
+        linkStyles({color: 'foreground', size: 'sm'}),
         'data-[active=true]:text-primary data-[active=true]:font-medium',
       ),
     },

@@ -1,4 +1,4 @@
-import { BaseClass } from './common'
+import {BaseClass} from './common'
 import Point from './point'
 
 export default class Wave extends BaseClass {
@@ -9,12 +9,7 @@ export default class Wave extends BaseClass {
   pointGap: number
   gapAlpha: number = 1.4
 
-  constructor(
-    index: number,
-    totalPoints: number,
-    color: string,
-    gapAlpha: number = 1.4,
-  ) {
+  constructor(index: number, totalPoints: number, color: string, gapAlpha: number = 1.4) {
     super(document.querySelector('#wave-page') ?? document.body)
     this.gapAlpha = gapAlpha
     this.index = index
@@ -35,11 +30,7 @@ export default class Wave extends BaseClass {
 
   init() {
     for (let i = 0; i < this.totalPoints; i++) {
-      this.points[i] = new Point(
-        this.index + i,
-        this.pointGap * i,
-        this.centerY,
-      )
+      this.points[i] = new Point(this.index + i, this.pointGap * i, this.centerY)
     }
   }
 

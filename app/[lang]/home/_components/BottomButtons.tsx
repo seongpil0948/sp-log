@@ -1,13 +1,15 @@
 'use client'
-import useTour, { TargetWrapper } from '@/app/_utils/client/hooks/tour'
-import { useWindowSize } from '@/app/_utils/client/responsive'
+import useTour, {TargetWrapper} from '@/app/_utils/client/hooks/tour'
+import {useWindowSize} from '@/app/_utils/client/responsive'
 import GeoButton from '@/components/client-only/three-d/geo-button'
-import { typo } from '@/config/variants/primitives'
-import clsx from 'clsx'
-import { Variants, motion, useAnimationControls } from 'framer-motion'
-import { useState, useRef, useEffect, useCallback } from 'react'
+import {typo} from '@/config/variants/primitives'
+import {useState, useRef, useEffect, useCallback} from 'react'
 
-type Vec2 = { x: number; y: number }
+import clsx from 'clsx'
+import {motion, useAnimationControls} from 'framer-motion'
+import type {Variants} from 'framer-motion'
+
+type Vec2 = {x: number; y: number}
 const btnClass = clsx(
   typo({
     size: 'xl',
@@ -23,7 +25,7 @@ export default function BottomButtons() {
     pathList: Vec2[]
     animationPath: string
   }>({
-    clickedPos: { x: 0, y: 0 },
+    clickedPos: {x: 0, y: 0},
     pathList: [],
     animationPath: '',
   })
@@ -31,11 +33,11 @@ export default function BottomButtons() {
   const size = useWindowSize()
   const getEndPos = () => {
     console.log('targetRef.current', targetRef.current)
-    if (!targetRef.current) return { x: 0, y: 0 }
+    if (!targetRef.current) return {x: 0, y: 0}
     const target = targetRef.current
     const rect = target.getBoundingClientRect()
     console.info('rect', rect)
-    return { x: rect.x + rect.width / 2, y: rect.y + rect.height / 2 }
+    return {x: rect.x + rect.width / 2, y: rect.y + rect.height / 2}
   }
   const getMiddlePoint = (startPos: Vec2, endPos: Vec2) => {
     return {
@@ -44,23 +46,15 @@ export default function BottomButtons() {
     }
   }
 
-  const makeArc = (
-    x: number,
-    y: number,
-    radius: number,
-    cloakWise: boolean,
-  ) => {
+  const makeArc = (x: number, y: number, radius: number, cloakWise: boolean) => {
     return `A ${radius} ${radius} 0 0 ${cloakWise ? 1 : 0} ${x} ${y}`
   }
 
   const makeCurve = (startPos: Vec2, middlePos: Vec2, endPos: Vec2) => {
-    return `C ${middlePos.x} ${middlePos.y} ${middlePos.x} ${
-      middlePos.y + puddle
-    } ${endPos.x} ${endPos.y}`
+    return `C ${middlePos.x} ${middlePos.y} ${middlePos.x} ${middlePos.y + puddle} ${endPos.x} ${endPos.y}`
   }
 
-  const { overlayRef, onOverlay, offOverlay, overlayStyle, isOverlay } =
-    useTour()
+  const {overlayRef, onOverlay, offOverlay, overlayStyle, isOverlay} = useTour()
   const puddle = 100
   const controls = useAnimationControls()
 
@@ -71,7 +65,7 @@ export default function BottomButtons() {
       return offOverlay()
     }
     onOverlay()
-    const clickedPos = { x: e.clientX, y: e.clientY }
+    const clickedPos = {x: e.clientX, y: e.clientY}
     const endPos = getEndPos()
     const middle = getMiddlePoint(clickedPos, endPos)
     const startToMiddle = getMiddlePoint(clickedPos, middle)
@@ -80,18 +74,8 @@ export default function BottomButtons() {
     const curveToMiddle = makeCurve(clickedPos, startToMiddle, middle)
     const between = Math.abs(startToMiddle.y - middle.y)
     const arcRadius = between / 2
-    const arcFromMiddleSideNormal = makeArc(
-      startToMiddle.x,
-      startToMiddle.y,
-      arcRadius,
-      false,
-    )
-    const arcFromMiddleSideInverse = makeArc(
-      middle.x,
-      middle.y,
-      arcRadius,
-      false,
-    )
+    const arcFromMiddleSideNormal = makeArc(startToMiddle.x, startToMiddle.y, arcRadius, false)
+    const arcFromMiddleSideInverse = makeArc(middle.x, middle.y, arcRadius, false)
     const curveToEnd = makeCurve(middle, middleToEnd, endPos)
 
     setState(prev => {
@@ -128,7 +112,7 @@ export default function BottomButtons() {
           stiffness: 50,
           restDelta: 0.01,
         },
-        opacity: { type: 'tween', duration: 1, bounce: 0.5 },
+        opacity: {type: 'tween', duration: 1, bounce: 0.5},
       },
     },
     visible: (custom: number) => {
@@ -144,7 +128,7 @@ export default function BottomButtons() {
             stiffness: 50,
             restDelta: 0.01,
           },
-          opacity: { type: 'tween', duration: 1, bounce: 0.5 },
+          opacity: {type: 'tween', duration: 1, bounce: 0.5},
         },
       }
     },
@@ -155,10 +139,7 @@ export default function BottomButtons() {
   return (
     <>
       <TargetWrapper animate={isOverlay ? 'pulse' : 'initial'}>
-        <div
-          ref={targetRef}
-          className="flex flex-col gap-12 md:gap-24 lg:gap-36 justify-center mb-12"
-        >
+        <div ref={targetRef} className="flex flex-col gap-12 md:gap-24 lg:gap-36 justify-center mb-12">
           <GeoButton shape="character" href="/game">
             <p className={btnClass}>Game</p>
           </GeoButton>

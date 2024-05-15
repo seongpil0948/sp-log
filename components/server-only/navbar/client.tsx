@@ -1,17 +1,20 @@
 'use client'
 
-import { NavbarMenu, NavbarMenuItem } from '@nextui-org/navbar'
-import { Link } from '@nextui-org/link'
-import { siteConfig } from '@/config/site'
-import commonConfig, { TAvailLocale } from '@/config'
-import { typo } from '@/config/variants/primitives'
-import { usePathname } from 'next/navigation'
-import { TreeSectionProps } from '../../client-only/tree-section'
-import { IGetTreeArgs } from '@/app/_utils/server/dir-tree'
-import { NavbarSlots, SlotsToClasses } from '@nextui-org/theme'
-import { CommonDrawerProps } from '../../client-only/drawer'
-import { extractFromPath } from '@/app/_utils/common/locale'
-import type { ReactNode } from 'react'
+import {extractFromPath} from '@/app/_utils/common/locale'
+import type {IGetTreeArgs} from '@/app/_utils/server/dir-tree'
+import commonConfig from '@/config'
+import type {TAvailLocale} from '@/config'
+import {siteConfig} from '@/config/site'
+import {typo} from '@/config/variants/primitives'
+import type {ReactNode} from 'react'
+
+import {Link} from '@nextui-org/link'
+import {NavbarMenu, NavbarMenuItem} from '@nextui-org/navbar'
+import type {NavbarSlots, SlotsToClasses} from '@nextui-org/theme'
+import {usePathname} from 'next/navigation'
+
+import type {CommonDrawerProps} from '../../client-only/drawer'
+import type {TreeSectionProps} from '../../client-only/tree-section'
 
 export interface CommonNavbarProps {
   tree?: TreeSectionProps
@@ -26,7 +29,7 @@ export interface CommonNavbarProps {
 
 export const NavMobileMenu = () => {
   const pathName = usePathname()
-  let { locale } = extractFromPath(pathName)
+  let {locale} = extractFromPath(pathName)
   if (!locale) locale = commonConfig.i18n.defaultLocale
   return (
     <NavbarMenu className="m-0 p-0">
@@ -40,11 +43,7 @@ export const NavMobileMenu = () => {
               className={typo({
                 type: 'link',
                 size: 'lg',
-                color: pathName.includes(item.href)
-                  ? 'primary'
-                  : item.external
-                    ? 'danger'
-                    : 'foreground',
+                color: pathName.includes(item.href) ? 'primary' : item.external ? 'danger' : 'foreground',
               })}
               // color="foreground"
               href={item.href}

@@ -1,6 +1,4 @@
-export function splitContent(
-  markdown: string,
-): { title: string; content: string }[] {
+export function splitContent(markdown: string): {title: string; content: string}[] {
   const regex = /#+\s*(.*?)(?=\n#+\s*|$)/gm
   const titles = markdown.match(regex)
   if (!titles) return []
@@ -8,10 +6,10 @@ export function splitContent(
   return titles
     .map((title, index) => {
       // const content = extractKoreanAndEnglishWithUrl(contents[index]);
-      return { title, content: contents[index] }
+      return {title, content: contents[index]}
       // return { title: sanitizeText(title), content: sanitizeText(content) };
     })
-    .filter(({ title, content }) => title.length > 2 && content.length > 10)
+    .filter(({title, content}) => title.length > 2 && content.length > 10)
 }
 
 export function sanitizeText(t?: string): string {

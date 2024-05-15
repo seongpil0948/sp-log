@@ -1,7 +1,8 @@
 'use client'
 
-import type { Mesh } from 'three'
-import { isCloseTo } from './common'
+import type {Mesh} from 'three'
+
+import {isCloseTo} from './common'
 
 export default class GuestBook {
   x: number
@@ -28,7 +29,7 @@ export default class GuestBook {
     })
   }
 
-  isCloseTo(dest: { x: number; z: number }) {
+  isCloseTo(dest: {x: number; z: number}) {
     return this.modelMesh && isCloseTo(this.modelMesh.position, dest, 0.3)
   }
 }

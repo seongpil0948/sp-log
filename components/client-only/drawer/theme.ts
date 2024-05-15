@@ -1,4 +1,4 @@
-import { tv } from '@nextui-org/theme'
+import {tv} from '@nextui-org/theme'
 
 const sheet = tv({
   slots: {
@@ -11,4 +11,4 @@ const sheet = tv({
   },
 })
 
-export { sheet }
+export {sheet}

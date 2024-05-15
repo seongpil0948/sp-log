@@ -1,4 +1,4 @@
-import { FirestoreError } from 'firebase/firestore'
+import type {FirestoreError} from 'firebase/firestore'
 
 export async function onFirestoreErr(name: string, err: FirestoreError) {
   console.log('>>> firestore error >>> ', name)

@@ -1,13 +1,14 @@
 'use client'
 // import { renderToString } from "react-dom/server";
-import { Button } from '@nextui-org/button'
-import { useRouter } from 'next/navigation'
-import { useCommonCtx } from '@/app/_providers/common'
+import {useCommonCtx} from '@/app/_providers/common'
+
+import {Button} from '@nextui-org/button'
 import clsx from 'clsx'
+import {useRouter} from 'next/navigation'
 
 export function ExperienceDownButton() {
   const router = useRouter()
-  const { clientLocale } = useCommonCtx()
+  const {clientLocale} = useCommonCtx()
 
   const handlePrint = async (isResume = false) => {
     // html2pdf().set(opt).from(printContent).save();

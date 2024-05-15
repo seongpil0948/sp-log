@@ -1,9 +1,9 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import {useEffect, useState} from 'react'
 
 export type ScreenSize = 'S' | 'M' | 'L'
-export const ScreenSize: { [k: string]: ScreenSize } = {
+export const ScreenSize: {[k: string]: ScreenSize} = {
   S: 'S',
   M: 'M',
   L: 'L',
@@ -30,7 +30,7 @@ export function isMobile() {
 }
 
 export function useResponsive() {
-  return { getScreenSize, isMobile }
+  return {getScreenSize, isMobile}
 }
 
 export function useWindowSize() {

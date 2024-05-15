@@ -1,14 +1,8 @@
 'use client'
-import {
-  Scene,
-  BoxGeometry,
-  SphereGeometry,
-  MeshPhongMaterial,
-  AnimationMixer,
-} from 'three'
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
-
-import { World, Material } from 'cannon-es'
+import {World, Material} from 'cannon-es'
+import {Scene, BoxGeometry, SphereGeometry, MeshPhongMaterial} from 'three'
+import type {AnimationMixer} from 'three'
+import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js'
 
 export const cm1 = {
   scene: new Scene(),
@@ -43,10 +37,10 @@ export const geo = {
 }
 
 export const mat = {
-  floor: new MeshPhongMaterial({ color: cm2.floorColor }),
-  pillar: new MeshPhongMaterial({ color: cm2.pillarColor }),
-  bar: new MeshPhongMaterial({ color: cm2.barColor }),
-  sideLight: new MeshPhongMaterial({ color: cm2.lightColor }),
+  floor: new MeshPhongMaterial({color: cm2.floorColor}),
+  pillar: new MeshPhongMaterial({color: cm2.pillarColor}),
+  bar: new MeshPhongMaterial({color: cm2.barColor}),
+  sideLight: new MeshPhongMaterial({color: cm2.lightColor}),
   glass1: new MeshPhongMaterial({
     color: cm2.glassColor,
     transparent: true,

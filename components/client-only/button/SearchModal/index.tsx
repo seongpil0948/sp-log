@@ -1,12 +1,13 @@
 'use client'
 
-import { DocSearch } from '@docsearch/react'
-import { TAvailLocale } from '@/config'
+import type {TAvailLocale} from '@/config'
+
+import {DocSearch} from '@docsearch/react'
 import '@docsearch/css'
 import './custom.css'
 
-export function SearchModal(props: { locale: TAvailLocale }) {
-  const { locale } = props
+export function SearchModal(props: {locale: TAvailLocale}) {
+  const {locale} = props
   // const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   // const [keyword, setKeyword] = useState<string>("");
   // const [searching, setSearching] = useState<boolean>(false);

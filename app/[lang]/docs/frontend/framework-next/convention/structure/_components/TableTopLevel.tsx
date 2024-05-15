@@ -4,8 +4,8 @@ export default function TableTopLevel() {
   return (
     <MdxTable
       columns={[
-        { key: 'file-name', title: '명칭' },
-        { key: 'desc', title: '설명' },
+        {key: 'file-name', title: '명칭'},
+        {key: 'desc', title: '설명'},
       ]}
       rows={[
         {
@@ -19,7 +19,7 @@ export default function TableTopLevel() {
                 </a>
               ),
             },
-            { key: '_provider_value', title: 'context 모듈' },
+            {key: '_provider_value', title: 'context 모듈'},
           ],
         },
         {
@@ -33,7 +33,7 @@ export default function TableTopLevel() {
                 </a>
               ),
             },
-            { key: '_store_val', title: 'redux 즉 reducer 모듈' },
+            {key: '_store_val', title: 'redux 즉 reducer 모듈'},
           ],
         },
         {
@@ -43,7 +43,7 @@ export default function TableTopLevel() {
               key: '_utils',
               title: <code>_utils</code>,
             },
-            { key: '_utils_val', title: '플러그인, 예외처리 등 유틸함수 제공' },
+            {key: '_utils_val', title: '플러그인, 예외처리 등 유틸함수 제공'},
           ],
         },
         {

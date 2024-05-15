@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useRef } from 'react'
+import {useEffect, useRef} from 'react'
 
 export default function CirclePoint(props: {
   width: number
@@ -9,14 +9,7 @@ export default function CirclePoint(props: {
   startAngle?: number // radian
   endAngle?: number // radian
 }) {
-  const {
-    width,
-    height,
-    radius,
-    numPoints,
-    startAngle = 0,
-    endAngle = Math.PI / 4,
-  } = props
+  const {width, height, radius, numPoints, startAngle = 0, endAngle = Math.PI / 4} = props
   const canvasRef = useRef<HTMLCanvasElement>(null)
   useEffect(() => {
     const canvas = canvasRef.current

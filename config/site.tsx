@@ -1,14 +1,15 @@
-import { FC, ReactNode } from 'react'
-import { TAvailLocale } from '.'
-import { TreeSectionProps } from '@/components/client-only/tree-section'
-import { GithubIcon, LinkedInIcon } from '@/components/server-only/icons'
-import { IconSvgProps } from '@/types'
+import type {TreeSectionProps} from '@/components/client-only/tree-section'
+import {GithubIcon, LinkedInIcon} from '@/components/server-only/icons'
+import {IconSvgProps} from '@/types'
+import {FC} from 'react'
+import type {ReactNode} from 'react'
+
+import type {TAvailLocale} from '.'
 
 export type SiteConfig = typeof siteConfig
 export const APP_DOMAIN = 'https://www.peachhub.love'
-export const CODING_GAME =
-  'https://www.codingame.com/profile/f98c28095b66d60aa9adc3f62e04210e6669263'
-type LangLabel = { [k in TAvailLocale]: string }
+export const CODING_GAME = 'https://www.codingame.com/profile/f98c28095b66d60aa9adc3f62e04210e6669263'
+type LangLabel = {[k in TAvailLocale]: string}
 interface TLink {
   id: string
   label: LangLabel
@@ -141,7 +142,7 @@ export const siteConfig = Object.freeze({
 
 export const reduceChildLinks = (tree: TreeSectionProps): string[] => {
   // return child links
-  if (!tree || !tree.href) return []
+  if (!tree?.href) return []
   if (!tree.children) return [tree.href]
 
   return tree.children.reduce((acc, link) => {

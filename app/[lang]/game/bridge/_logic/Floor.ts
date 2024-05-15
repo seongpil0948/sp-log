@@ -1,6 +1,9 @@
-import { cm1, geo, mat } from './common'
-import { BoxGeometry, Material, Mesh } from 'three'
-import { Stuff, StuffChildParams } from './Stuff'
+import {Mesh} from 'three'
+import type {BoxGeometry, Material} from 'three'
+
+import {cm1, geo, mat} from './common'
+import {Stuff} from './Stuff'
+import type {StuffChildParams} from './Stuff'
 
 interface FloorParams extends StuffChildParams {}
 
@@ -11,7 +14,7 @@ export class Floor extends Stuff {
 
   constructor(info: FloorParams) {
     // Add type annotation for info parameter
-    super({ ...geo.floor.parameters })
+    super({...geo.floor.parameters})
 
     this.geometry = geo.floor
     this.material = mat.floor

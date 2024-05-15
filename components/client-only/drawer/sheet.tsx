@@ -1,20 +1,16 @@
 'use client'
 
-import { ElementRef, forwardRef } from 'react'
-import {
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalProps,
-  useDisclosure,
-} from '@nextui-org/modal'
-import { ModalSlots, SlotsToClasses } from '@nextui-org/theme'
-import { HTMLMotionProps } from 'framer-motion'
-import { clsx, type ClassValue } from 'clsx'
-import { useIsSSR } from '@react-aria/ssr'
-import { sheet } from './theme'
+import {forwardRef} from 'react'
+import type {ElementRef} from 'react'
+
+import {Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure} from '@nextui-org/modal'
+import type {ModalProps} from '@nextui-org/modal'
+import type {ModalSlots, SlotsToClasses} from '@nextui-org/theme'
+import {useIsSSR} from '@react-aria/ssr'
+import {clsx, type ClassValue} from 'clsx'
+import type {HTMLMotionProps} from 'framer-motion'
+
+import {sheet} from './theme'
 
 export function cn(...inputs: ClassValue[]) {
   return clsx(inputs)
@@ -25,9 +21,9 @@ export interface SheetProps extends Omit<ModalProps, 'placement'> {
 }
 
 export const Sheet = forwardRef<ElementRef<typeof Modal>, SheetProps>(
-  ({ placement = 'left', classNames, ...props }, ref) => {
+  ({placement = 'left', classNames, ...props}, ref) => {
     const isLeft = placement == 'left'
-    const { backdrop, base, body, closeButton, footer, header } = sheet()
+    const {backdrop, base, body, closeButton, footer, header} = sheet()
     const extendedClassNames = {
       backdrop: cn(backdrop(), classNames?.backdrop),
       base: cn(base(), classNames?.base),
@@ -35,14 +31,7 @@ export const Sheet = forwardRef<ElementRef<typeof Modal>, SheetProps>(
       closeButton: cn(closeButton(), classNames?.closeButton),
       footer: cn(footer(), classNames?.footer),
       header: cn(header(), classNames?.header),
-      wrapper: cn(
-        isLeft
-          ? '!justify-start'
-          : placement == 'right'
-            ? 'justify-end'
-            : 'auto',
-        classNames?.wrapper,
-      ),
+      wrapper: cn(isLeft ? '!justify-start' : placement == 'right' ? 'justify-end' : 'auto', classNames?.wrapper),
     } as SlotsToClasses<ModalSlots>
 
     const motionProps = {
@@ -69,15 +58,10 @@ export const Sheet = forwardRef<ElementRef<typeof Modal>, SheetProps>(
     return (
       <Modal
         ref={ref}
-        classNames={{ ...extendedClassNames }}
+        classNames={{...extendedClassNames}}
         motionProps={motionProps}
         backdrop="transparent"
-        portalContainer={
-          isSsr
-            ? undefined
-            : document.body.getElementsByTagName('main').item(0) ??
-              document.body
-        }
+        portalContainer={isSsr ? undefined : document.body.getElementsByTagName('main').item(0) ?? document.body}
         {...(props as any)}
       />
     )
@@ -93,4 +77,4 @@ export const SheetFooter = ModalFooter
 
 export const SheetHeader = ModalHeader
 
-export { useDisclosure }
+export {useDisclosure}

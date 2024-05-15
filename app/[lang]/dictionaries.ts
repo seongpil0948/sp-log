@@ -1,4 +1,5 @@
-import commonConfig, { TAvailLocale } from '@/config'
+import commonConfig from '@/config'
+import type {TAvailLocale} from '@/config'
 import 'server-only'
 
 const dictionaries = Object.freeze({
@@ -9,9 +10,7 @@ const dictionaries = Object.freeze({
 // auth/invalid-login-credentials
 export const getDictionary = async (locale: TAvailLocale) => {
   return dictionaries[
-    (commonConfig.i18n.isAvailableLocale(locale)
-      ? locale
-      : commonConfig.i18n.defaultLocale) as keyof TDict
+    (commonConfig.i18n.isAvailableLocale(locale) ? locale : commonConfig.i18n.defaultLocale) as keyof TDict
   ]()
 }
 

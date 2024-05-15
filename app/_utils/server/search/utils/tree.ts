@@ -1,8 +1,8 @@
-import type { DirectoryTree } from 'directory-tree'
+import type {DirectoryTree} from 'directory-tree'
 
 export function toList(tree?: DirectoryTree) {
   const list: DirectoryTree[] = []
-  if (!tree || !tree.children) return list
+  if (!tree?.children) return list
 
   for (const child of tree.children) {
     if (isDocName(child)) {
@@ -15,6 +15,6 @@ export function toList(tree?: DirectoryTree) {
   return list
 }
 
-export function isDocName(p: { name: string }) {
+export function isDocName(p: {name: string}) {
   return p.name.endsWith('.mdx') || p.name.endsWith('.md')
 }

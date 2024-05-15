@@ -1,6 +1,8 @@
-import { cm1, geo, mat } from './common'
-import { Mesh, BoxGeometry, Material } from 'three'
-import { Stuff } from './Stuff'
+import {Mesh} from 'three'
+import type {BoxGeometry, Material} from 'three'
+
+import {cm1, geo, mat} from './common'
+import {Stuff} from './Stuff'
 
 export class Bar extends Stuff {
   geometry: BoxGeometry
@@ -16,9 +18,9 @@ export class Bar extends Stuff {
     this.geometry = geo.bar
     this.material = mat.bar
 
-    this.width = this.geometry.parameters.width as number
-    this.height = this.geometry.parameters.height as number
-    this.depth = this.geometry.parameters.depth as number
+    this.width = this.geometry.parameters.width
+    this.height = this.geometry.parameters.height
+    this.depth = this.geometry.parameters.depth
 
     this.mesh = new Mesh(this.geometry, this.material)
     this.mesh.position.set(this.x, this.y, this.z)

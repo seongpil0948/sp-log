@@ -1,34 +1,25 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client'
-import React, { useCallback, useEffect } from 'react'
-import { useInfiniteScroll } from '@nextui-org/use-infinite-scroll'
-import { Spinner } from '@nextui-org/spinner'
-import {
-  Table,
-  TableHeader,
-  TableColumn,
-  TableBody,
-  TableRow,
-  TableCell,
-} from '@nextui-org/table'
-import type { TGuestBook } from '../types'
-import { GUEST_DB } from '../db'
-import {
-  type DocumentData,
-  type QueryDocumentSnapshot,
-} from 'firebase/firestore'
-import { getFBClientStore } from '@/config/firebase/clientApp'
+import {getFBClientStore} from '@/config/firebase/clientApp'
+import {paragraph} from '@/config/variants/primitives'
+import React, {useCallback, useEffect} from 'react'
+
+import {Button} from '@nextui-org/button'
+import {Popover, PopoverContent, PopoverTrigger} from '@nextui-org/popover'
+import {Spinner} from '@nextui-org/spinner'
+import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell} from '@nextui-org/table'
+import {useInfiniteScroll} from '@nextui-org/use-infinite-scroll'
 import clsx from 'clsx'
-import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover'
-import { paragraph } from '@/config/variants/primitives'
-import { Button } from '@nextui-org/button'
+import {type DocumentData, type QueryDocumentSnapshot} from 'firebase/firestore'
+
+import {GUEST_DB} from '../db'
+import type {TGuestBook} from '../types'
 
 // FIXME: unnecessary fetchItems
 export default function BookTable() {
   const [isLoading, setIsLoading] = React.useState(false)
   const [hasMore, setHasMore] = React.useState(true)
-  const [lastData, setLastData] =
-    React.useState<QueryDocumentSnapshot<TGuestBook | null, DocumentData>>()
+  const [lastData, setLastData] = React.useState<QueryDocumentSnapshot<TGuestBook | null, DocumentData>>()
   const [items, setItems] = React.useState<TGuestBook[]>([])
   const w = window.innerWidth
 
@@ -97,26 +88,17 @@ export default function BookTable() {
           생성일
         </TableColumn>
       </TableHeader>
-      <TableBody
-        isLoading={isLoading}
-        items={items}
-        loadingContent={<Spinner color="white" />}
-        emptyContent="No data"
-      >
+      <TableBody isLoading={isLoading} items={items} loadingContent={<Spinner color="white" />} emptyContent="No data">
         {(item: TGuestBook) => (
           <TableRow key={item.id}>
             <TableCell>
-              <div className={clsx('max-w-20', paragraph({ size: 'sm' }))}>
-                {item.nameAlias}
-              </div>
+              <div className={clsx('max-w-20', paragraph({size: 'sm'}))}>{item.nameAlias}</div>
             </TableCell>
             <TableCell>
               <PopoverMessage message={item.message} />
             </TableCell>
             <TableCell>
-              <div className={clsx('max-w-20', paragraph({ size: 'sm' }))}>
-                {item.createdAt.toLocaleDateString()}
-              </div>
+              <div className={clsx('max-w-20', paragraph({size: 'sm'}))}>{item.createdAt.toLocaleDateString()}</div>
             </TableCell>
           </TableRow>
         )}
@@ -125,14 +107,14 @@ export default function BookTable() {
   )
 }
 
-export function PopoverMessage(props: { message: string }) {
+export function PopoverMessage(props: {message: string}) {
   return (
     <Popover placement="bottom" showArrow={true}>
       <PopoverTrigger>
         <div
           className={clsx(
             'max-w-96 text-ellipsis overflow-hidden whitespace-nowrap cursor-pointer',
-            paragraph({ size: 'sm' }),
+            paragraph({size: 'sm'}),
           )}
         >
           {props.message}
@@ -140,9 +122,7 @@ export function PopoverMessage(props: { message: string }) {
       </PopoverTrigger>
       <PopoverContent>
         <div className="px-1 py-2 z-1000">
-          <div className={clsx(paragraph({ size: 'md', font: 'gothic' }))}>
-            {props.message}
-          </div>
+          <div className={clsx(paragraph({size: 'md', font: 'gothic'}))}>{props.message}</div>
         </div>
       </PopoverContent>
     </Popover>

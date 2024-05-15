@@ -1,12 +1,14 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
-import * as THREE from 'three'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+import {useEffect, useRef} from 'react'
+
 import * as CANNON from 'cannon-es'
+import * as THREE from 'three'
+import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js'
+import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js'
+
 import Domino from '../../_utils/Domino'
-import { PreventDragClick } from '../../_utils/PreventDragClick'
+import {PreventDragClick} from '../../_utils/PreventDragClick'
 import CONFIG from '../../world/config'
 
 export default function OneMin() {
@@ -29,12 +31,7 @@ export default function OneMin() {
     const scene = new THREE.Scene()
 
     // Camera
-    const camera = new THREE.PerspectiveCamera(
-      75,
-      window.innerWidth / window.innerHeight,
-      0.1,
-      1000,
-    )
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
     camera.position.y = 1.5
     camera.position.z = 4
     scene.add(camera)
@@ -65,14 +62,10 @@ export default function OneMin() {
 
     // Contact Material
     const defaultMaterial = new CANNON.Material('default')
-    const defaultContactMaterial = new CANNON.ContactMaterial(
-      defaultMaterial,
-      defaultMaterial,
-      {
-        friction: 0.01,
-        restitution: 0.9,
-      },
-    )
+    const defaultContactMaterial = new CANNON.ContactMaterial(defaultMaterial, defaultMaterial, {
+      friction: 0.01,
+      restitution: 0.9,
+    })
     cannonWorld.defaultContactMaterial = defaultContactMaterial
 
     const floorShape = new CANNON.Plane()
@@ -82,10 +75,7 @@ export default function OneMin() {
       shape: floorShape,
       material: defaultMaterial,
     })
-    floorBody.quaternion.setFromAxisAngle(
-      new CANNON.Vec3(-1, 0, 0),
-      Math.PI / 2,
-    )
+    floorBody.quaternion.setFromAxisAngle(new CANNON.Vec3(-1, 0, 0), Math.PI / 2)
     cannonWorld.addBody(floorBody)
 
     // Mesh
@@ -152,10 +142,7 @@ export default function OneMin() {
       for (const item of intersects) {
         const obj = item.object as any
         if (obj.cannonBody) {
-          obj.cannonBody.applyForce(
-            new CANNON.Vec3(0, 0, -50),
-            new CANNON.Vec3(0, 0, 0),
-          )
+          obj.cannonBody.applyForce(new CANNON.Vec3(0, 0, -50), new CANNON.Vec3(0, 0, 0))
           break
         }
       }

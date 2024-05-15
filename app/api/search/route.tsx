@@ -1,12 +1,14 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { SearchResponse } from './types'
+import {NextResponse} from 'next/server'
+import type {NextRequest} from 'next/server'
+
+import type {SearchResponse} from './types'
 // import getSearchBasic from "@/app/_utils/server/search";
 
 export async function GET(request: NextRequest, response: NextResponse) {
   const searchParams = request.nextUrl.searchParams
   const keyword = searchParams.get('keyword')
   if (!keyword) {
-    return NextResponse.json({ error: 'No keyword provided' }, { status: 400 })
+    return NextResponse.json({error: 'No keyword provided'}, {status: 400})
   }
   // const searchBasic = await getSearchBasic();
   // const searchResult = searchBasic.search(keyword);
@@ -16,5 +18,5 @@ export async function GET(request: NextRequest, response: NextResponse) {
   const searchResponse: SearchResponse = {
     results: [],
   }
-  return NextResponse.json(searchResponse, { status: 200 })
+  return NextResponse.json(searchResponse, {status: 200})
 }

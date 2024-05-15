@@ -1,9 +1,12 @@
-import { ButtonAll } from '@/components/client-only/button/links'
-import { HeaderAbout } from './Header'
-import clsx from 'clsx'
-import { ExperienceDownButton } from '../experience/_components/DownloadButton'
+import {ButtonAll} from '@/components/client-only/button/links'
 
-export function LinksContent(props: { isText?: boolean }) {
+import clsx from 'clsx'
+
+import {ExperienceDownButton} from '../experience/_components/DownloadButton'
+
+import {HeaderAbout} from './Header'
+
+export function LinksContent(props: {isText?: boolean}) {
   return (
     <>
       <HeaderAbout title="Links" />
@@ -12,7 +15,7 @@ export function LinksContent(props: { isText?: boolean }) {
           'items-center': !props.isText,
         })}
       >
-        {...ButtonAll({ isText: props.isText })}
+        {...ButtonAll({isText: props.isText})}
         <ExperienceDownButton />
       </div>
     </>

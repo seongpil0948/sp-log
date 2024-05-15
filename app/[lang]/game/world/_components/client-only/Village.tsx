@@ -1,12 +1,15 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
-import * as THREE from 'three'
+import {GoHomeBtnAbsolute} from '@/components/client-only/button/absolute'
+import {useEffect, useRef} from 'react'
+
 import gsap from 'gsap'
+import * as THREE from 'three'
+
 import StateVillage from '../../_logic/Village'
+
 import BridgeEnterModal from './BridgeEnterModal'
 import GuestBookModal from './GuestBookModal'
-import { GoHomeBtnAbsolute } from '@/components/client-only/button/absolute'
 
 export default function World() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -14,7 +17,7 @@ export default function World() {
   const guestBookRef = useRef<any>(null)
   useEffect(() => {
     if (!canvasRef.current) return
-    const s = new StateVillage({ canvasRef, cameraMode: 'orthographic' })
+    const s = new StateVillage({canvasRef, cameraMode: 'orthographic'})
     const renderer = getRenderer(s.canvas)
     const raycaster = new THREE.Raycaster()
     // 그리기
@@ -94,11 +97,7 @@ export default function World() {
       if (!s.isInitialized) return
       for (const item of intersects) {
         if (item.object.name === 'floor') {
-          s.destinationPoint = new THREE.Vector3(
-            item.point.x,
-            0.3,
-            item.point.z,
-          )
+          s.destinationPoint = new THREE.Vector3(item.point.x, 0.3, item.point.z)
         }
         break
       }
@@ -132,7 +131,7 @@ export default function World() {
       checkIntersects()
     }
     const handleKeyDown = (e: KeyboardEvent) => {
-      let d = s.destinationPoint.clone()
+      const d = s.destinationPoint.clone()
       if (e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W') {
         d.z = s.player.modelMesh.position.z - 5
         s.player.moving = true
@@ -149,8 +148,7 @@ export default function World() {
 
       // space 키일 경우 카메라를 perspective로 변경
       if (e.key === ' ') {
-        s.cameraMode =
-          s.cameraMode === 'orthographic' ? 'perspective' : 'orthographic'
+        s.cameraMode = s.cameraMode === 'orthographic' ? 'perspective' : 'orthographic'
       }
 
       if (s.player.moving) {
@@ -189,7 +187,7 @@ export default function World() {
       passive: true,
     })
     s.canvas.addEventListener('touchend', handleTouchEnd)
-    s.canvas.addEventListener('touchmove', handleTouchMove, { passive: true })
+    s.canvas.addEventListener('touchmove', handleTouchMove, {passive: true})
     window.addEventListener('keydown', handleKeyDown)
 
     draw()

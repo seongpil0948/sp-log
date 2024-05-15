@@ -1,28 +1,21 @@
 'use server'
-import * as admin from 'firebase-admin'
-import { commonFromJson, commonToJson } from '../../common'
-import { getDocs, query, where } from 'firebase/firestore'
+import {getDocs, query, where} from 'firebase/firestore'
+import type * as admin from 'firebase-admin'
 
-export const fireConverterAdm = <T>(
-  toJson?: (d: T) => any,
-  fromJson?: (d: any) => T,
-) => ({
-  toFirestore: (data: admin.firestore.WithFieldValue<T>) =>
-    toJson ? toJson(data as T) : commonToJson(data),
+import {commonFromJson, commonToJson} from '../../common'
+
+export const fireConverterAdm = <T>(toJson?: (d: T) => any, fromJson?: (d: any) => T) => ({
+  toFirestore: (data: admin.firestore.WithFieldValue<T>) => (toJson ? toJson(data as T) : commonToJson(data)),
   fromFirestore: (snap: admin.firestore.QueryDocumentSnapshot) =>
     fromJson ? fromJson(snap.data()) : (commonFromJson(snap.data()) as T),
 })
 
-export async function batchInQueryServer<
-  T extends admin.firestore.DocumentData,
->(
+export async function batchInQueryServer<T extends admin.firestore.DocumentData>(
   ids: string[] | number[],
-  c:
-    | admin.firestore.CollectionReference<any>
-    | admin.firestore.Query<admin.firestore.DocumentData>,
+  c: admin.firestore.CollectionReference<any> | admin.firestore.Query<admin.firestore.DocumentData>,
   field: string,
 ) {
-  if (!ids || !ids.length) return []
+  if (!ids?.length) return []
 
   const batches: Promise<admin.firestore.QuerySnapshot<T>>[] = []
   while (ids.length) {
@@ -35,9 +28,7 @@ export async function batchInQueryServer<
   return Promise.all(batches)
 }
 
-export async function dataFromSnapServer<T>(
-  snap: admin.firestore.QuerySnapshot<T | null>,
-) {
+export async function dataFromSnapServer<T>(snap: admin.firestore.QuerySnapshot<T | null>) {
   const result: T[] = []
 
   snap.docs.forEach(d => {

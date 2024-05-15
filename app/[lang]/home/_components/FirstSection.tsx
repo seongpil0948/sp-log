@@ -4,15 +4,18 @@
 // https://www.apple.com/kr/macbook-air/?afid=p238%7CsiADh6hbK-dc_mtid_18707vxu38484_pcrid_693736852787_pgrid_16348496961_pntwk_g_pchan__pexid_131009289166_&cid=aos-kr-kwgo-Brand--slid-AapXiqMo--product-
 // https://www.framer.com/motion/scroll-animations/##no-code
 
-import { useRef } from 'react'
+import {useWindowSize} from '@/app/_utils/client/responsive'
+import {isMobile} from '@/app/_utils/client/responsive'
+import {useRef} from 'react'
+
 import clsx from 'clsx'
-import { useInView, motion, MotionConfig, useTransform } from 'framer-motion'
-import { sectionCls } from '../theme'
-import { useWindowSize } from '@/app/_utils/client/responsive'
-import HomeNavigation from './HomeNavigation'
-import { AboutCanvas } from './AboutCanvas'
+import {useInView, motion, MotionConfig, useTransform} from 'framer-motion'
+
 import SingletonHome from '../_utils/singleton'
-import { isMobile } from '@/app/_utils/client/responsive'
+import {sectionCls} from '../theme'
+
+import {AboutCanvas} from './AboutCanvas'
+import HomeNavigation from './HomeNavigation'
 
 export function FirstSection() {
   const inst = SingletonHome.getInstance()
@@ -29,7 +32,7 @@ export function FirstSection() {
   const blackHole = {
     w: s.width / 2,
     h: s.height / 2,
-    initial: { opacity: 0, x: 0 },
+    initial: {opacity: 0, x: 0},
   }
 
   const toX = isM ? 0.3 : 0.8
@@ -57,7 +60,7 @@ export function FirstSection() {
 
   return (
     <section ref={sectionRef} className={clsx(sectionCls, 'relative')}>
-      <MotionConfig transition={{ duration: 0.3, type: 'just' }}>
+      <MotionConfig transition={{duration: 0.3, type: 'just'}}>
         <motion.span
           initial={blackHole.initial}
           whileInView={{

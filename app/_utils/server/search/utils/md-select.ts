@@ -1,13 +1,18 @@
-import type { DirectoryTree } from 'directory-tree'
-import { readFile } from 'fs/promises'
-import { pathToHref } from '../../dir-tree'
-import { SearchDoc } from '@/app/api/search/types'
-import { unified } from 'unified'
+import {readFile} from 'fs/promises'
+
+import type {SearchDoc} from '@/app/api/search/types'
+
+import type {DirectoryTree} from 'directory-tree'
+import {selectAll} from 'hast-util-select'
+import type {select} from 'hast-util-select'
+import {toHast} from 'mdast-util-to-hast'
 import markdown from 'remark-parse'
 import html from 'remark-rehype'
-import { select, selectAll } from 'hast-util-select'
-import { toHast } from 'mdast-util-to-hast'
-import { sanitizeText, splitContent } from './text'
+import {unified} from 'unified'
+
+import {pathToHref} from '../../dir-tree'
+
+import {sanitizeText, splitContent} from './text'
 
 type El = ReturnType<typeof select>
 
@@ -56,7 +61,7 @@ export async function getDocsFromMd(link: DirectoryTree) {
     acc.push(...exploreAnyHeaders(el, href))
     return acc
   }, [] as SearchDoc[])
-  for (const { title, content } of rawDocs) {
+  for (const {title, content} of rawDocs) {
     // TODO
     if (title.length < 3 || content.length < 10) continue
     const linkId = title.toLowerCase().replaceAll(' ', '-')

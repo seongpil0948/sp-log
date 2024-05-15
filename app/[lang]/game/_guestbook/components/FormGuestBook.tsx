@@ -1,14 +1,17 @@
 'use client'
-import { Button } from '@nextui-org/button'
-import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card'
-import { Input, Textarea } from '@nextui-org/input'
-import { useState } from 'react'
-import { GUEST_DB } from '../db'
-import { getFBClientStore } from '@/config/firebase/clientApp'
-import { TGuestBook } from '../types'
-import { v4 } from 'uuid'
-import { mdiCheckBold } from '@mdi/js'
+import {getFBClientStore} from '@/config/firebase/clientApp'
+import {useState} from 'react'
+
+import {mdiCheckBold} from '@mdi/js'
 import Icon from '@mdi/react'
+import {Button} from '@nextui-org/button'
+import {Card, CardBody, CardFooter, CardHeader} from '@nextui-org/card'
+import {Input, Textarea} from '@nextui-org/input'
+import {v4} from 'uuid'
+
+import {GUEST_DB} from '../db'
+import type {TGuestBook} from '../types'
+
 interface Props {
   onCreate?: (data: TGuestBook) => void
 }

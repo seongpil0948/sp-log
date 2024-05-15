@@ -1,22 +1,27 @@
 'use client'
 
-import { AccordionItem, Accordion } from '@nextui-org/accordion'
-import CommonDrawer from '../../client-only/drawer'
-import { TreeSection, TreeSectionProps } from '../../client-only/tree-section'
-import { usePathname } from 'next/navigation'
-// import { Link } from '@nextui-org/link'
+import {isMobile} from '@/app/_utils/client/responsive'
+import {siteConfig} from '@/config/site'
+import type {ReactNode, JSX} from 'react'
+
+import {AccordionItem, Accordion} from '@nextui-org/accordion'
 import Link from 'next/link'
-import { isMobile } from '@/app/_utils/client/responsive'
-import { CommonNavbarProps } from './client'
-import { siteConfig } from '@/config/site'
-import type { ReactNode, JSX } from 'react'
+import {usePathname} from 'next/navigation'
+
+import CommonDrawer from '../../client-only/drawer'
+import {TreeSection} from '../../client-only/tree-section'
+import type {TreeSectionProps} from '../../client-only/tree-section'
+
+// import { Link } from '@nextui-org/link'
+
+import type {CommonNavbarProps} from './client'
 
 export function PrefixComp(props: CommonNavbarProps): ReactNode {
   const path = usePathname()
   const isM = isMobile()
 
   const defaultExpandedKeys = path.split('/')
-  const { prefix, treeLeft, drawerProps } = props
+  const {prefix, treeLeft, drawerProps} = props
 
   if (prefix) {
     return prefix
@@ -32,30 +37,23 @@ export function PrefixComp(props: CommonNavbarProps): ReactNode {
       return ''
     }
   }
-  const TitleComp = (props: { item: TreeSectionProps }) => {
+  const TitleComp = ({item}: {item: TreeSectionProps}) => {
     return (
-      <Link key={props.item.href} href={props.item.href} color="foreground">
-        <div className={getTitleClass(props.item.label)}>
-          {props.item.label}
-        </div>
+      <Link key={item.href} href={item.href} color="foreground">
+        <div className={getTitleClass(item.label)}>{item.label}</div>
       </Link>
     )
   }
 
   const renderAccordionItems = (items: TreeSectionProps[]): JSX.Element[] => {
     return items.map(item => {
-      let child: null | JSX.Element = (
-        <TreeSection
-          linkTextClass={getTitleClass}
-          treeProps={item.children ?? []}
-        />
-      )
+      let child: null | JSX.Element = <TreeSection linkTextClass={getTitleClass} treeProps={item.children ?? []} />
       if (!item.children || item.children.length < 1) {
         child = null
       } else if (isChildGroup(item)) {
         child = (
           <Accordion isCompact={isM} defaultExpandedKeys={defaultExpandedKeys}>
-            {renderAccordionItems(item.children!)}
+            {renderAccordionItems(item.children)}
           </Accordion>
         )
       }
@@ -99,10 +97,7 @@ export function PrefixComp(props: CommonNavbarProps): ReactNode {
       {hasChildren ? (
         <Accordion defaultExpandedKeys={defaultExpandedKeys}>{items}</Accordion>
       ) : (
-        <TreeSection
-          linkTextClass={getTitleClass}
-          treeProps={treeLeft.children ?? []}
-        />
+        <TreeSection linkTextClass={getTitleClass} treeProps={treeLeft.children ?? []} />
       )}
     </CommonDrawer>
   )

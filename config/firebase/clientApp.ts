@@ -1,6 +1,6 @@
-import { initializeApp, getApps } from 'firebase/app'
-import { getAnalytics, logEvent } from 'firebase/analytics'
-import { getFirestore } from 'firebase/firestore'
+import {getAnalytics, logEvent} from 'firebase/analytics'
+import {initializeApp, getApps} from 'firebase/app'
+import {getFirestore} from 'firebase/firestore'
 
 export const getClientCredentials = () => ({
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,

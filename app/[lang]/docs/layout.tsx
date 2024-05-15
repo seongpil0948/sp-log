@@ -1,21 +1,18 @@
-import { CmFooter } from '@/components/server-only/footers'
+import {CmFooter} from '@/components/server-only/footers'
 import CommonNavbar from '@/components/server-only/navbar'
-import { main } from '@/config/variants/primitives'
-import clsx from 'clsx'
-import { Suspense } from 'react'
+import {main} from '@/config/variants/primitives'
+import {Suspense} from 'react'
 
-export default function DocsLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+import clsx from 'clsx'
+
+export default function DocsLayout({children}: {children: React.ReactNode}) {
   return (
     <>
       <CommonNavbar
         drawerProps={{
           title: 'Documentation',
         }}
-        leftTreeOptions={{ dir: 'app/[lang]/docs' }}
+        leftTreeOptions={{dir: 'app/[lang]/docs'}}
       />
       <main
         id="content-container"

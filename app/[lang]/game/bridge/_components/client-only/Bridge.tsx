@@ -1,20 +1,22 @@
 'use client'
 
-import { cm1, cm2 } from '../../_logic/common'
-import * as THREE from 'three'
-import * as CANNON from 'cannon-es'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import gsap from 'gsap'
-import { Floor } from '../../_logic/Floor'
-import { Pillar } from '../../_logic/Pillar'
-import { Bar } from '../../_logic/Bar'
-import { SideLight } from '../../_logic/SideLight'
-import { Glass } from '../../_logic/Glass'
-import { Player } from '../../_logic/Player'
-import { useEffect, useRef } from 'react'
-import { PreventDragClick } from '../../../_utils/PreventDragClick'
-import { Stuff } from '../../_logic/Stuff'
 import GoHomeBtnAbsolute from '@/components/client-only/button/absolute'
+import {useEffect, useRef} from 'react'
+
+import * as CANNON from 'cannon-es'
+import gsap from 'gsap'
+import * as THREE from 'three'
+import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js'
+
+import {PreventDragClick} from '../../../_utils/PreventDragClick'
+import {Bar} from '../../_logic/Bar'
+import {cm1, cm2} from '../../_logic/common'
+import {Floor} from '../../_logic/Floor'
+import {Glass} from '../../_logic/Glass'
+import {Pillar} from '../../_logic/Pillar'
+import {Player} from '../../_logic/Player'
+import {SideLight} from '../../_logic/SideLight'
+import {Stuff} from '../../_logic/Stuff'
 
 type GlassType = 'normal' | 'strong'
 export default function Bridge() {
@@ -35,12 +37,7 @@ export default function Bridge() {
     cm1.scene.background = new THREE.Color(cm2.backgroundColor)
 
     // Camera
-    const camera = new THREE.PerspectiveCamera(
-      75,
-      window.innerWidth / window.innerHeight,
-      0.1,
-      1000,
-    )
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
     const camera2 = camera.clone()
 
     camera.position.x = -4
@@ -64,26 +61,10 @@ export default function Bridge() {
     const spotLight2 = spotLight1.clone()
     const spotLight3 = spotLight1.clone()
     const spotLight4 = spotLight1.clone()
-    spotLight1.position.set(
-      -spotLightDistance,
-      spotLightDistance,
-      spotLightDistance,
-    )
-    spotLight2.position.set(
-      spotLightDistance,
-      spotLightDistance,
-      spotLightDistance,
-    )
-    spotLight3.position.set(
-      -spotLightDistance,
-      spotLightDistance,
-      -spotLightDistance,
-    )
-    spotLight4.position.set(
-      spotLightDistance,
-      spotLightDistance,
-      -spotLightDistance,
-    )
+    spotLight1.position.set(-spotLightDistance, spotLightDistance, spotLightDistance)
+    spotLight2.position.set(spotLightDistance, spotLightDistance, spotLightDistance)
+    spotLight3.position.set(-spotLightDistance, spotLightDistance, -spotLightDistance)
+    spotLight4.position.set(spotLightDistance, spotLightDistance, -spotLightDistance)
     cm1.scene.add(spotLight1, spotLight2, spotLight3, spotLight4)
 
     // Controls
@@ -93,30 +74,18 @@ export default function Bridge() {
     // 물리 엔진
     cm1.world.gravity.set(0, -10, 0)
 
-    const defaultContactMaterial = new CANNON.ContactMaterial(
-      cm1.defaultMaterial,
-      cm1.defaultMaterial,
-      {
-        friction: 0.3,
-        restitution: 0.2,
-      },
-    )
-    const glassDefaultContactMaterial = new CANNON.ContactMaterial(
-      cm1.glassMaterial,
-      cm1.defaultMaterial,
-      {
-        friction: 1,
-        restitution: 0,
-      },
-    )
-    const playerGlassContactMaterial = new CANNON.ContactMaterial(
-      cm1.playerMaterial,
-      cm1.glassMaterial,
-      {
-        friction: 1,
-        restitution: 0,
-      },
-    )
+    const defaultContactMaterial = new CANNON.ContactMaterial(cm1.defaultMaterial, cm1.defaultMaterial, {
+      friction: 0.3,
+      restitution: 0.2,
+    })
+    const glassDefaultContactMaterial = new CANNON.ContactMaterial(cm1.glassMaterial, cm1.defaultMaterial, {
+      friction: 1,
+      restitution: 0,
+    })
+    const playerGlassContactMaterial = new CANNON.ContactMaterial(cm1.playerMaterial, cm1.glassMaterial, {
+      friction: 1,
+      restitution: 0,
+    })
     cm1.world.defaultContactMaterial = defaultContactMaterial
     cm1.world.addContactMaterial(glassDefaultContactMaterial)
     cm1.world.addContactMaterial(playerGlassContactMaterial)
@@ -147,10 +116,10 @@ export default function Bridge() {
     objects.push(pillar1, pillar2)
 
     // 바
-    const bar1 = new Bar({ name: 'bar', x: -1.6, y: 10.3, z: 0 })
-    const bar2 = new Bar({ name: 'bar', x: -0.4, y: 10.3, z: 0 })
-    const bar3 = new Bar({ name: 'bar', x: 0.4, y: 10.3, z: 0 })
-    const bar4 = new Bar({ name: 'bar', x: 1.6, y: 10.3, z: 0 })
+    const bar1 = new Bar({name: 'bar', x: -1.6, y: 10.3, z: 0})
+    const bar2 = new Bar({name: 'bar', x: -0.4, y: 10.3, z: 0})
+    const bar3 = new Bar({name: 'bar', x: 0.4, y: 10.3, z: 0})
+    const bar4 = new Bar({name: 'bar', x: 1.6, y: 10.3, z: 0})
 
     const sideLights: SideLight[] = []
     for (let i = 0; i < 49; i++) {
@@ -336,8 +305,7 @@ export default function Bridge() {
             if (Player.isPlayer(item)) {
               if (item.modelMesh) {
                 item.modelMesh.position.copy(item.cannonBody.position)
-                if (fail)
-                  item.modelMesh.quaternion.copy(item.cannonBody.quaternion)
+                if (fail) item.modelMesh.quaternion.copy(item.cannonBody.quaternion)
                 item.modelMesh.position.y += 0.15
               }
             } else if (Stuff.hasMesh(item)) {

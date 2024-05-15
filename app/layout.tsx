@@ -1,17 +1,19 @@
 import '@/styles/globals.css'
-import { Metadata, Viewport } from 'next'
-import { siteConfig } from '@/config/site'
-import { fontSans } from '@/config/fonts'
-import { Providers } from './_providers'
+import {fontSans} from '@/config/fonts'
+import {siteConfig} from '@/config/site'
+import type {ReactNode} from 'react'
+
+import {Analytics} from '@vercel/analytics/react'
+import {SpeedInsights} from '@vercel/speed-insights/next'
 import clsx from 'clsx'
-import { Analytics } from '@vercel/analytics/react'
-import { SpeedInsights } from '@vercel/speed-insights/next'
-import type { ReactNode } from 'react'
+import type {Metadata, Viewport} from 'next'
+
+import {Providers} from './_providers'
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: 'white' },
-    { media: '(prefers-color-scheme: dark)', color: 'black' },
+    {media: '(prefers-color-scheme: light)', color: 'white'},
+    {media: '(prefers-color-scheme: dark)', color: 'black'},
   ],
 }
 
@@ -28,7 +30,7 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({children}: {children: ReactNode}) {
   const NEXT_PUBLIC_ALGOLIA_APP_ID = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID
   return (
     <html lang="en" suppressHydrationWarning>
@@ -41,10 +43,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <script async src="http://localhost:8097" />
       </head>
       <body
-        className={clsx(
-          'min-h-screen bg-background font-sans antialiased m-0 p-0 overflow-hidden',
-          fontSans.variable,
-        )}
+        className={clsx('min-h-screen bg-background font-sans antialiased m-0 p-0 overflow-hidden', fontSans.variable)}
       >
         <Providers
           themeProps={{

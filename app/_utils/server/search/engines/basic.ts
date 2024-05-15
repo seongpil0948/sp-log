@@ -1,9 +1,10 @@
-import type { SearchDoc, SearchResult } from '@/app/api/search/types'
 import fs from 'node:fs'
+
+import type {SearchDoc, SearchResult} from '@/app/api/search/types'
 
 export interface SearchEngineCommon {
   docs: SearchDoc[]
-  cache: { [keyword: string]: SearchResult[] }
+  cache: {[keyword: string]: SearchResult[]}
   clear(): void
   save(): void
   addDoc(doc: SearchDoc): void
@@ -14,7 +15,7 @@ export interface SearchEngineCommon {
 
 export class SearchEngineBasic implements SearchEngineCommon {
   docs: SearchDoc[]
-  cache: { [keyword: string]: SearchResult[] }
+  cache: {[keyword: string]: SearchResult[]}
   constructor() {
     this.docs = []
     this.cache = {}
@@ -84,9 +85,7 @@ export class SearchEngineBasic implements SearchEngineCommon {
   }
   load() {
     if (!fs.existsSync(SearchEngineBasic.JSON_PATH)) {
-      throw new Error(
-        `not initialized search engine,${SearchEngineBasic.JSON_PATH} is not found`,
-      )
+      throw new Error(`not initialized search engine,${SearchEngineBasic.JSON_PATH} is not found`)
     }
     const data = fs.readFileSync(SearchEngineBasic.JSON_PATH, 'utf-8')
     this.docs = JSON.parse(data)

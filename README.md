@@ -40,4 +40,6 @@
 
 
 ### Search Engine
-- /Users/choeseongpil/Code/OpenSource/React/nextjs-openai-doc-search
+- /Users/choeseongpil/Code/OpenSource/React/nextjs-openai-doc-
+### Linting
+- https://github.com/vercel/hyper/blob/2a7bb18259d975f27b30b502af1be7576f6f5656/tsconfig.eslint.json

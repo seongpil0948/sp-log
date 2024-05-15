@@ -1,5 +1,5 @@
-import { Button } from '@nextui-org/button'
-import { useRouter } from 'next/navigation'
+import {Button} from '@nextui-org/button'
+import {useRouter} from 'next/navigation'
 
 export function GoHomeBtnAbsolute() {
   const router = useRouter()

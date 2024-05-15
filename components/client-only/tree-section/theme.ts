@@ -1,4 +1,4 @@
-import { tv } from '@nextui-org/theme'
+import {tv} from '@nextui-org/theme'
 
 const tree = tv({
   slots: {
@@ -22,4 +22,4 @@ const tree = tv({
   },
 })
 
-export { tree }
+export {tree}

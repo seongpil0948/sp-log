@@ -1,6 +1,7 @@
-import { Timestamp } from 'firebase/firestore'
+import {TIME_FORMATS} from '@/types'
+
 import dayjs from 'dayjs'
-import { TIME_FORMATS } from '@/types'
+import {Timestamp} from 'firebase/firestore'
 
 export const newDate = () => dayjs().toDate()
 
@@ -19,21 +20,18 @@ export function dateToTimeStamp(d: Date | undefined): Timestamp {
   if (!d) {
     d = dayjs().toDate()
   }
-  if (typeof d!['getTime'] === 'function') {
-    return Timestamp.fromDate(d!)
+  if (typeof d['getTime'] === 'function') {
+    return Timestamp.fromDate(d)
   }
   return Timestamp.now()
 }
-export function loadDate(
-  d: Date | { [x: string]: number } | string | undefined,
-): Date {
+export function loadDate(d: Date | {[x: string]: number} | string | undefined): Date {
   if (!d) return new Date()
   else if (d instanceof Date) return d
   else if (d instanceof Timestamp) return d.toDate()
   else if (typeof d === 'string') return dayjs(d).toDate()
   else if (typeof d === 'number') return Timestamp.fromMillis(d).toDate()
-  else if (d.seconds && d.nanoseconds)
-    return new Timestamp(d.seconds, d.nanoseconds).toDate()
+  else if (d.seconds && d.nanoseconds) return new Timestamp(d.seconds, d.nanoseconds).toDate()
   else if (d.seconds && d.constructor.name === 'ut')
     return new Timestamp(d.seconds + 60 * 60 * 15, d.nanoseconds).toDate()
   else return new Date()

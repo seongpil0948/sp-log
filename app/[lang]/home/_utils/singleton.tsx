@@ -1,7 +1,6 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 
-import { MotionValue } from 'framer-motion'
+import type {MotionValue} from 'framer-motion'
 
 export type SingletonHomeData = MotionValue<number>
 

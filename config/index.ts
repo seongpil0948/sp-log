@@ -16,8 +16,7 @@ const commonConfig = Object.freeze({
   i18n: {
     defaultLocale: 'ko' as TAvailLocale,
     locales: AVAIL_LOCALES,
-    isAvailableLocale: (locale: string): locale is TAvailLocale =>
-      AVAIL_LOCALES.includes(locale as TAvailLocale),
+    isAvailableLocale: (locale: string): locale is TAvailLocale => AVAIL_LOCALES.includes(locale as TAvailLocale),
   },
 })
 export type TAvailLocale = 'en' | 'ko'

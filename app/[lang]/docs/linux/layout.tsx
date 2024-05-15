@@ -1,6 +1,7 @@
-import { Metadata } from 'next'
-import { siteConfig } from '@/config/site'
-import { main } from '@/config/variants/primitives'
+import {siteConfig} from '@/config/site'
+import {main} from '@/config/variants/primitives'
+
+import type {Metadata} from 'next'
 
 export const metadata: Metadata = {
   title: {
@@ -10,11 +11,7 @@ export const metadata: Metadata = {
   description: 'Linux Documentation',
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({children}: {children: React.ReactNode}) {
   // const tree = getTree('app/[lang]/doc/linux', { extensions: /\.mdx$/ })
   return <>{children}</>
 }

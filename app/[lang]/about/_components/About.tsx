@@ -1,18 +1,20 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client'
-import { useEffect, useRef, useState } from 'react'
-import * as THREE from 'three'
-import gsap from 'gsap'
-import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+import {isMobile} from '@/app/_utils/client/responsive'
 import commonConfig from '@/config'
-import { isMobile } from '@/app/_utils/client/responsive'
-import { useTheme } from 'next-themes'
+import {useEffect, useRef, useState} from 'react'
 
-export default function About(props: { rootSelector: string }) {
+import gsap from 'gsap'
+import {useTheme} from 'next-themes'
+import * as THREE from 'three'
+import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js'
+import type {GLTF} from 'three/examples/jsm/loaders/GLTFLoader.js'
+
+export default function About(props: {rootSelector: string}) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  let [currentSection, setCurrentSection] = useState(0)
-  let [actionCard, setActionCard] = useState(true)
-  const { theme, setTheme } = useTheme()
+  const [currentSection, setCurrentSection] = useState(0)
+  const [actionCard, setActionCard] = useState(true)
+  const {theme, setTheme} = useTheme()
   useEffect(() => {
     const rootContainer = document.querySelector(props.rootSelector)
     if (!canvasRef.current || !rootContainer) return
@@ -76,9 +78,7 @@ export default function About(props: { rootSelector: string }) {
 
     function handleScroll() {
       if (!rootContainer) return
-      const newSection = Math.round(
-        rootContainer.scrollTop / rootContainer.clientHeight,
-      )
+      const newSection = Math.round(rootContainer.scrollTop / rootContainer.clientHeight)
       if (currentSection !== newSection) {
         setSection(newSection)
       } else if (rootContainer.scrollTop === 0) {
@@ -151,12 +151,7 @@ function getRender(canvas: HTMLCanvasElement) {
 }
 
 function getCamera() {
-  const camera = new THREE.PerspectiveCamera(
-    75,
-    window.innerWidth / window.innerHeight,
-    0.1,
-    1000,
-  )
+  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
   camera.position.set(1, 2, 25)
   return camera
 }
@@ -173,7 +168,7 @@ function initMeCard() {
     map: cardBackImage,
     transparent: true,
   })
-  const darkMaterial = new THREE.MeshPhongMaterial({ color: 0x111111 })
+  const darkMaterial = new THREE.MeshPhongMaterial({color: 0x111111})
   // const cardMesh = new THREE.Mesh(cardGeometry, cardFrontMaterial);
   const geo = new THREE.BoxGeometry(3, 0.01, 3)
   const cardMesh = new THREE.Mesh(geo, [
@@ -198,7 +193,7 @@ function initMeCard() {
 function initFloorMesh() {
   const floorMesh = new THREE.Mesh(
     new THREE.PlaneGeometry(100, 100),
-    new THREE.MeshStandardMaterial({ color: '#e9dfce' }),
+    new THREE.MeshStandardMaterial({color: '#e9dfce'}),
   )
   floorMesh.rotation.x = -Math.PI / 2
   floorMesh.receiveShadow = true
@@ -233,11 +228,9 @@ function initCharacter(loader: GLTFLoader, scene: THREE.Scene) {
       mesh.rotateY(Math.PI)
       scene.add(mesh)
       const mixer = new THREE.AnimationMixer(mesh)
-      const actions = Array.from(glb.animations).map(clip =>
-        mixer.clipAction(clip),
-      )
+      const actions = Array.from(glb.animations).map(clip => mixer.clipAction(clip))
       actions[0].play()
-      return resolve({ mesh, actions, mixer })
+      return resolve({mesh, actions, mixer})
     })
   })
 }

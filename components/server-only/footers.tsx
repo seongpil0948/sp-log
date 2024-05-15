@@ -1,10 +1,12 @@
-import { Link } from '@nextui-org/link'
-import { Logo } from './icons'
-import { ThemeSwitch } from '../theme-switch'
-import SelectorNational from '../client-only/selector/National'
-import { paragraph, typo } from '../../config/variants/primitives'
+import {Link} from '@nextui-org/link'
 
-const LogoLink = (props?: { href?: string; disableText?: boolean }) => (
+import {paragraph, typo} from '../../config/variants/primitives'
+import SelectorNational from '../client-only/selector/National'
+import {ThemeSwitch} from '../theme-switch'
+
+import {Logo} from './icons'
+
+const LogoLink = (props?: {href?: string; disableText?: boolean}) => (
   <Link
     color="foreground"
     href={props?.href ?? 'https://github.com/seongpil0948'}
@@ -12,9 +14,7 @@ const LogoLink = (props?: { href?: string; disableText?: boolean }) => (
     className="flex items-center"
   >
     <Logo />
-    {!props?.disableText && (
-      <p className={typo({ size: 'sm', color: 'foreground' })}>Sp Blog</p>
-    )}
+    {!props?.disableText && <p className={typo({size: 'sm', color: 'foreground'})}>Sp Blog</p>}
   </Link>
 )
 
@@ -51,10 +51,7 @@ export function AbsoluteFooter(props?: {
     >
       <div className="mx-auto w-full max-w-screen-xl p-2 md:py-4">
         <div className="flex items-center justify-between">
-          <LogoLink
-            href={props?.goHome ? '/home' : undefined}
-            disableText={props?.disableText}
-          />
+          <LogoLink href={props?.goHome ? '/home' : undefined} disableText={props?.disableText} />
           <div className="flex flex-wrap items-center sm:mb-0 gap-2">
             {!props?.disableDarkMode && <ThemeSwitch />}
             {!props?.disableI18n && <SelectorNational />}

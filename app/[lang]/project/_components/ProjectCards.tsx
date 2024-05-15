@@ -1,22 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import * as THREE from 'three'
-import React, {
-  ReactNode,
-  use,
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useState,
-} from 'react'
-import { useFrame, ThreeEvent, useThree } from '@react-three/fiber'
-import { isMobile } from '@/app/_utils/client/responsive'
-import { getRandomProjectSingleImg } from '../_logics/projects'
-import { IProject } from '../types'
-import ProjectPanel from '../_logics/ProjectPanel'
+import {useCursor} from '@/app/_utils/client/hooks/three-d/use-cursor'
+import {isMobile} from '@/app/_utils/client/responsive'
+import React, {use, useEffect, useLayoutEffect, useMemo, useState} from 'react'
+import type {ReactNode} from 'react'
+
+import {useFrame, useThree} from '@react-three/fiber'
+import type {ThreeEvent} from '@react-three/fiber'
+import {motion} from 'framer-motion-3d'
 import gsap from 'gsap'
-import { motion } from 'framer-motion-3d'
-import { projectsConfig } from '../config'
-import { useCursor } from '@/app/_utils/client/hooks/three-d/use-cursor'
+import * as THREE from 'three'
+
+import ProjectPanel from '../_logics/ProjectPanel'
+import {getRandomProjectSingleImg} from '../_logics/projects'
+import {projectsConfig} from '../config'
+import type {IProject} from '../types'
 
 const textureLoader = new THREE.TextureLoader()
 const imageCache = new Map<string, THREE.Texture>()
@@ -24,8 +21,8 @@ const sphereGeometry = new THREE.SphereGeometry(1, 8, 8)
 const spherePositionArray = sphereGeometry.attributes.position.array
 const randomPositionArray = new Float32Array(spherePositionArray.length)
 export type TShape = 'sphere' | 'random'
-function ProjectImage(props: { src: string }) {
-  const { src } = props
+function ProjectImage(props: {src: string}) {
+  const {src} = props
 
   let texture = imageCache.get(src)
   if (!texture) {
@@ -42,11 +39,7 @@ function ProjectImage(props: { src: string }) {
 }
 
 const prevInfos = new Map<string, THREE.Object3D>()
-export function ProjectCards(props: {
-  projects: IProject[]
-  shape: TShape
-  onSelect: (p: IProject) => void
-}) {
+export function ProjectCards(props: {projects: IProject[]; shape: TShape; onSelect: (p: IProject) => void}) {
   const [projectMeshList, setProjectMeshList] = useState<ReactNode[]>([])
   const camera = useThree(state => state.camera)
   const gl = useThree(state => state.gl)
@@ -119,25 +112,19 @@ export function ProjectCards(props: {
   const initProjectMeshList = () => {
     const result: ReactNode[] = []
     for (let i = 0; i < spherePositionArray.length; i += 3) {
-      const { projectInfo, imageSrc } = getRandomProjectSingleImg()
+      const {projectInfo, imageSrc} = getRandomProjectSingleImg()
       result.push(
         <motion.mesh
           key={projectInfo.title + i}
           name="ProjectPanel"
-          userData={{ projectInfo }}
+          userData={{projectInfo}}
           ref={ref => {
             if (ref) {
-              const panel = new ProjectPanel({ mesh: ref, projectInfo })
+              const panel = new ProjectPanel({mesh: ref, projectInfo})
               setPanels(prev => [...prev, panel])
             }
           }}
-          position={
-            new THREE.Vector3(
-              spherePositionArray[i],
-              spherePositionArray[i + 1],
-              spherePositionArray[i + 2],
-            )
-          }
+          position={new THREE.Vector3(spherePositionArray[i], spherePositionArray[i + 1], spherePositionArray[i + 2])}
           onClick={selectAnimation}
           {...pointerEvents}
         >

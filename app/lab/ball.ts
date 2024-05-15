@@ -7,12 +7,7 @@ export class Ball {
   x: number
   y: number
 
-  constructor(
-    stageWidth: number,
-    stageHeight: number,
-    radius: number,
-    speed: number,
-  ) {
+  constructor(stageWidth: number, stageHeight: number, radius: number, speed: number) {
     this.radius = radius
     this.vx = speed
     this.vy = speed

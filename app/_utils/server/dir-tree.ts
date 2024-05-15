@@ -1,10 +1,7 @@
-import { TreeSectionProps } from '@/components/client-only/tree-section'
+import type {TreeSectionProps} from '@/components/client-only/tree-section'
+
 import dirTree from 'directory-tree'
-import type {
-  DirectoryTree,
-  DirectoryTreeOptions,
-  DirectoryTreeCallback,
-} from 'directory-tree'
+import type {DirectoryTree, DirectoryTreeOptions, DirectoryTreeCallback} from 'directory-tree'
 // import { TreeSectionProps } from '../_components/client-only/tree-section'
 
 type TDirCustom = {
@@ -49,21 +46,16 @@ export function getTree(args: IGetTreeArgs) {
   return tree
 }
 
-function dirTreeToTree(
-  obj: DirectoryTree<TDirCustom>,
-): TreeSectionProps | undefined {
+function dirTreeToTree(obj: DirectoryTree<TDirCustom>): TreeSectionProps | undefined {
   // obj.name = dirTree.name.replace('.mdx', '').replace('.tsx', '')
-  if ((obj.type && obj.type === 'file') || !obj.custom || !obj.custom.href)
-    return
+  if ((obj.type && obj.type === 'file') || !obj.custom?.href) return
   if (obj.path.includes('/_')) return
   if (obj.name.startsWith('_')) return
   return {
     label: obj.name,
     href: obj.custom.href,
     // children: obj.children?.map(dirTreeToTree).filter(o => !o.label.includes('content')),
-    children:
-      (obj.children?.map(dirTreeToTree).filter(o => o) as TreeSectionProps[]) ??
-      [],
+    children: (obj.children?.map(dirTreeToTree).filter(o => o) as TreeSectionProps[]) ?? [],
   }
 }
 

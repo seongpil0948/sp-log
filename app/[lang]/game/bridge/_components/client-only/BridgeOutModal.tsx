@@ -1,21 +1,15 @@
-import {
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalProps,
-  useDisclosure,
-} from '@nextui-org/modal'
-import { Button } from '@nextui-org/button'
-import { ElementRef, forwardRef, useImperativeHandle } from 'react'
+import {forwardRef, useImperativeHandle} from 'react'
+import type {ElementRef} from 'react'
+
+import {Button} from '@nextui-org/button'
+import {Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalProps, useDisclosure} from '@nextui-org/modal'
 
 const BridgeEnterModal = forwardRef<
   ElementRef<typeof Modal>,
   // Omit<ModalProps, 'children'>,
   any
->(({ placement = 'left', classNames, ...props }, ref) => {
-  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure()
+>(({placement = 'left', classNames, ...props}, ref) => {
+  const {isOpen, onOpen, onOpenChange, onClose} = useDisclosure()
   useImperativeHandle(
     ref,
     () =>

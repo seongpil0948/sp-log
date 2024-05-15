@@ -15,7 +15,8 @@ import {
   mdiReact,
   mdiWebpack,
 } from '@mdi/js'
-import type { IProject } from '../types'
+
+import type {IProject} from '../types'
 
 export const PROJECTS: IProject[] = [
   {
@@ -99,23 +100,14 @@ export const PROJECTS: IProject[] = [
       '주 목적은 각 프로젝트 테마 빠르게 적용 할 수 있는 style configuraion을 통해 모든 공통 컴포넌트에 일관된 디자인을 적용, 빠른 생산성을 위한 품질 높은 공용 컴포넌트 제작(with storybook, frontend workshop for building UI components) 이 목적입니다.',
       'SSR, SSG, SPA 렌더링 지원, CORS 환경, proxy 설정이 가능한 가이드라인 또한 제공하였습니다.',
     ],
-    myRole:
-      'Frontend Lead, Next.js 프레임워크를 제작하고 빠른 생산성을 위한 전략을 수립',
-    roleDetail: [
-      '퍼블리싱 팀과 협업하여, 빠른 생산성을 위한 품질 높은 공용 컴포넌트 제작',
-    ],
+    myRole: 'Frontend Lead, Next.js 프레임워크를 제작하고 빠른 생산성을 위한 전략을 수립',
+    roleDetail: ['퍼블리싱 팀과 협업하여, 빠른 생산성을 위한 품질 높은 공용 컴포넌트 제작'],
     earned: [
       '13버전 이후, 대폭 변경된 AppRouter 기반 프로젝트를 진행할 수 있었던 좋은 기회였습니다.',
       'tailwind-variants 를 통해 css, class as config 를 적용하여, css-in-js 를 사용하지 않고도 빠르게 스타일을 적용할 수 있었습니다.',
     ],
     using: [mdiReact],
-    usingDetail: [
-      'Next.js',
-      'Tailwind CSS',
-      'Storybook',
-      'react aria',
-      'react spectrum',
-    ],
+    usingDetail: ['Next.js', 'Tailwind CSS', 'Storybook', 'react aria', 'react spectrum'],
     allImg: [],
     projType: 'web',
   },
@@ -173,12 +165,7 @@ export const PROJECTS: IProject[] = [
     using: [mdiAws, mdiVuejs, mdiLanguageTypescript, mdiLanguageJava],
     to: 'a-stro.sktelecom.com',
     titleImg: '/projects/drone/1.jpeg',
-    allImg: [
-      '/projects/drone/1.jpeg',
-      '/projects/drone/2.jpeg',
-      '/projects/drone/3.png',
-      '/projects/drone/4.png',
-    ],
+    allImg: ['/projects/drone/1.jpeg', '/projects/drone/2.jpeg', '/projects/drone/3.png', '/projects/drone/4.png'],
     description: ['AI 모델 관리 및 서비스 제공 플랫폼'],
     myRole: 'Frontend',
     roleDetail: ['S3 관련 작업', 'Project Leader'],
@@ -204,10 +191,7 @@ export const PROJECTS: IProject[] = [
       '사내 페이지에서 데이터를 업로드, 연동하여 Glue를 통해 데이터를 가공하고, S3에 저장, Sagemaker를 통해 모델을 훈련하고, 배포',
     ],
     myRole: 'Frontend',
-    roleDetail: [
-      'S3 관련 작업',
-      '인증 및 토큰을 관리, Glue/Sagemaker Juptyer notebook 연동',
-    ],
+    roleDetail: ['S3 관련 작업', '인증 및 토큰을 관리, Glue/Sagemaker Juptyer notebook 연동'],
     earned: [
       'python code를 배치하기위해 CodeMirror 를 사용했습니다.',
       'vite 빌드도구로 ssg 렌더링용 프레임워크로 작성되었는데 에디터 라이브러리 toast-ui-editor를 사용하면서, vite의 빌드 이슈가 있었습니다. 이에 jsdom 으로 빌드환경에서 가상 dom 을 넣어줌으로서 해결하였습니다.',
@@ -251,11 +235,7 @@ export const PROJECTS: IProject[] = [
       '모든 데이터가 가공되기에 제한이 있어, 10만건의 object를 js로 가공하여 사용자에게 보여주는 경험',
       '낮은 사양에서 제대로 동작할 수 있도록 불필요한 반응성, 이벤트을 최소화하고 최적화를 적용한 경험',
     ],
-    usingDetail: [
-      '웹 서비스: "Vue.js"',
-      '데이터 시각화: "amchart"',
-      '배포: "Kubernetes, ArgoCD"',
-    ],
+    usingDetail: ['웹 서비스: "Vue.js"', '데이터 시각화: "amchart"', '배포: "Kubernetes, ArgoCD"'],
   },
   {
     id: 'inout-box',
@@ -283,9 +263,7 @@ export const PROJECTS: IProject[] = [
       '사입의 경우, 도매와 계약된 사업자로 빠른 배송을 위한 기능을 제공(Mobile App).',
     ],
     myRole: '1인 개발',
-    roleDetail: [
-      '의류 종사자인 친구들의 기획과 요구사항을 바탕으로 혼자 개발.',
-    ],
+    roleDetail: ['의류 종사자인 친구들의 기획과 요구사항을 바탕으로 혼자 개발.'],
     earned: [
       `
       웹 서비스 도매 POS 기능으로부터 판매 정보에 대한 영수증 정보를 각 기기에서 출력 할 수 있어야 했습니다. 
@@ -312,24 +290,14 @@ export const PROJECTS: IProject[] = [
     titleImg: '/projects/iobox/app-store.jpeg',
     using: ['/icon/flutter-logo.svg', mdiGoogleCloud, mdiGoogleAnalytics],
     usingPubIdx: [0],
-    allImg: [
-      '/projects/iobox/uncle-app-1.png',
-      '/projects/iobox/uncle-app-2.png',
-      '/projects/iobox/app-store.jpeg',
-    ],
+    allImg: ['/projects/iobox/uncle-app-1.png', '/projects/iobox/uncle-app-2.png', '/projects/iobox/app-store.jpeg'],
     description: [
       '의류 배송 플랫폼',
       '`in out box` 프로젝트의 사입 직원들의 사입/배송/픽업 사용을 목적으로 제작된 프로젝트',
     ],
     myRole: '1인 개발',
-    roleDetail: [
-      '의류 종사자인 친구들의 기획과 요구사항을 바탕으로 혼자 개발.',
-    ],
-    earned: [
-      '사입자 출/퇴근 관리(APP)',
-      '배송 추적, 상태 관리',
-      '사입자의 주문 관리',
-    ],
+    roleDetail: ['의류 종사자인 친구들의 기획과 요구사항을 바탕으로 혼자 개발.'],
+    earned: ['사입자 출/퇴근 관리(APP)', '배송 추적, 상태 관리', '사입자의 주문 관리'],
     usingDetail: ['Push messaging(FCM)'],
   },
   {
@@ -367,9 +335,7 @@ export const PROJECTS: IProject[] = [
     ],
     myRole: 'backend & frontend',
     roleDetail: ['1인 개발 및 타 AI 부서와의 협업'],
-    earned: [
-      '상/하의, 신발에 대한 3개 모델 별 서버가 모두 다르게 구성되어 있어',
-    ],
+    earned: ['상/하의, 신발에 대한 3개 모델 별 서버가 모두 다르게 구성되어 있어'],
     usingDetail: ['api server: "Python (Django)"', 'web server: "(Vue.js) "'],
   },
   {
@@ -388,10 +354,7 @@ export const PROJECTS: IProject[] = [
     earned: [
       '컬리의 경우에는 API 키를 HTML 에 받아둔 덕분에 리소스 소비 없이 API 호출로 데이터를 수집해왔던 재미있는기억이 있습니다.',
     ],
-    usingDetail: [
-      '크롤링: "BeautifulSoup, Selenium"',
-      'Job Scheduler: "Argo Workflows"',
-    ],
+    usingDetail: ['크롤링: "BeautifulSoup, Selenium"', 'Job Scheduler: "Argo Workflows"'],
   },
   {
     id: 'intellisys-app',
@@ -419,27 +382,14 @@ export const PROJECTS: IProject[] = [
     id: 'intellisys-admin',
     title: '사내 AI 모델 관리 시스템 개선 및 유지보수',
     projType: 'app',
-    using: [
-      mdiRabbit,
-      mdiVuejs,
-      mdiLanguageTypescript,
-      mdiAws,
-      mdiKubernetes,
-      mdiLanguagePython,
-    ],
-    usingDetail: [
-      'api server: "Python (Django)"',
-      'web server: "(Vue.js) Jenkins, "',
-      'db: "PostgreSQL"',
-    ],
+    using: [mdiRabbit, mdiVuejs, mdiLanguageTypescript, mdiAws, mdiKubernetes, mdiLanguagePython],
+    usingDetail: ['api server: "Python (Django)"', 'web server: "(Vue.js) Jenkins, "', 'db: "PostgreSQL"'],
     description: [
       '40여 쇼핑몰에 대한 데이터 수집 및 정제(누끼, 스케일링, 검수)작업을 통해 유의미한 상품 데이터 관리',
       '수집 데이터를 QA 페이지를 통해 검수, AI 모델 데이터 증분 및 파이프라인 자동화(Dramatiq, Rabbitmq, Kubernetes)',
     ],
     myRole: '유지보수 및 개선',
-    roleDetail: [
-      '서비스 장애 대응 및 개선, 데이터 수집 및 정제, QA 페이지 개발, AI 모델 파이프라인 자동화',
-    ],
+    roleDetail: ['서비스 장애 대응 및 개선, 데이터 수집 및 정제, QA 페이지 개발, AI 모델 파이프라인 자동화'],
     earned: [
       '사내 kubeadmin 으로 구축된 kubernetes 환경에서의 rabbitmq, web server, api server, db 등의 서비스를 관리하며, "컨테이너화된 서비스들의 관리"에 대한 경험',
       'Django ORM을 통해 데이터베이스를 관리하고, 데이터를 처리하는 방법에 대한 경험',
@@ -504,11 +454,7 @@ export const PROJECTS: IProject[] = [
     titleImg: '/projects/blog/1.png',
     to: 'https://peachhub.love/home',
     using: [mdiNodejs, mdiReact, mdiFirebase, mdiLanguageTypescript],
-    allImg: [
-      '/projects/blog/3.png',
-      '/projects/blog/2.png',
-      '/projects/blog/1.png',
-    ],
+    allImg: ['/projects/blog/3.png', '/projects/blog/2.png', '/projects/blog/1.png'],
     description: [
       '블로그, 기술 연구, 프로젝트 기재',
       '실무에서 사용할 일이 많이 않은 애니메이션, 3D, 최신 CSS 문법 테스트 등 UI를 적용한 프로젝트',
@@ -519,15 +465,7 @@ export const PROJECTS: IProject[] = [
       '실무에서 필요한 경우 제시하고 즉시 적용가능',
       '내 업무에 맞는 명령어들과 소스들을 정리하여, 빠르게 찾아볼 수 있음',
     ],
-    usingDetail: [
-      'Next.js',
-      'Tailwind CSS',
-      'Three.js',
-      'Framer Motion',
-      'MDX',
-      'Vercel',
-      'Firebase',
-    ],
+    usingDetail: ['Next.js', 'Tailwind CSS', 'Three.js', 'Framer Motion', 'MDX', 'Vercel', 'Firebase'],
   },
 ]
 const projectsHasImg = PROJECTS.filter(p => p.allImg && p.allImg.length > 0)
@@ -536,7 +474,7 @@ export const getRandomProjectSingleImg = () => {
   const projectInfo = projectsHasImg[projIdx]
   const imgIdx = Math.floor(Math.random() * projectInfo.allImg!.length)
   const imageSrc = projectInfo.allImg![imgIdx]
-  return { projectInfo, imageSrc }
+  return {projectInfo, imageSrc}
 }
 
 export default PROJECTS

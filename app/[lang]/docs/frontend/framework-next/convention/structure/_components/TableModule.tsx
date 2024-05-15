@@ -4,8 +4,8 @@ export default function TableModule() {
   return (
     <MdxTable
       columns={[
-        { key: 'file-name', title: '명칭' },
-        { key: 'desc', title: '설명' },
+        {key: 'file-name', title: '명칭'},
+        {key: 'desc', title: '설명'},
       ]}
       rows={[
         {
@@ -19,7 +19,7 @@ export default function TableModule() {
                 </a>
               ),
             },
-            { key: 'page_val', title: '폴더에 해당하는 페이지 파일' },
+            {key: 'page_val', title: '폴더에 해당하는 페이지 파일'},
           ],
         },
         {
@@ -33,7 +33,7 @@ export default function TableModule() {
                 </a>
               ),
             },
-            { key: 'layout_val', title: '폴더에 해당하는 레이아웃 파일' },
+            {key: 'layout_val', title: '폴더에 해당하는 레이아웃 파일'},
           ],
         },
         {

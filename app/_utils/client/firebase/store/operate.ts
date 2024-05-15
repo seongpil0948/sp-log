@@ -1,20 +1,12 @@
-import {
-  CollectionReference,
-  QuerySnapshot,
-  Query,
-  DocumentData,
-  getDocs,
-  query,
-  where,
-  FieldPath,
-} from 'firebase/firestore'
+import {getDocs, query, where} from 'firebase/firestore'
+import type {CollectionReference, QuerySnapshot, Query, DocumentData, FieldPath} from 'firebase/firestore'
 
 export async function batchInQuery<T>(
   ids: string[] | number[],
   c: CollectionReference<any> | Query<DocumentData>,
   field: string | FieldPath,
 ) {
-  if (!ids || !ids.length) return []
+  if (!ids?.length) return []
 
   const batches: Promise<QuerySnapshot<T>>[] = []
   while (ids.length) {

@@ -1,28 +1,25 @@
 'use client'
-import React, { useState } from 'react'
-import { Canvas } from '@react-three/fiber'
-import { OrbitControls } from '@react-three/drei'
-import projects from '../_logics/projects'
-import { Button } from '@nextui-org/button'
+import {ButtonHome} from '@/components/client-only/button/links'
+import {title} from '@/config/variants/primitives'
+import React, {useState} from 'react'
+
+import {Button} from '@nextui-org/button'
+import {useDisclosure, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter} from '@nextui-org/modal'
+import {OrbitControls} from '@react-three/drei'
+import {Canvas} from '@react-three/fiber'
 import clsx from 'clsx'
-import { ProjectCards, TShape } from './ProjectCards'
-import {
-  useDisclosure,
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-} from '@nextui-org/modal'
-import { IProject } from '../types'
-import { projectsConfig } from '../config'
+
+import projects from '../_logics/projects'
+import {projectsConfig} from '../config'
+import type {IProject} from '../types'
+
 import ProjectCard from './ProjectCard'
-import { title } from '@/config/variants/primitives'
-import { ButtonHome } from '@/components/client-only/button/links'
+import {ProjectCards} from './ProjectCards'
+import type {TShape} from './ProjectCards'
 
 export function RootCanvas() {
   const [shape, setShape] = useState<TShape>('sphere')
-  const { isOpen, onOpen, onOpenChange } = useDisclosure({
+  const {isOpen, onOpen, onOpenChange} = useDisclosure({
     onClose() {
       setProject(null)
     },
@@ -36,14 +33,10 @@ export function RootCanvas() {
   const btnClass = clsx('absolute', 'top-4', 'left-4')
   return (
     <>
-      <Canvas linear camera={{ position: [0, 0, 1] }}>
+      <Canvas linear camera={{position: [0, 0, 1]}}>
         <OrbitControls enableDamping />
         <Lights />
-        <ProjectCards
-          onSelect={handleProjectSelect}
-          shape={shape}
-          projects={projects}
-        />
+        <ProjectCards onSelect={handleProjectSelect} shape={shape} projects={projects} />
       </Canvas>
       <div className={clsx(btnClass)}>
         <Button
@@ -75,7 +68,7 @@ export function RootCanvas() {
             {onClose => (
               <>
                 <ModalHeader className="flex flex-col gap-1">
-                  <h3 className={title({ size: 'sm' })}>{project.title}</h3>
+                  <h3 className={title({size: 'sm'})}>{project.title}</h3>
                 </ModalHeader>
                 <ModalBody>
                   <ProjectCard p={project} />

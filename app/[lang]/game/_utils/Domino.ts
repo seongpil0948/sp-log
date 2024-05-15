@@ -1,6 +1,5 @@
-import { Mesh, BoxGeometry, MeshBasicMaterial } from 'three'
-
-import { Body, Box, Vec3 } from 'cannon-es'
+import {Body, Box, Vec3} from 'cannon-es'
+import {Mesh, BoxGeometry, MeshBasicMaterial} from 'three'
 
 export default class Domino {
   scene: any
@@ -44,9 +43,7 @@ export default class Domino {
   }
 
   setCannonBody() {
-    const shape = new Box(
-      new Vec3(this.width / 2, this.height / 2, this.depth / 2),
-    )
+    const shape = new Box(new Vec3(this.width / 2, this.height / 2, this.depth / 2))
     this.cannonBody = new Body({
       mass: 1,
       position: new Vec3(this.x, this.y, this.z),

@@ -1,5 +1,5 @@
-import { BaseClass } from './common'
-import { WaveGroup } from './wave-group'
+import {BaseClass} from './common'
+import {WaveGroup} from './wave-group'
 
 export class App extends BaseClass {
   canvasRef: HTMLCanvasElement

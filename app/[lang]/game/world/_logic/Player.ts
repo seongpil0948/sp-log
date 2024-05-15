@@ -1,15 +1,9 @@
-import {
-  AnimationMixer,
-  type Scene,
-  type Mesh,
-  type AnimationAction,
-  type Object3D,
-  type Camera,
-  Vector3,
-} from 'three'
-import type { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+import {AnimationMixer, type Scene, type Mesh, type AnimationAction, type Object3D, type Camera, Vector3} from 'three'
+import type {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js'
+
 import CONFIG from '../config'
-import { isCloseTo } from './common'
+
+import {isCloseTo} from './common'
 
 interface ConstructorParams {
   scene: Scene
@@ -85,22 +79,16 @@ export default class Player {
     return this.actions[1]
   }
 
-  isCloseTo(dest: { x: number; z: number }) {
+  isCloseTo(dest: {x: number; z: number}) {
     return isCloseTo(this.modelMesh.position, dest, 0.03)
     // return Math.abs(dest.x - this.modelMesh.position.x) < 0.03 &&
     // 	Math.abs(dest.z - this.modelMesh.position.z) < 0.03
   }
   isOnTheSpot(dest: Vector3) {
-    return (
-      Math.abs(dest.x - this.modelMesh.position.x) < 1.5 &&
-      Math.abs(dest.z - this.modelMesh.position.z) < 1.5
-    )
+    return Math.abs(dest.x - this.modelMesh.position.x) < 1.5 && Math.abs(dest.z - this.modelMesh.position.z) < 1.5
   }
 
-  getAngle(dest: { x: number; z: number }) {
-    return Math.atan2(
-      dest.z - this.modelMesh.position.z,
-      dest.x - this.modelMesh.position.x,
-    )
+  getAngle(dest: {x: number; z: number}) {
+    return Math.atan2(dest.z - this.modelMesh.position.z, dest.x - this.modelMesh.position.x)
   }
 }

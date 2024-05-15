@@ -1,15 +1,9 @@
-import { useRef, useCallback, useEffect } from 'react'
+import {useRef, useCallback, useEffect} from 'react'
 
 // [코드 11] IntersectionObserver custom hook
-type IntersectHandler = (
-  entry: IntersectionObserverEntry,
-  observer: IntersectionObserver,
-) => void
+type IntersectHandler = (entry: IntersectionObserverEntry, observer: IntersectionObserver) => void
 
-export const useIntersect = (
-  onIntersect: IntersectHandler,
-  options?: IntersectionObserverInit,
-) => {
+export const useIntersect = (onIntersect: IntersectHandler, options?: IntersectionObserverInit) => {
   const ref = useRef<HTMLDivElement>(null)
   const callback = useCallback(
     (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {

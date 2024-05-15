@@ -1,7 +1,7 @@
 'use client'
 
-import { Image } from '@nextui-org/image'
-import { Carousel } from 'react-responsive-carousel'
+import {Image} from '@nextui-org/image'
+import {Carousel} from 'react-responsive-carousel'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 export interface BasicCarouselProps {
   urls: string[]

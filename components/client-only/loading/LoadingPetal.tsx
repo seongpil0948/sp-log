@@ -1,7 +1,9 @@
 'use client'
-import { motion, useMotionValue } from 'framer-motion'
-import { useCallback, useEffect, useRef, useState } from 'react'
-import { useSmoothTransform } from '../three-d/geo-button/use-smooth-transform'
+import {useCallback, useEffect, useRef, useState} from 'react'
+
+import {motion, useMotionValue} from 'framer-motion'
+
+import {useSmoothTransform} from '../three-d/geo-button/use-smooth-transform'
 
 const ANIMATE_INTERVAL = 500
 const UNIT_INCREASE_ANGLE = 0.1
@@ -31,14 +33,14 @@ export function LoadingPetal() {
     const centerX = canvas.width / 2
     const centerY = canvas.height / 2
     const getSinFuncXY = (theta: number) => {
-      const { x, y } = projPolarToCartesian(RADIUS, theta)
+      const {x, y} = projPolarToCartesian(RADIUS, theta)
       const sx = centerX + x * Math.sin(frequency.get() * theta)
       const sy = centerY + y * Math.sin(frequency.get() * theta)
-      return { sx, sy }
+      return {sx, sy}
     }
 
     const drawSinFunc = (theta: number) => {
-      const { sx, sy } = getSinFuncXY(theta)
+      const {sx, sy} = getSinFuncXY(theta)
       ctx.lineTo(sx, sy)
       ctx.strokeStyle = 'white'
       ctx.stroke()
@@ -74,7 +76,7 @@ export function LoadingPetal() {
   return (
     <motion.canvas
       ref={canvasRef}
-      initial={{ rotate: 0 }}
+      initial={{rotate: 0}}
       animate={{
         rotate: ROTATION_DEGREES,
         transition: {

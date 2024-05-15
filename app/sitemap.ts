@@ -1,23 +1,21 @@
-import { MetadataRoute } from 'next'
-import { getTree } from './_utils/server/dir-tree'
-import { APP_DOMAIN, reduceChildLinks, siteConfig } from '@/config/site'
-import { uniqueFilter } from './_utils/common'
-import { writeFileSync, readFileSync } from 'fs'
+import {writeFileSync, readFileSync} from 'fs'
 import path from 'path'
+
+import {APP_DOMAIN, reduceChildLinks, siteConfig} from '@/config/site'
+
+import type {MetadataRoute} from 'next'
+
+import {uniqueFilter} from './_utils/common'
+import {getTree} from './_utils/server/dir-tree'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const innerLinks = getAllInnerLinks()
   const allLinks: MetadataRoute.Sitemap = uniqueFilter(
-    [
-      ...innerLinks,
-      APP_DOMAIN,
-      ...[...(Object.values(siteConfig.links.map(x => x.href)) as string[])],
-    ].map(path => {
+    [...innerLinks, APP_DOMAIN, ...[...Object.values(siteConfig.links.map(x => x.href))]].map(path => {
       const obj = {
         url: pathToUrl(path),
         lastModified: new Date(),
-        changeFrequency:
-          'weekly' as MetadataRoute.Sitemap[number]['changeFrequency'],
+        changeFrequency: 'weekly' as MetadataRoute.Sitemap[number]['changeFrequency'],
         priority: 1,
       }
       return obj
@@ -42,7 +40,7 @@ function pathToUrl(u: string) {
 function getAllInnerLinks() {
   const allInnerLinks: string[] = []
   if (allInnerLinks.length > 0) return allInnerLinks
-  const tree = getTree({ dir: 'app' })
+  const tree = getTree({dir: 'app'})
   if (!tree) return []
   const links = reduceChildLinks(tree)
   allInnerLinks.push(...links)

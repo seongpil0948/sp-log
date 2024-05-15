@@ -1,13 +1,12 @@
 'use client'
 
-import { MotionValue } from 'framer-motion'
-import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import {useEffect, useState} from 'react'
+
+import type {MotionValue} from 'framer-motion'
+import {useRouter} from 'next/navigation'
 
 const frameCount = 15
-const urls = new Array(frameCount)
-  .fill(true)
-  .map((o, i) => `/home/moong-me/${(i + 1).toString()}.png`)
+const urls = new Array(frameCount).fill(true).map((o, i) => `/home/moong-me/${(i + 1).toString()}.png`)
 
 export function AboutCanvas(props: {
   delta: MotionValue<number>
@@ -18,16 +17,12 @@ export function AboutCanvas(props: {
   speed: number
 }) {
   const router = useRouter()
-  const { width, height, canvasRef, isInView, speed, delta } = props
+  const {width, height, canvasRef, isInView, speed, delta} = props
   const [images, setImages] = useState<HTMLImageElement[]>([])
   const [curFrame, setCurFrame] = useState(0)
 
   useEffect(() => {
-    const frame = Math.abs(
-      Math.floor(
-        urls.length * (curFrame / urls.length + delta.get() / 1000) * speed,
-      ),
-    )
+    const frame = Math.abs(Math.floor(urls.length * (curFrame / urls.length + delta.get() / 1000) * speed))
     if (frame !== curFrame) {
       setCurFrame(frame)
     }
@@ -53,7 +48,7 @@ export function AboutCanvas(props: {
 
     setImages(
       urls.map(url => {
-        let img = new Image()
+        const img = new Image()
         img.src = url
         return img
       }),

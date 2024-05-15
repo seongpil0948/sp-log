@@ -1,7 +1,10 @@
-import { Chip, ChipProps } from '@nextui-org/chip'
 import React from 'react'
-import { paragraph } from '../../config/variants/primitives'
+
+import {Chip} from '@nextui-org/chip'
+import type {ChipProps} from '@nextui-org/chip'
 import clsx from 'clsx'
+
+import {paragraph} from '../../config/variants/primitives'
 
 export interface ChipListProps {
   tags: string[]
@@ -10,22 +13,10 @@ export interface ChipListProps {
   className?: string
 }
 
-const colors: ChipProps['color'][] = [
-  'default',
-  'primary',
-  'secondary',
-  'success',
-  'warning',
-  'danger',
-]
+const colors: ChipProps['color'][] = ['default', 'primary', 'secondary', 'success', 'warning', 'danger']
 const variants: ChipProps['variant'][] = ['solid', 'bordered', 'faded']
 
-export const ChipList = ({
-  tags,
-  chipProps,
-  onClose,
-  className,
-}: ChipListProps) => {
+export const ChipList = ({tags, chipProps, onClose, className}: ChipListProps) => {
   const getRandomColor = () => {
     return colors[Math.floor(Math.random() * colors.length)]
   }

@@ -1,5 +1,6 @@
-import { Timestamp } from 'firebase/firestore'
-import { dateToTimeStamp, loadDate } from '.'
+import {Timestamp} from 'firebase/firestore'
+
+import {dateToTimeStamp, loadDate} from '.'
 
 export function commonToJson(c: any, onDate?: (d: Date) => any) {
   const dateKeys: string[] = []
@@ -15,7 +16,7 @@ export function commonToJson(c: any, onDate?: (d: Date) => any) {
   return j
 }
 
-export function commonFromJson(data: { [k: string]: any }) {
+export function commonFromJson(data: {[k: string]: any}) {
   Object.keys(data).forEach(k => {
     if (data[k] instanceof Timestamp) {
       data[k] = loadDate(data[k])

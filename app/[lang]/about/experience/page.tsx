@@ -1,22 +1,27 @@
+import {AbsoluteFooter} from '@/components/server-only/footers'
+import commonConfig from '@/config'
+import type {TAvailLocale} from '@/config'
+import {paragraph, title} from '@/config/variants/primitives'
+import {hrCls} from '@/mdx-components'
+
+import {Card, CardBody} from '@nextui-org/card'
 import clsx from 'clsx'
-import commonConfig, { TAvailLocale } from '@/config'
-import { AbsoluteFooter } from '@/components/server-only/footers'
-import { docsSectionCls, sectionCls } from '../../home/theme'
-import { paragraph, title } from '@/config/variants/primitives'
-import { Experience, experiences } from './data'
-import { hrCls } from '@/mdx-components'
+
+import {docsSectionCls, sectionCls} from '../../home/theme'
 import LinksContent from '../_components/LinksContent'
-import { Card, CardBody } from '@nextui-org/card'
+
+import {experiences} from './data'
+import type {Experience} from './data'
 
 export async function generateStaticParams() {
-  return commonConfig.i18n.locales.map(lang => ({ lang }))
+  return commonConfig.i18n.locales.map(lang => ({lang}))
 }
 
 interface Param {
-  params: { lang: TAvailLocale }
+  params: {lang: TAvailLocale}
 }
 
-export default async function SSGPage({ params: { lang } }: Param) {
+export default async function SSGPage({params: {lang}}: Param) {
   return (
     <div className="max-h-screen overflow-auto">
       <ExpPage />
@@ -34,12 +39,8 @@ export default async function SSGPage({ params: { lang } }: Param) {
 function ExpPage() {
   return (
     <div className={clsx(sectionCls, docsSectionCls)}>
-      <h1 className={clsx(title({ size: 'lg' }))}>Experience</h1>
-      <div
-        className={clsx(
-          'divide-y divide-gray-200 flex flex-col gap-6 md:gap-12',
-        )}
-      >
+      <h1 className={clsx(title({size: 'lg'}))}>Experience</h1>
+      <div className={clsx('divide-y divide-gray-200 flex flex-col gap-6 md:gap-12')}>
         {experiences.map((e, i) => {
           return <ExperienceCard key={`experience-${i}`} e={e} />
         })}
@@ -48,9 +49,9 @@ function ExpPage() {
   )
 }
 
-function ExperienceCard(props: { e: Experience }) {
-  const { e } = props
-  const subtitleCls = clsx(title({ size: 'xs' }))
+function ExperienceCard(props: {e: Experience}) {
+  const {e} = props
+  const subtitleCls = clsx(title({size: 'xs'}))
   return (
     <div className={clsx()}>
       <h2 className={subtitleCls}>Challenges</h2>
@@ -70,7 +71,7 @@ function ExperienceCard(props: { e: Experience }) {
   )
 }
 
-function Paragraphs(props: { ps: string[]; name: string }) {
+function Paragraphs(props: {ps: string[]; name: string}) {
   return (
     <div>
       {props.ps.map((p, i) => {

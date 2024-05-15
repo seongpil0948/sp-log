@@ -1,7 +1,10 @@
-import { cookies } from 'next/headers'
-import { NextRequest, NextResponse } from 'next/server'
-import SERVER_CONFIG from '../config'
 import commonConfig from '@/config'
+
+import {cookies} from 'next/headers'
+import {NextResponse} from 'next/server'
+import type {NextRequest} from 'next/server'
+
+import SERVER_CONFIG from '../config'
 
 export async function GET(request: NextRequest, response: NextResponse) {
   const searchParams = request.nextUrl.searchParams
@@ -11,14 +14,14 @@ export async function GET(request: NextRequest, response: NextResponse) {
       {
         error: 'Empty locale',
       },
-      { status: 400 },
+      {status: 400},
     )
   } else if (!commonConfig.i18n.isAvailableLocale(newLocale)) {
     return NextResponse.json(
       {
         error: 'Invalid locale',
       },
-      { status: 400 },
+      {status: 400},
     )
   }
 
@@ -29,5 +32,5 @@ export async function GET(request: NextRequest, response: NextResponse) {
     httpOnly: true,
     secure: true,
   })
-  return NextResponse.json({}, { status: 200 })
+  return NextResponse.json({}, {status: 200})
 }

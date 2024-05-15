@@ -1,9 +1,10 @@
 'use client'
-import { TAvailLocale } from '@/config'
-import { Button } from '@nextui-org/button'
-import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover'
-import { usePathname, useRouter } from 'next/navigation'
-import { use, useEffect, useState } from 'react'
+import type {TAvailLocale} from '@/config'
+import {useState} from 'react'
+
+import {Button} from '@nextui-org/button'
+import {Popover, PopoverContent, PopoverTrigger} from '@nextui-org/popover'
+import {usePathname, useRouter} from 'next/navigation'
 
 type LocaleIcon = '🇺🇸' | '🇰🇷'
 
@@ -66,4 +67,4 @@ function iconToLocale(icon: LocaleIcon): TAvailLocale {
 }
 
 export default SelectorNational
-export { SelectorNational }
+export {SelectorNational}

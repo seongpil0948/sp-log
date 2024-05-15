@@ -15,7 +15,7 @@ const nextConfig = {
   cleanDistDir: true,
   // Configure `pageExtensions`` to include MDX files
   pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
-  webpack: (config, { isServer }) => {
+  webpack: (config, {isServer}) => {
     if (!isServer) {
       config.resolve.fallback = {
         fs: false,

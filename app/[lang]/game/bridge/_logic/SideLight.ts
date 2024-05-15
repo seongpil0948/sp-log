@@ -1,5 +1,7 @@
-import { cm1, cm2, geo, mat } from './common'
-import { Mesh, SphereGeometry, Material } from 'three'
+import {Mesh} from 'three'
+import type {SphereGeometry, Material} from 'three'
+
+import {cm1, cm2, geo, mat} from './common'
 
 export class SideLight {
   name: string
@@ -10,13 +12,7 @@ export class SideLight {
   material: Material
   mesh: Mesh
 
-  constructor(info: {
-    container?: Mesh
-    name?: string
-    x?: number
-    y?: number
-    z?: number
-  }) {
+  constructor(info: {container?: Mesh; name?: string; x?: number; y?: number; z?: number}) {
     const container = info.container || cm1.scene
 
     this.name = info.name || ''

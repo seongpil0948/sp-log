@@ -1,32 +1,30 @@
-import { CommonNavbarProps, NavMobileMenu } from './client'
-import { clsx, type ClassValue } from 'clsx'
-import { navbar } from './theme'
-import { getTree } from '@/app/_utils/server/dir-tree'
-import {
-  Navbar as NextUINavbar,
-  NavbarContent,
-  NavbarMenuToggle,
-  NavbarBrand,
-  NavbarItem,
-} from '@nextui-org/navbar'
-import { Link } from '@nextui-org/link'
+import {getDictionary} from '@/app/[lang]/dictionaries'
+import {getTree} from '@/app/_utils/server/dir-tree'
+import {GithubIcon} from '@/components/server-only/icons'
+import {Logo} from '@/components/server-only/icons'
+import {ThemeSwitch} from '@/components/theme-switch'
+
+import {Link} from '@nextui-org/link'
+import {Navbar as NextUINavbar, NavbarContent, NavbarMenuToggle, NavbarBrand, NavbarItem} from '@nextui-org/navbar'
+import {clsx, type ClassValue} from 'clsx'
 import NextLink from 'next/link'
-import { ThemeSwitch } from '@/components/theme-switch'
-import { GithubIcon } from '@/components/server-only/icons'
-import { Logo } from '@/components/server-only/icons'
-import { PrefixComp } from './side'
-import { getDictionary } from '@/app/[lang]/dictionaries'
+
 import SearchModal from '../../client-only/button/SearchModal'
+
+import {NavMobileMenu} from './client'
+import type {CommonNavbarProps} from './client'
+import {PrefixComp} from './side'
+import {navbar} from './theme'
 
 export function cn(...inputs: ClassValue[]) {
   return clsx(inputs)
 }
 
 export default function CommonNavbar(p: CommonNavbarProps) {
-  const { tree, leftTreeOptions } = p
-  const { base, content, brand, item } = navbar()
+  const {tree, leftTreeOptions} = p
+  const {base, content, brand, item} = navbar()
 
-  const treeTop = tree ?? getTree({ dir: 'app/[lang]', options: { depth: 3 } })
+  const treeTop = tree ?? getTree({dir: 'app/[lang]', options: {depth: 3}})
   const treeLeft = getTree(leftTreeOptions)
 
   const extendedClassNames = {
@@ -64,10 +62,7 @@ export default function CommonNavbar(p: CommonNavbarProps) {
         </NavbarBrand>
       </NavbarContent>
 
-      <NavbarContent
-        className="hidden sm:flex basis-1/5 sm:basis-full"
-        justify="end"
-      >
+      <NavbarContent className="hidden sm:flex basis-1/5 sm:basis-full" justify="end">
         <NavbarItem className="hidden sm:flex gap-2">
           <ThemeSwitch />
         </NavbarItem>

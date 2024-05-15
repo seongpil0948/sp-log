@@ -1,20 +1,20 @@
 'use client'
 
-import { Card, CardBody, CardProps } from '@nextui-org/card'
-import { Image } from '@nextui-org/image'
-import { IProject } from '../types'
+import {isMobile} from '@/app/_utils/client/responsive'
+import {title, typo} from '@/config/variants/primitives'
 
-import { ProjectTypeIcon, ProjectUsing } from './server-only/icons'
-import { useRouter } from 'next/navigation'
+import {Card, CardBody} from '@nextui-org/card'
+import type {CardProps} from '@nextui-org/card'
+import {Image} from '@nextui-org/image'
 import clsx from 'clsx'
-import { title, typo } from '@/config/variants/primitives'
-import { isMobile } from '@/app/_utils/client/responsive'
+import {useRouter} from 'next/navigation'
 
-export default function ProjectCard(props: {
-  p: IProject
-  classNames?: CardProps['classNames']
-}) {
-  const { p } = props
+import type {IProject} from '../types'
+
+import {ProjectTypeIcon, ProjectUsing} from './server-only/icons'
+
+export default function ProjectCard(props: {p: IProject; classNames?: CardProps['classNames']}) {
+  const {p} = props
   const router = useRouter()
   const cardClassNames: CardProps['classNames'] = {
     ...props.classNames,
@@ -75,10 +75,7 @@ export default function ProjectCard(props: {
               <div className="max-h-[25vh] md:max-h-full text-ellipsis overflow-clip ">
                 {p.description &&
                   p.description.map((desc, idx) => (
-                    <p
-                      key={idx}
-                      className={typo({ size: 'xs', color: 'gray' })}
-                    >
+                    <p key={idx} className={typo({size: 'xs', color: 'gray'})}>
                       {desc}
                     </p>
                   ))}

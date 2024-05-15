@@ -5,4 +5,4 @@ const SERVER_CONFIG = {
 }
 
 export default SERVER_CONFIG
-export { SERVER_CONFIG }
+export {SERVER_CONFIG}

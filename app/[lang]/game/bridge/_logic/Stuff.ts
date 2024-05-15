@@ -1,6 +1,8 @@
-import { Mesh, Object3D } from 'three'
-import { cm1 } from './common'
-import { Box, Vec3, Body, Material } from 'cannon-es'
+import {Box, Vec3, Body} from 'cannon-es'
+import type {Material} from 'cannon-es'
+import {Mesh, Object3D} from 'three'
+
+import {cm1} from './common'
 
 export type StuffParams = {
   name?: string
@@ -17,9 +19,9 @@ export type StuffParams = {
   depth: number
 }
 export type StuffChildParams = Omit<StuffParams, 'width' | 'height' | 'depth'>
-export type StuffWIthMesh = Stuff & { mesh: Mesh }
-export type StuffWithCannonBody = Stuff & { cannonBody: Body }
-export type StuffWithModelMesh = Stuff & { modelMesh: Object3D }
+export type StuffWIthMesh = Stuff & {mesh: Mesh}
+export type StuffWithCannonBody = Stuff & {cannonBody: Body}
+export type StuffWithModelMesh = Stuff & {modelMesh: Object3D}
 export class Stuff {
   name: string
   x: number
@@ -53,19 +55,14 @@ export class Stuff {
   setCannonBody() {
     const material = this.cannonMaterial
 
-    const shape = new Box(
-      new Vec3(this.width / 2, this.height / 2, this.depth / 2),
-    )
+    const shape = new Box(new Vec3(this.width / 2, this.height / 2, this.depth / 2))
     this.cannonBody = new Body({
       mass: this.mass,
       position: new Vec3(this.x, this.y, this.z),
       shape,
       material,
     })
-    this.cannonBody.quaternion.setFromAxisAngle(
-      new Vec3(0, 1, 0),
-      this.rotationY,
-    )
+    this.cannonBody.quaternion.setFromAxisAngle(new Vec3(0, 1, 0), this.rotationY)
     cm1.world.addBody(this.cannonBody)
   }
 

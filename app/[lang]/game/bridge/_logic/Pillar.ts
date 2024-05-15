@@ -1,6 +1,9 @@
-import { cm1, geo, mat } from './common'
-import { Mesh, BoxGeometry, Material } from 'three'
-import { Stuff, StuffChildParams } from './Stuff'
+import {Mesh} from 'three'
+import type {BoxGeometry, Material} from 'three'
+
+import {cm1, geo, mat} from './common'
+import {Stuff} from './Stuff'
+import type {StuffChildParams} from './Stuff'
 
 export class Pillar extends Stuff {
   geometry: BoxGeometry
