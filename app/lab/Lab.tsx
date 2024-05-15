@@ -6,6 +6,7 @@ import { title } from '@/config/variants/primitives'
 import CirclePoint from './circles/circle-point'
 import CircleLine from './circles/circle-line'
 import { AlertText } from '@/components/server-only/alert'
+import { LoadingPetal } from '@/components/client-only/loading/LoadingPetal'
 
 export default function Lab() {
   return (
@@ -23,6 +24,7 @@ export default function Lab() {
         >
           Lab
         </div>
+        <LoadingPetal />
         <AlertText title="Default" color="default">
           Information Card
         </AlertText>
