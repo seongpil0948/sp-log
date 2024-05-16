@@ -1,5 +1,5 @@
 import {title} from '@/config/variants/primitives'
-import type {DetailedHTMLProps, HTMLAttributes, createElement} from 'react'
+import type {DetailedHTMLProps, HTMLAttributes} from 'react'
 
 export function HeaderLink(props: {attr: TextToSlugProps['attr']; level: number}) {
   const {attr, level} = props

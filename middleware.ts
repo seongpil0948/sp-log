@@ -38,7 +38,7 @@ const IGNORE_PATHS = [
   'jpg',
 ]
 
-export async function middleware(request: NextRequest, response: NextResponse) {
+export async function middleware(request: NextRequest) {
   const nextP = request.nextUrl.pathname
   if (IGNORE_PATHS.some(p => nextP.includes(p))) {
     return NextResponse.next()

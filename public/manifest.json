@@ -1,4 +1,6 @@
 {
+  "manifest_version": 2,
+  "version": "1.0",
   "name": "Seong Pil Blog",
   "short_name": "sp-blog",
   "icons": [

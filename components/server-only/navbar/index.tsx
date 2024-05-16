@@ -1,4 +1,3 @@
-import {getDictionary} from '@/app/[lang]/dictionaries'
 import {getTree} from '@/app/_utils/server/dir-tree'
 import {GithubIcon} from '@/components/server-only/icons'
 import {Logo} from '@/components/server-only/icons'

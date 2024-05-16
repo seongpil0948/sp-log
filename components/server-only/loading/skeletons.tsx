@@ -1,6 +1,6 @@
 'use client'
 import {Card, CardBody, CardHeader} from '@nextui-org/card'
-import {Skeleton, type SkeletonProps} from '@nextui-org/skeleton'
+import {Skeleton} from '@nextui-org/skeleton'
 import clsx from 'clsx'
 
 export const SkeletonUser = () => (
@@ -14,9 +14,7 @@ export const SkeletonUser = () => (
     </div>
   </div>
 )
-export const SkeletonHeader = (props: {}) => (
-  <Skeleton isLoaded={false} className={clsx('rounded-lg w-1/2 h-6 my-4 md:my-6')} />
-)
+export const SkeletonHeader = () => <Skeleton isLoaded={false} className={clsx('rounded-lg w-1/2 h-6 my-4 md:my-6')} />
 
 export const SkeletonText = () => <Skeleton isLoaded={false} className="w-3/5 rounded-lg h-3 " />
 export const SkeletonContainer = () => (

@@ -14,7 +14,7 @@ import {ChipList} from './components/client-only/ChipList'
 import {AlertText} from './components/server-only/alert'
 import {HeaderLink} from './components/server-only/text/HeaderLink'
 import preTheme from './config/variants/pre'
-import {listText, paragraph, title} from './config/variants/primitives'
+import {listText, paragraph} from './config/variants/primitives'
 import tableTheme from './config/variants/table'
 
 const {ul: ulClasses, ol: olClasses} = themeList()

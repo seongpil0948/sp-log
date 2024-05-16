@@ -1,7 +1,5 @@
 import type {TreeSectionProps} from '@/components/client-only/tree-section'
 import {GithubIcon, LinkedInIcon} from '@/components/server-only/icons'
-import {IconSvgProps} from '@/types'
-import {FC} from 'react'
 import type {ReactNode} from 'react'
 
 import type {TAvailLocale} from '.'

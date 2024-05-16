@@ -12,7 +12,7 @@ interface Param {
 
 export default async function SSGPage({params: {lang}}: Param) {
   return (
-    <div>
+    <div lang={lang}>
       <Content />
     </div>
   )

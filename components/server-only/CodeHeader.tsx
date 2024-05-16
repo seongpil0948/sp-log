@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 
-import {paragraph, typo} from '../../config/variants/primitives'
+import {typo} from '../../config/variants/primitives'
 
 interface CodeHeaderProps {
   text: string

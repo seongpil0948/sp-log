@@ -15,7 +15,8 @@ export function TreeSection(props: {
   startDepth?: number
   linkTextClass?: (label: string) => string
 }) {
-  let {treeProps, startDepth, linkTextClass} = props
+  let {startDepth} = props
+  const {linkTextClass, treeProps} = props
   startDepth = startDepth || 0
   // const dispatch = useAppDispatch();
   const hasChildren = (item: TreeSectionProps) => item.children && item.children.length > 0

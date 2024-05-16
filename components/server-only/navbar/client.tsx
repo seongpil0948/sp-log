@@ -36,7 +36,7 @@ export const NavMobileMenu = () => {
       <div className="flex flex-col gap-2">
         {siteConfig.links.map((item, index) => (
           <NavbarMenuItem
-            key={`${item}-${index}`}
+            key={`${item.id}-${index}`}
             className="px-8 mt-2 hover:bg-gray-200 dark:hover:bg-gray-800 cursor-pointer"
           >
             <Link
