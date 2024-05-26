@@ -1,4 +1,3 @@
-import {AVAIL_LOCALES} from '@/config'
 import commonConfig from '@/config'
 import type {TAvailLocale} from '@/config'
 

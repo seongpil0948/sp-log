@@ -1,7 +1,5 @@
 'use client'
 
-import {on} from 'events'
-
 import {paragraph} from '@/config/variants/primitives'
 
 import clsx from 'clsx'

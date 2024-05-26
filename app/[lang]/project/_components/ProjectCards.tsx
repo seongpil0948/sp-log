@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {useCursor} from '@/app/_utils/client/hooks/three-d/use-cursor'
 import {isMobile} from '@/app/_utils/client/responsive'
-import React, {use, useEffect, useLayoutEffect, useMemo, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import type {ReactNode} from 'react'
 
 import {useFrame, useThree} from '@react-three/fiber'

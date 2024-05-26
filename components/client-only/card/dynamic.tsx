@@ -1,5 +1,4 @@
 'use client'
-import {isMobile} from '@/app/_utils/client/responsive'
 import {fileNameFromPath} from '@/app/_utils/common'
 import {useRef} from 'react'
 

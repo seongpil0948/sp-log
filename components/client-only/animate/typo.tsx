@@ -1,5 +1,4 @@
 'use client'
-import {title} from '@/config/variants/primitives'
 import type {ReactNode} from 'react'
 
 import {motion} from 'framer-motion'

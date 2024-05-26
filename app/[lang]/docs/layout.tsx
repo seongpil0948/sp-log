@@ -1,7 +1,6 @@
 import {CmFooter} from '@/components/server-only/footers'
 import CommonNavbar from '@/components/server-only/navbar'
 import {main} from '@/config/variants/primitives'
-import {Suspense} from 'react'
 
 import clsx from 'clsx'
 

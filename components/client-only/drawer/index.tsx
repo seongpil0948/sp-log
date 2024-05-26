@@ -17,12 +17,17 @@ export interface CommonDrawerProps {
 }
 export default function CommonDrawer(props: CommonDrawerProps) {
   const {children, sheetProps, title} = props
-  const {isOpen, onOpen, onOpenChange, onClose} = useDisclosure({
+  const {
+    isOpen,
+    onOpen,
+    onOpenChange,
+    onClose: onCloseDrawer,
+  } = useDisclosure({
     defaultOpen: sheetProps?.defaultOpen ?? false,
   })
 
   const handleClick = () => {
-    isOpen ? onClose() : onOpen()
+    isOpen ? onCloseDrawer() : onOpen()
   }
   return (
     <>
@@ -41,7 +46,7 @@ export default function CommonDrawer(props: CommonDrawerProps) {
         {...sheetProps}
       >
         <SheetContent>
-          {onClose => (
+          {() => (
             <>
               {title && <SheetHeader>{title}</SheetHeader>}
               <SheetBody>{children}</SheetBody>

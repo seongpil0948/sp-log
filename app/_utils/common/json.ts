@@ -2,7 +2,7 @@ import {Timestamp} from 'firebase/firestore'
 
 import {dateToTimeStamp, loadDate} from '.'
 
-export function commonToJson(c: any, onDate?: (d: Date) => any) {
+export function commonToJson(c: unknown, onDate?: (d: Date) => any) {
   const dateKeys: string[] = []
   Object.entries(c).forEach(([k, v]) => {
     if (Object.prototype.toString.call(v) === '[object Date]') {

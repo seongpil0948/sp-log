@@ -1,5 +1,4 @@
 import {siteConfig} from '@/config/site'
-import {main} from '@/config/variants/primitives'
 import type {ReactNode} from 'react'
 
 import type {Metadata} from 'next'

@@ -11,7 +11,6 @@ import SingletonHome from '../_utils/singleton'
 import {sectionCls} from '../theme'
 
 import BlackBall from './BlackBall'
-import DocsSection from './DocSection'
 import {FirstSection} from './FirstSection'
 import {ProjectSection} from './ProjectSection'
 

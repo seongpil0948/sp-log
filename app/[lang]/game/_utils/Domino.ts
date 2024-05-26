@@ -1,5 +1,4 @@
 import {Body, Box, Vec3} from 'cannon-es'
-import {Mesh, BoxGeometry, MeshBasicMaterial} from 'three'
 
 export default class Domino {
   scene: any

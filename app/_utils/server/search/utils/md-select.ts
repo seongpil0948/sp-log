@@ -12,7 +12,7 @@ import {unified} from 'unified'
 
 import {pathToHref} from '../../dir-tree'
 
-import {sanitizeText, splitContent} from './text'
+import {sanitizeText} from './text'
 
 type El = ReturnType<typeof select>
 

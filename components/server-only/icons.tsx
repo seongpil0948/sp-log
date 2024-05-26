@@ -5,9 +5,7 @@ import {mdiLinkedin} from '@mdi/js'
 import {Icon} from '@mdi/react'
 import Image from 'next/image'
 
-export const Logo: FC<IconSvgProps> = ({size = 36, width, height, ...props}) => (
-  <Image src="/image/logo.png" width={32} height={32} alt="logo image" />
-)
+export const Logo: FC<IconSvgProps> = () => <Image src="/image/logo.png" width={32} height={32} alt="logo image" />
 
 export const DiscordIcon: FC<IconSvgProps> = ({size = 24, width, height, ...props}) => {
   return (

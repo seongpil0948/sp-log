@@ -1,12 +1,11 @@
 'use client'
 import {wrap} from '@/app/_utils/client/motion'
-import {splitArray} from '@/app/_utils/common'
 import {title} from '@/config/variants/primitives'
-import {useEffect, useRef} from 'react'
+import {useRef} from 'react'
 import type {ReactNode} from 'react'
 
 import clsx from 'clsx'
-import {motion, useTransform, useMotionValue, useAnimationFrame, useInView, useSpring} from 'framer-motion'
+import {motion, useTransform, useMotionValue, useAnimationFrame, useInView} from 'framer-motion'
 import type {MotionValue} from 'framer-motion'
 
 import ProjectCardListHorizontal from '../../project/_components/server-only/ProjectCardsHorizontal'

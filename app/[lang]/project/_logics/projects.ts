@@ -49,8 +49,6 @@ export const PROJECTS: IProject[] = [
     roleDetail: [
       '직접 사내서버에 RabbitMQ, API서버를 준비하고, 클라이언트와 연동하여 실시간 UI 서비스를 세팅했습니다.',
       '레퍼런스 사이트에 번들링된 JS 코드를 참고한 결과 층 별 지도데이터에 scale 값 확인 후, 위치를 표시하는 방법을 찾아내었습니다(M2PX).',
-      'x: this.mapOrigin.x + s.x * this.M2PX',
-      'https://github.com/seongpil0948/map-realtime/blob/main/src/components/WorkerMap/utils/map.ts',
     ],
     earned: [
       '로봇 상태 데이터를 AWS IoT Core를 통해 MQTTS-WebSocket으로 연동하여 개발하여 보안이 향상된 서비스를 제공 경험',
@@ -174,8 +172,6 @@ export const PROJECTS: IProject[] = [
       '사진의 메타정보로 부터 고도, 위도, 경도를 추출하여 지도에 표시하는 방법',
       'SK T Map API를 사용하여, 위치를 실시간으로 표시하는 방법',
       'AWS Cloud front를 사용하며, PWA의 캐시와 꼬이는 이슈를 해결',
-      'AWS Route 53을 사용하여, 도메인을 연결하는 방법',
-      'AWS 방화벽 서비스인 WAF를 사용하여, 보안 이슈를 해결하는 방법',
     ],
     usingDetail: ['AWS Cloud front', 'SK T Map API', 'AWS'],
   },

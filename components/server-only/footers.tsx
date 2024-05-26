@@ -1,6 +1,6 @@
 import {Link} from '@nextui-org/link'
 
-import {paragraph, typo} from '../../config/variants/primitives'
+import {typo} from '../../config/variants/primitives'
 import SelectorNational from '../client-only/selector/National'
 import {ThemeSwitch} from '../theme-switch'
 
@@ -41,7 +41,7 @@ export function AbsoluteFooter(props?: {
   disableI18n?: boolean
   disableText?: boolean
 }) {
-  const goHome = props?.goHome ?? false
+  // const goHome = props?.goHome ?? false
   return (
     <footer
       className="absolute bottom-0 w-full"

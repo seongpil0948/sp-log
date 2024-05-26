@@ -1,7 +1,7 @@
 import {nextui} from '@nextui-org/theme'
 const plugin = require('tailwindcss/plugin')
 const defaultTheme = require('tailwindcss/defaultTheme')
-import {commonColors, semanticColors} from '@nextui-org/theme'
+import {commonColors} from '@nextui-org/theme'
 
 // const defaultTheme = require('tailwindcss/defaultTheme')
 /** @type {import('tailwindcss').Config} */

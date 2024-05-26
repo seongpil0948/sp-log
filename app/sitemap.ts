@@ -11,9 +11,9 @@ import {getTree} from './_utils/server/dir-tree'
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const innerLinks = getAllInnerLinks()
   const allLinks: MetadataRoute.Sitemap = uniqueFilter(
-    [...innerLinks, APP_DOMAIN, ...[...Object.values(siteConfig.links.map(x => x.href))]].map(path => {
+    [...innerLinks, APP_DOMAIN, ...[...Object.values(siteConfig.links.map(x => x.href))]].map(pathName => {
       const obj = {
-        url: pathToUrl(path),
+        url: pathToUrl(pathName),
         lastModified: new Date(),
         changeFrequency: 'weekly' as MetadataRoute.Sitemap[number]['changeFrequency'],
         priority: 1,
@@ -49,8 +49,8 @@ function getAllInnerLinks() {
 
 const ALGOLIA_CONFIG_FILE = 'algolia/config.json'
 function saveToAlgoliaJson(innerLinks: string[]) {
-  const start_urls = innerLinks.map(path => ({
-    url: pathToUrl(path),
+  const start_urls = innerLinks.map(pathName => ({
+    url: pathToUrl(pathName),
     selectors_key: 'default',
   }))
   const filePath = path.resolve(ALGOLIA_CONFIG_FILE)

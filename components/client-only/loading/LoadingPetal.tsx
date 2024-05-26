@@ -1,9 +1,7 @@
 'use client'
-import {useCallback, useEffect, useRef, useState} from 'react'
+import {useEffect, useRef} from 'react'
 
 import {motion, useMotionValue} from 'framer-motion'
-
-import {useSmoothTransform} from '../three-d/geo-button/use-smooth-transform'
 
 const ANIMATE_INTERVAL = 500
 const UNIT_INCREASE_ANGLE = 0.1

@@ -21,7 +21,7 @@ interface Param {
   params: {lang: TAvailLocale}
 }
 
-export default async function SSGPage({params: {lang}}: Param) {
+export default async function SSGPage(_params: Param) {
   return (
     <div className="max-h-screen overflow-auto">
       <ExpPage />

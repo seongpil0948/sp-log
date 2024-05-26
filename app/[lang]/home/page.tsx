@@ -2,8 +2,6 @@
 import config from '@/config'
 import type {TAvailLocale} from '@/config'
 
-import {ThemeProvider as NextThemesProvider} from 'next-themes'
-
 import {getDictionary} from '../dictionaries'
 
 import {Scene} from './_components/Scene'

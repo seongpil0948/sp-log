@@ -10,9 +10,8 @@ export function ExperienceDownButton() {
   const router = useRouter()
   const {clientLocale} = useCommonCtx()
 
-  const handlePrint = async (isResume = false) => {
+  const handlePrint = (isResume = false) => {
     // html2pdf().set(opt).from(printContent).save();
-    // @ts-ignore
     // const html2pdf = (await import("html2pdf.js/dist/html2pdf.min.js")).default;
     // const div = document.createElement("div");
     // const root = createRoot(div);

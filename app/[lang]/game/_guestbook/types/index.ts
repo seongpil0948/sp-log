@@ -1,4 +1,3 @@
-import {ICommonDate, ICommonId, IUserId} from '@/types'
 import type {AvailDb, CrudBatchDB} from '@/types'
 export interface TGuestBook {
   id: string

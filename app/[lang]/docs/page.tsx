@@ -5,8 +5,6 @@ import {redirectUris} from '@/config/site'
 
 import {redirect} from 'next/navigation'
 
-import Content from './content.mdx'
-
 export async function generateStaticParams() {
   return commonConfig.i18n.locales.map(lang => ({lang}))
 }

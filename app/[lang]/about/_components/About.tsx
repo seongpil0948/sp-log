@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 import {isMobile} from '@/app/_utils/client/responsive'
 import commonConfig from '@/config'
@@ -28,9 +27,7 @@ export default function About(props: {rootSelector: string}) {
     scene.background = new THREE.Color('white')
     const camera = getCamera()
     let characterInfo: InitCharacter | undefined = undefined
-    initCharacter(gltfLoader, scene).then(info => {
-      characterInfo = info
-    })
+    characterInfo = await initCharacter(gltfLoader, scene)
     scene.add(camera)
     // Card https://codepen.io/jakedowns/pen/ExoqYRm?editors=0010
     const cardMesh = initMeCard()

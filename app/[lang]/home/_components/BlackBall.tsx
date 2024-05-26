@@ -1,10 +1,10 @@
 'use client'
 import {useEffect, useMemo, useRef, useState} from 'react'
 
-import {Float, Line, Stars, Trail} from '@react-three/drei'
+import {Float, Stars, Trail} from '@react-three/drei'
 import {useFrame} from '@react-three/fiber'
 import {EffectComposer, Bloom} from '@react-three/postprocessing'
-import {Variant, motion} from 'framer-motion'
+import {motion} from 'framer-motion'
 import {MotionCanvas, motion as motion3d} from 'framer-motion-3d'
 import {EllipseCurve, Color} from 'three'
 import type {Mesh, SphereGeometry, Group} from 'three'

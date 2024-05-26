@@ -1,11 +1,9 @@
-import {GithubIcon, LinkedInIcon} from '@/components/server-only/icons'
-import {APP_DOMAIN, CODING_GAME, LINKS_MAP} from '@/config/site'
+import {LINKS_MAP} from '@/config/site'
 import {paragraph} from '@/config/variants/primitives'
-import {ReactNode} from 'react'
 
 import {Button} from '@nextui-org/button'
 import type {ButtonProps} from '@nextui-org/button'
-import {Link, LinkProps} from '@nextui-org/link'
+import {Link} from '@nextui-org/link'
 import clsx from 'clsx'
 
 const BTN_PROPS: ButtonProps = {

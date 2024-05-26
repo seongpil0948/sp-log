@@ -4,8 +4,6 @@ import {Chip} from '@nextui-org/chip'
 import type {ChipProps} from '@nextui-org/chip'
 import clsx from 'clsx'
 
-import {paragraph} from '../../config/variants/primitives'
-
 export interface ChipListProps {
   tags: string[]
   chipProps?: ChipProps

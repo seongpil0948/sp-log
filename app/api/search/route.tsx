@@ -4,7 +4,7 @@ import type {NextRequest} from 'next/server'
 import type {SearchResponse} from './types'
 // import getSearchBasic from "@/app/_utils/server/search";
 
-export async function GET(request: NextRequest, response: NextResponse) {
+export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams
   const keyword = searchParams.get('keyword')
   if (!keyword) {

@@ -4,7 +4,6 @@ import {getFBClientStore} from '@/config/firebase/clientApp'
 import {paragraph} from '@/config/variants/primitives'
 import React, {useCallback, useEffect} from 'react'
 
-import {Button} from '@nextui-org/button'
 import {Popover, PopoverContent, PopoverTrigger} from '@nextui-org/popover'
 import {Spinner} from '@nextui-org/spinner'
 import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell} from '@nextui-org/table'

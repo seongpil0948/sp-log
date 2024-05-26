@@ -1,3 +1,9 @@
+/* eslint-disable eslint-comments/disable-enable-pair */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-shadow */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable react/no-unknown-property */
 import {useRef, useLayoutEffect} from 'react'
 
 import {Canvas, useThree} from '@react-three/fiber'

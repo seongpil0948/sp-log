@@ -2,13 +2,9 @@
 import commonConfig from '@/config'
 import type {RefObject} from 'react'
 
-import {commonColors} from '@nextui-org/theme'
 import {
   AmbientLight,
-  AxesHelper,
-  Camera,
   DirectionalLight,
-  DirectionalLightHelper,
   Mesh,
   MeshBasicMaterial,
   MeshStandardMaterial,

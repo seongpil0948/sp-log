@@ -6,7 +6,7 @@ import type {NextRequest} from 'next/server'
 
 import SERVER_CONFIG from '../config'
 
-export async function GET(request: NextRequest, response: NextResponse) {
+export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams
   const newLocale = searchParams.get('locale')
   if (!newLocale) {

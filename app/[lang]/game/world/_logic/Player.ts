@@ -1,7 +1,5 @@
-import {AnimationMixer, type Scene, type Mesh, type AnimationAction, type Object3D, type Camera, Vector3} from 'three'
+import {AnimationMixer, type Scene, type Mesh, type AnimationAction, type Object3D, Vector3} from 'three'
 import type {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js'
-
-import CONFIG from '../config'
 
 import {isCloseTo} from './common'
 

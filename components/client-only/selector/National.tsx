@@ -26,15 +26,17 @@ function SelectorNational() {
     setSelected(option)
     setIsOpen(false)
 
-    fetch(`/api/locale?locale=${newLocale}`).then(res => {
-      if (res.ok) {
-        let newPath = path
-        if (oldLocale) {
-          newPath = newPath.replace(oldLocale, newLocale)
+    fetch(`/api/locale?locale=${newLocale}`)
+      .then(res => {
+        if (res.ok) {
+          let newPath = path
+          if (oldLocale) {
+            newPath = newPath.replace(oldLocale, newLocale)
+          }
+          router.replace(newPath)
         }
-        router.replace(newPath)
-      }
-    })
+      })
+      .catch(console.error)
   }
 
   return (

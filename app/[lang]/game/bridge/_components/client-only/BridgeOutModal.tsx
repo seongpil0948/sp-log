@@ -2,7 +2,7 @@ import {forwardRef, useImperativeHandle} from 'react'
 import type {ElementRef} from 'react'
 
 import {Button} from '@nextui-org/button'
-import {Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalProps, useDisclosure} from '@nextui-org/modal'
+import {Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure} from '@nextui-org/modal'
 
 const BridgeEnterModal = forwardRef<
   ElementRef<typeof Modal>,

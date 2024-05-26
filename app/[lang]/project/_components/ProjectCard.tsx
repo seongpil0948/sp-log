@@ -1,6 +1,5 @@
 'use client'
 
-import {isMobile} from '@/app/_utils/client/responsive'
 import {title, typo} from '@/config/variants/primitives'
 
 import {Card, CardBody} from '@nextui-org/card'

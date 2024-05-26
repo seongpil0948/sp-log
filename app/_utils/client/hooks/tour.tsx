@@ -3,7 +3,7 @@ import {useRef, useState} from 'react'
 import type {ReactNode, CSSProperties} from 'react'
 
 import clsx from 'clsx'
-import {motion, useAnimationControls} from 'framer-motion'
+import {motion} from 'framer-motion'
 
 const Z_INDEX = {
   overlay: 10,
