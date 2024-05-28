@@ -2,7 +2,7 @@ import commonConfig from '@/config'
 
 import Content from './content.mdx'
 
-import type {TAvailLocale} from '@/config'
+import type { TAvailLocale } from '@/config'
 
 
 export async function generateStaticParams() {
@@ -12,7 +12,7 @@ interface Param {
   params: {lang: TAvailLocale}
 }
 
-export default async function SSGPage({params: {lang}}: Param) {
+export default async function SSGPage({params: { lang }}: Param) {
   return (
     <div>
       <Content />

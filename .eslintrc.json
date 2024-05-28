@@ -20,6 +20,7 @@
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:eslint-comments/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended"
   ],
   "parser": "@typescript-eslint/parser",
@@ -107,15 +108,16 @@
           }
         ],
         "@typescript-eslint/no-unused-vars": [
-          "warn",
+          "error",
           {
             "args": "all",
-            "argsIgnorePattern": "^_",
             "caughtErrors": "all",
+            "argsIgnorePattern": "^(parent|dict|lang)|^_",
             "caughtErrorsIgnorePattern": "^_",
             "destructuredArrayIgnorePattern": "^_",
             "varsIgnorePattern": "^_",
-            "ignoreRestSiblings": true
+            "ignoreRestSiblings": true,
+            "vars": "all"
           }
         ],
         "import/no-extraneous-dependencies": "error",

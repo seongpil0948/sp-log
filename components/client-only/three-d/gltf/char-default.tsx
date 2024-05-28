@@ -1,17 +1,17 @@
 // eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable react/no-unknown-property */
 import commonConfig from '@/config'
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from 'react'
 
-import {useAnimations} from '@react-three/drei'
-import {useFrame, useLoader} from '@react-three/fiber'
-import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js'
+import { useAnimations } from '@react-three/drei'
+import { useFrame, useLoader } from '@react-three/fiber'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
 export const CharacterDefault = ({isMobile = false}) => {
   const gltf = useLoader(GLTFLoader, commonConfig.game.character.default)
   const {ref, actions, names, mixer} = useAnimations(gltf.animations)
   const [index] = useState(0)
-  useFrame((state, delta) => {
+  useFrame((_state, delta) => {
     mixer.update(delta * 0.5)
   })
 

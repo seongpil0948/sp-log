@@ -1,20 +1,21 @@
 'use client'
-import {isMobile} from '@/app/_utils/client/responsive'
+import { isMobile } from '@/app/_utils/client/responsive'
 import commonConfig from '@/config'
-import {useEffect, useRef, useState} from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import gsap from 'gsap'
-import {useTheme} from 'next-themes'
+import { useTheme } from 'next-themes'
 import * as THREE from 'three'
-import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
-import type {GLTF} from 'three/examples/jsm/loaders/GLTFLoader.js'
+import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
 export default function About(props: {rootSelector: string}) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [currentSection, setCurrentSection] = useState(0)
   const [actionCard, setActionCard] = useState(true)
   const {theme, setTheme} = useTheme()
+  const characterInfo = useRef<InitCharacter | undefined>()
   useEffect(() => {
     const rootContainer = document.querySelector(props.rootSelector)
     if (!canvasRef.current || !rootContainer) return
@@ -27,8 +28,11 @@ export default function About(props: {rootSelector: string}) {
     const gltfLoader = new GLTFLoader()
     scene.background = new THREE.Color('white')
     const camera = getCamera()
-    let characterInfo: InitCharacter | undefined = undefined
-    characterInfo = await initCharacter(gltfLoader, scene)
+    initCharacter(gltfLoader, scene).then(info => {
+      characterInfo.current = info
+    }).catch((e)=> {
+      console.error(`Failed to load character: ${e}`)
+    })
     scene.add(camera)
     // Card https://codepen.io/jakedowns/pen/ExoqYRm?editors=0010
     const cardMesh = initMeCard()
@@ -67,8 +71,8 @@ export default function About(props: {rootSelector: string}) {
         cardMesh.rotation.z += delta
         cardMesh.rotation.y += delta * 0.5
       }
-      if (characterInfo) {
-        characterInfo.mixer.update(delta)
+      if (characterInfo.current) {
+        characterInfo.current.mixer.update(delta)
       }
       renderer.render(scene, camera)
       renderer.setAnimationLoop(draw)

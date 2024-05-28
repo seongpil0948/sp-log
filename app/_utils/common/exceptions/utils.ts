@@ -1,6 +1,6 @@
-import {type FirebaseError} from 'firebase/app'
+import { type FirebaseError } from 'firebase/app'
 
-const isFirebaseError = (err: any): err is FirebaseError => err.code && err.message
+const isFirebaseError = (err: any): err is FirebaseError => !!(err.code && err.message)
 
 export function handleError(error: unknown): {
   title?: string

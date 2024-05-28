@@ -1,8 +1,8 @@
-import {RequiredField, commonToJson, commonFromJson} from '@/app/_utils/common'
+import { RequiredField, commonFromJson, commonToJson } from '@/app/_utils/common'
 
-import {collection, collectionGroup} from 'firebase/firestore'
+import { collection, collectionGroup } from 'firebase/firestore'
 
-import type {QueryDocumentSnapshot, WithFieldValue, CollectionReference, Firestore} from 'firebase/firestore'
+import type { CollectionReference, Firestore, QueryDocumentSnapshot, WithFieldValue } from 'firebase/firestore'
 
 export type ECollection =
   | 'post'
@@ -72,6 +72,7 @@ export function getPCollectionStr(p: ICollectionParam) {
 
 export function getPCollection<T>(store: Firestore, p: ICollectionParam): CollectionReference<T> {
   const str = getPCollectionStr(p)
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return collection(store, str).withConverter(fireConverter<T>())
 }
 
@@ -88,6 +89,7 @@ export function getPCollectionGroup(store: Firestore, c: ECollection) {
 }
 
 export const fireConverter = <T>(toJson?: (d: T) => any, fromJson?: (d: any) => T) => ({
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   toFirestore: (data: WithFieldValue<T>) => (toJson ? toJson(data as T) : commonToJson(data)),
   fromFirestore: (snap: QueryDocumentSnapshot) =>
     fromJson ? fromJson(snap.data()) : (commonFromJson(snap.data()) as T),
