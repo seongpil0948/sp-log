@@ -1,7 +1,8 @@
 import {NextResponse} from 'next/server'
-import type {NextRequest} from 'next/server'
 
 import type {SearchResponse} from './types'
+import type {NextRequest} from 'next/server'
+
 // import getSearchBasic from "@/app/_utils/server/search";
 
 export async function GET(request: NextRequest) {

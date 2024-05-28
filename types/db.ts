@@ -1,5 +1,4 @@
 import type admin from '@/config/firebase/nodeApp'
-
 import type {DocumentData, Firestore, QueryDocumentSnapshot} from 'firebase/firestore'
 
 export interface PaginateParam<T> {

@@ -3,14 +3,14 @@
 import {title, typo} from '@/config/variants/primitives'
 
 import {Card, CardBody} from '@nextui-org/card'
-import type {CardProps} from '@nextui-org/card'
 import {Image} from '@nextui-org/image'
 import clsx from 'clsx'
 import {useRouter} from 'next/navigation'
 
-import type {IProject} from '../types'
-
 import {ProjectTypeIcon, ProjectUsing} from './server-only/icons'
+
+import type {IProject} from '../types'
+import type {CardProps} from '@nextui-org/card'
 
 export default function ProjectCard(props: {p: IProject; classNames?: CardProps['classNames']}) {
   const {p} = props

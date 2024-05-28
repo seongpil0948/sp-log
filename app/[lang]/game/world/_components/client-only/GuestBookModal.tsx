@@ -1,8 +1,12 @@
+// eslint-disable-next-line eslint-comments/disable-enable-pair
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 import ViewGuestBook from '@/app/[lang]/game/_guestbook/components/ViewGuestBook'
-import {forwardRef, useImperativeHandle, useState} from 'react'
-import type {ElementRef} from 'react'
+import { forwardRef, useImperativeHandle, useState } from 'react'
 
-import {Modal, ModalContent, useDisclosure} from '@nextui-org/modal'
+import { Modal, ModalContent, useDisclosure } from '@nextui-org/modal'
+
+import type { ElementRef } from 'react'
+
 
 const BridgeEnterModal = forwardRef<
   ElementRef<typeof Modal>,

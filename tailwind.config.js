@@ -1,7 +1,8 @@
-import {nextui} from '@nextui-org/theme'
+// eslint-disable-next-line eslint-comments/disable-enable-pair
+/* eslint-disable @typescript-eslint/no-var-requires */
+import { commonColors, nextui } from '@nextui-org/theme'
 const plugin = require('tailwindcss/plugin')
 const defaultTheme = require('tailwindcss/defaultTheme')
-import {commonColors} from '@nextui-org/theme'
 
 // const defaultTheme = require('tailwindcss/defaultTheme')
 /** @type {import('tailwindcss').Config} */
@@ -42,7 +43,7 @@ module.exports = {
   darkMode: 'class',
   plugins: [
     nextui(),
-    plugin(function ({addComponents, addVariant}) {
+    plugin(({addComponents, addVariant}) => {
       addComponents({
         // Flex Pattern
         '.flex-column': {

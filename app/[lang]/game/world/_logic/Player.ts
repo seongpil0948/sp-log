@@ -1,7 +1,9 @@
 import {AnimationMixer, type Scene, type Mesh, type AnimationAction, type Object3D, Vector3} from 'three'
-import type {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js'
 
 import {isCloseTo} from './common'
+
+import type {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js'
+
 
 interface ConstructorParams {
   scene: Scene

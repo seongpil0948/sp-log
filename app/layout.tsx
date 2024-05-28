@@ -1,14 +1,16 @@
 import '@/styles/globals.css'
 import {fontSans} from '@/config/fonts'
 import {siteConfig} from '@/config/site'
-import type {ReactNode} from 'react'
+
 
 import {Analytics} from '@vercel/analytics/react'
 import {SpeedInsights} from '@vercel/speed-insights/next'
 import clsx from 'clsx'
-import type {Metadata, Viewport} from 'next'
 
 import {Providers} from './_providers'
+
+import type {Metadata, Viewport} from 'next'
+import type {ReactNode} from 'react'
 
 export const viewport: Viewport = {
   themeColor: [

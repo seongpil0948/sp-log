@@ -1,8 +1,9 @@
 'use client'
-import type {ReactNode} from 'react'
 
 import {Table, TableColumn, TableRow, TableCell, TableHeader, TableBody} from '@nextui-org/table'
+
 import type {TableProps} from '@nextui-org/table'
+import type {ReactNode} from 'react'
 
 type Key = TableProps['key']
 interface KT {

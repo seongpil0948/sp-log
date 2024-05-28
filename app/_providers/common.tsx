@@ -1,13 +1,15 @@
+// eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 
 import config from '@/config'
-import type {TAvailLocale} from '@/config'
-import {useState, useEffect, createContext, useContext} from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 
-import {usePathname} from 'next/navigation'
+import { usePathname } from 'next/navigation'
 
-import {ContextUndefined} from '../_utils/common'
+import { ContextUndefined } from '../_utils/common'
+
+import type { TAvailLocale } from '@/config'
 
 type CommonContextType = {
   clientLocale: TAvailLocale

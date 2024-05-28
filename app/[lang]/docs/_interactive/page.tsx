@@ -1,6 +1,7 @@
+import commonConfig from '@/config'
+
 import {redirect} from 'next/navigation'
 
-import commonConfig from '@/config'
 export async function generateStaticParams() {
   return commonConfig.i18n.locales.map(lang => ({lang}))
 }

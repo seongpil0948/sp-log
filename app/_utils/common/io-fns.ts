@@ -37,8 +37,8 @@ export function choice<T>(choices: T[]): T {
   return choices[index]
 }
 
-export function valueByDotsKey(obj: any, key: string) {
-  let result: any = null
+export function valueByDotsKey<T extends { [k: string]: any }>(obj: T, key: string) {
+  let result = {} as T
   key.split('.').forEach(k => {
     result = result === null ? obj[k] : result[k]
   })
@@ -46,14 +46,14 @@ export function valueByDotsKey(obj: any, key: string) {
 }
 
 export const getCopyWith = <T extends {}>(defaultObj: () => T): ((props?: Partial<T>) => T) => {
-  return function (props?: Partial<T>) {
+  return (props?: Partial<T>) => {
     return Object.assign<T, Partial<T>>(defaultObj(), props ?? {}) as T
   }
 }
 
 export const debounceFunction = <Func extends (args: any) => void>(callback: Func, delay: number) => {
   // let timer: NodeJS.Timeout;
-  let timer: any
+  let timer: ReturnType<typeof setTimeout>
   return (args: any) => {
     // 실행한 함수(setTimeout())를 취소
     clearTimeout(timer)

@@ -1,13 +1,13 @@
 'use server'
 import type * as admin from 'firebase-admin'
 
-import {commonFromJson, commonToJson} from '../../common'
+// import {commonFromJson, commonToJson} from '../../common'
 
-export const fireConverterAdm = <T>(toJson?: (d: T) => any, fromJson?: (d: any) => T) => ({
-  toFirestore: (data: admin.firestore.WithFieldValue<T>) => (toJson ? toJson(data as T) : commonToJson(data)),
-  fromFirestore: (snap: admin.firestore.QueryDocumentSnapshot) =>
-    fromJson ? fromJson(snap.data()) : (commonFromJson(snap.data()) as T),
-})
+// export const fireConverterAdm = <T>(toJson?: (d: T) => any, fromJson?: (d: any) => T) => ({
+//   toFirestore: (data: admin.firestore.WithFieldValue<T>) => (toJson ? toJson(data as T) : commonToJson(data)),
+//   fromFirestore: (snap: admin.firestore.QueryDocumentSnapshot) =>
+//     fromJson ? fromJson(snap.data()) : (commonFromJson(snap.data()) as T),
+// })
 
 export async function batchInQueryServer<T extends admin.firestore.DocumentData>(
   ids: string[] | number[],
@@ -22,7 +22,7 @@ export async function batchInQueryServer<T extends admin.firestore.DocumentData>
     const batch = ids.splice(0, 10) // batch size 10
     // add the batch request to to a queue
 
-    batches.push(c.where(field, 'in', [...batch]).get() as any)
+    batches.push(c.where(field, 'in', [...batch]).get() as Promise<admin.firestore.QuerySnapshot<T>>)
   }
   return Promise.all(batches)
 }

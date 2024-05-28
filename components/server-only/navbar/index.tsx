@@ -11,9 +11,10 @@ import NextLink from 'next/link'
 import SearchModal from '../../client-only/button/SearchModal'
 
 import {NavMobileMenu} from './client'
-import type {CommonNavbarProps} from './client'
 import {PrefixComp} from './side'
 import {navbar} from './theme'
+
+import type {CommonNavbarProps} from './client'
 
 export function cn(...inputs: ClassValue[]) {
   return clsx(inputs)

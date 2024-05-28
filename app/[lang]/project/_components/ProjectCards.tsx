@@ -1,19 +1,20 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import {useCursor} from '@/app/_utils/client/hooks/three-d/use-cursor'
-import {isMobile} from '@/app/_utils/client/responsive'
-import React, {useEffect, useState} from 'react'
-import type {ReactNode} from 'react'
+import { useCursor } from '@/app/_utils/client/hooks/three-d/use-cursor'
+import { isMobile } from '@/app/_utils/client/responsive'
+import { useEffect, useState } from 'react'
 
-import {useFrame, useThree} from '@react-three/fiber'
-import type {ThreeEvent} from '@react-three/fiber'
-import {motion} from 'framer-motion-3d'
+
+import { useFrame, useThree } from '@react-three/fiber'
+import { motion } from 'framer-motion-3d'
 import gsap from 'gsap'
 import * as THREE from 'three'
 
 import ProjectPanel from '../_logics/ProjectPanel'
-import {getRandomProjectSingleImg} from '../_logics/projects'
-import {projectsConfig} from '../config'
-import type {IProject} from '../types'
+import { getRandomProjectSingleImg } from '../_logics/projects'
+import { projectsConfig } from '../config'
+
+import type { IProject } from '../types'
+import type { ThreeEvent } from '@react-three/fiber'
+import type { ReactNode } from 'react'
 
 const textureLoader = new THREE.TextureLoader()
 const imageCache = new Map<string, THREE.Texture>()
@@ -32,7 +33,9 @@ function ProjectImage(props: {src: string}) {
 
   return (
     <mesh>
+      {/* eslint-disable-next-line react/no-unknown-property */}
       <planeGeometry attach="geometry" args={[0.3, 0.3]} />
+      {/* eslint-disable-next-line react/no-unknown-property */}
       <meshBasicMaterial attach="material" map={texture} />
     </mesh>
   )
@@ -100,6 +103,7 @@ export function ProjectCards(props: {projects: IProject[]; shape: TShape; onSele
       y: 3,
       z: 3,
     })
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     props.onSelect(e.eventObject.userData.projectInfo)
     setTimeout(
       () => {

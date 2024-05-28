@@ -1,4 +1,5 @@
 import commonConfig from '@/config'
+
 import type {TAvailLocale} from '@/config'
 import 'server-only'
 

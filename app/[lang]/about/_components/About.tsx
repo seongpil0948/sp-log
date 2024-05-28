@@ -7,6 +7,7 @@ import gsap from 'gsap'
 import {useTheme} from 'next-themes'
 import * as THREE from 'three'
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js'
+
 import type {GLTF} from 'three/examples/jsm/loaders/GLTFLoader.js'
 
 export default function About(props: {rootSelector: string}) {

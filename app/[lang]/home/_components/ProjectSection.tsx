@@ -2,16 +2,19 @@
 import {wrap} from '@/app/_utils/client/motion'
 import {title} from '@/config/variants/primitives'
 import {useRef} from 'react'
-import type {ReactNode} from 'react'
+
 
 import clsx from 'clsx'
 import {motion, useTransform, useMotionValue, useAnimationFrame, useInView} from 'framer-motion'
-import type {MotionValue} from 'framer-motion'
+
 
 import ProjectCardListHorizontal from '../../project/_components/server-only/ProjectCardsHorizontal'
 import PROJECTS from '../../project/_logics/projects'
 import SingletonHome from '../_utils/singleton'
 import {sectionCls} from '../theme'
+
+import type {MotionValue} from 'framer-motion'
+import type {ReactNode} from 'react'
 
 export function ProjectSection() {
   const sectionRef = useRef<HTMLDivElement>(null)

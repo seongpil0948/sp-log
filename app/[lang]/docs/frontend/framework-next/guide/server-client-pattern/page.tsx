@@ -1,7 +1,9 @@
 import commonConfig from '@/config'
-import type {TAvailLocale} from '@/config'
 
 import Content from './content.mdx'
+
+import type {TAvailLocale} from '@/config'
+
 
 export async function generateStaticParams() {
   return commonConfig.i18n.locales.map(lang => ({lang}))

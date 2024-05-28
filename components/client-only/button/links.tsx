@@ -2,9 +2,10 @@ import {LINKS_MAP} from '@/config/site'
 import {paragraph} from '@/config/variants/primitives'
 
 import {Button} from '@nextui-org/button'
-import type {ButtonProps} from '@nextui-org/button'
 import {Link} from '@nextui-org/link'
 import clsx from 'clsx'
+
+import type {ButtonProps} from '@nextui-org/button'
 
 const BTN_PROPS: ButtonProps = {
   as: Link,

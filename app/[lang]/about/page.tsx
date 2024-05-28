@@ -1,7 +1,7 @@
 import {getOnlyFiles} from '@/app/_utils/server/dir-tree'
 import {AbsoluteFooter} from '@/components/server-only/footers'
 import commonConfig from '@/config'
-import type {TAvailLocale} from '@/config'
+
 
 import clsx from 'clsx'
 
@@ -9,6 +9,8 @@ import About from './_components/About'
 import AboutSectionEn from './_components/AboutSectionEn'
 import AboutSectionKo from './_components/AboutSectionKo'
 import styles from './styles.module.css'
+
+import type {TAvailLocale} from '@/config'
 
 export async function generateStaticParams() {
   return commonConfig.i18n.locales.map(lang => ({lang}))

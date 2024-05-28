@@ -1,20 +1,21 @@
 'use client'
 
 import {extractFromPath} from '@/app/_utils/common/locale'
-import type {IGetTreeArgs} from '@/app/_utils/server/dir-tree'
 import commonConfig from '@/config'
-import type {TAvailLocale} from '@/config'
 import {siteConfig} from '@/config/site'
 import {typo} from '@/config/variants/primitives'
-import type {ReactNode} from 'react'
+
 
 import {Link} from '@nextui-org/link'
 import {NavbarMenu, NavbarMenuItem} from '@nextui-org/navbar'
-import type {NavbarSlots, SlotsToClasses} from '@nextui-org/theme'
 import {usePathname} from 'next/navigation'
 
 import type {CommonDrawerProps} from '../../client-only/drawer'
 import type {TreeSectionProps} from '../../client-only/tree-section'
+import type {IGetTreeArgs} from '@/app/_utils/server/dir-tree'
+import type {TAvailLocale} from '@/config'
+import type {NavbarSlots, SlotsToClasses} from '@nextui-org/theme'
+import type {ReactNode} from 'react'
 
 export interface CommonNavbarProps {
   tree?: TreeSectionProps

@@ -1,6 +1,6 @@
-import type {TreeSectionProps} from '@/components/client-only/tree-section'
-
 import dirTree from 'directory-tree'
+
+import type {TreeSectionProps} from '@/components/client-only/tree-section'
 import type {DirectoryTree, DirectoryTreeOptions, DirectoryTreeCallback} from 'directory-tree'
 // import { TreeSectionProps } from '../_components/client-only/tree-section'
 

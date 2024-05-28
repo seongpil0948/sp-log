@@ -1,8 +1,10 @@
 import alertTheme from '@/config/variants/theme'
-import type {ReactNode} from 'react'
+
 
 import {mdiAlertCircle, mdiInformation, mdiAlert, mdiCloseCircle} from '@mdi/js'
 import Icon from '@mdi/react'
+
+import type {ReactNode} from 'react'
 
 interface AlertTextProps {
   title?: string

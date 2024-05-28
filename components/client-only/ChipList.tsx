@@ -1,8 +1,9 @@
 import React from 'react'
 
 import {Chip} from '@nextui-org/chip'
-import type {ChipProps} from '@nextui-org/chip'
 import clsx from 'clsx'
+
+import type {ChipProps} from '@nextui-org/chip'
 
 export interface ChipListProps {
   tags: string[]

@@ -1,8 +1,9 @@
 'use client'
 
+import {DocSearch} from '@docsearch/react'
+
 import type {TAvailLocale} from '@/config'
 
-import {DocSearch} from '@docsearch/react'
 import '@docsearch/css'
 import './custom.css'
 

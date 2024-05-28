@@ -1,9 +1,11 @@
-import {Mesh} from 'three'
-import type {BoxGeometry, Material} from 'three'
+import { Mesh } from 'three'
 
-import {cm1, geo, mat, getSounds} from './common'
-import {Stuff} from './Stuff'
-import type {StuffChildParams} from './Stuff'
+
+import { cm1, geo, getSounds, mat } from './common'
+import { Stuff } from './Stuff'
+
+import type { StuffChildParams } from './Stuff'
+import type { BoxGeometry, Material } from 'three'
 
 type GlassType = 'normal' | 'strong'
 export class Glass extends Stuff {
@@ -61,12 +63,13 @@ export class Glass extends Stuff {
     this.cannonBody?.addEventListener('collide', playSound) // Add optional chaining to handle possible undefined value
     const sounds = getSounds()
     const sound = sounds[this.type] // Add type assertion to access the correct property
-    function playSound(e: any) {
+    async function playSound(e: any) {
       // Add type annotation to the 'e' parameter
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
       const strength = e.contact.getImpactVelocityAlongNormal()
       if (strength > 5) {
         sound.currentTime = 0
-        sound.play()
+        await sound.play()
         console.log(strength)
       }
     }

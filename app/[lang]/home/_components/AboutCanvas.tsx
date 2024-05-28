@@ -2,8 +2,9 @@
 
 import {useEffect, useState} from 'react'
 
-import type {MotionValue} from 'framer-motion'
 import {useRouter} from 'next/navigation'
+
+import type {MotionValue} from 'framer-motion'
 
 const frameCount = 15
 const urls = new Array(frameCount).fill(true).map((o, i) => `/home/moong-me/${(i + 1).toString()}.png`)

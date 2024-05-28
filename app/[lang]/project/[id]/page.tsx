@@ -1,6 +1,6 @@
 import {CmFooter} from '@/components/server-only/footers'
 import CommonNavbar from '@/components/server-only/navbar'
-import type {TAvailLocale} from '@/config'
+
 
 import {notFound} from 'next/navigation'
 
@@ -8,6 +8,8 @@ import {HeaderAbout} from '../../about/_components/Header'
 import ProjectContent from '../_components/ProjectContent'
 import ProjectCardListHorizontal from '../_components/server-only/ProjectCardsHorizontal'
 import {PROJECTS} from '../_logics/projects'
+
+import type {TAvailLocale} from '@/config'
 
 interface Param {
   params: {lang: TAvailLocale; id: string}

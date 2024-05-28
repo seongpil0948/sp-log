@@ -10,19 +10,17 @@
   // }
   "plugins": [
     "react",
-    "prettier",
     "@typescript-eslint",
     "eslint-comments",
     // "lodash",
-    "import",
-    "eslint-plugin-unused-imports"
+    "import"
   ],
   "extends": [
     "next",
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:prettier/recommended",
-    "plugin:eslint-comments/recommended"
+    "plugin:eslint-comments/recommended",
+    "plugin:@typescript-eslint/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -33,7 +31,9 @@
       "experimentalObjectRestSpread": true
     },
     "allowImportExportEverywhere": true,
-    "project": ["./tsconfig.json"]
+    "project": [
+      "./tsconfig.json"
+    ]
   },
   "env": {
     "es6": true,
@@ -50,7 +50,10 @@
     "import/internal-regex": "^(electron|react)$"
   },
   "rules": {
-    "func-names": ["error", "as-needed"],
+    "func-names": [
+      "error",
+      "as-needed"
+    ],
     "no-shadow": "error",
     "no-extra-semi": 0,
     "react/prop-types": 0,
@@ -58,50 +61,26 @@
     "react/no-unescaped-entities": 0,
     "react/jsx-no-target-blank": 0,
     "react/no-string-refs": 0,
-    "prettier/prettier": [
-      "error",
-      {
-        "printWidth": 120,
-        "tabWidth": 2,
-        "singleQuote": true,
-        "arrowParens": "avoid",
-        "trailingComma": "all",
-        "bracketSpacing": false,
-        "semi": false,
-        "useTabs": false,
-        "bracketSameLine": false
-      }
-    ],
     "eslint-comments/no-unused-disable": "error",
-
     "react/no-unknown-property": [
       "error",
       {
-        "ignore": ["jsx", "global"]
-      }
-    ],
-    // >>> eslint-plugin-unused-imports >>>
-    "no-unused-vars": "off", //
-
-    "unused-imports/no-unused-imports": "error",
-    "unused-imports/no-unused-vars": [
-      "warn",
-      {
-        "vars": "all",
-        "varsIgnorePattern": "^_",
-        "args": "after-used",
-        "argsIgnorePattern": "^_"
+        "ignore": [
+          "jsx",
+          "global"
+        ]
       }
     ]
-    // <<< eslint-plugin-unused-imports <<<
   },
   "overrides": [
     {
-      "files": ["**.ts", "**.tsx"],
+      "files": [
+        "**.ts",
+        "**.tsx"
+      ],
       "extends": [
         "plugin:@typescript-eslint/recommended",
-        "plugin:@typescript-eslint/recommended-requiring-type-checking",
-        "prettier"
+        "plugin:@typescript-eslint/recommended-requiring-type-checking"
       ],
       "rules": {
         "@typescript-eslint/explicit-function-return-type": "off",
@@ -112,37 +91,54 @@
         "@typescript-eslint/ban-types": "off",
         "@typescript-eslint/require-await": "off",
         "no-shadow": "off",
-        "@typescript-eslint/no-shadow": ["error", {"ignoreTypeValueShadow": true}],
+        "@typescript-eslint/no-shadow": [
+          "error",
+          {
+            "ignoreTypeValueShadow": true
+          }
+        ],
         "@typescript-eslint/no-unsafe-assignment": "off",
         "@typescript-eslint/no-unsafe-member-access": "off",
         "@typescript-eslint/restrict-template-expressions": "off",
-        "@typescript-eslint/consistent-type-imports": ["error", {"disallowTypeAnnotations": false}],
-        "@typescript-eslint/no-unused-vars": "warn",
-        // "@typescript-eslint/no-unused-vars": [
-        //   "error",
-        //   {
-        //     "args": "all",
-        //     "argsIgnorePattern": "^_",
-        //     "caughtErrors": "all",
-        //     "caughtErrorsIgnorePattern": "^_",
-        //     "destructuredArrayIgnorePattern": "^_",
-        //     "varsIgnorePattern": "^_",
-        //     "ignoreRestSiblings": true
-        //   }
-        // ],
-
+        "@typescript-eslint/consistent-type-imports": [
+          "error",
+          {
+            "disallowTypeAnnotations": false
+          }
+        ],
+        "@typescript-eslint/no-unused-vars": [
+          "warn",
+          {
+            "args": "all",
+            "argsIgnorePattern": "^_",
+            "caughtErrors": "all",
+            "caughtErrorsIgnorePattern": "^_",
+            "destructuredArrayIgnorePattern": "^_",
+            "varsIgnorePattern": "^_",
+            "ignoreRestSiblings": true
+          }
+        ],
         "import/no-extraneous-dependencies": "error",
         "import/no-anonymous-default-export": "error",
         "import/order": [
           "error",
           {
-            "groups": ["builtin", "internal", "external", "parent", "sibling", "index"],
+            "groups": [
+              "builtin",
+              "internal",
+              "external",
+              "parent",
+              "sibling",
+              "index",
+              "type"
+            ],
             "newlines-between": "always",
-            "alphabetize": {
-              "order": "asc",
-              "orderImportKind": "desc",
-              "caseInsensitive": true
-            }
+            // "alphabetize": {
+            //   "order": "asc",
+            //   "orderImportKind": "desc",
+            //   "caseInsensitive": true
+            // },
+            "distinctGroup": false
           }
         ]
       }

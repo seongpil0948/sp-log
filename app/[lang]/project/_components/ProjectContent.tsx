@@ -1,25 +1,25 @@
-import {BasicCarousel} from '@/components/client-only/Carousel'
+import { BasicCarousel } from '@/components/client-only/Carousel'
 import themeList from '@/config/variants/list'
-import {main, paragraph, title, typo} from '@/config/variants/primitives'
+import { main, paragraph, title, typo } from '@/config/variants/primitives'
 
-import {Chip} from '@nextui-org/chip'
-import {Image} from '@nextui-org/image'
-import {Link} from '@nextui-org/link'
+import { Chip } from '@nextui-org/chip'
+import { Image } from '@nextui-org/image'
+import { Link } from '@nextui-org/link'
 import clsx from 'clsx'
 
-import {ProjectTypeIcon, ProjectUsing} from '../_components/server-only/icons'
-import type {IProject} from '../types'
+import { ProjectTypeIcon, ProjectUsing } from '../_components/server-only/icons'
+
+import type { IProject } from '../types'
 
 export function ProjectContent(props: {post: IProject}) {
   const {post} = props
-  const {ul: ulClasses, ol: olClasses} = themeList()
+  const {ul: ulClasses} = themeList()
   const roles = [...(post?.roleDetail ?? []), post?.myRole]
   return (
     <div className={clsx(main({justify: 'start', size: 'lg'}), typo({font: 'gothic'}), 'px-8 mt-4 mb-8 text-start')}>
       <h1 className={title()}>{post.title}</h1>
       {post.titleImg && <Image alt="title Image" src={post.titleImg} />}
-      {post.description &&
-        post.description.map((desc, idx) => (
+      {post.description?.map((desc, idx) => (
           <p
             key={idx}
             className={paragraph({

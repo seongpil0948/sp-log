@@ -1,10 +1,12 @@
 // refer https://www.apple.com/kr/airpods-pro/
 import config from '@/config'
-import type {TAvailLocale} from '@/config'
+
 
 import {getDictionary} from '../dictionaries'
 
 import {Scene} from './_components/Scene'
+
+import type {TAvailLocale} from '@/config'
 
 export async function generateStaticParams() {
   return config.i18n.locales.map(lang => ({lang}))

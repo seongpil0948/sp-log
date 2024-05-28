@@ -1,9 +1,10 @@
 import commonConfig from '@/config'
-import type {TAvailLocale} from '@/config'
-
-import type {ResolvingMetadata, Metadata} from 'next'
 
 import Content from './content.mdx'
+
+import type {TAvailLocale} from '@/config'
+import type {ResolvingMetadata, Metadata} from 'next'
+
 
 // import { getDictionary } from '@/app/[lang]/dictionaries'
 

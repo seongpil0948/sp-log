@@ -1,4 +1,5 @@
 import config from '@/config'
+
 import type {TAvailLocale} from '@/config'
 
 export async function generateStaticParams() {

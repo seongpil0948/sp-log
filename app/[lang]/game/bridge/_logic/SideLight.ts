@@ -1,7 +1,9 @@
-import {Mesh} from 'three'
-import type {SphereGeometry, Material} from 'three'
+import { Mesh } from 'three'
 
-import {cm1, cm2, geo, mat} from './common'
+import { cm1, cm2, geo, mat } from './common'
+
+import type { Material, SphereGeometry } from 'three'
+
 
 export class SideLight {
   name: string
@@ -31,6 +33,7 @@ export class SideLight {
   }
 
   turnOff() {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     ;(this.mesh.material as any).color.set(cm2.lightOffColor)
   }
 }

@@ -1,7 +1,8 @@
 import dirTree from 'directory-tree'
 
-import type {SearchEngineCommon} from '../engines/basic'
 import {getDocsFromMd, isDocName, toList} from '../utils'
+
+import type {SearchEngineCommon} from '../engines/basic'
 
 export async function initializedSearchBasic(engine: SearchEngineCommon) {
   // only invoke once when build

@@ -1,8 +1,10 @@
 import {getDictionary} from '@/app/[lang]/dictionaries'
 import commonConfig from '@/config'
-import type {TAvailLocale} from '@/config'
 
 import Bridge from './_components/client-only/Bridge'
+
+import type {TAvailLocale} from '@/config'
+
 
 export async function generateStaticParams() {
   return commonConfig.i18n.locales.map(lang => ({lang}))

@@ -1,7 +1,10 @@
+/* eslint-disable eslint-comments/disable-enable-pair */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 'use client'
 
-import {GoHomeBtnAbsolute} from '@/components/client-only/button/absolute'
-import {useEffect, useRef} from 'react'
+import { GoHomeBtnAbsolute } from '@/components/client-only/button/absolute'
+import { useEffect, useRef } from 'react'
 
 import gsap from 'gsap'
 import * as THREE from 'three'
@@ -86,7 +89,7 @@ export default function World() {
     }
     function draw() {
       if (s.initializable) {
-        s.initialize().then(_draw)
+        s.initialize().then(_draw).catch(console.error)
       } else {
         _draw()
       }

@@ -1,8 +1,9 @@
 'use client'
 import {World, Material} from 'cannon-es'
 import {Scene, BoxGeometry, SphereGeometry, MeshPhongMaterial} from 'three'
-import type {AnimationMixer} from 'three'
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js'
+
+import type {AnimationMixer} from 'three'
 
 export const cm1 = {
   scene: new Scene(),

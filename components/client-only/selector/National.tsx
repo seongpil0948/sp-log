@@ -1,10 +1,11 @@
 'use client'
-import type {TAvailLocale} from '@/config'
 import {useState} from 'react'
 
 import {Button} from '@nextui-org/button'
 import {Popover, PopoverContent, PopoverTrigger} from '@nextui-org/popover'
 import {usePathname, useRouter} from 'next/navigation'
+
+import type {TAvailLocale} from '@/config'
 
 type LocaleIcon = '🇺🇸' | '🇰🇷'
 

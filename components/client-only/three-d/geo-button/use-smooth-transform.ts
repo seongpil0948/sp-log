@@ -1,4 +1,5 @@
 import {useSpring, useTransform, type SpringOptions} from 'framer-motion'
+
 import type {MotionValue} from 'framer-motion'
 
 export function useSmoothTransform<T>(

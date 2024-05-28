@@ -1,10 +1,7 @@
 import {readFile} from 'fs/promises'
 
-import type {SearchDoc} from '@/app/api/search/types'
 
-import type {DirectoryTree} from 'directory-tree'
 import {selectAll} from 'hast-util-select'
-import type {select} from 'hast-util-select'
 import {toHast} from 'mdast-util-to-hast'
 import markdown from 'remark-parse'
 import html from 'remark-rehype'
@@ -13,6 +10,10 @@ import {unified} from 'unified'
 import {pathToHref} from '../../dir-tree'
 
 import {sanitizeText} from './text'
+
+import type {SearchDoc} from '@/app/api/search/types'
+import type {DirectoryTree} from 'directory-tree'
+import type {select} from 'hast-util-select'
 
 type El = ReturnType<typeof select>
 

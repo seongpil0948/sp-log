@@ -1,6 +1,6 @@
 'use client'
 import {Suspense, useMemo, useState} from 'react'
-import type {ReactNode} from 'react'
+
 
 import {motion, MotionConfig, useMotionValue} from 'framer-motion'
 import {useRouter} from 'next/navigation'
@@ -8,6 +8,8 @@ import useMeasure from 'react-use-measure'
 
 import {BasicShape, CharacterShape, transition} from './shapes'
 import {introBtn} from './theme'
+
+import type {ReactNode} from 'react'
 
 export default function GeoButton(props: {
   onClick?: () => void

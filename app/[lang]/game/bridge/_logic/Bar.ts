@@ -1,8 +1,10 @@
 import {Mesh} from 'three'
-import type {BoxGeometry, Material} from 'three'
+
 
 import {cm1, geo, mat} from './common'
 import {Stuff} from './Stuff'
+
+import type {BoxGeometry, Material} from 'three'
 
 export class Bar extends Stuff {
   geometry: BoxGeometry

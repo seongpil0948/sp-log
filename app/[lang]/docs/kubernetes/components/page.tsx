@@ -3,9 +3,11 @@ export async function generateStaticParams() {
 }
 
 import commonConfig from '@/config'
-import type {TAvailLocale} from '@/config'
 
 import {redirect} from 'next/navigation'
+
+import type {TAvailLocale} from '@/config'
+
 interface Param {
   params: {lang: TAvailLocale}
 }

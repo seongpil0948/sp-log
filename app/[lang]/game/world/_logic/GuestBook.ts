@@ -1,8 +1,9 @@
 'use client'
 
+import {isCloseTo} from './common'
+
 import type {Mesh} from 'three'
 
-import {isCloseTo} from './common'
 
 export default class GuestBook {
   x: number

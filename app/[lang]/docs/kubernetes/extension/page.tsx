@@ -1,8 +1,9 @@
 import commonConfig from '@/config'
 
+import Content from './content.mdx'
+
 import type {Metadata} from 'next'
 
-import Content from './content.mdx'
 
 export async function generateStaticParams() {
   return commonConfig.i18n.locales.map(lang => ({lang}))

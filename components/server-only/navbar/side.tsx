@@ -1,20 +1,19 @@
 'use client'
 
-import {isMobile} from '@/app/_utils/client/responsive'
-import {siteConfig} from '@/config/site'
-import type {ReactNode, JSX} from 'react'
+import { isMobile } from '@/app/_utils/client/responsive'
+import { siteConfig } from '@/config/site'
 
-import {AccordionItem, Accordion} from '@nextui-org/accordion'
+
+import { Accordion, AccordionItem } from '@nextui-org/accordion'
 import Link from 'next/link'
-import {usePathname} from 'next/navigation'
+import { usePathname } from 'next/navigation'
 
 import CommonDrawer from '../../client-only/drawer'
-import {TreeSection} from '../../client-only/tree-section'
-import type {TreeSectionProps} from '../../client-only/tree-section'
+import { TreeSection } from '../../client-only/tree-section'
 
-// import { Link } from '@nextui-org/link'
-
-import type {CommonNavbarProps} from './client'
+import type { JSX, ReactNode } from 'react'
+import type { TreeSectionProps } from '../../client-only/tree-section'
+import type { CommonNavbarProps } from './client'
 
 export function PrefixComp(props: CommonNavbarProps): ReactNode {
   const path = usePathname()

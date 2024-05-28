@@ -1,16 +1,18 @@
 'use client'
 
 import {forwardRef} from 'react'
-import type {ElementRef} from 'react'
+
 
 import {Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure} from '@nextui-org/modal'
-import type {ModalProps} from '@nextui-org/modal'
-import type {ModalSlots, SlotsToClasses} from '@nextui-org/theme'
 import {useIsSSR} from '@react-aria/ssr'
 import {clsx, type ClassValue} from 'clsx'
-import type {HTMLMotionProps} from 'framer-motion'
 
 import {sheet} from './theme'
+
+import type {ModalProps} from '@nextui-org/modal'
+import type {ModalSlots, SlotsToClasses} from '@nextui-org/theme'
+import type {HTMLMotionProps} from 'framer-motion'
+import type {ElementRef} from 'react'
 
 export function cn(...inputs: ClassValue[]) {
   return clsx(inputs)

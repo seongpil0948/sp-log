@@ -1,9 +1,11 @@
 import {splitLocaleAndPath, getLocaleRequest} from '@/app/_utils/server/locale'
 
 import {NextResponse} from 'next/server'
-import type {NextRequest} from 'next/server'
 
 import commonConfig from './config'
+
+import type {NextRequest} from 'next/server'
+
 
 export const config = {
   // Matcher ignoring `/_next/` and `/api/`

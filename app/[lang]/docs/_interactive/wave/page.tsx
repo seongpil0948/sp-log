@@ -1,6 +1,7 @@
+import commonConfig from '@/config'
+
 import {WaveView} from './_components/client-only/WaveView'
 
-import commonConfig from '@/config'
 export async function generateStaticParams() {
   return commonConfig.i18n.locales.map(lang => ({lang}))
 }

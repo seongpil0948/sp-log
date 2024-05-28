@@ -1,11 +1,13 @@
 import commonConfig from '@/config'
 
 import {Mesh, AnimationMixer} from 'three'
-import type {Object3D, AnimationAction} from 'three'
+
 
 import {cm1} from './common'
 import {Stuff} from './Stuff'
+
 import type {StuffChildParams} from './Stuff'
+import type {Object3D, AnimationAction} from 'three'
 
 const SUFFIX = '-player'
 export class Player extends Stuff {

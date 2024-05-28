@@ -8,7 +8,7 @@ import {Image} from '@nextui-org/image'
 import {Link as NextLink} from '@nextui-org/link'
 import {Snippet} from '@nextui-org/snippet'
 import clsx from 'clsx'
-import type {MDXComponents} from 'mdx/types'
+
 
 import {ChipList} from './components/client-only/ChipList'
 import {AlertText} from './components/server-only/alert'
@@ -16,6 +16,8 @@ import {HeaderLink} from './components/server-only/text/HeaderLink'
 import preTheme from './config/variants/pre'
 import {listText, paragraph} from './config/variants/primitives'
 import tableTheme from './config/variants/table'
+
+import type {MDXComponents} from 'mdx/types'
 
 const {ul: ulClasses, ol: olClasses} = themeList()
 const {table, th, td} = tableTheme()

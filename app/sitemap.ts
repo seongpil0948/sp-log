@@ -3,10 +3,11 @@ import path from 'path'
 
 import {APP_DOMAIN, reduceChildLinks, siteConfig} from '@/config/site'
 
-import type {MetadataRoute} from 'next'
 
 import {uniqueFilter} from './_utils/common'
 import {getTree} from './_utils/server/dir-tree'
+
+import type {MetadataRoute} from 'next'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const innerLinks = getAllInnerLinks()

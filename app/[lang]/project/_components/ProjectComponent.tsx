@@ -1,21 +1,23 @@
 'use client'
-import {ButtonHome} from '@/components/client-only/button/links'
-import {title} from '@/config/variants/primitives'
-import React, {useState} from 'react'
+import { ButtonHome } from '@/components/client-only/button/links'
+import { title } from '@/config/variants/primitives'
+import { useState } from 'react'
 
-import {Button} from '@nextui-org/button'
-import {useDisclosure, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter} from '@nextui-org/modal'
-import {OrbitControls} from '@react-three/drei'
-import {Canvas} from '@react-three/fiber'
+import { Button } from '@nextui-org/button'
+import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from '@nextui-org/modal'
+import { OrbitControls } from '@react-three/drei'
+import { Canvas } from '@react-three/fiber'
 import clsx from 'clsx'
 
 import projects from '../_logics/projects'
-import {projectsConfig} from '../config'
-import type {IProject} from '../types'
+import { projectsConfig } from '../config'
+
 
 import ProjectCard from './ProjectCard'
-import {ProjectCards} from './ProjectCards'
-import type {TShape} from './ProjectCards'
+import { ProjectCards } from './ProjectCards'
+
+import type { TShape } from './ProjectCards'
+import type { IProject } from '../types'
 
 export function RootCanvas() {
   const [shape, setShape] = useState<TShape>('sphere')
@@ -93,6 +95,7 @@ function Lights() {
   return (
     <>
       <ambientLight />
+      {/* eslint-disable-next-line react/no-unknown-property */}
       <directionalLight position={[150, 150, 150]} intensity={0.55} />
       {/* <ambientLight intensity={0.5} />
       <directionalLight position={[1, 0, 2]} intensity={1} /> */}

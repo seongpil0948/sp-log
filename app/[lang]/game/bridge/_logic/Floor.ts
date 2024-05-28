@@ -1,9 +1,11 @@
 import {Mesh} from 'three'
-import type {BoxGeometry, Material} from 'three'
+
 
 import {cm1, geo, mat} from './common'
 import {Stuff} from './Stuff'
+
 import type {StuffChildParams} from './Stuff'
+import type {BoxGeometry, Material} from 'three'
 
 interface FloorParams extends StuffChildParams {}
 

@@ -1,8 +1,8 @@
-import type {TreeSectionProps} from '@/components/client-only/tree-section'
 import {GithubIcon, LinkedInIcon} from '@/components/server-only/icons'
-import type {ReactNode} from 'react'
 
 import type {TAvailLocale} from '.'
+import type {TreeSectionProps} from '@/components/client-only/tree-section'
+import type {ReactNode} from 'react'
 
 export type SiteConfig = typeof siteConfig
 export const APP_DOMAIN = 'https://www.peachhub.love'

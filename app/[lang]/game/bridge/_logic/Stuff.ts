@@ -1,8 +1,9 @@
 import {Box, Vec3, Body} from 'cannon-es'
-import type {Material} from 'cannon-es'
 import {Mesh, Object3D} from 'three'
 
 import {cm1} from './common'
+
+import type {Material} from 'cannon-es'
 
 export type StuffParams = {
   name?: string

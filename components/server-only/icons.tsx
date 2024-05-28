@@ -1,9 +1,10 @@
-import type {IconSvgProps} from '@/types'
-import type {FC} from 'react'
 
 import {mdiLinkedin} from '@mdi/js'
 import {Icon} from '@mdi/react'
 import Image from 'next/image'
+
+import type {IconSvgProps} from '@/types'
+import type {FC} from 'react'
 
 export const Logo: FC<IconSvgProps> = () => <Image src="/image/logo.png" width={32} height={32} alt="logo image" />
 

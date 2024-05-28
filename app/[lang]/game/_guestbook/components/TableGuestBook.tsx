@@ -12,6 +12,7 @@ import clsx from 'clsx'
 import {type DocumentData, type QueryDocumentSnapshot} from 'firebase/firestore'
 
 import {GUEST_DB} from '../db'
+
 import type {TGuestBook} from '../types'
 
 // FIXME: unnecessary fetchItems

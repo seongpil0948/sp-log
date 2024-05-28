@@ -1,4 +1,5 @@
 import {getDocs, query, where} from 'firebase/firestore'
+
 import type {CollectionReference, QuerySnapshot, Query, DocumentData, FieldPath} from 'firebase/firestore'
 
 export async function batchInQuery<T>(

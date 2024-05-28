@@ -7,6 +7,7 @@ import {useState, useRef, useEffect, useCallback} from 'react'
 
 import clsx from 'clsx'
 import {motion, useAnimationControls} from 'framer-motion'
+
 import type {Variants} from 'framer-motion'
 
 type Vec2 = {x: number; y: number}

@@ -1,6 +1,5 @@
 import {AbsoluteFooter} from '@/components/server-only/footers'
 import commonConfig from '@/config'
-import type {TAvailLocale} from '@/config'
 import {paragraph, title} from '@/config/variants/primitives'
 import {hrCls} from '@/mdx-components'
 
@@ -11,7 +10,9 @@ import {docsSectionCls, sectionCls} from '../../home/theme'
 import LinksContent from '../_components/LinksContent'
 
 import {experiences} from './data'
+
 import type {Experience} from './data'
+import type {TAvailLocale} from '@/config'
 
 export async function generateStaticParams() {
   return commonConfig.i18n.locales.map(lang => ({lang}))

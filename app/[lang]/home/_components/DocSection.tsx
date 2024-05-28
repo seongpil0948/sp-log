@@ -4,9 +4,11 @@ import {paragraph} from '@/config/variants/primitives'
 
 import clsx from 'clsx'
 import {motion} from 'framer-motion'
-import type {Variants} from 'framer-motion'
 
 import {sectionCls} from '../theme'
+
+import type {Variants} from 'framer-motion'
+
 
 interface Props {
   emoji: string

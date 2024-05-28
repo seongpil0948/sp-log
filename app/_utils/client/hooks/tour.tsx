@@ -1,9 +1,11 @@
 'use client'
 import {useRef, useState} from 'react'
-import type {ReactNode, CSSProperties} from 'react'
+
 
 import clsx from 'clsx'
 import {motion} from 'framer-motion'
+
+import type {ReactNode, CSSProperties} from 'react'
 
 const Z_INDEX = {
   overlay: 10,

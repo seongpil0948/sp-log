@@ -1,6 +1,6 @@
 'use client'
 import commonConfig from '@/config'
-import type {RefObject} from 'react'
+
 
 import {
   AmbientLight,
@@ -25,6 +25,8 @@ import CONFIG from '../config'
 import GuestBook from './GuestBook'
 import House from './House'
 import Player from './Player'
+
+import type {RefObject} from 'react'
 
 type CameraMode = 'perspective' | 'orthographic'
 interface ConstructorParam {

@@ -1,6 +1,5 @@
 'use client'
 
-import type {ReactNode} from 'react'
 
 import {mdiMenuClose, mdiMenuOpen} from '@mdi/js'
 import Icon from '@mdi/react'
@@ -8,7 +7,9 @@ import {Button} from '@nextui-org/button'
 import {useDisclosure} from '@nextui-org/modal'
 
 import {Sheet, SheetContent, SheetHeader, SheetBody, SheetFooter} from './sheet'
+
 import type {SheetProps} from './sheet'
+import type {ReactNode} from 'react'
 
 export interface CommonDrawerProps {
   children: ReactNode

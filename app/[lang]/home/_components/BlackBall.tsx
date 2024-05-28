@@ -7,9 +7,11 @@ import {EffectComposer, Bloom} from '@react-three/postprocessing'
 import {motion} from 'framer-motion'
 import {MotionCanvas, motion as motion3d} from 'framer-motion-3d'
 import {EllipseCurve, Color} from 'three'
-import type {Mesh, SphereGeometry, Group} from 'three'
 
 import SingletonHome from '../_utils/singleton'
+
+import type {Mesh, SphereGeometry, Group} from 'three'
+
 
 // https://codesandbox.io/embed/xzi6ps?codemirror=1
 // https://codesandbox.io/p/sandbox/bezier-curves-nodes-3k4g6?file=%2Fsrc%2FNodes.js

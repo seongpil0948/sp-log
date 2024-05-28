@@ -1,6 +1,7 @@
 import PROJECTS from '../../_logics/projects'
-import type {IProject} from '../../types'
 import ProjectCard from '../ProjectCard'
+
+import type {IProject} from '../../types'
 
 export default function ProjectCardListHorizontal(props: {projects?: IProject[]}) {
   return (
