@@ -1,17 +1,17 @@
 'use client'
-import {getFBClientStore} from '@/config/firebase/clientApp'
-import {useState} from 'react'
+import { getFBClientStore } from '@/config/firebase/clientApp'
+import { useState } from 'react'
 
-import {mdiCheckBold} from '@mdi/js'
+import { mdiCheckBold } from '@mdi/js'
 import Icon from '@mdi/react'
-import {Button} from '@nextui-org/button'
-import {Card, CardBody, CardFooter, CardHeader} from '@nextui-org/card'
-import {Input, Textarea} from '@nextui-org/input'
-import {v4} from 'uuid'
+import { Button } from '@nextui-org/button'
+import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card'
+import { Input, Textarea } from '@nextui-org/input'
+import { v4 } from 'uuid'
 
-import {GUEST_DB} from '../db'
+import { GUEST_DB } from '../db'
 
-import type {TGuestBook} from '../types'
+import type { TGuestBook } from '../types'
 
 interface Props {
   onCreate?: (data: TGuestBook) => void
@@ -36,13 +36,16 @@ function FormGuestBook(p: Props) {
         updatedAt: date,
       }
       GUEST_DB.create(firestore, book).then(() => {
-        p.onCreate && p.onCreate(book)
+        if (p.onCreate) p.onCreate(book)
         setMessage('')
         setNameAlias('')
         setIsChecked(true)
         setTimeout(() => {
           setIsChecked(false)
         }, 2000)
+      }).catch(e => {
+        console.error('Error::GuestBook::', e)
+      
       })
     } catch (e) {
       console.error('Error::GuestBook::', e)

@@ -29,6 +29,7 @@ export function Scene() {
     stiffness: 400,
   })
   const inst = SingletonHome.getInstance()
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   inst.setData(smoothVelocity)
   inst.scrollY = scrollY
 

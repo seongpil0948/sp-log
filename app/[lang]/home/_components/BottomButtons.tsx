@@ -1,14 +1,14 @@
 'use client'
-import useTour, {TargetWrapper} from '@/app/_utils/client/hooks/tour'
-import {useWindowSize} from '@/app/_utils/client/responsive'
+import useTour, { TargetWrapper } from '@/app/_utils/client/hooks/tour'
+import { useWindowSize } from '@/app/_utils/client/responsive'
 import GeoButton from '@/components/client-only/three-d/geo-button'
-import {typo} from '@/config/variants/primitives'
-import {useState, useRef, useEffect, useCallback} from 'react'
+import { typo } from '@/config/variants/primitives'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 import clsx from 'clsx'
-import {motion, useAnimationControls} from 'framer-motion'
+import { motion, useAnimationControls } from 'framer-motion'
 
-import type {Variants} from 'framer-motion'
+import type { Variants } from 'framer-motion'
 
 type Vec2 = {x: number; y: number}
 const btnClass = clsx(
@@ -51,7 +51,7 @@ export default function BottomButtons() {
     return `A ${radius} ${radius} 0 0 ${cloakWise ? 1 : 0} ${x} ${y}`
   }
 
-  const makeCurve = (startPos: Vec2, middlePos: Vec2, endPos: Vec2) => {
+  const makeCurve = (_startPos: Vec2, middlePos: Vec2, endPos: Vec2) => {
     return `C ${middlePos.x} ${middlePos.y} ${middlePos.x} ${middlePos.y + puddle} ${endPos.x} ${endPos.y}`
   }
 
@@ -59,7 +59,7 @@ export default function BottomButtons() {
   const puddle = 100
   const controls = useAnimationControls()
 
-  const handleClicked = useCallback((e: globalThis.MouseEvent) => {
+  const handleClicked = useCallback(async (e: globalThis.MouseEvent) => {
     controls.set('hidden')
     console.log(isOverlay)
     if (isOverlay || overlayRef.current?.style.display === 'block') {
@@ -89,7 +89,7 @@ export default function BottomButtons() {
       }
     })
 
-    controls.start('visible')
+    await controls.start('visible')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

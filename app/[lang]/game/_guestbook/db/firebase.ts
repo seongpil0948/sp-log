@@ -1,21 +1,21 @@
-import {ECollection, batchInQuery, dataFromSnap, getPCollection} from '@/app/_utils/client/firebase'
-import {commonFromJson, commonToJson} from '@/app/_utils/common'
+import { ECollection, batchInQuery, dataFromSnap, getPCollection } from '@/app/_utils/client/firebase'
+import { commonFromJson, commonToJson } from '@/app/_utils/common'
 
-import {startAfter, doc, getDocs, limit, orderBy, query, setDoc, deleteDoc, getDoc} from 'firebase/firestore'
+import { deleteDoc, doc, getDoc, getDocs, limit, orderBy, query, setDoc, startAfter } from 'firebase/firestore'
 
-import type {TGuestBook, TGuestBookDB} from '../types'
-import type {PaginateParam} from '@/types'
+import type { PaginateParam } from '@/types'
 import type {
-  Firestore,
-  QueryConstraint,
   DocumentData,
   DocumentSnapshot,
+  Firestore,
   FirestoreDataConverter,
+  QueryConstraint,
 } from 'firebase/firestore'
+import type { TGuestBook, TGuestBookDB } from '../types'
 
 export const GuestBookFireStore: TGuestBookDB<Firestore> = {
   batchCreate: function (db: Firestore, args: TGuestBook[]): Promise<void> {
-    throw new Error('Function not implemented.')
+    throw new Error(`Function not implemented. db: ${db.app.name}, args: ${args.length}` )
   },
   create: async function (db: Firestore, post: TGuestBook): Promise<void> {
     const c = getPCollection(db, {
@@ -46,15 +46,15 @@ export const GuestBookFireStore: TGuestBookDB<Firestore> = {
     const docSnapshots = await getDocs(q)
     const docs = docSnapshots.docs
     const lastDoc = docs[docs.length - 1]
-    const data = docSnapshots.docs.map(doc => doc.data()).filter(x => x) as TGuestBook[]
+    const data = docSnapshots.docs.map(docSnap => docSnap.data()).filter(x => x) as TGuestBook[]
     let noMore = false
-    if (docs.length < pageSize || (lastDoc && data.some(d => d.id === lastDoc.id))) {
+    if (docs.length < pageSize || (lastDoc && data.some(dataEl => dataEl.id === lastDoc.id))) {
       noMore = true
     }
     return {data, noMore, lastDoc}
   },
   listByIds: async function (db: Firestore, ids: string[], uid: string) {
-    const snapshots = await batchInQuery<TGuestBook>(
+    const snapshots = await batchInQuery<TGuestBook | null>(
       ids,
       getPCollection(db, {c: ECollection.guestbook, uid}).withConverter(guestBookFireConverter),
       'id',
@@ -63,7 +63,7 @@ export const GuestBookFireStore: TGuestBookDB<Firestore> = {
     return posts
   },
   update: function (db: Firestore, arg: TGuestBook): Promise<void> {
-    throw new Error('Function not implemented.')
+    throw new Error(`Function not implemented. db: ${db.app.name}, id: ${arg.id}` )
   },
   delete: function (db: Firestore, id: string, uid: string): Promise<void> {
     const c = getPCollection(db, {c: 'guestbook', uid})
@@ -74,7 +74,7 @@ export const GuestBookFireStore: TGuestBookDB<Firestore> = {
     const c = getPCollection(db, {c: 'guestbook', uid})
     const docRef = doc(c, postId)
     const snap = await getDoc(docRef)
-    if (snap.exists()) deleteDoc(docRef)
+    if (snap.exists()) await deleteDoc(docRef)
     return setDoc(docRef, {postId})
   },
   isFavorite: async function (db, p) {
@@ -87,9 +87,11 @@ export const GuestBookFireStore: TGuestBookDB<Firestore> = {
 
 export const guestBookFireConverter: FirestoreDataConverter<TGuestBook | null> = {
   toFirestore: (l: TGuestBook) => {
-    return commonToJson(l)
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    return commonToJson(l as any) as TGuestBook
   },
   fromFirestore: (snapshot: DocumentSnapshot<DocumentData>, options: any): TGuestBook | null => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     const data = snapshot.data(options)
     const result = data ? commonFromJson(data) : null
     return isGuestBook(result) ? result : null
@@ -97,5 +99,5 @@ export const guestBookFireConverter: FirestoreDataConverter<TGuestBook | null> =
 }
 
 export const isGuestBook = (arg: any): arg is TGuestBook => {
-  return arg.id && arg.uid && arg.message && arg.createdAt && arg.updatedAt
+  return !!(arg.id && arg.uid && arg.message && arg.createdAt && arg.updatedAt)
 }

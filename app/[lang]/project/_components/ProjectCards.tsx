@@ -1,9 +1,9 @@
 import { useCursor } from '@/app/_utils/client/hooks/three-d/use-cursor'
 import { isMobile } from '@/app/_utils/client/responsive'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 
-import { useFrame, useThree } from '@react-three/fiber'
+import { useFrame } from '@react-three/fiber'
 import { motion } from 'framer-motion-3d'
 import gsap from 'gsap'
 import * as THREE from 'three'
@@ -12,9 +12,9 @@ import ProjectPanel from '../_logics/ProjectPanel'
 import { getRandomProjectSingleImg } from '../_logics/projects'
 import { projectsConfig } from '../config'
 
-import type { IProject } from '../types'
 import type { ThreeEvent } from '@react-three/fiber'
 import type { ReactNode } from 'react'
+import type { IProject } from '../types'
 
 const textureLoader = new THREE.TextureLoader()
 const imageCache = new Map<string, THREE.Texture>()
@@ -44,9 +44,9 @@ function ProjectImage(props: {src: string}) {
 const prevInfos = new Map<string, THREE.Object3D>()
 export function ProjectCards(props: {projects: IProject[]; shape: TShape; onSelect: (p: IProject) => void}) {
   const [projectMeshList, setProjectMeshList] = useState<ReactNode[]>([])
-  const camera = useThree(state => state.camera)
-  const gl = useThree(state => state.gl)
-  const scene = useThree(state => state.scene)
+  // const camera = useThree(state => state.camera)
+  // const gl = useThree(state => state.gl)
+  // const scene = useThree(state => state.scene)
   const isM = isMobile()
   const scaleFactor = isM ? 0.5 : 3
   const [panels, setPanels] = useState<ProjectPanel[]>([])
@@ -141,12 +141,10 @@ export function ProjectCards(props: {projects: IProject[]; shape: TShape; onSele
   useEffect(() => {
     initRandomPositionArray()
     initProjectMeshList()
-    console.info('GL', gl)
-    console.info('Scene', scene)
-    console.info('Camera', camera)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const updateShape = (s: TShape) => {
+  const updateShape = useCallback((s: TShape) => {
     if (panels.length < 1) return
     const array = s === 'random' ? randomPositionArray : spherePositionArray
     for (let i = 0; i < panels.length; i++) {
@@ -173,12 +171,13 @@ export function ProjectCards(props: {projects: IProject[]; shape: TShape; onSele
         })
       }
     }
-  }
+  }, [panels])
+
   useEffect(() => {
     updateShape(props.shape)
-  }, [props.shape])
+  }, [props.shape, updateShape])
 
-  useFrame((state, delta) => {
+  useFrame(() => {
     if (!focus) return
     // state.get().scene.userData
     // zoom ? pos.set(focus.x, focus.y, focus.z + 0.2) : pos.set(0, 0, 5);

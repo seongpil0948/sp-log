@@ -1,13 +1,13 @@
 'use client'
-import {useEffect} from 'react'
+import { useEffect } from 'react'
 
 export function useRedirectScroll(props: RedirectScrollProps) {
   const {fromRef, toRef} = props
 
   useEffect(() => {
     const {to} = getRef()
-    const handleScroll = (evt: Event) => {
-      if (isDoneInnerScroll()) endInnerScroll(evt)
+    const handleScroll = () => {
+      if (isDoneInnerScroll()) endInnerScroll()
     }
     to.addEventListener('scroll', handleScroll)
     return () => to.removeEventListener('scroll', handleScroll)
@@ -45,7 +45,7 @@ export function useRedirectScroll(props: RedirectScrollProps) {
     startRedirectWheel(body, to)
   }
 
-  const endInnerScroll = (evt: Event) => {
+  const endInnerScroll = () => {
     if (!isDoneInnerScroll()) return console.error('scroll is not done')
     const {body, to} = getRef()
     stopRedirectWheel(body, to)

@@ -7,7 +7,7 @@ import {useRouter} from 'next/navigation'
 import type {MotionValue} from 'framer-motion'
 
 const frameCount = 15
-const urls = new Array(frameCount).fill(true).map((o, i) => `/home/moong-me/${(i + 1).toString()}.png`)
+const urls = new Array(frameCount).fill(true).map((_o, i) => `/home/moong-me/${(i + 1).toString()}.png`)
 
 export function AboutCanvas(props: {
   delta: MotionValue<number>

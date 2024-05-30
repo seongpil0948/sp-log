@@ -91,6 +91,7 @@
         "@typescript-eslint/prefer-optional-chain": "error",
         "@typescript-eslint/ban-types": "off",
         "@typescript-eslint/require-await": "off",
+        "@typescript-eslint/no-misused-promises": "off",
         "no-shadow": "off",
         "@typescript-eslint/no-shadow": [
           "error",
@@ -115,7 +116,7 @@
             "argsIgnorePattern": "^(parent|dict|lang)|^_",
             "caughtErrorsIgnorePattern": "^_",
             "destructuredArrayIgnorePattern": "^_",
-            "varsIgnorePattern": "^_",
+            "varsIgnorePattern": "^(parent|dict|lang)|^_",
             "ignoreRestSiblings": true,
             "vars": "all"
           }

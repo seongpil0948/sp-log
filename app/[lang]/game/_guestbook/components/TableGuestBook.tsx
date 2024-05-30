@@ -1,19 +1,20 @@
+// eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client'
-import {getFBClientStore} from '@/config/firebase/clientApp'
-import {paragraph} from '@/config/variants/primitives'
-import React, {useCallback, useEffect} from 'react'
+import { getFBClientStore } from '@/config/firebase/clientApp'
+import { paragraph } from '@/config/variants/primitives'
+import React, { useCallback, useEffect } from 'react'
 
-import {Popover, PopoverContent, PopoverTrigger} from '@nextui-org/popover'
-import {Spinner} from '@nextui-org/spinner'
-import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell} from '@nextui-org/table'
-import {useInfiniteScroll} from '@nextui-org/use-infinite-scroll'
+import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover'
+import { Spinner } from '@nextui-org/spinner'
+import { Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from '@nextui-org/table'
+import { useInfiniteScroll } from '@nextui-org/use-infinite-scroll'
 import clsx from 'clsx'
-import {type DocumentData, type QueryDocumentSnapshot} from 'firebase/firestore'
+import { type DocumentData, type QueryDocumentSnapshot } from 'firebase/firestore'
 
-import {GUEST_DB} from '../db'
+import { GUEST_DB } from '../db'
 
-import type {TGuestBook} from '../types'
+import type { TGuestBook } from '../types'
 
 // FIXME: unnecessary fetchItems
 export default function BookTable() {
@@ -21,32 +22,30 @@ export default function BookTable() {
   const [hasMore, setHasMore] = React.useState(true)
   const [lastData, setLastData] = React.useState<QueryDocumentSnapshot<TGuestBook | null, DocumentData>>()
   const [items, setItems] = React.useState<TGuestBook[]>([])
-  const w = window.innerWidth
 
-  const fetchItems = useCallback(async () => {
+  const fetchItems = useCallback(() => {
     console.count('fetchItems')
     if (!hasMore) return
     setIsLoading(true)
-    try {
-      const resp = await GUEST_DB.list(
-        getFBClientStore(),
-        {
-          pageSize: 10,
-          orderBy: 'createdAt',
-          lastData: lastData,
-        },
-        '-1',
-      )
+    GUEST_DB.list(
+      getFBClientStore(),
+      {
+        pageSize: 10,
+        orderBy: 'createdAt',
+        lastData: lastData,
+      },
+      '-1',
+    ).then((resp) => {
       setHasMore(!resp.noMore)
       setLastData(resp.lastDoc)
       setItems([...items, ...resp.data])
       console.log('result of fetchItems', resp)
-    } catch (error) {
+    }).catch((error) => {
       console.error('error on fetchItems', error)
       setHasMore(false)
-    } finally {
+    }).finally(() => {
       setIsLoading(false)
-    }
+    })
   }, [])
 
   const [loaderRef, scrollerRef] = useInfiniteScroll({

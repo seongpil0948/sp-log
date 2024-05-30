@@ -1,10 +1,11 @@
+/* eslint-disable eslint-comments/disable-enable-pair */
+/* eslint-disable react/no-unknown-property */
 'use client'
 import CharacterDefault from '@/components/client-only/three-d/gltf/char-default'
 import commonConfig from '@/config'
-import React from 'react'
 
-import {OrbitControls, useGLTF} from '@react-three/drei'
-import {Canvas} from '@react-three/fiber'
+import { OrbitControls, useGLTF } from '@react-three/drei'
+import { Canvas } from '@react-three/fiber'
 
 const ComputersCanvas = () => {
   return (

@@ -1,6 +1,8 @@
-import {Suspense} from 'react'
-import {Canvas, useFrame} from '@react-three/fiber'
-import {easing} from 'maath'
+// eslint-disable-next-line eslint-comments/disable-enable-pair
+/* eslint-disable react/no-unknown-property */
+import { Canvas, useFrame } from '@react-three/fiber'
+import { easing } from 'maath'
+import { Suspense } from 'react'
 import Model from './Model'
 
 function Rig() {

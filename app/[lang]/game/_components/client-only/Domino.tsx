@@ -1,14 +1,16 @@
+/* eslint-disable eslint-comments/disable-enable-pair */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 'use client'
 
-import {useEffect, useRef} from 'react'
+import { useEffect, useRef } from 'react'
 
 import * as CANNON from 'cannon-es'
 import * as THREE from 'three'
-import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js'
-import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js'
+// import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
 import Domino from '../../_utils/Domino'
-import {PreventDragClick} from '../../_utils/PreventDragClick'
+import { PreventDragClick } from '../../_utils/PreventDragClick'
 import CONFIG from '../../world/config'
 
 export default function OneMin() {
@@ -47,7 +49,7 @@ export default function OneMin() {
     scene.add(directionalLight)
 
     // Controls
-    const controls = new OrbitControls(camera, renderer.domElement)
+    // const controls = new OrbitControls(camera, renderer.domElement)
 
     // Loader
     const gltfLoader = new GLTFLoader()

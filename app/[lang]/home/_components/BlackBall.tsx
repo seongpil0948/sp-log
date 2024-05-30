@@ -1,16 +1,18 @@
+// eslint-disable-next-line eslint-comments/disable-enable-pair
+/* eslint-disable react/no-unknown-property */
 'use client'
-import {useEffect, useMemo, useRef, useState} from 'react'
+import { useEffect, useRef, useState } from 'react'
 
-import {Float, Stars, Trail} from '@react-three/drei'
-import {useFrame} from '@react-three/fiber'
-import {EffectComposer, Bloom} from '@react-three/postprocessing'
-import {motion} from 'framer-motion'
-import {MotionCanvas, motion as motion3d} from 'framer-motion-3d'
-import {EllipseCurve, Color} from 'three'
+import { Float, Stars } from '@react-three/drei'
+import { useFrame } from '@react-three/fiber'
+import { Bloom, EffectComposer } from '@react-three/postprocessing'
+import { motion } from 'framer-motion'
+import { MotionCanvas, motion as motion3d } from 'framer-motion-3d'
+// import {EllipseCurve, Color} from 'three'
 
 import SingletonHome from '../_utils/singleton'
 
-import type {Mesh, SphereGeometry, Group} from 'three'
+import type { Group, Mesh, SphereGeometry } from 'three'
 
 
 // https://codesandbox.io/embed/xzi6ps?codemirror=1
@@ -77,7 +79,7 @@ const Sphere = () => {
     }
   })
 
-  const points = useMemo(() => new EllipseCurve(0, 0, 3, 1.15, 0, 2 * Math.PI, false, 0).getPoints(100), [])
+  // const points = useMemo(() => new EllipseCurve(0, 0, 3, 1.15, 0, 2 * Math.PI, false, 0).getPoints(100), [])
   return (
     <Float speed={4} rotationIntensity={1} floatIntensity={2}>
       <motion3d.group
@@ -127,23 +129,23 @@ const Sphere = () => {
   )
 }
 
-function Electron({radius = 2.75, speed = 6, ...props}) {
-  const ref = useRef<Mesh>(null!)
-  useFrame(state => {
-    const t = state.clock.getElapsedTime() * speed
-    ref.current.position.set(Math.sin(t) * radius, (Math.cos(t) * radius * Math.atan(t)) / Math.PI / 1.25, 0)
-  })
-  return (
-    <group {...props}>
-      <Trail local width={5} length={6} color={new Color(2, 5, 10)} attenuation={t => t * t}>
-        <mesh ref={ref}>
-          <sphereGeometry args={[0.25]} />
-          <meshBasicMaterial color={[10, 1, 10]} toneMapped={false} />
-        </mesh>
-      </Trail>
-    </group>
-  )
-}
+// function Electron({radius = 2.75, speed = 6, ...props}) {
+//   const ref = useRef<Mesh>(null!)
+//   useFrame(state => {
+//     const t = state.clock.getElapsedTime() * speed
+//     ref.current.position.set(Math.sin(t) * radius, (Math.cos(t) * radius * Math.atan(t)) / Math.PI / 1.25, 0)
+//   })
+//   return (
+//     <group {...props}>
+//       <Trail local width={5} length={6} color={new Color(2, 5, 10)} attenuation={t => t * t}>
+//         <mesh ref={ref}>
+//           <sphereGeometry args={[0.25]} />
+//           <meshBasicMaterial color={[10, 1, 10]} toneMapped={false} />
+//         </mesh>
+//       </Trail>
+//     </group>
+//   )
+// }
 
 export const BlackBall = () => {
   const inst = SingletonHome.getInstance()

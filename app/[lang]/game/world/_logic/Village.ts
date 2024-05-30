@@ -17,8 +17,8 @@ import {
   Vector2,
   Vector3,
 } from 'three'
-import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js'
-import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
 import CONFIG from '../config'
 
@@ -26,7 +26,7 @@ import GuestBook from './GuestBook'
 import House from './House'
 import Player from './Player'
 
-import type {RefObject} from 'react'
+import type { RefObject } from 'react'
 
 type CameraMode = 'perspective' | 'orthographic'
 interface ConstructorParam {
@@ -298,9 +298,9 @@ const getGridImg = () => {
   return floorTexture
 }
 
-function getPerspectiveCameraPosition(targetPos: Vector3) {
-  return new Vector3(targetPos.x, targetPos.y + 1, targetPos.z - 2)
-}
+// function getPerspectiveCameraPosition(targetPos: Vector3) {
+//   return new Vector3(targetPos.x, targetPos.y + 1, targetPos.z - 2)
+// }
 
 // function cameraPositionByPosition(cameraPos: Vector3, tartgetPos: Vector3, mode: CameraMode) {
 //   if (mode==='perspective') {

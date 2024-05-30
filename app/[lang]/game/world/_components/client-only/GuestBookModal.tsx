@@ -12,9 +12,10 @@ const BridgeEnterModal = forwardRef<
   ElementRef<typeof Modal>,
   // Omit<ModalProps, 'children'>,
   any
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 >(({placement = 'left', classNames, ...props}, ref) => {
   const [openAble, setOpenAble] = useState(true)
-  const {isOpen, onOpen, onOpenChange, onClose} = useDisclosure({
+  const {isOpen, onOpen, onOpenChange} = useDisclosure({
     onClose() {
       setOpenAble(false)
       setTimeout(() => {

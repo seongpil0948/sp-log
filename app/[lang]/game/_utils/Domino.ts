@@ -1,4 +1,7 @@
-import {Body, Box, Vec3} from 'cannon-es'
+/* eslint-disable eslint-comments/disable-enable-pair */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+import { Body, Box, Vec3 } from 'cannon-es'
 
 export default class Domino {
   scene: any

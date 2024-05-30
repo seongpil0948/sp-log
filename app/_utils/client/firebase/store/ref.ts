@@ -90,7 +90,7 @@ export function getPCollectionGroup(store: Firestore, c: ECollection) {
 
 export const fireConverter = <T>(toJson?: (d: T) => any, fromJson?: (d: any) => T) => ({
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-  toFirestore: (data: WithFieldValue<T>) => (toJson ? toJson(data as T) : commonToJson(data)),
+  toFirestore: (data: WithFieldValue<T>) => (toJson ? toJson(data as T) : commonToJson(data as {[k: string]: unknown})),
   fromFirestore: (snap: QueryDocumentSnapshot) =>
     fromJson ? fromJson(snap.data()) : (commonFromJson(snap.data()) as T),
 })

@@ -1,8 +1,10 @@
+// eslint-disable-next-line eslint-comments/disable-enable-pair
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 'use client'
 
-import {isCloseTo} from './common'
+import { isCloseTo } from './common'
 
-import type {Mesh} from 'three'
+import type { Mesh } from 'three'
 
 
 export default class GuestBook {

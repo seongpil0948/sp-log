@@ -1,16 +1,16 @@
 'use client'
 
-import {title, typo} from '@/config/variants/primitives'
+import { title, typo } from '@/config/variants/primitives'
 
-import {Card, CardBody} from '@nextui-org/card'
-import {Image} from '@nextui-org/image'
+import { Card, CardBody } from '@nextui-org/card'
+import { Image } from '@nextui-org/image'
 import clsx from 'clsx'
-import {useRouter} from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
-import {ProjectTypeIcon, ProjectUsing} from './server-only/icons'
+import { ProjectTypeIcon, ProjectUsing } from './server-only/icons'
 
-import type {IProject} from '../types'
-import type {CardProps} from '@nextui-org/card'
+import type { CardProps } from '@nextui-org/card'
+import type { IProject } from '../types'
 
 export default function ProjectCard(props: {p: IProject; classNames?: CardProps['classNames']}) {
   const {p} = props
@@ -72,8 +72,7 @@ export default function ProjectCard(props: {p: IProject; classNames?: CardProps[
                 {p.title}
               </h1>
               <div className="max-h-[25vh] md:max-h-full text-ellipsis overflow-clip ">
-                {p.description &&
-                  p.description.map((desc, idx) => (
+                {p.description.map((desc, idx) => (
                     <p key={idx} className={typo({size: 'xs', color: 'gray'})}>
                       {desc}
                     </p>

@@ -1,6 +1,6 @@
 /* eslint-disable eslint-comments/disable-enable-pair */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
+ 
 'use client'
 
 import { GoHomeBtnAbsolute } from '@/components/client-only/button/absolute'

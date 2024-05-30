@@ -15,6 +15,7 @@ export class Bar extends Stuff {
   mesh: Mesh
 
   constructor(info: any) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     super(info)
 
     this.geometry = geo.bar

@@ -14,7 +14,7 @@ export class Floor extends Stuff {
   material: Material // Add type annotation for material property
   mesh: Mesh // Declare mesh property
 
-  constructor(info: FloorParams) {
+  constructor(_info: FloorParams) {
     // Add type annotation for info parameter
     super({...geo.floor.parameters})
 

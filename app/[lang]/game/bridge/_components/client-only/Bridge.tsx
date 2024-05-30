@@ -1,22 +1,25 @@
+// eslint-disable-next-line eslint-comments/disable-enable-pair
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 'use client'
 
 import GoHomeBtnAbsolute from '@/components/client-only/button/absolute'
-import {useEffect, useRef} from 'react'
+import { useEffect, useRef } from 'react'
 
 import * as CANNON from 'cannon-es'
 import gsap from 'gsap'
 import * as THREE from 'three'
-import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
-import {PreventDragClick} from '../../../_utils/PreventDragClick'
-import {Bar} from '../../_logic/Bar'
-import {cm1, cm2} from '../../_logic/common'
-import {Floor} from '../../_logic/Floor'
-import {Glass} from '../../_logic/Glass'
-import {Pillar} from '../../_logic/Pillar'
-import {Player} from '../../_logic/Player'
-import {SideLight} from '../../_logic/SideLight'
-import {Stuff} from '../../_logic/Stuff'
+import { PreventDragClick } from '../../../_utils/PreventDragClick'
+import { Bar } from '../../_logic/Bar'
+import { cm1, cm2 } from '../../_logic/common'
+import { Glass } from '../../_logic/Glass'
+import { Pillar } from '../../_logic/Pillar'
+import { Player } from '../../_logic/Player'
+import { SideLight } from '../../_logic/SideLight'
+import { Stuff } from '../../_logic/Stuff'
+
+import type { Floor } from '../../_logic/Floor'
 
 type GlassType = 'normal' | 'strong'
 export default function Bridge() {
@@ -96,9 +99,9 @@ export default function Bridge() {
     const objects: VillageObject[] = []
 
     // 바닥
-    const floor = new Floor({
-      name: 'floor',
-    })
+    // const floor = new Floor({
+    //   name: 'floor',
+    // })
 
     // 기둥
     const pillar1 = new Pillar({
@@ -117,8 +120,8 @@ export default function Bridge() {
 
     // 바
     const bar1 = new Bar({name: 'bar', x: -1.6, y: 10.3, z: 0})
-    const bar2 = new Bar({name: 'bar', x: -0.4, y: 10.3, z: 0})
-    const bar3 = new Bar({name: 'bar', x: 0.4, y: 10.3, z: 0})
+    // const bar2 = new Bar({name: 'bar', x: -0.4, y: 10.3, z: 0})
+    // const bar3 = new Bar({name: 'bar', x: 0.4, y: 10.3, z: 0})
     const bar4 = new Bar({name: 'bar', x: 1.6, y: 10.3, z: 0})
 
     const sideLights: SideLight[] = []

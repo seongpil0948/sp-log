@@ -1,16 +1,17 @@
-import {forwardRef, useImperativeHandle} from 'react'
+import { forwardRef, useImperativeHandle } from 'react'
 
 
-import {Button} from '@nextui-org/button'
-import {Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure} from '@nextui-org/modal'
-import {useRouter} from 'next/navigation'
+import { Button } from '@nextui-org/button'
+import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from '@nextui-org/modal'
+import { useRouter } from 'next/navigation'
 
-import type {ElementRef} from 'react'
+import type { ElementRef } from 'react'
 
 const BridgeEnterModal = forwardRef<
   ElementRef<typeof Modal>,
   // Omit<ModalProps, 'children'>,
   any
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 >(({placement = 'left', classNames, ...props}, ref) => {
   const {isOpen, onOpen, onOpenChange, onClose} = useDisclosure()
   const router = useRouter()
@@ -18,6 +19,7 @@ const BridgeEnterModal = forwardRef<
   useImperativeHandle(
     ref,
     () =>
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
       ({
         open() {
           open()

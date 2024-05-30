@@ -56,7 +56,7 @@ export function ParallaxText(props: ParallaxProps) {
 
   const x = useTransform(baseX, v => `${wrap(-480, 80, v)}%`)
   const directionFactor = useRef<number>(1)
-  useAnimationFrame((t, delta) => {
+  useAnimationFrame((_t, delta) => {
     if (!inView) return
     let moveBy = directionFactor.current * baseVelocity * (delta / 1000)
 
