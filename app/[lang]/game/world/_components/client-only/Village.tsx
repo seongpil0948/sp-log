@@ -51,6 +51,7 @@ export default function World() {
             if (!s.house.visible) {
               s.house.visible = true
               s.spotMesh.material.color.set('seagreen')
+              if (s.house.modelMesh)
               gsap.to(s.house.modelMesh.position, {
                 duration: 1,
                 y: 1,
@@ -67,6 +68,7 @@ export default function World() {
           } else if (s.house.visible) {
             s.house.visible = false
             s.spotMesh.material.color.set('yellow')
+            if (s.house.modelMesh)
             gsap.to(s.house.modelMesh.position, {
               duration: 0.5,
               y: -1.3,
