@@ -4,17 +4,16 @@
 // https://www.apple.com/kr/macbook-air/?afid=p238%7CsiADh6hbK-dc_mtid_18707vxu38484_pcrid_693736852787_pgrid_16348496961_pntwk_g_pchan__pexid_131009289166_&cid=aos-kr-kwgo-Brand--slid-AapXiqMo--product-
 // https://www.framer.com/motion/scroll-animations/##no-code
 
-import {useWindowSize} from '@/app/_utils/client/responsive'
-import {isMobile} from '@/app/_utils/client/responsive'
-import {useRef} from 'react'
+import { isMobile, useWindowSize } from '@/app/_utils/client/responsive'
+import { useMemo, useRef } from 'react'
 
 import clsx from 'clsx'
-import {useInView, motion, MotionConfig, useTransform} from 'framer-motion'
+import { MotionConfig, motion, useInView, useTransform } from 'framer-motion'
 
 import SingletonHome from '../_utils/singleton'
-import {sectionCls} from '../theme'
+import { sectionCls } from '../theme'
 
-import {AboutCanvas} from './AboutCanvas'
+import { AboutCanvas } from './AboutCanvas'
 import HomeNavigation from './HomeNavigation'
 
 export function FirstSection() {
@@ -29,24 +28,26 @@ export function FirstSection() {
   const s = useWindowSize()
   const isM = isMobile()
 
-  const blackHole = {
+    const blackHole = useMemo(() => ({
     w: s.width / 2,
     h: s.height / 2,
-    initial: {opacity: 0, x: 0},
-  }
+    initial: { opacity: 0, x: 0 },
+  }), [s.width, s.height])
 
-  const toX = isM ? 0.3 : 0.8
-  const toY = isM ? 0.3 : 0.8
   const toR = isM ? 2 : 5
-  const animateTo = {
-    leftT: -(blackHole.w * toX),
-    rightT: blackHole.w * toX,
-    topT: -(blackHole.h * toY),
-    centerVT: blackHole.h / 3,
-    common: {
-      opacity: 1,
-    },
-  }
+    const animateTo = useMemo(() => {
+    const toX = isM ? 0.3 : 0.8
+    const toY = isM ? 0.3 : 0.8
+    return {
+      leftT: -(blackHole.w * toX),
+      rightT: blackHole.w * toX,
+      topT: -(blackHole.h * toY),
+      centerVT: blackHole.h / 3,
+      common: {
+        opacity: 1,
+      },
+    }
+  }, [isM, blackHole.w, blackHole.h])
   const inputRage = [0, blackHole.h / 4]
   const leftTX = useTransform(inst.data, inputRage, [animateTo.leftT, 0])
   const rightTX = useTransform(inst.data, inputRage, [animateTo.rightT, 0])
