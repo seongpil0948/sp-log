@@ -1,6 +1,6 @@
-import {siteConfig} from '@/config/site'
+import { siteConfig } from '@/config/site'
 
-import type {MetadataRoute} from 'next'
+import type { MetadataRoute } from 'next'
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -18,7 +18,7 @@ export default function robots(): MetadataRoute.Robots {
           '/sitemap.xml',
           '/robots.txt',
         ],
-        disallow: '/',
+        // disallow: '/',
       },
       {
         userAgent: 'User-agent: Algolia Crawler',

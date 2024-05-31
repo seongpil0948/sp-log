@@ -1,18 +1,32 @@
 'use client'
 
-import {subtitle} from '@/config/variants/primitives'
-import {useRef} from 'react'
+import { subtitle } from '@/config/variants/primitives'
+import { Profiler, useRef } from 'react'
 
 import clsx from 'clsx'
-import {MotionConfig, useScroll, useSpring, useVelocity} from 'framer-motion'
+import { MotionConfig, useScroll, useSpring, useVelocity } from 'framer-motion'
 
 import LinksContent from '../../about/_components/LinksContent'
 import SingletonHome from '../_utils/singleton'
-import {sectionCls} from '../theme'
+import { sectionCls } from '../theme'
 
 import BlackBall from './BlackBall'
-import {FirstSection} from './FirstSection'
-import {ProjectSection} from './ProjectSection'
+import { FirstSection } from './FirstSection'
+import { ProjectSection } from './ProjectSection'
+
+import type { ProfilerOnRenderCallback } from 'react'
+
+const printOnRender: ProfilerOnRenderCallback = (id, phase, durationActual, durationBase, startTime, commitTime) => {
+  console.log({
+    id,
+    phase,
+    durationActual,
+    durationBase,
+    startTime,
+    commitTime,
+  
+  })
+}
 
 // on first mounted disable scroll and rotate the image
 // when frame is equal to length of urls, enable scroll
@@ -48,8 +62,12 @@ export function Scene() {
           zIndex: 1,
         }}
       >
-        <FirstSection />
-        <ProjectSection />
+         <Profiler id="FirstSection" onRender={printOnRender}>
+          <FirstSection />  
+        </Profiler>
+        <Profiler id="ProjectSection" onRender={printOnRender}>
+          <ProjectSection />
+        </Profiler>
         <AboutSection />
         {/* <DocsSection /> */}
       </section>
