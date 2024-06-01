@@ -16,15 +16,15 @@ import { ProjectSection } from './ProjectSection'
 
 import type { ProfilerOnRenderCallback } from 'react'
 
+
 const printOnRender: ProfilerOnRenderCallback = (id, phase, durationActual, durationBase, startTime, commitTime) => {
-  console.log({
+  console.debug({
     id,
     phase,
     durationActual,
     durationBase,
     startTime,
     commitTime,
-  
   })
 }
 
@@ -49,7 +49,6 @@ export function Scene() {
 
   return (
     <MotionConfig transition={{type: 'tween', duration: 0.5}}>
-      {/* TODO: to context or redux */}
       <section
         id="scene"
         ref={rootRef}

@@ -1,7 +1,7 @@
 'use client'
 import { wrap } from '@/app/_utils/client/motion'
 import { title } from '@/config/variants/primitives'
-import { useRef } from 'react'
+import { useMemo, useRef } from 'react'
 
 
 import clsx from 'clsx'
@@ -21,17 +21,21 @@ export function ProjectSection() {
   const {data} = SingletonHome.getInstance()
 
   // const arrProjects = splitArray(PROJECTS, 2);
-  const arrProjects = [PROJECTS]
+  const ParallaxProjects = useMemo(() => {
+    return [PROJECTS].map((projects, idx) => (
+        <ParallaxText key={idx} scrollY={data} containerRef={sectionRef} baseVelocity={idx % 2 === 0 ? 10 : -10}>
+          <ProjectCardListHorizontal projects={projects} />
+        </ParallaxText>
+      ))
+  }, [data])
+
+
   return (
     <section ref={sectionRef} className={clsx(sectionCls, '-mt-48')}>
       <ParallaxText scrollY={data} containerRef={sectionRef} baseVelocity={-10}>
         Projects
       </ParallaxText>
-      {arrProjects.map((projects, idx) => (
-        <ParallaxText key={idx} scrollY={data} containerRef={sectionRef} baseVelocity={idx % 2 === 0 ? 10 : -10}>
-          <ProjectCardListHorizontal projects={projects} />
-        </ParallaxText>
-      ))}
+      {ParallaxProjects}
     </section>
   )
 }

@@ -1,6 +1,7 @@
 'use client'
 
 import { title, typo } from '@/config/variants/primitives'
+import { memo } from 'react'
 
 import { Card, CardBody } from '@nextui-org/card'
 import { Image } from '@nextui-org/image'
@@ -12,7 +13,8 @@ import { ProjectTypeIcon, ProjectUsing } from './server-only/icons'
 import type { CardProps } from '@nextui-org/card'
 import type { IProject } from '../types'
 
-export default function ProjectCard(props: {p: IProject; classNames?: CardProps['classNames']}) {
+interface ProjectCardProps {p: IProject; classNames?: CardProps['classNames']}
+function ProjectCard(props: ProjectCardProps) {
   const {p} = props
   const router = useRouter()
   const cardClassNames: CardProps['classNames'] = {
@@ -89,3 +91,9 @@ export default function ProjectCard(props: {p: IProject; classNames?: CardProps[
     </Card>
   )
 }
+
+function projPropsAreEqual(prevProps: ProjectCardProps, nextProps: ProjectCardProps) {
+  return prevProps.p.id === nextProps.p.id 
+}
+
+export default memo(ProjectCard, projPropsAreEqual)
