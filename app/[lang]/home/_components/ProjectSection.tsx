@@ -1,34 +1,34 @@
 'use client'
-import {wrap} from '@/app/_utils/client/motion'
-import {title} from '@/config/variants/primitives'
-import {useRef} from 'react'
+import { wrap } from '@/app/_utils/client/motion'
+import { title } from '@/config/variants/primitives'
+import { useRef } from 'react'
 
 
 import clsx from 'clsx'
-import {motion, useTransform, useMotionValue, useAnimationFrame, useInView} from 'framer-motion'
+import { motion, useAnimationFrame, useInView, useMotionValue, useTransform } from 'framer-motion'
 
 
 import ProjectCardListHorizontal from '../../project/_components/server-only/ProjectCardsHorizontal'
 import PROJECTS from '../../project/_logics/projects'
 import SingletonHome from '../_utils/singleton'
-import {sectionCls} from '../theme'
+import { sectionCls } from '../theme'
 
-import type {MotionValue} from 'framer-motion'
-import type {ReactNode} from 'react'
+import type { MotionValue } from 'framer-motion'
+import type { ReactNode } from 'react'
 
 export function ProjectSection() {
   const sectionRef = useRef<HTMLDivElement>(null)
-  const inst = SingletonHome.getInstance()
+  const {data} = SingletonHome.getInstance()
 
   // const arrProjects = splitArray(PROJECTS, 2);
   const arrProjects = [PROJECTS]
   return (
     <section ref={sectionRef} className={clsx(sectionCls, '-mt-48')}>
-      <ParallaxText scrollY={inst.data} containerRef={sectionRef} baseVelocity={-10}>
+      <ParallaxText scrollY={data} containerRef={sectionRef} baseVelocity={-10}>
         Projects
       </ParallaxText>
       {arrProjects.map((projects, idx) => (
-        <ParallaxText key={idx} scrollY={inst.data} containerRef={sectionRef} baseVelocity={idx % 2 === 0 ? 10 : -10}>
+        <ParallaxText key={idx} scrollY={data} containerRef={sectionRef} baseVelocity={idx % 2 === 0 ? 10 : -10}>
           <ProjectCardListHorizontal projects={projects} />
         </ParallaxText>
       ))}

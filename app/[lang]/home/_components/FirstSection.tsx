@@ -17,7 +17,7 @@ import { AboutCanvas } from './AboutCanvas'
 import HomeNavigation from './HomeNavigation'
 
 export function FirstSection() {
-  const inst = SingletonHome.getInstance()
+  const {data} = SingletonHome.getInstance()
   const sectionRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(sectionRef, {
     amount: 0.9,
@@ -49,15 +49,16 @@ export function FirstSection() {
     }
   }, [isM, blackHole.w, blackHole.h])
   const inputRage = [0, blackHole.h / 4]
-  const leftTX = useTransform(inst.data, inputRage, [animateTo.leftT, 0])
-  const rightTX = useTransform(inst.data, inputRage, [animateTo.rightT, 0])
-  const topTY = useTransform(inst.data, inputRage, [animateTo.topT, 0])
-  const opacity = useTransform(inst.data, inputRage, [1, 0])
-  const rotate = useTransform(inst.data, inputRage, [toR, 0])
+  const leftTX = useTransform(data, inputRage, [animateTo.leftT, 0])
+  const rightTX = useTransform(data, inputRage, [animateTo.rightT, 0])
+  const topTY = useTransform(data, inputRage, [animateTo.topT, 0])
+  const opacity = useTransform(data, inputRage, [1, 0])
+  const rotate = useTransform(data, inputRage, [toR, 0])
 
   // useMotionValueEvent(inst.data, "change", (latest) => {
   //   console.log("latest: ", latest);
   // });
+
 
   return (
     <section ref={sectionRef} className={clsx(sectionCls, 'relative')}>
@@ -97,7 +98,7 @@ export function FirstSection() {
           }}
         >
           <AboutCanvas
-            delta={inst.data}
+            delta={data}
             isInView={isInView}
             speed={1}
             width={blackHole.w}
