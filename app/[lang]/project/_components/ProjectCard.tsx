@@ -65,7 +65,7 @@ function ProjectCard(props: ProjectCardProps) {
               <h1
                 className={clsx(
                   title({
-                    size: 'sm',
+                    size: 'xs',
                     color: 'foreground',
                   }),
                   'text-ellipsis whitespace-nowrap w-full',

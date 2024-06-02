@@ -1,8 +1,8 @@
-import {fontMono, fontNanumGothic, fontNanumPenScript, fontRoboto, fontSans} from '@/config/fonts'
+import { fontMono, fontNanumGothic, fontNanumPenScript, fontRoboto, fontSans } from '@/config/fonts'
 
-import {link as linkStyles} from '@nextui-org/theme'
+import { link as linkStyles } from '@nextui-org/theme'
 import clsx from 'clsx'
-import {tv} from 'tailwind-variants'
+import { tv } from 'tailwind-variants'
 
 const fontModule = {
   mono: fontMono.className,
@@ -117,7 +117,7 @@ export const paragraph = tv({
   },
 })
 export const typo = tv({
-  base: 'p-1 font-normal leading-1 md:leading-7 text-foreground',
+  base: 'p-1 font-normal leading-1 sm:leading-3 md:leading-5 lg:md:leading-7 text-foreground',
   variants: {
     type: {
       normal: 'font-normal',

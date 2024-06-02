@@ -16,6 +16,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontSize: {
+        'xss': '0.625rem', // 10px
+      },
       width: {
         xs: '20rem',
         sm: '24rem',

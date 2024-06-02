@@ -23,9 +23,9 @@ export function ProjectSection() {
   // const arrProjects = splitArray(PROJECTS, 2);
   const ParallaxProjects = useMemo(() => {
     return [PROJECTS].map((projects, idx) => (
-        <ParallaxText key={idx} scrollY={data} containerRef={sectionRef} baseVelocity={idx % 2 === 0 ? 10 : -10}>
-          <ProjectCardListHorizontal projects={projects} />
-        </ParallaxText>
+        // <ParallaxText key={idx} scrollY={data} containerRef={sectionRef} baseVelocity={idx % 2 === 0 ? 10 : -10}>
+          <ProjectCardListHorizontal key={idx} projects={projects} />
+        // </ParallaxText>
       ))
   }, [data])
 
