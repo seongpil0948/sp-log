@@ -1,7 +1,7 @@
 // eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable react/no-unknown-property */
 'use client'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useTransition } from 'react'
 
 import { Float, Stars } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
@@ -36,12 +36,13 @@ const Sphere = () => {
   const groupRef = useRef<Group>(null!)
   const inst = SingletonHome.getInstance()
   const [currAnimation, setCurrAnimation] = useState<VariantLabel>('toCenter')
+  const [_isPending, startTransition] = useTransition();
 
   useEffect(() => {
-    console.log(meshRef.current)
     const randomArray: number[] = []
     const geoRef = meshRef.current.geometry as SphereGeometry
     const positionArray = geoRef.attributes.position.array
+
     for (let i = 0; i < positionArray.length; i += 3) {
       // 정점(Vertex) 한 개의 x, y, z 좌표를 랜덤으로 조정
       positionArray[i] += (Math.random() - 0.5) * 0.2
@@ -63,20 +64,23 @@ const Sphere = () => {
     const positionArray = geoRef.attributes.position.array
     if (geoRef.userData.randomArray.length !== positionArray.length) return console.error('length not matched')
     const time = state.clock.getElapsedTime()
-    for (let i = 0; i < positionArray.length; i += 3) {
-      positionArray[i] += Math.sin(time + randomArray[i] * 100) * 0.001
-      positionArray[i + 1] += Math.sin(time + randomArray[i + 1] * 100) * 0.001
-      positionArray[i + 2] += Math.sin(time + randomArray[i + 2] * 100) * 0.001
-    }
-    geoRef.rotateX(0.001 * speed)
-    geoRef.rotateY(0.001 * speed)
+    startTransition(() => {
 
-    geoRef.attributes.position.needsUpdate = true
-    if (inst.scrollY.get() > 200 && currAnimation !== 'toRightBottom') {
-      setCurrAnimation('toRightBottom')
-    } else if (inst.scrollY.get() <= 200 && currAnimation !== 'toCenter') {
-      setCurrAnimation('toCenter')
-    }
+      for (let i = 0; i < positionArray.length; i += 3) {
+        positionArray[i] += Math.sin(time + randomArray[i] * 100) * 0.001
+        positionArray[i + 1] += Math.sin(time + randomArray[i + 1] * 100) * 0.001
+        positionArray[i + 2] += Math.sin(time + randomArray[i + 2] * 100) * 0.001
+      }
+      geoRef.rotateX(0.001 * speed)
+      geoRef.rotateY(0.001 * speed)
+  
+      geoRef.attributes.position.needsUpdate = true
+      if (inst.scrollY.get() > 200 && currAnimation !== 'toRightBottom') {
+        setCurrAnimation('toRightBottom')
+      } else if (inst.scrollY.get() <= 200 && currAnimation !== 'toCenter') {
+        setCurrAnimation('toCenter')
+      }
+    })
   })
 
   // const points = useMemo(() => new EllipseCurve(0, 0, 3, 1.15, 0, 2 * Math.PI, false, 0).getPoints(100), [])

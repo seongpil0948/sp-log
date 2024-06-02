@@ -50,33 +50,29 @@ interface ParallaxProps {
 export function ParallaxText(props: ParallaxProps) {
   const {baseVelocity, children, scrollY} = props
   const baseX = useMotionValue(0)
-
   const velocityFactor = useTransform(scrollY, [0, 1000], [0, 10], {
     clamp: false,
   })
   const inView = useInView(props.containerRef!, {
     amount: 0.2,
   })
-
   const x = useTransform(baseX, v => `${wrap(-480, 80, v)}%`)
   const directionFactor = useRef<number>(1)
+
   useAnimationFrame((_t, delta) => {
     if (!inView) return
     let moveBy = directionFactor.current * baseVelocity * (delta / 1000)
-
-    /**
-     * This is what changes the direction of the scroll once we
-     * switch scrolling directions.
-     */
-    if (velocityFactor.get() < 0) {
-      directionFactor.current = -1
-    } else if (velocityFactor.get() > 0) {
-      directionFactor.current = 1
-    }
-
-    moveBy += directionFactor.current * moveBy * velocityFactor.get()
-
-    baseX.set(baseX.get() + moveBy)
+      /**
+       * This is what changes the direction of the scroll once we
+       * switch scrolling directions.
+       */
+      if (velocityFactor.get() < 0) {
+        directionFactor.current = -1
+      } else if (velocityFactor.get() > 0) {
+        directionFactor.current = 1
+      }
+      moveBy += directionFactor.current * moveBy * velocityFactor.get()
+      baseX.set(baseX.get() + moveBy)
   })
 
   return (
@@ -100,3 +96,5 @@ export function ParallaxText(props: ParallaxProps) {
     </div>
   )
 }
+
+export default ProjectSection

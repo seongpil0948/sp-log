@@ -1,18 +1,17 @@
 'use client'
 
 import { subtitle } from '@/config/variants/primitives'
-import { Profiler, useRef } from 'react'
+import { Profiler, lazy, useDeferredValue, useRef } from 'react'
 
 import clsx from 'clsx'
 import { MotionConfig, useScroll, useSpring, useVelocity } from 'framer-motion'
 
-import LinksContent from '../../about/_components/LinksContent'
+
 import SingletonHome from '../_utils/singleton'
 import { sectionCls } from '../theme'
 
 import BlackBall from './BlackBall'
 import { FirstSection } from './FirstSection'
-import { ProjectSection } from './ProjectSection'
 
 import type { ProfilerOnRenderCallback } from 'react'
 
@@ -27,6 +26,9 @@ const printOnRender: ProfilerOnRenderCallback = (id, phase, durationActual, dura
     commitTime,
   })
 }
+
+const  ProjectSection = lazy(() => import('./ProjectSection'))
+
 
 // on first mounted disable scroll and rotate the image
 // when frame is equal to length of urls, enable scroll
@@ -45,7 +47,7 @@ export function Scene() {
   const inst = SingletonHome.getInstance()
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   inst.setData(smoothVelocity)
-  inst.scrollY = scrollY
+  inst.scrollY = useDeferredValue(scrollY)
 
   return (
     <MotionConfig transition={{type: 'tween', duration: 0.5}}>
@@ -74,7 +76,7 @@ export function Scene() {
     </MotionConfig>
   )
 }
-
+const LinksContent  = lazy(() => import('../../about/_components/LinksContent'))
 export function AboutSection() {
   return (
     <section className={clsx(sectionCls, 'pl-4')}>

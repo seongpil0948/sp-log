@@ -1,12 +1,13 @@
-import { memo } from 'react'
+import { SkeletonCard } from '@/components/server-only/loading/skeletons'
+import { Suspense, lazy, memo } from 'react'
 
 import PROJECTS from '../../_logics/projects'
-import ProjectCard from '../ProjectCard'
 
 import type { IProject } from '../../types'
 
 interface Props {projects?: IProject[]}
 
+const ProjectCard= lazy(() => import('../ProjectCard'))
 function ProjectCardListHorizontal(props: Props) {
   let {projects} = props
   if (!projects) {
@@ -15,7 +16,9 @@ function ProjectCardListHorizontal(props: Props) {
   
   return (<div className=" flex overflow-auto gap-3 h-full">
     {projects.map((proj, idx) => {
-      return <ProjectCard key={idx} p={proj} />
+      return (<Suspense key={idx} fallback={<SkeletonCard />} >
+        <ProjectCard  p={proj} />
+      </Suspense>)
     })}
   </div>)
 }
