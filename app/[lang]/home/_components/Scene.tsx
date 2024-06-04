@@ -1,6 +1,5 @@
 'use client'
 
-import { subtitle } from '@/config/variants/primitives'
 import { Profiler, lazy, useDeferredValue, useRef } from 'react'
 
 import clsx from 'clsx'
@@ -10,11 +9,11 @@ import { MotionConfig, useScroll, useSpring, useVelocity } from 'framer-motion'
 import SingletonHome from '../_utils/singleton'
 import { sectionCls } from '../theme'
 
+import { AboutSection } from './AboutSection'
 import BlackBall from './BlackBall'
 import { FirstSection } from './FirstSection'
 
 import type { ProfilerOnRenderCallback } from 'react'
-
 
 const printOnRender: ProfilerOnRenderCallback = (id, phase, durationActual, durationBase, startTime, commitTime) => {
   console.debug({
@@ -28,6 +27,7 @@ const printOnRender: ProfilerOnRenderCallback = (id, phase, durationActual, dura
 }
 
 const  ProjectSection = lazy(() => import('./ProjectSection'))
+const LinksContent  = lazy(() => import('../../about/_components/LinksContent'))
 
 
 // on first mounted disable scroll and rotate the image
@@ -57,7 +57,7 @@ export function Scene() {
         className={clsx(
           sectionCls,
           // "relative snap-both snap-mandatory overflow-auto"
-          'relative overflow-auto max-h-screen',
+          'relative max-h-screen overflow-y-auto overflow-x-clip',
         )}
         style={{
           zIndex: 1,
@@ -69,21 +69,12 @@ export function Scene() {
         <Profiler id="ProjectSection" onRender={printOnRender}>
           <ProjectSection />
         </Profiler>
-        <AboutSection />
+        <AboutSection sectionCls={sectionCls}>
+          <LinksContent />
+        </AboutSection>
         {/* <DocsSection /> */}
       </section>
       <BlackBall />
     </MotionConfig>
-  )
-}
-const LinksContent  = lazy(() => import('../../about/_components/LinksContent'))
-export function AboutSection() {
-  return (
-    <section className={clsx(sectionCls, 'pl-4')}>
-      <div className={subtitle({color: 'gray'})}>사이트 개발자에대해 궁금한가요?</div>
-      <div className=" w-1/2 mr-auto !text-start mb-6  ">
-        <LinksContent isText />
-      </div>
-    </section>
   )
 }

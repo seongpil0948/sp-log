@@ -154,7 +154,6 @@ const Sphere = () => {
 export const BlackBall = () => {
   const inst = SingletonHome.getInstance()
   const scrollY = inst.scrollY.get()
-  console.info('scroll y: ', scrollY)
   if (scrollY > 200) {
     // geoRef.translateX(0.001 * speed);
   }
@@ -164,7 +163,6 @@ export const BlackBall = () => {
         {/* <pointLight color={"red"} position={[15, 15, 15]} /> */}
         <ambientLight color="hsl(240, 5.03%, 64.9%)" intensity={0.01} />
         <directionalLight color="hsl(240, 5.03%, 64.9%)" position={[1, 0, 5]} intensity={1} />
-
         <Sphere />
         <Stars saturation={0} count={400} speed={0.5} />
         <EffectComposer>

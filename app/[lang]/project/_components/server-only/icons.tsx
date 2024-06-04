@@ -1,8 +1,8 @@
-import {mdiApple, mdiAndroid, mdiWeb} from '@mdi/js'
-import Icon from '@mdi/react'
-import {Image} from '@nextui-org/image'
+import { mdiAndroid, mdiApple, mdiWeb } from '@mdi/js';
+import Icon from '@mdi/react';
+import { Image } from '@nextui-org/image';
 
-import type {IProject, TProjType} from '../../types'
+import type { IProject, TProjType } from '../../types';
 
 export function ProjectUsing(props: {p: IProject; size?: number}) {
   const {p} = props
@@ -12,7 +12,7 @@ export function ProjectUsing(props: {p: IProject; size?: number}) {
     <div className="flex gap-2">
       {p.using.map((icon, i) =>
         p.usingPubIdx?.includes(i) ? (
-          <Image key={p.title + icon} width={30} alt={'icon using project'} src={icon} />
+          <Image key={p.title + icon} width={30} height={30} alt={'icon using project'} src={icon} />
         ) : (
           <Icon key={p.title + icon} path={icon} size={size} />
         ),

@@ -23,9 +23,9 @@ export function ProjectSection() {
   // const arrProjects = splitArray(PROJECTS, 2);
   const ParallaxProjects = useMemo(() => {
     return [PROJECTS].map((projects, idx) => (
-        // <ParallaxText key={idx} scrollY={data} containerRef={sectionRef} baseVelocity={idx % 2 === 0 ? 10 : -10}>
+        <ParallaxText key={idx} scrollY={data} containerRef={sectionRef} baseVelocity={idx % 2 === 0 ? 10 : -10}>
           <ProjectCardListHorizontal key={idx} projects={projects} />
-        // </ParallaxText>
+        </ParallaxText>
       ))
   }, [data])
 
@@ -76,7 +76,7 @@ export function ParallaxText(props: ParallaxProps) {
   })
 
   return (
-    <div className="  whitespace-nowrap flex flex-nowrap">
+    <div className="whitespace-nowrap flex flex-nowrap">
       <motion.div className={clsx(title({font: 'script'}), 'flex whitespace-nowrap flex-nowrap gap-12 ')} style={{x}}>
         <span>{children} </span>
         <span>{children} </span>

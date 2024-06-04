@@ -60,7 +60,7 @@ function ProjectCard(props: ProjectCardProps) {
             />
           </div>
 
-          <div className="flex flex-col h-full">
+          <div className="flex flex-col h-full w-full">
             <div className="flex flex-col gap-0 h-[30vh]">
               <h1
                 className={clsx(
@@ -73,7 +73,7 @@ function ProjectCard(props: ProjectCardProps) {
               >
                 {p.title}
               </h1>
-              <div className="max-h-[25vh] md:max-h-full text-ellipsis overflow-clip ">
+              <div className="max-h-[25vh] md:max-h-full text-ellipsis">
                 {p.description.map((desc, idx) => (
                     <p key={idx} className={typo({size: 'xs', color: 'gray'})}>
                       {desc}
