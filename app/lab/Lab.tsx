@@ -1,8 +1,8 @@
 'use client'
+import { LoadingPetal } from '@/components/client-only/loading/LoadingPetal'
+import { AlertText } from '@/components/server-only/alert'
+import { title } from '@/config/variants/primitives'
 import './style.css'
-import {LoadingPetal} from '@/components/client-only/loading/LoadingPetal'
-import {AlertText} from '@/components/server-only/alert'
-import {title} from '@/config/variants/primitives'
 
 import clsx from 'clsx'
 
