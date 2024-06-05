@@ -5,7 +5,7 @@ import { useState } from 'react'
 
 import { Button } from '@nextui-org/button'
 import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from '@nextui-org/modal'
-import { OrbitControls } from '@react-three/drei'
+import { OrbitControls, PerformanceMonitor } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
 import clsx from 'clsx'
 
@@ -16,8 +16,8 @@ import { projectsConfig } from '../config'
 import ProjectCard from './ProjectCard'
 import { ProjectCards } from './ProjectCards'
 
-import type { TShape } from './ProjectCards'
 import type { IProject } from '../types'
+import type { TShape } from './ProjectCards'
 
 export function RootCanvas() {
   const [shape, setShape] = useState<TShape>('sphere')
@@ -33,12 +33,16 @@ export function RootCanvas() {
     onOpen()
   }
   const btnClass = clsx('absolute', 'top-4', 'left-4')
+  const [dpr, setDpr] = useState(1)
+
   return (
     <>
-      <Canvas linear camera={{position: [0, 0, 1]}}>
-        <OrbitControls enableDamping />
-        <Lights />
-        <ProjectCards onSelect={handleProjectSelect} shape={shape} projects={projects} />
+      <Canvas dpr={dpr} linear camera={{position: [0, 0, 1]}}>
+        <PerformanceMonitor onIncline={() => setDpr(2)} onDecline={() => setDpr(1)} flipflops={3} onFallback={() => setDpr(1)}  >
+          <OrbitControls enableDamping />
+          <Lights />
+          <ProjectCards onSelect={handleProjectSelect} shape={shape} projects={projects} />
+        </PerformanceMonitor>
       </Canvas>
       <div className={clsx(btnClass)}>
         <Button

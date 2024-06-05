@@ -1,10 +1,10 @@
-import {ButtonAll} from '@/components/client-only/button/links'
+import { ButtonAll } from '@/components/client-only/button/links'
 
 import clsx from 'clsx'
 
-import {ExperienceDownButton} from '../experience/_components/DownloadButton'
+import { ExperienceDownButton } from '../experience/_components/DownloadButton'
 
-import {HeaderAbout} from './Header'
+import { HeaderAbout } from './Header'
 
 export function LinksContent(props: {isText?: boolean}) {
   return (

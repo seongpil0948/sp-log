@@ -138,6 +138,7 @@ const Sphere = () => {
 //   useFrame(state => {
 //     const t = state.clock.getElapsedTime() * speed
 //     ref.current.position.set(Math.sin(t) * radius, (Math.cos(t) * radius * Math.atan(t)) / Math.PI / 1.25, 0)
+//     ref.current.needsUpdate = true
 //   })
 //   return (
 //     <group {...props}>
