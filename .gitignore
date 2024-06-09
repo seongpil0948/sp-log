@@ -37,3 +37,7 @@ next-env.d.ts
 
 # algolia
 /algolia/sitemap.json
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/

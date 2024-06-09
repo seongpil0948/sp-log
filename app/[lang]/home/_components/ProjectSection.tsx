@@ -1,7 +1,8 @@
 'use client'
+import useThrottle from '@/app/_utils/client/hooks/throttle'
 import { wrap } from '@/app/_utils/client/motion'
 import { title } from '@/config/variants/primitives'
-import { useMemo, useRef } from 'react'
+import { startTransition, useCallback, useEffect, useMemo, useRef } from 'react'
 
 import clsx from 'clsx'
 import { motion, useAnimationFrame, useInView, useMotionValue, useTransform } from 'framer-motion'
@@ -51,9 +52,10 @@ interface ParallaxProps {
 export function ParallaxText(props: ParallaxProps) {
   const {baseVelocity, children, scrollY, numOfChildren} = props
   const totalWidth = props.totalWidth || 250
-  const velocityFactor = useTransform(scrollY, [0, 1000], [0, 10], {
-    clamp: false,
-  })
+  // const velocityFactor = useTransform(scrollY, [0, 1000], [1, 30], {
+  //   clamp: false,
+  //   ease: cubicBezier(0.5, 0, 0.5, 1)
+  // })
   const inView = useInView(props.containerRef!, {
     amount: 0.2,
   })
@@ -65,41 +67,52 @@ export function ParallaxText(props: ParallaxProps) {
     return resultX
   })
   
+const calculateMoveBy = useCallback((delta: number) => {
+  const moveBy = directionFactor.current * baseVelocity * (delta / 500)
+  // console.log('moveBy: ', {moveBy, baseVelocity, delta})
+  return moveBy
+}, [baseVelocity]);
+
+const updateDirection = useCallback((v: number) => {
+  console.debug('scrollY: ', v)
+  directionFactor.current = v < 0  ? -1 : 1;
+}, [])
+const throttledChangeHandler = useThrottle(updateDirection, 500);
+
+useEffect(() => {
+  const unsubscribe = scrollY.on('change', throttledChangeHandler);
+  return () => {
+    unsubscribe();
+  }
+}, [scrollY, throttledChangeHandler]);
+
   
 
   useAnimationFrame((_t, delta) => {
     if (!inView) return
-    let moveBy = directionFactor.current * baseVelocity * (delta / 1000)
-      /**
-       * This is what changes the direction of the scroll once we
-       * switch scrolling directions.
-       */
-      if (velocityFactor.get() < 0) {
-        directionFactor.current = -1
-      } else if (velocityFactor.get() > 0) {
-        directionFactor.current = 1
-      }
-      moveBy += directionFactor.current * moveBy * velocityFactor.get()
+    startTransition(() => {
+      const moveBy = calculateMoveBy(delta)
       baseX.set(baseX.get() + moveBy)
+    })
   })
 
   return (
-    <div className="whitespace-nowrap flex flex-nowrap">
-      <motion.div className={clsx(title({font: 'script'}), 'flex whitespace-nowrap flex-nowrap gap-12 ')} style={{x}}>
+      <motion.div className={clsx(title({font: 'script'}), 'whitespace-nowrap flex flex-nowrap gap-12 ')} style={{x, willChange: 'transform'}}>
         {new Array(numOfChildren).fill(0).map((_, idx) => (
           <motion.span
             key={idx}
             initial={{opacity: 0}}
             whileInView={{opacity: 1}}
             viewport={{once: true}}
-            transition={{duration: 1, delay: idx * 0.1}}
+            transition={{duration: 1, delay: idx * 0.05}}
           >
             {children}
           </motion.span>
         ))}
       </motion.div>
-    </div>
   )
 }
 
 export default ProjectSection
+
+

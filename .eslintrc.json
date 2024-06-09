@@ -76,6 +76,17 @@
   "overrides": [
     {
       "files": [
+        "**.spec.ts",
+        "**.spec.tsx"
+      ],
+      "rules": {
+        "@typescript-eslint/no-unsafe-argument": "off",
+        "@typescript-eslint/no-unsafe-call": "off",
+        "@typescript-eslint/no-unsafe-return": "off"
+      }
+    },
+    {
+      "files": [
         "**.ts",
         "**.tsx"
       ],
