@@ -1,16 +1,16 @@
+import { fontSans } from '@/config/fonts'
+import { siteConfig } from '@/config/site'
 import '@/styles/globals.css'
-import {fontSans} from '@/config/fonts'
-import {siteConfig} from '@/config/site'
 
 
-import {Analytics} from '@vercel/analytics/react'
-import {SpeedInsights} from '@vercel/speed-insights/next'
+import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import clsx from 'clsx'
 
-import {Providers} from './_providers'
+import { Providers } from './_providers'
 
-import type {Metadata, Viewport} from 'next'
-import type {ReactNode} from 'react'
+import type { Metadata, Viewport } from 'next'
+import type { ReactNode } from 'react'
 
 export const viewport: Viewport = {
   themeColor: [
@@ -42,6 +42,7 @@ export default function RootLayout({children}: {children: ReactNode}) {
           rel="preconnect"
           href={`https://${NEXT_PUBLIC_ALGOLIA_APP_ID}-dsn.algolia.net`}
         />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
         <script async src="http://localhost:8097" />
       </head>
       <body
