@@ -25,7 +25,7 @@ export function FirstSection() {
   })
 
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const s = useWindowSize()
+  const {windowSize: s} = useWindowSize()
   const isM = isMobile()
 
     const blackHole = useMemo(() => ({

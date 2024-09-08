@@ -31,7 +31,7 @@ export default function BottomButtons() {
     animationPath: '',
   })
 
-  const size = useWindowSize()
+  const {windowSize: size} = useWindowSize()
   const getEndPos = () => {
     console.log('targetRef.current', targetRef.current)
     if (!targetRef.current) return {x: 0, y: 0}

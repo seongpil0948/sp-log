@@ -1,6 +1,6 @@
 'use client'
 
-import {useEffect, useState} from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 export type ScreenSize = 'S' | 'M' | 'L'
 export const ScreenSize: {[k: string]: ScreenSize} = {
@@ -8,9 +8,9 @@ export const ScreenSize: {[k: string]: ScreenSize} = {
   M: 'M',
   L: 'L',
 }
-export function getScreenSize(): ScreenSize {
-  const w = window.innerWidth
-  if (w < 700) return 'S'
+export function getScreenSize(w: number): ScreenSize {
+  if (w < 500) return 'S'
+  else if (w < 700) return 'M'
   else return 'L'
 }
 
@@ -40,10 +40,15 @@ export function useWindowSize() {
     height: 0,
   })
 
+  const screenSize = useMemo(() => {
+    return getScreenSize(windowSize.width)
+  }, [windowSize])
+
   useEffect(() => {
     // window resize를 위한 핸들러
     function handleResize() {
       // 윈도우의 넓이/높이(width/height)를 set을 해준다
+      console.debug("in handleResize")
       setWindowSize({
         width: window.innerWidth,
         height: window.innerHeight,
@@ -60,5 +65,5 @@ export function useWindowSize() {
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
-  return windowSize
+  return {windowSize, screenSize}
 }
